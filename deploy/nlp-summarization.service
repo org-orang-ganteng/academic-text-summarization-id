@@ -1,0 +1,15 @@
+[Unit]
+Description=NLP Summarization Pipeline (Gunicorn)
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/home/ubuntu/academic-text-summarization-id
+ExecStart=/home/ubuntu/.local/bin/gunicorn -c gunicorn_config.py app:app
+Restart=always
+RestartSec=5
+Environment="PATH=/home/ubuntu/.local/bin:/usr/bin:/bin"
+
+[Install]
+WantedBy=multi-user.target
