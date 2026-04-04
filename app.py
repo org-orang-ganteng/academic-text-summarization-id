@@ -197,7 +197,7 @@ def preprocess():
 
 @app.route("/api/summarize", methods=["POST"])
 def summarize():
-    """Run extractive and abstractive summarization."""
+    """Run extractive and abstractive summarization with detailed steps."""
     try:
         data = request.get_json()
         texts = data.get("texts", [])
@@ -207,21 +207,111 @@ def summarize():
 
         result = {"success": True}
 
-        # Extractive
+        # Extractive with detailed steps
         try:
-            ext_summaries = extractive_summarizer.batch_summarize(texts)
+            import numpy as np
+            from sklearn.metrics.pairwise import cosine_similarity as cos_sim
+
+            ext_summaries = []
+            ext_details = []
+
+            for text in texts:
+                detail = {}
+
+                # Step 1: Sentence extraction
+                sentences = extractive_summarizer._get_sentences(text)
+                detail["sentences"] = sentences
+                detail["num_sentences"] = len(sentences)
+
+                if not sentences:
+                    ext_summaries.append("")
+                    ext_details.append(detail)
+                    continue
+
+                n_target = extractive_summarizer.num_sentences
+                if len(sentences) <= n_target:
+                    summary = " ".join(sentences)
+                    ext_summaries.append(summary)
+                    detail["summary"] = summary
+                    detail["note"] = "Jumlah kalimat kurang dari target"
+                    ext_details.append(detail)
+                    continue
+
+                # Step 2: TF-IDF
+                try:
+                    tfidf_matrix = extractive_summarizer._build_tfidf_matrix(sentences)
+                    detail["tfidf_shape"] = [int(tfidf_matrix.shape[0]), int(tfidf_matrix.shape[1])]
+                    detail["num_features"] = int(tfidf_matrix.shape[1])
+                except ValueError:
+                    summary = " ".join(sentences[:n_target])
+                    ext_summaries.append(summary)
+                    detail["tfidf_error"] = "Gagal membangun TF-IDF"
+                    ext_details.append(detail)
+                    continue
+
+                # Step 3: Cosine similarity
+                sim_matrix = cos_sim(tfidf_matrix)
+                n = len(sentences)
+                upper_vals = sim_matrix[np.triu_indices(n, k=1)]
+                detail["avg_similarity"] = round(float(np.mean(upper_vals)), 4) if len(upper_vals) > 0 else 0
+                detail["max_similarity"] = round(float(np.max(upper_vals)), 4) if len(upper_vals) > 0 else 0
+                pairs = []
+                for i_idx in range(min(n, 20)):
+                    for j_idx in range(i_idx + 1, min(n, 20)):
+                        pairs.append({
+                            "i": i_idx, "j": j_idx,
+                            "sim": round(float(sim_matrix[i_idx][j_idx]), 4)
+                        })
+                pairs.sort(key=lambda x: x["sim"], reverse=True)
+                detail["top_pairs"] = pairs[:8]
+
+                # Step 4: PageRank
+                graph = extractive_summarizer._build_similarity_graph(tfidf_matrix)
+                scores = extractive_summarizer._rank_sentences(graph)
+
+                ranked_indices = sorted(scores, key=scores.get, reverse=True)
+                top_indices = sorted(ranked_indices[:n_target])
+
+                sentence_scores = []
+                for idx in range(len(sentences)):
+                    sentence_scores.append({
+                        "index": idx,
+                        "sentence": sentences[idx][:200] + ("..." if len(sentences[idx]) > 200 else ""),
+                        "score": round(float(scores[idx]), 6),
+                        "rank": ranked_indices.index(idx) + 1,
+                        "selected": idx in top_indices,
+                    })
+                detail["sentence_scores"] = sentence_scores
+                detail["selected_indices"] = [int(i) for i in top_indices]
+                detail["num_selected"] = len(top_indices)
+
+                # Final summary
+                summary = " ".join([sentences[i] for i in top_indices])
+                ext_summaries.append(summary)
+                detail["summary"] = summary
+                ext_details.append(detail)
+
             result["extractive"] = ext_summaries
+            result["extractive_details"] = ext_details
         except Exception as e:
-            logger.error("Extractive error: %s", e)
+            logger.error("Extractive error: %s", traceback.format_exc())
             result["extractive"] = None
             result["extractive_error"] = str(e)
 
-        # Abstractive
+        # Abstractive with model info
         try:
             abs_model = get_abstractive_summarizer()
             if abs_model is not None:
                 abs_summaries = abs_model.batch_summarize(texts)
                 result["abstractive"] = abs_summaries
+                result["abstractive_details"] = {
+                    "model_name": abs_model.model_name,
+                    "device": str(abs_model.device),
+                    "max_source_length": abs_model.max_source_length,
+                    "max_target_length": abs_model.max_target_length,
+                    "num_beams": abs_model.num_beams,
+                    "num_parameters": f"{sum(p.numel() for p in abs_model.model.parameters()):,}" if abs_model.model else "N/A",
+                }
             else:
                 result["abstractive"] = None
                 result["abstractive_error"] = (
@@ -229,7 +319,7 @@ def summarize():
                     "Jalankan training terlebih dahulu dengan: python main.py --mode train --model abstractive"
                 )
         except Exception as e:
-            logger.error("Abstractive error: %s", e)
+            logger.error("Abstractive error: %s", traceback.format_exc())
             result["abstractive"] = None
             result["abstractive_error"] = str(e)
 
@@ -254,6 +344,9 @@ def evaluate():
 
         result = {"success": True}
 
+        ext_scores = None
+        abs_scores = None
+
         if extractive_preds:
             ext_scores = evaluator.compute_rouge(extractive_preds, references)
             result["extractive_scores"] = ext_scores
@@ -262,26 +355,112 @@ def evaluate():
             abs_scores = evaluator.compute_rouge(abstractive_preds, references)
             result["abstractive_scores"] = abs_scores
 
+        # Per-document ROUGE scores
+        per_document = []
+        for i in range(len(references)):
+            doc = {"doc_id": i, "reference_preview": references[i][:150]}
+
+            if extractive_preds and i < len(extractive_preds):
+                doc["extractive_preview"] = extractive_preds[i][:150]
+                sc = evaluator.scorer.score(references[i], extractive_preds[i])
+                doc["ext"] = {
+                    m: {
+                        "p": round(sc[m].precision, 4),
+                        "r": round(sc[m].recall, 4),
+                        "f": round(sc[m].fmeasure, 4),
+                    }
+                    for m in config.ROUGE_METRICS
+                }
+
+            if abstractive_preds and i < len(abstractive_preds):
+                doc["abstractive_preview"] = abstractive_preds[i][:150]
+                sc = evaluator.scorer.score(references[i], abstractive_preds[i])
+                doc["abs"] = {
+                    m: {
+                        "p": round(sc[m].precision, 4),
+                        "r": round(sc[m].recall, 4),
+                        "f": round(sc[m].fmeasure, 4),
+                    }
+                    for m in config.ROUGE_METRICS
+                }
+
+            per_document.append(doc)
+
+        result["per_document"] = per_document
+
         # Determine best method
-        if extractive_preds and abstractive_preds:
+        ext_avg = None
+        abs_avg = None
+        if extractive_preds and ext_scores:
             ext_avg = sum(
                 ext_scores[m]["fmeasure"] for m in config.ROUGE_METRICS
             ) / len(config.ROUGE_METRICS)
+            result["extractive_avg_f1"] = round(ext_avg, 4)
+        if abstractive_preds and abs_scores:
             abs_avg = sum(
                 abs_scores[m]["fmeasure"] for m in config.ROUGE_METRICS
             ) / len(config.ROUGE_METRICS)
-            result["best_method"] = "Extractive" if ext_avg >= abs_avg else "Abstractive"
-            result["extractive_avg_f1"] = round(ext_avg, 4)
             result["abstractive_avg_f1"] = round(abs_avg, 4)
-        elif extractive_preds:
+
+        if ext_avg is not None and abs_avg is not None:
+            result["best_method"] = "Extractive" if ext_avg >= abs_avg else "Abstractive"
+        elif ext_avg is not None:
             result["best_method"] = "Extractive"
-        elif abstractive_preds:
+        elif abs_avg is not None:
             result["best_method"] = "Abstractive"
 
         return jsonify(result)
 
     except Exception as e:
         logger.error("Evaluate error: %s", traceback.format_exc())
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/load-default", methods=["POST"])
+def load_default_dataset():
+    """Load the default dataset from data/raw/dataset.csv."""
+    try:
+        dataset_path = config.DATASET_PATH
+        if not os.path.exists(dataset_path):
+            return jsonify({"error": "Default dataset not found at " + dataset_path}), 404
+
+        df = pd.read_csv(dataset_path)
+        text_col = config.TEXT_COLUMN
+        summary_col = config.SUMMARY_COLUMN
+
+        if text_col not in df.columns or summary_col not in df.columns:
+            return jsonify({"error": f"Dataset must have '{text_col}' and '{summary_col}' columns"}), 400
+
+        df = df.dropna(subset=[text_col, summary_col])
+        df = df[df[text_col].str.strip().astype(bool)]
+        df = df[df[summary_col].str.strip().astype(bool)]
+
+        if len(df) == 0:
+            return jsonify({"error": "Dataset is empty after cleaning"}), 400
+
+        texts = df[text_col].tolist()
+        summaries = df[summary_col].tolist()
+
+        avg_text_len = sum(len(str(t)) for t in texts) / len(texts)
+        avg_summary_len = sum(len(str(s)) for s in summaries) / len(summaries)
+
+        return jsonify({
+            "success": True,
+            "num_documents": len(texts),
+            "texts": texts,
+            "summaries": summaries,
+            "preview": [
+                {"text": str(t)[:200] + "..." if len(str(t)) > 200 else str(t),
+                 "summary": str(s)[:150] + "..." if len(str(s)) > 150 else str(s)}
+                for t, s in zip(texts[:5], summaries[:5])
+            ],
+            "stats": {
+                "avg_text_length": round(avg_text_len),
+                "avg_summary_length": round(avg_summary_len),
+            }
+        })
+    except Exception as e:
+        logger.error("Load default error: %s", traceback.format_exc())
         return jsonify({"error": str(e)}), 500
 
 
@@ -375,4 +554,4 @@ if __name__ == "__main__":
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
     )
     logger.info("Starting NLP Summarization Web App...")
-    app.run(debug=True, host="0.0.0.0", port=5000, use_reloader=False)
+    app.run(debug=True, host="0.0.0.0", port=5000, use_reloader=False, threaded=True)

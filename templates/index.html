@@ -135,6 +135,13 @@
                     <p class="text-dark-300 text-xs mt-2">Format: CSV dengan kolom <code class="bg-dark-100 px-1 rounded">full_text</code> dan <code class="bg-dark-100 px-1 rounded">summary</code></p>
                     <input type="file" id="file-input" accept=".csv,.json" class="hidden" onchange="handleFileSelect(event)">
                 </div>
+                <!-- Load Default Dataset -->
+                <div class="mt-4 text-center">
+                    <button onclick="loadDefaultDataset()" id="btn-default"
+                        class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1 mx-auto">
+                        <i data-lucide="database" class="w-3.5 h-3.5"></i> Atau gunakan dataset contoh (dataset.csv)
+                    </button>
+                </div>
                 <!-- File info -->
                 <div id="file-info" class="hidden mt-4 p-4 border border-dark-200 rounded-lg fade-in">
                     <div class="flex items-center justify-between">
@@ -245,7 +252,7 @@
     <!-- Footer -->
     <footer class="border-t border-dark-200 mt-16">
         <div class="max-w-6xl mx-auto px-6 py-4 text-center text-dark-400 text-xs">
-            NLP Summarization Pipeline &mdash; Built by <strong>devnolife</strong>
+            NLP Summarization Pipeline &mdash; Built by <strong>Ainur Ridha Surya (D082251037)</strong>, <strong>Nirwana Samrin (D082251003)</strong>, <strong>Andi Agung Dwi Arya B (D082251057)</strong>
         </div>
     </footer>
 
@@ -345,6 +352,42 @@ function clearFile() {
     document.getElementById('file-input').value = '';
 }
 
+async function loadDefaultDataset() {
+    const btn = document.getElementById('btn-default');
+    btn.disabled = true;
+    btn.textContent = 'Memuat dataset...';
+    showToast('Memuat dataset default...');
+
+    try {
+        const res = await fetch('/api/load-default', { method: 'POST' });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Load failed');
+
+        appState.texts = data.texts;
+        appState.summaries = data.summaries;
+        appState.fileLoaded = true;
+
+        document.getElementById('file-name').textContent = 'dataset.csv (default)';
+        document.getElementById('file-stats').textContent =
+            `${data.num_documents} dokumen \u2022 Rata-rata ${data.stats.avg_text_length} karakter`;
+        document.getElementById('file-info').classList.remove('hidden');
+
+        let html = '<table class="w-full text-xs"><thead><tr class="border-b border-dark-200"><th class="text-left py-2 px-2 font-medium">No</th><th class="text-left py-2 px-2 font-medium">Teks</th><th class="text-left py-2 px-2 font-medium">Summary</th></tr></thead><tbody>';
+        data.preview.forEach((row, i) => {
+            html += `<tr class="border-b border-dark-100"><td class="py-2 px-2 text-dark-400">${i+1}</td><td class="py-2 px-2">${escapeHtml(row.text)}</td><td class="py-2 px-2 text-dark-600">${escapeHtml(row.summary)}</td></tr>`;
+        });
+        html += '</tbody></table>';
+        document.getElementById('preview-table').innerHTML = html;
+
+        showToast(`\u2713 ${data.num_documents} dokumen berhasil dimuat dari dataset default`);
+    } catch(err) {
+        showToast('\u2717 ' + err.message);
+    }
+    btn.disabled = false;
+    btn.innerHTML = '<i data-lucide="database" class="w-3.5 h-3.5"></i> Atau gunakan dataset contoh (dataset.csv)';
+    lucide.createIcons();
+}
+
 // =====================================================================
 // PIPELINE
 // =====================================================================
@@ -381,6 +424,12 @@ async function startPipeline() {
 
         // STEP 2: Summarization
         activateStep(2);
+        document.getElementById('content-summarization').innerHTML = `
+            <div class="text-center text-dark-500 py-4">
+                <div class="spinner-lg mx-auto mb-3"></div>
+                <p class="text-sm">Menjalankan summarization...</p>
+                <p class="text-xs text-dark-400 mt-1">Model abstractive mungkin perlu download (~1.2GB) pada penggunaan pertama</p>
+            </div>`;
         const sumData = await apiCall('/api/summarize', { texts: appState.texts });
         appState.extractive = sumData.extractive || [];
         appState.abstractive = sumData.abstractive || [];
@@ -419,14 +468,24 @@ async function startPipeline() {
 // API HELPER
 // =====================================================================
 async function apiCall(url, body) {
-    const res = await fetch(url, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'API error');
-    return data;
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 300000); // 5 min timeout
+    try {
+        const res = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+            signal: controller.signal,
+        });
+        clearTimeout(timeoutId);
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'API error');
+        return data;
+    } catch(err) {
+        clearTimeout(timeoutId);
+        if (err.name === 'AbortError') throw new Error('Request timeout (5 menit). Coba lagi.');
+        throw err;
+    }
 }
 
 // =====================================================================
@@ -486,44 +545,24 @@ function skipStep(step) {
 }
 
 // =====================================================================
-// RENDER: Preprocessing
+// SHARED HELPER: Accordion step builder
 // =====================================================================
-function renderPreprocessing(results) {
-    const container = document.getElementById('content-preprocessing');
-    const r = results[0]; // Show first document detail
-
-    const steps = [
-        { key: 'case_folding', label: 'Case Folding', icon: 'arrow-down-a-z', desc: 'Mengubah teks ke huruf kecil', content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.case_folding)}</p>` },
-        { key: 'cleaning', label: 'Cleaning', icon: 'sparkles', desc: 'Menghapus URL, email, HTML, karakter spesial', content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.cleaning)}</p>` },
-        { key: 'sentences', label: 'Sentence Tokenization', icon: 'split', desc: `${r.num_sentences} kalimat terdeteksi`, content: `<div class="space-y-1">${r.sentences.map((s,i) => `<p class="text-xs"><span class="text-dark-400 mr-1">[${i+1}]</span> ${escapeHtml(s)}</p>`).join('')}</div>` },
-        { key: 'word_tokens', label: 'Word Tokenization', icon: 'text-cursor-input', desc: `${r.num_tokens_before} token`, content: `<div class="flex flex-wrap gap-1">${r.word_tokens.map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}${r.num_tokens_before > 50 ? '<span class="text-dark-400 text-xs ml-2">...</span>' : ''}</div>` },
-        { key: 'after_stopword_removal', label: 'Stopword Removal', icon: 'filter', desc: `${r.num_tokens_before} → ${r.num_tokens_after} token (${r.num_tokens_before - r.num_tokens_after} dihapus)`, content: `<div class="flex flex-wrap gap-1">${r.after_stopword_removal.map(t => `<span class="token-chip added">${escapeHtml(t)}</span>`).join('')}</div>` },
-        { key: 'after_stemming', label: 'Stemming', icon: 'scissors', desc: 'Mengubah kata ke bentuk dasar (PySastrawi)', content: `<div class="flex flex-wrap gap-1">${r.after_stemming.map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}</div>` },
-    ];
-
-    let html = `<p class="text-xs text-dark-400 mb-4 flex items-center gap-1"><i data-lucide="info" class="w-3 h-3"></i> Menampilkan detail dokumen pertama${results.length > 1 ? ` dari ${results.length} dokumen` : ''}</p>`;
-    html += '<div class="space-y-2">';
-    steps.forEach((s, idx) => {
-        html += `
-        <div class="border border-dark-200 rounded-lg overflow-hidden">
-            <button onclick="toggleAcc(this)" class="w-full flex items-center justify-between px-4 py-3 hover:bg-dark-50 transition-colors text-left">
-                <div class="flex items-center gap-3">
-                    <i data-lucide="${s.icon}" class="w-4 h-4 text-dark-500"></i>
-                    <span class="text-sm font-medium">${s.label}</span>
-                    <span class="text-xs text-dark-400">${s.desc}</span>
-                </div>
-                <i data-lucide="chevron-down" class="w-4 h-4 text-dark-400 transition-transform"></i>
-            </button>
-            <div class="acc-content ${idx === 0 ? 'open' : ''}">
-                <div class="px-4 pb-4">${s.content}</div>
+function buildStepAccordion(num, icon, title, desc, content, openByDefault) {
+    return `
+    <div class="border border-dark-200 rounded-lg overflow-hidden">
+        <button onclick="toggleAcc(this)" class="w-full flex items-center justify-between px-4 py-3 hover:bg-dark-50 transition-colors text-left">
+            <div class="flex items-center gap-3">
+                <span class="w-6 h-6 rounded-full bg-dark-900 text-white flex items-center justify-center text-[11px] font-bold flex-shrink-0">${num}</span>
+                <i data-lucide="${icon}" class="w-4 h-4 text-dark-500"></i>
+                <span class="text-sm font-medium">${title}</span>
+                ${desc ? `<span class="text-xs text-dark-400 hidden sm:inline">${desc}</span>` : ''}
             </div>
-        </div>`;
-    });
-    html += '</div>';
-
-    container.innerHTML = html;
-    container.classList.add('fade-in');
-    lucide.createIcons();
+            <i data-lucide="chevron-down" class="w-4 h-4 text-dark-400 transition-transform"></i>
+        </button>
+        <div class="acc-content ${openByDefault ? 'open' : ''}">
+            <div class="px-4 pb-4">${content}</div>
+        </div>
+    </div>`;
 }
 
 function toggleAcc(btn) {
@@ -534,60 +573,228 @@ function toggleAcc(btn) {
 }
 
 // =====================================================================
-// RENDER: Summarization
+// RENDER: Preprocessing (with document tabs)
+// =====================================================================
+function renderPreprocessing(results) {
+    const container = document.getElementById('content-preprocessing');
+    window._prepResults = results;
+
+    let html = '';
+    if (results.length > 1) {
+        html += '<div class="flex gap-1 mb-4 border-b border-dark-200 overflow-x-auto">';
+        results.forEach((_, i) => {
+            html += `<button onclick="switchPrepDoc(${i})" id="prep-tab-${i}"
+                class="prep-tab px-3 py-2 text-xs font-medium whitespace-nowrap ${i === 0 ? 'border-b-2 border-dark-900 text-dark-900' : 'text-dark-400 hover:text-dark-600'}">
+                Dokumen ${i + 1}</button>`;
+        });
+        html += '</div>';
+    }
+    html += '<div id="prep-doc-content"></div>';
+    container.innerHTML = html;
+    renderPrepDocDetail(results[0]);
+    container.classList.add('fade-in');
+    lucide.createIcons();
+}
+
+function switchPrepDoc(idx) {
+    document.querySelectorAll('.prep-tab').forEach((tab, i) => {
+        tab.classList.toggle('border-b-2', i === idx);
+        tab.classList.toggle('border-dark-900', i === idx);
+        tab.classList.toggle('text-dark-900', i === idx);
+        tab.classList.toggle('text-dark-400', i !== idx);
+    });
+    renderPrepDocDetail(window._prepResults[idx]);
+}
+
+function renderPrepDocDetail(r) {
+    const container = document.getElementById('prep-doc-content');
+
+    const steps = [
+        { label: 'Case Folding', icon: 'arrow-down-a-z', desc: 'Mengubah semua huruf ke lowercase',
+          content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.case_folding)}</p>` },
+        { label: 'Cleaning', icon: 'sparkles', desc: 'Menghapus URL, email, angka, karakter spesial',
+          content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.cleaning)}</p>` },
+        { label: 'Sentence Tokenization', icon: 'split', desc: `${r.num_sentences} kalimat terdeteksi`,
+          content: `<div class="space-y-1 max-h-48 overflow-auto">${r.sentences.map((s,i) => `<p class="text-xs"><span class="font-mono text-dark-400 mr-1">[${i+1}]</span> ${escapeHtml(s)}</p>`).join('')}</div>` },
+        { label: 'Word Tokenization', icon: 'text-cursor-input', desc: `${r.num_tokens_before} token dihasilkan`,
+          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.word_tokens.slice(0,80).map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}${r.num_tokens_before > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.num_tokens_before-80} lainnya</span>` : ''}</div>` },
+        { label: 'Stopword Removal', icon: 'filter', desc: `${r.num_tokens_before} → ${r.num_tokens_after} token (${r.num_tokens_before - r.num_tokens_after} dihapus)`,
+          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.after_stopword_removal.slice(0,80).map(t => `<span class="token-chip added">${escapeHtml(t)}</span>`).join('')}${r.num_tokens_after > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.num_tokens_after-80} lainnya</span>` : ''}</div>` },
+        { label: 'Stemming', icon: 'scissors', desc: 'Mengubah kata ke bentuk dasar (PySastrawi)',
+          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.after_stemming.slice(0,80).map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}${r.after_stemming.length > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.after_stemming.length-80} lainnya</span>` : ''}</div>` },
+    ];
+
+    let html = '<div class="space-y-2">';
+    steps.forEach((s, idx) => {
+        html += buildStepAccordion(idx + 1, s.icon, s.label, s.desc, s.content, idx === 0);
+    });
+    html += '</div>';
+
+    container.innerHTML = html;
+    lucide.createIcons();
+}
+
+// =====================================================================
+// RENDER: Summarization (with step-by-step detail)
 // =====================================================================
 function renderSummarization(data) {
     const container = document.getElementById('content-summarization');
+    window._sumData = data;
+
+    const numDocs = Math.max((data.extractive||[]).length, (data.abstractive||[]).length);
+    let html = '';
+
+    if (numDocs > 1) {
+        html += '<div class="flex gap-1 mb-4 border-b border-dark-200 overflow-x-auto">';
+        for (let i = 0; i < numDocs; i++) {
+            html += `<button onclick="switchSumDoc(${i})" id="sum-tab-${i}"
+                class="sum-tab px-3 py-2 text-xs font-medium whitespace-nowrap ${i === 0 ? 'border-b-2 border-dark-900 text-dark-900' : 'text-dark-400 hover:text-dark-600'}">
+                Dokumen ${i + 1}</button>`;
+        }
+        html += '</div>';
+    }
+    html += '<div id="sum-doc-content"></div>';
+    container.innerHTML = html;
+    renderSumDocDetail(0);
+    container.classList.add('fade-in');
+    lucide.createIcons();
+}
+
+function switchSumDoc(idx) {
+    document.querySelectorAll('.sum-tab').forEach((tab, i) => {
+        tab.classList.toggle('border-b-2', i === idx);
+        tab.classList.toggle('border-dark-900', i === idx);
+        tab.classList.toggle('text-dark-900', i === idx);
+        tab.classList.toggle('text-dark-400', i !== idx);
+    });
+    renderSumDocDetail(idx);
+}
+
+function renderSumDocDetail(docIdx) {
+    const data = window._sumData;
+    const container = document.getElementById('sum-doc-content');
     let html = '<div class="grid md:grid-cols-2 gap-6">';
 
-    // Extractive
-    html += '<div class="border border-dark-200 rounded-lg p-5">';
+    // ===== EXTRACTIVE COLUMN =====
+    html += '<div>';
     html += '<div class="flex items-center gap-2 mb-3"><i data-lucide="list-ordered" class="w-5 h-5"></i><h3 class="font-semibold text-sm">Extractive</h3><span class="text-xs bg-dark-100 px-2 py-0.5 rounded-full text-dark-600">TextRank + TF-IDF</span></div>';
-    if (data.extractive && data.extractive.length > 0) {
-        data.extractive.forEach((s, i) => {
-            html += `<div class="mb-3 ${i > 0 ? 'pt-3 border-t border-dark-100' : ''}">
-                <p class="text-xs text-dark-400 mb-1">Dokumen ${i+1}</p>
-                <p class="text-sm leading-relaxed">${escapeHtml(s)}</p>
-            </div>`;
-        });
+
+    const ed = data.extractive_details && data.extractive_details[docIdx];
+    const extSum = data.extractive && data.extractive[docIdx];
+
+    if (ed) {
+        html += '<div class="space-y-2">';
+
+        // Step 1: Sentence Extraction
+        html += buildStepAccordion(1, 'split', 'Tokenisasi Kalimat', `${ed.num_sentences} kalimat`,
+            `<div class="space-y-1 max-h-40 overflow-auto">${ed.sentences.map((s,i) =>
+                `<p class="text-xs"><span class="font-mono text-dark-400">[${i+1}]</span> ${escapeHtml(s.substring(0,200))}${s.length>200?'...':''}</p>`
+            ).join('')}</div>`, true);
+
+        // Step 2: TF-IDF
+        if (ed.tfidf_shape) {
+            html += buildStepAccordion(2, 'table', 'Vektorisasi TF-IDF', `Matriks ${ed.tfidf_shape[0]}x${ed.tfidf_shape[1]}`,
+                `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-1">
+                    <p><span class="text-dark-500">Jumlah kalimat:</span> <span class="font-mono font-medium">${ed.tfidf_shape[0]}</span></p>
+                    <p><span class="text-dark-500">Jumlah fitur (kata unik):</span> <span class="font-mono font-medium">${ed.num_features}</span></p>
+                    <p class="text-dark-400 mt-2">Setiap kalimat direpresentasikan sebagai vektor TF-IDF berdimensi ${ed.num_features}. Bobot menunjukkan kepentingan kata dalam kalimat relatif terhadap seluruh dokumen.</p>
+                </div>`);
+        }
+
+        // Step 3: Cosine Similarity
+        if (ed.top_pairs) {
+            let pairsHtml = `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-2">
+                <p><span class="text-dark-500">Rata-rata similarity:</span> <span class="font-mono font-medium">${ed.avg_similarity}</span></p>
+                <p><span class="text-dark-500">Max similarity:</span> <span class="font-mono font-medium">${ed.max_similarity}</span></p>
+                <p class="text-dark-500 mt-2 font-medium">Top pasangan kalimat paling mirip:</p>
+                <table class="w-full mt-1"><thead><tr class="text-dark-500 border-b border-dark-200"><th class="text-left py-1 px-1">Kal. A</th><th class="text-left py-1 px-1">Kal. B</th><th class="text-right py-1 px-1">Similarity</th></tr></thead><tbody>`;
+            ed.top_pairs.slice(0,5).forEach(p => {
+                const barWidth = Math.round(p.sim * 100);
+                pairsHtml += `<tr class="border-b border-dark-100"><td class="py-1 px-1 font-mono">[${p.i+1}]</td><td class="py-1 px-1 font-mono">[${p.j+1}]</td><td class="py-1 px-1 text-right"><div class="flex items-center justify-end gap-1"><div class="w-16 h-1.5 bg-dark-200 rounded-full overflow-hidden"><div class="h-full bg-dark-700 rounded-full" style="width:${barWidth}%"></div></div><span class="font-mono">${p.sim}</span></div></td></tr>`;
+            });
+            pairsHtml += '</tbody></table></div>';
+            html += buildStepAccordion(3, 'network', 'Cosine Similarity Graph', `Avg: ${ed.avg_similarity}`, pairsHtml);
+        }
+
+        // Step 4: PageRank
+        if (ed.sentence_scores) {
+            const sorted = [...ed.sentence_scores].sort((a,b) => a.rank - b.rank);
+            let scoresHtml = '<div class="max-h-56 overflow-auto"><table class="w-full text-xs"><thead class="sticky top-0 bg-white"><tr class="border-b border-dark-200 text-dark-500"><th class="text-left py-1.5 px-1 w-12">Rank</th><th class="text-left py-1.5 px-1">Kalimat</th><th class="text-right py-1.5 px-1 w-20">Score</th></tr></thead><tbody>';
+            sorted.forEach(s => {
+                const bg = s.selected ? 'bg-green-50' : '';
+                const badge = s.selected ? ' <span class="inline-block bg-green-100 text-green-700 text-[10px] px-1.5 py-0.5 rounded font-medium">Terpilih</span>' : '';
+                scoresHtml += `<tr class="${bg} border-b border-dark-100"><td class="py-1.5 px-1 font-mono font-bold">#${s.rank}</td><td class="py-1.5 px-1">[${s.index+1}] ${escapeHtml(s.sentence.substring(0,100))}${s.sentence.length>100?'...':''}${badge}</td><td class="py-1.5 px-1 font-mono text-right">${s.score}</td></tr>`;
+            });
+            scoresHtml += '</tbody></table></div>';
+            html += buildStepAccordion(4, 'bar-chart-3', 'PageRank Scoring', `${ed.num_selected} kalimat terpilih dari ${ed.num_sentences}`, scoresHtml);
+        }
+
+        // Step 5: Final Summary
+        if (extSum) {
+            html += buildStepAccordion(5, 'check-circle-2', 'Hasil Ringkasan Extractive', '',
+                `<div class="bg-green-50 border border-green-200 p-3 rounded-lg text-sm leading-relaxed">${escapeHtml(extSum)}</div>`, true);
+        }
+        html += '</div>';
+    } else if (extSum) {
+        html += `<p class="text-sm leading-relaxed bg-dark-50 p-3 rounded-lg">${escapeHtml(extSum)}</p>`;
     } else {
         html += `<p class="text-sm text-dark-400">${data.extractive_error || 'Tidak tersedia'}</p>`;
     }
     html += '</div>';
 
-    // Abstractive
-    html += '<div class="border border-dark-200 rounded-lg p-5">';
-    html += '<div class="flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5"></i><h3 class="font-semibold text-sm">Abstractive</h3><span class="text-xs bg-dark-100 px-2 py-0.5 rounded-full text-dark-600">mT5 / IndoBERT</span></div>';
-    if (data.abstractive && data.abstractive.length > 0) {
-        data.abstractive.forEach((s, i) => {
-            html += `<div class="mb-3 ${i > 0 ? 'pt-3 border-t border-dark-100' : ''}">
-                <p class="text-xs text-dark-400 mb-1">Dokumen ${i+1}</p>
-                <p class="text-sm leading-relaxed">${escapeHtml(s)}</p>
-            </div>`;
-        });
+    // ===== ABSTRACTIVE COLUMN =====
+    html += '<div>';
+    html += '<div class="flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5"></i><h3 class="font-semibold text-sm">Abstractive</h3><span class="text-xs bg-dark-100 px-2 py-0.5 rounded-full text-dark-600">mT5</span></div>';
+
+    const absSum = data.abstractive && data.abstractive[docIdx];
+    const ad = data.abstractive_details;
+
+    if (ad || absSum) {
+        html += '<div class="space-y-2">';
+
+        if (ad) {
+            html += buildStepAccordion(1, 'cpu', 'Informasi Model', ad.model_name,
+                `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-1">
+                    <p><span class="text-dark-500">Model:</span> <span class="font-mono font-medium">${escapeHtml(ad.model_name)}</span></p>
+                    <p><span class="text-dark-500">Parameters:</span> <span class="font-mono font-medium">${ad.num_parameters}</span></p>
+                    <p><span class="text-dark-500">Device:</span> <span class="font-mono font-medium">${ad.device}</span></p>
+                </div>`, true);
+
+            html += buildStepAccordion(2, 'settings', 'Konfigurasi Generasi', `Beam: ${ad.num_beams}`,
+                `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-1">
+                    <p><span class="text-dark-500">Max source length:</span> <span class="font-mono font-medium">${ad.max_source_length} tokens</span></p>
+                    <p><span class="text-dark-500">Max target length:</span> <span class="font-mono font-medium">${ad.max_target_length} tokens</span></p>
+                    <p><span class="text-dark-500">Beam search width:</span> <span class="font-mono font-medium">${ad.num_beams}</span></p>
+                    <p class="text-dark-400 mt-2">Teks input di-tokenize → encoder memproses → decoder men-generate ringkasan token demi token menggunakan beam search untuk memilih output terbaik</p>
+                </div>`);
+        }
+
+        if (absSum) {
+            html += buildStepAccordion(ad ? 3 : 1, 'check-circle-2', 'Hasil Ringkasan Abstractive', '',
+                `<div class="bg-blue-50 border border-blue-200 p-3 rounded-lg text-sm leading-relaxed">${escapeHtml(absSum)}</div>`, true);
+        }
+        html += '</div>';
     } else {
         html += `<div class="flex items-start gap-2 text-sm text-dark-400 bg-dark-50 p-3 rounded-lg">
             <i data-lucide="alert-triangle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
-            <p>${data.abstractive_error || 'Model belum tersedia. Jalankan training terlebih dahulu.'}</p>
+            <p>${data.abstractive_error || 'Model belum tersedia.'}</p>
         </div>`;
     }
     html += '</div></div>';
 
     container.innerHTML = html;
-    container.classList.add('fade-in');
     lucide.createIcons();
 }
 
 // =====================================================================
-// RENDER: Evaluation
+// RENDER: Evaluation (with per-document detail)
 // =====================================================================
 function renderEvaluation(data) {
     const container = document.getElementById('content-evaluation');
     const metrics = ['rouge1', 'rouge2', 'rougeL'];
     const labels = { rouge1: 'ROUGE-1', rouge2: 'ROUGE-2', rougeL: 'ROUGE-L' };
-
-    let hasExt = !!data.extractive_scores;
-    let hasAbs = !!data.abstractive_scores;
+    const hasExt = !!data.extractive_scores;
+    const hasAbs = !!data.abstractive_scores;
 
     let html = '';
 
@@ -601,8 +808,59 @@ function renderEvaluation(data) {
         </div>`;
     }
 
-    // Table
-    html += '<div class="overflow-x-auto"><table class="w-full text-sm">';
+    html += '<div class="space-y-2">';
+
+    // Step 1: Aggregate ROUGE scores
+    html += buildStepAccordion(1, 'bar-chart-2', 'Skor ROUGE Agregat', 'Rata-rata seluruh dokumen', buildRougeTable(data, metrics, labels, hasExt, hasAbs), true);
+
+    // Step 2: Per-document scores
+    if (data.per_document && data.per_document.length > 0) {
+        let perDocHtml = '<div class="space-y-3">';
+        data.per_document.forEach((doc, i) => {
+            perDocHtml += `<div class="border border-dark-100 rounded-lg p-3">
+                <p class="text-xs font-semibold mb-2 flex items-center gap-1"><i data-lucide="file-text" class="w-3 h-3"></i> Dokumen ${i + 1}</p>`;
+
+            perDocHtml += '<table class="w-full text-xs"><thead><tr class="border-b border-dark-200 text-dark-500"><th class="text-left py-1">Metric</th>';
+            if (doc.ext) perDocHtml += '<th class="text-center py-1" colspan="3">Extractive</th>';
+            if (doc.abs) perDocHtml += '<th class="text-center py-1" colspan="3">Abstractive</th>';
+            perDocHtml += '</tr><tr class="border-b border-dark-100 text-[10px] text-dark-400"><td></td>';
+            if (doc.ext) perDocHtml += '<td class="text-center">P</td><td class="text-center">R</td><td class="text-center">F1</td>';
+            if (doc.abs) perDocHtml += '<td class="text-center">P</td><td class="text-center">R</td><td class="text-center">F1</td>';
+            perDocHtml += '</tr></thead><tbody>';
+
+            metrics.forEach(m => {
+                perDocHtml += `<tr class="border-b border-dark-50"><td class="py-1 font-medium">${labels[m]}</td>`;
+                if (doc.ext) {
+                    perDocHtml += `<td class="text-center font-mono">${doc.ext[m].p}</td><td class="text-center font-mono">${doc.ext[m].r}</td><td class="text-center font-mono font-medium">${doc.ext[m].f}</td>`;
+                }
+                if (doc.abs) {
+                    perDocHtml += `<td class="text-center font-mono">${doc.abs[m].p}</td><td class="text-center font-mono">${doc.abs[m].r}</td><td class="text-center font-mono font-medium">${doc.abs[m].f}</td>`;
+                }
+                perDocHtml += '</tr>';
+            });
+            perDocHtml += '</tbody></table></div>';
+        });
+        perDocHtml += '</div>';
+        html += buildStepAccordion(2, 'file-text', 'Skor Per Dokumen', `${data.per_document.length} dokumen`, perDocHtml);
+    }
+
+    // Step 3: Interpretation
+    html += buildStepAccordion(3, 'book-open', 'Interpretasi Metrik ROUGE', 'Penjelasan',
+        `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-2">
+            <p><span class="font-semibold">ROUGE-1:</span> Mengukur overlap unigram (kata tunggal) antara ringkasan prediksi dan referensi.</p>
+            <p><span class="font-semibold">ROUGE-2:</span> Mengukur overlap bigram (pasangan kata berurutan) — mengukur kualitas frasa.</p>
+            <p><span class="font-semibold">ROUGE-L:</span> Mengukur Longest Common Subsequence — menangkap kemiripan struktur kalimat.</p>
+            <p class="text-dark-400 mt-1 border-t border-dark-200 pt-2"><strong>Precision</strong> = seberapa banyak kata di prediksi yang juga ada di referensi.<br><strong>Recall</strong> = seberapa banyak kata di referensi yang tertangkap di prediksi.<br><strong>F1</strong> = harmonic mean dari Precision dan Recall.</p>
+        </div>`);
+
+    html += '</div>';
+    container.innerHTML = html;
+    container.classList.add('fade-in');
+    lucide.createIcons();
+}
+
+function buildRougeTable(data, metrics, labels, hasExt, hasAbs) {
+    let html = '<div class="overflow-x-auto"><table class="w-full text-sm">';
     html += '<thead><tr class="border-b-2 border-dark-900"><th class="text-left py-3 px-3 font-semibold">Metric</th>';
     if (hasExt) html += '<th class="text-center py-3 px-3 font-semibold" colspan="3"><div class="flex items-center justify-center gap-1"><i data-lucide="list-ordered" class="w-4 h-4"></i> Extractive</div></th>';
     if (hasAbs) html += '<th class="text-center py-3 px-3 font-semibold" colspan="3"><div class="flex items-center justify-center gap-1"><i data-lucide="brain" class="w-4 h-4"></i> Abstractive</div></th>';
@@ -613,42 +871,39 @@ function renderEvaluation(data) {
     html += '</tr></thead><tbody>';
 
     metrics.forEach(m => {
-        html += `<tr class="border-b border-dark-100 hover:bg-dark-50">`;
+        html += '<tr class="border-b border-dark-100 hover:bg-dark-50">';
         html += `<td class="py-3 px-3 font-medium">${labels[m]}</td>`;
         if (hasExt) {
             const s = data.extractive_scores[m];
-            html += `<td class="text-center py-3 px-2 font-mono text-xs">${(s.precision).toFixed(4)}</td>`;
-            html += `<td class="text-center py-3 px-2 font-mono text-xs">${(s.recall).toFixed(4)}</td>`;
+            html += `<td class="text-center py-3 px-2 font-mono text-xs">${s.precision.toFixed(4)}</td>`;
+            html += `<td class="text-center py-3 px-2 font-mono text-xs">${s.recall.toFixed(4)}</td>`;
             const isBest = hasAbs && s.fmeasure >= data.abstractive_scores[m].fmeasure;
-            html += `<td class="text-center py-3 px-2 font-mono text-xs ${isBest && hasAbs ? 'font-bold' : ''}">${(s.fmeasure).toFixed(4)}</td>`;
+            html += `<td class="text-center py-3 px-2 font-mono text-xs ${isBest&&hasAbs?'font-bold':''}">${s.fmeasure.toFixed(4)}</td>`;
         }
         if (hasAbs) {
             const s = data.abstractive_scores[m];
-            html += `<td class="text-center py-3 px-2 font-mono text-xs">${(s.precision).toFixed(4)}</td>`;
-            html += `<td class="text-center py-3 px-2 font-mono text-xs">${(s.recall).toFixed(4)}</td>`;
+            html += `<td class="text-center py-3 px-2 font-mono text-xs">${s.precision.toFixed(4)}</td>`;
+            html += `<td class="text-center py-3 px-2 font-mono text-xs">${s.recall.toFixed(4)}</td>`;
             const isBest = hasExt && s.fmeasure >= data.extractive_scores[m].fmeasure;
-            html += `<td class="text-center py-3 px-2 font-mono text-xs ${isBest && hasExt ? 'font-bold' : ''}">${(s.fmeasure).toFixed(4)}</td>`;
+            html += `<td class="text-center py-3 px-2 font-mono text-xs ${isBest&&hasExt?'font-bold':''}">${s.fmeasure.toFixed(4)}</td>`;
         }
         html += '</tr>';
     });
 
-    // Average row
     if (hasExt || hasAbs) {
         html += '<tr class="border-t-2 border-dark-900 font-semibold bg-dark-50"><td class="py-3 px-3">Average F1</td>';
         if (hasExt) {
-            html += `<td colspan="2"></td><td class="text-center py-3 px-2 font-mono text-xs">${(data.extractive_avg_f1 || 0).toFixed(4)}</td>`;
+            const extAvg = data.extractive_avg_f1 || metrics.reduce((s,m) => s + data.extractive_scores[m].fmeasure, 0) / metrics.length;
+            html += `<td colspan="2"></td><td class="text-center py-3 px-2 font-mono text-xs">${extAvg.toFixed(4)}</td>`;
         }
         if (hasAbs) {
-            html += `<td colspan="2"></td><td class="text-center py-3 px-2 font-mono text-xs">${(data.abstractive_avg_f1 || 0).toFixed(4)}</td>`;
+            const absAvg = data.abstractive_avg_f1 || metrics.reduce((s,m) => s + data.abstractive_scores[m].fmeasure, 0) / metrics.length;
+            html += `<td colspan="2"></td><td class="text-center py-3 px-2 font-mono text-xs">${absAvg.toFixed(4)}</td>`;
         }
         html += '</tr>';
     }
-
     html += '</tbody></table></div>';
-
-    container.innerHTML = html;
-    container.classList.add('fade-in');
-    lucide.createIcons();
+    return html;
 }
 
 // =====================================================================

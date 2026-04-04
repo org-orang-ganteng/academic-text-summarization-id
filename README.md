@@ -2,7 +2,7 @@
 
 Pipeline NLP end-to-end untuk **Automatic Text Summarization** pada dokumen akademik berbahasa Indonesia (skripsi/jurnal). Membandingkan dua pendekatan: **Extractive** (TextRank + TF-IDF) vs **Abstractive** (mT5 / IndoBERT). Tersedia dalam dua mode: **CLI pipeline** dan **Web interface** (Flask).
 
-> Dibuat oleh **devnolife**
+> Dibuat oleh **Ainur Ridha Surya (D082251037)**, **Nirwana Samrin (D082251003)**, **Andi Agung Dwi Arya B (D082251057)**
 
 ---
 
@@ -222,6 +222,8 @@ python config.py
 
 ---
 
-## Author
+## Authors
 
-**devnolife**
+- **Ainur Ridha Surya** — D082251037
+- **Nirwana Samrin** — D082251003
+- **Andi Agung Dwi Arya B** — D082251057
