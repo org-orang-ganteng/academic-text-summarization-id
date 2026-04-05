@@ -55,7 +55,47 @@
 
         /* Accordion */
         .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-        .acc-content.open { max-height: 2000px; }
+        .acc-content.open { max-height: 5000px; }
+
+        /* Source code block */
+        .code-block {
+            background: #1e1e2e;
+            color: #cdd6f4;
+            border-radius: 8px;
+            padding: 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            line-height: 1.6;
+            overflow-x: auto;
+            white-space: pre;
+            margin-top: 8px;
+            border: 1px solid #313244;
+        }
+        .code-block .kw { color: #cba6f7; }  /* keyword */
+        .code-block .fn { color: #89b4fa; }  /* function */
+        .code-block .st { color: #a6e3a1; }  /* string */
+        .code-block .cm { color: #6c7086; font-style: italic; }  /* comment */
+        .code-block .op { color: #89dceb; }  /* operator */
+        .code-block .nb { color: #fab387; }  /* builtin */
+        .code-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 8px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 500;
+            color: #6c7086;
+            background: #f5f5f5;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .code-toggle:hover { background: #e8e8e8; color: #333; }
+        .code-toggle.active { background: #1e1e2e; color: #cdd6f4; border-color: #313244; }
+        .code-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .code-wrapper.open { max-height: 3000px; }
     </style>
     <script>
         tailwind.config = {
@@ -263,6 +303,252 @@
     </div>
 
 <script>
+// =====================================================================
+// SOURCE CODE SNIPPETS
+// =====================================================================
+const SOURCE_CODE = {
+    // ── Preprocessing Steps ──
+    case_folding: `def case_folding(self, text: str) -> str:
+    """Convert all text to lowercase."""
+    if not text:
+        return ""
+    return text.lower()`,
+
+    clean_text: `def clean_text(self, text: str) -> str:
+    """Clean text by removing URLs, emails, HTML tags,
+    special characters, and extra whitespace."""
+    if not text:
+        return ""
+    # Remove URLs
+    text = re.sub(r"https?://\\S+|www\\.\\S+", " ", text)
+    # Remove email addresses
+    text = re.sub(r"\\S+@\\S+\\.\\S+", " ", text)
+    # Remove HTML tags
+    text = re.sub(r"<[^>]+>", " ", text)
+    # Remove reference numbers [1], [2], etc.
+    text = re.sub(r"\\[\\d+\\]", " ", text)
+    # Keep letters, spaces, and sentence-ending punctuation
+    text = re.sub(r"[^a-zA-Z\\s.?!]", " ", text)
+    # Remove extra whitespace
+    text = re.sub(r"\\s+", " ", text).strip()
+    return text`,
+
+    sentence_tokenize: `def sentence_tokenize(self, text: str) -> List[str]:
+    """Split text into sentences using NLTK."""
+    if not text:
+        return []
+    try:
+        sentences = sent_tokenize(text, language="indonesian")
+    except LookupError:
+        sentences = sent_tokenize(text)
+    sentences = [s.strip() for s in sentences if s.strip()]
+    return sentences`,
+
+    word_tokenize: `def word_tokenize(self, text: str) -> List[str]:
+    """Tokenize text into words using NLTK."""
+    if not text:
+        return []
+    try:
+        tokens = word_tokenize(text, language="indonesian")
+    except LookupError:
+        tokens = word_tokenize(text)
+    return tokens`,
+
+    remove_stopwords: `def remove_stopwords(self, tokens: List[str]) -> List[str]:
+    """Remove Indonesian stopwords from token list."""
+    if not tokens:
+        return []
+    filtered = [
+        token for token in tokens
+        if token.lower() not in self.indonesian_stopwords
+        and len(token) > 1  # Remove single-character tokens
+    ]
+    return filtered`,
+
+    stem_tokens: `def stem_tokens(self, tokens: List[str]) -> List[str]:
+    """Apply Indonesian stemming using PySastrawi."""
+    if not tokens:
+        return []
+    if self.stemmer is None:
+        return tokens
+    stemmed = [self.stemmer.stem(token) for token in tokens]
+    return stemmed`,
+
+    // ── Extractive Summarization Steps ──
+    extractive_get_sentences: `def _get_sentences(self, text: str) -> List[str]:
+    """Extract clean sentences from raw text."""
+    sentences = self.preprocessor.preprocess_for_extractive(text)
+    return sentences
+
+def preprocess_for_extractive(self, text: str) -> List[str]:
+    """Preprocess for extractive: case folding + cleaning only."""
+    text_lower = self.case_folding(text)
+    text_clean = self.clean_text(text_lower)
+    sentences = self.sentence_tokenize(text_clean)
+    return sentences`,
+
+    build_tfidf: `def _build_tfidf_matrix(self, sentences: List[str]) -> np.ndarray:
+    """Build TF-IDF matrix from sentences."""
+    vectorizer = TfidfVectorizer(
+        max_features=self.max_features,
+        stop_words=None,  # Already handled in preprocessing
+    )
+    tfidf_matrix = vectorizer.fit_transform(sentences)
+    return tfidf_matrix`,
+
+    build_similarity: `def _build_similarity_graph(self, tfidf_matrix) -> nx.Graph:
+    """Build cosine similarity graph from TF-IDF matrix."""
+    similarity_matrix = cosine_similarity(tfidf_matrix)
+    graph = nx.from_numpy_array(similarity_matrix)
+    graph.remove_edges_from(nx.selfloop_edges(graph))
+    return graph`,
+
+    rank_sentences: `def _rank_sentences(self, graph: nx.Graph) -> List[float]:
+    """Apply PageRank algorithm to score sentences."""
+    try:
+        scores = nx.pagerank(graph, weight="weight")
+        return scores
+    except nx.PowerIterationFailedConvergence:
+        n = graph.number_of_nodes()
+        return {i: 1.0 / n for i in range(n)}`,
+
+    extractive_summarize: `def summarize(self, text: str, num_sentences=None) -> str:
+    """Generate extractive summary via TextRank."""
+    n_sentences = num_sentences or self.num_sentences
+    # Step 1: Get clean sentences
+    sentences = self._get_sentences(text)
+    # Step 2: Build TF-IDF matrix
+    tfidf_matrix = self._build_tfidf_matrix(sentences)
+    # Step 3: Build similarity graph
+    graph = self._build_similarity_graph(tfidf_matrix)
+    # Step 4: Rank sentences using PageRank
+    scores = self._rank_sentences(graph)
+    # Step 5: Select top-N sentences
+    ranked_indices = sorted(scores, key=scores.get, reverse=True)
+    top_indices = sorted(ranked_indices[:n_sentences])
+    # Step 6: Construct summary
+    summary = " ".join([sentences[i] for i in top_indices])
+    return summary`,
+
+    // ── Abstractive Summarization Steps ──
+    abstractive_load_model: `def _load_model(self) -> None:
+    """Load pre-trained model and tokenizer from HuggingFace."""
+    from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+    self.tokenizer = AutoTokenizer.from_pretrained(self.model_name)
+    self.model = AutoModelForSeq2SeqLM.from_pretrained(self.model_name)
+    self.model.to(self.device)`,
+
+    abstractive_config: `# Konfigurasi generasi teks pada AbstractiveSummarizer
+self.max_source_length = config.MAX_SOURCE_LENGTH   # Max input tokens
+self.max_target_length = config.MAX_TARGET_LENGTH   # Max output tokens
+self.num_beams = config.NUM_BEAMS                   # Beam search width
+
+# Pada saat generate:
+generated_ids = self.model.generate(
+    input_ids=inputs["input_ids"],
+    attention_mask=inputs["attention_mask"],
+    max_length=self.max_target_length,
+    num_beams=self.num_beams,
+    early_stopping=True,
+    no_repeat_ngram_size=3,
+)`,
+
+    abstractive_summarize: `def summarize(self, text: str) -> str:
+    """Generate abstractive summary for a single document."""
+    # Add task prefix for raw mT5 (not for fine-tuned XLSum)
+    if "mt5" in self.model_name.lower() and "xlsum" not in self.model_name.lower():
+        text = "summarize: " + text
+    # Tokenize input
+    inputs = self.tokenizer(
+        text,
+        max_length=self.max_source_length,
+        padding="max_length",
+        truncation=True,
+        return_tensors="pt",
+    ).to(self.device)
+    # Generate summary
+    self.model.eval()
+    with torch.no_grad():
+        generated_ids = self.model.generate(
+            input_ids=inputs["input_ids"],
+            attention_mask=inputs["attention_mask"],
+            max_length=self.max_target_length,
+            num_beams=self.num_beams,
+            early_stopping=True,
+            no_repeat_ngram_size=3,
+        )
+    # Decode output
+    summary = self.tokenizer.decode(
+        generated_ids[0], skip_special_tokens=True
+    )
+    return summary`,
+
+    // ── Evaluation ──
+    compute_rouge: `def compute_rouge(self, predictions, references):
+    """Compute aggregate ROUGE scores."""
+    from rouge_score import rouge_scorer
+    scorer = rouge_scorer.RougeScorer(
+        ["rouge1", "rouge2", "rougeL"], use_stemmer=False
+    )
+    all_scores = {
+        metric: {"precision": [], "recall": [], "fmeasure": []}
+        for metric in self.rouge_metrics
+    }
+    for pred, ref in zip(predictions, references):
+        scores = scorer.score(ref, pred)
+        for metric in self.rouge_metrics:
+            all_scores[metric]["precision"].append(
+                scores[metric].precision
+            )
+            all_scores[metric]["recall"].append(
+                scores[metric].recall
+            )
+            all_scores[metric]["fmeasure"].append(
+                scores[metric].fmeasure
+            )
+    # Compute averages
+    avg_scores = {}
+    for metric in self.rouge_metrics:
+        avg_scores[metric] = {
+            "precision": sum(all_scores[metric]["precision"])
+                         / len(predictions),
+            "recall": sum(all_scores[metric]["recall"])
+                      / len(predictions),
+            "fmeasure": sum(all_scores[metric]["fmeasure"])
+                        / len(predictions),
+        }
+    return avg_scores`,
+};
+
+let codeToggleCounter = 0;
+function buildCodeSnippet(codeKey, label) {
+    const id = 'code-' + (++codeToggleCounter);
+    const code = SOURCE_CODE[codeKey] || '# Code not available';
+    const escaped = code.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    // Simple syntax highlighting
+    const highlighted = escaped
+        .replace(/^(\s*)(def |class |from |import |return |if |else:|elif |for |try:|except |with |raise |and |or |not |in |is |as |None|True|False)/gm, '$1<span class="kw">$2</span>')
+        .replace(/(self)/g, '<span class="nb">$1</span>')
+        .replace(/(#[^\n]*)/g, '<span class="cm">$1</span>')
+        .replace(/("""[\s\S]*?""")/g, '<span class="st">$1</span>')
+        .replace(/("[^"\n]*")/g, '<span class="st">$1</span>');
+    return `
+        <button onclick="toggleCode('${id}')" class="code-toggle" id="btn-${id}">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>
+            ${label || 'Lihat Source Code'}
+        </button>
+        <div class="code-wrapper" id="${id}">
+            <div class="code-block">${highlighted}</div>
+            <p class="text-[10px] text-dark-400 mt-1 italic">File: src/${codeKey.startsWith('extractive') ? 'extractive_model' : codeKey.startsWith('abstractive') ? 'abstractive_model' : codeKey.startsWith('compute') ? 'evaluator' : 'preprocessor'}.py</p>
+        </div>`;
+}
+function toggleCode(id) {
+    const wrapper = document.getElementById(id);
+    const btn = document.getElementById('btn-' + id);
+    wrapper.classList.toggle('open');
+    btn.classList.toggle('active');
+}
+
 // =====================================================================
 // STATE
 // =====================================================================
@@ -609,19 +895,20 @@ function switchPrepDoc(idx) {
 function renderPrepDocDetail(r) {
     const container = document.getElementById('prep-doc-content');
 
+    const codeKeys = ['case_folding', 'clean_text', 'sentence_tokenize', 'word_tokenize', 'remove_stopwords', 'stem_tokens'];
     const steps = [
         { label: 'Case Folding', icon: 'arrow-down-a-z', desc: 'Mengubah semua huruf ke lowercase',
-          content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.case_folding)}</p>` },
+          content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.case_folding)}</p>${buildCodeSnippet('case_folding', 'Source: case_folding()')}` },
         { label: 'Cleaning', icon: 'sparkles', desc: 'Menghapus URL, email, angka, karakter spesial',
-          content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.cleaning)}</p>` },
+          content: `<p class="text-xs font-mono bg-dark-50 p-3 rounded-lg max-h-32 overflow-auto">${escapeHtml(r.cleaning)}</p>${buildCodeSnippet('clean_text', 'Source: clean_text()')}` },
         { label: 'Sentence Tokenization', icon: 'split', desc: `${r.num_sentences} kalimat terdeteksi`,
-          content: `<div class="space-y-1 max-h-48 overflow-auto">${r.sentences.map((s,i) => `<p class="text-xs"><span class="font-mono text-dark-400 mr-1">[${i+1}]</span> ${escapeHtml(s)}</p>`).join('')}</div>` },
+          content: `<div class="space-y-1 max-h-48 overflow-auto">${r.sentences.map((s,i) => `<p class="text-xs"><span class="font-mono text-dark-400 mr-1">[${i+1}]</span> ${escapeHtml(s)}</p>`).join('')}</div>${buildCodeSnippet('sentence_tokenize', 'Source: sentence_tokenize()')}` },
         { label: 'Word Tokenization', icon: 'text-cursor-input', desc: `${r.num_tokens_before} token dihasilkan`,
-          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.word_tokens.slice(0,80).map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}${r.num_tokens_before > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.num_tokens_before-80} lainnya</span>` : ''}</div>` },
+          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.word_tokens.slice(0,80).map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}${r.num_tokens_before > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.num_tokens_before-80} lainnya</span>` : ''}</div>${buildCodeSnippet('word_tokenize', 'Source: word_tokenize()')}` },
         { label: 'Stopword Removal', icon: 'filter', desc: `${r.num_tokens_before} → ${r.num_tokens_after} token (${r.num_tokens_before - r.num_tokens_after} dihapus)`,
-          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.after_stopword_removal.slice(0,80).map(t => `<span class="token-chip added">${escapeHtml(t)}</span>`).join('')}${r.num_tokens_after > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.num_tokens_after-80} lainnya</span>` : ''}</div>` },
+          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.after_stopword_removal.slice(0,80).map(t => `<span class="token-chip added">${escapeHtml(t)}</span>`).join('')}${r.num_tokens_after > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.num_tokens_after-80} lainnya</span>` : ''}</div>${buildCodeSnippet('remove_stopwords', 'Source: remove_stopwords()')}` },
         { label: 'Stemming', icon: 'scissors', desc: 'Mengubah kata ke bentuk dasar (PySastrawi)',
-          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.after_stemming.slice(0,80).map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}${r.after_stemming.length > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.after_stemming.length-80} lainnya</span>` : ''}</div>` },
+          content: `<div class="flex flex-wrap gap-1 max-h-48 overflow-auto">${r.after_stemming.slice(0,80).map(t => `<span class="token-chip">${escapeHtml(t)}</span>`).join('')}${r.after_stemming.length > 80 ? `<span class="text-dark-400 text-xs ml-2">... +${r.after_stemming.length-80} lainnya</span>` : ''}</div>${buildCodeSnippet('stem_tokens', 'Source: stem_tokens()')}` },
     ];
 
     let html = '<div class="space-y-2">';
@@ -673,114 +960,233 @@ function switchSumDoc(idx) {
 function renderSumDocDetail(docIdx) {
     const data = window._sumData;
     const container = document.getElementById('sum-doc-content');
-    let html = '<div class="grid md:grid-cols-2 gap-6">';
 
-    // ===== EXTRACTIVE COLUMN =====
-    html += '<div>';
-    html += '<div class="flex items-center gap-2 mb-3"><i data-lucide="list-ordered" class="w-5 h-5"></i><h3 class="font-semibold text-sm">Extractive</h3><span class="text-xs bg-dark-100 px-2 py-0.5 rounded-full text-dark-600">TextRank + TF-IDF</span></div>';
+    // ===== TABS for Extractive / Abstractive =====
+    let html = `
+    <div class="flex border-b border-dark-200 mb-6">
+        <button onclick="switchSumMethod('ext', ${docIdx})" id="sum-method-ext"
+            class="sum-method-tab px-5 py-3 text-sm font-medium border-b-2 border-dark-900 text-dark-900 flex items-center gap-2">
+            <i data-lucide="list-ordered" class="w-4 h-4"></i> Extractive
+            <span class="text-[10px] bg-dark-100 px-2 py-0.5 rounded-full text-dark-600 font-normal">TextRank + TF-IDF</span>
+        </button>
+        <button onclick="switchSumMethod('abs', ${docIdx})" id="sum-method-abs"
+            class="sum-method-tab px-5 py-3 text-sm font-medium border-b-2 border-transparent text-dark-400 hover:text-dark-600 flex items-center gap-2">
+            <i data-lucide="brain" class="w-4 h-4"></i> Abstractive
+            <span class="text-[10px] bg-dark-100 px-2 py-0.5 rounded-full text-dark-600 font-normal">mT5 XLSum</span>
+        </button>
+    </div>
+    <div id="sum-method-content-ext"></div>
+    <div id="sum-method-content-abs" class="hidden"></div>`;
 
+    container.innerHTML = html;
+
+    // Render Extractive content
+    renderExtractiveDetail(docIdx, data);
+    // Render Abstractive content
+    renderAbstractiveDetail(docIdx, data);
+
+    lucide.createIcons();
+}
+
+function switchSumMethod(method, docIdx) {
+    document.querySelectorAll('.sum-method-tab').forEach(tab => {
+        tab.classList.remove('border-dark-900', 'text-dark-900');
+        tab.classList.add('border-transparent', 'text-dark-400');
+    });
+    const activeTab = document.getElementById(`sum-method-${method}`);
+    activeTab.classList.add('border-dark-900', 'text-dark-900');
+    activeTab.classList.remove('border-transparent', 'text-dark-400');
+
+    document.getElementById('sum-method-content-ext').classList.toggle('hidden', method !== 'ext');
+    document.getElementById('sum-method-content-abs').classList.toggle('hidden', method !== 'abs');
+}
+
+function renderExtractiveDetail(docIdx, data) {
+    const container = document.getElementById('sum-method-content-ext');
     const ed = data.extractive_details && data.extractive_details[docIdx];
     const extSum = data.extractive && data.extractive[docIdx];
+    let html = '';
+
+    // Header
+    html += `<div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="list-ordered" class="w-5 h-5"></i></div>
+        <div>
+            <h3 class="font-semibold text-base">Extractive Summarization</h3>
+            <p class="text-xs text-dark-400">Memilih kalimat terpenting menggunakan TextRank + TF-IDF + PageRank</p>
+        </div>
+    </div>`;
 
     if (ed) {
-        html += '<div class="space-y-2">';
+        html += '<div class="space-y-3">';
 
         // Step 1: Sentence Extraction
-        html += buildStepAccordion(1, 'split', 'Tokenisasi Kalimat', `${ed.num_sentences} kalimat`,
-            `<div class="space-y-1 max-h-40 overflow-auto">${ed.sentences.map((s,i) =>
-                `<p class="text-xs"><span class="font-mono text-dark-400">[${i+1}]</span> ${escapeHtml(s.substring(0,200))}${s.length>200?'...':''}</p>`
-            ).join('')}</div>`, true);
+        html += buildStepAccordion(1, 'split', 'Tokenisasi Kalimat', `${ed.num_sentences} kalimat ditemukan`,
+            `<p class="text-xs text-dark-500 mb-3">Teks dokumen dipecah menjadi kalimat-kalimat individual menggunakan NLTK sentence tokenizer untuk bahasa Indonesia.</p>
+            <div class="space-y-1.5 max-h-64 overflow-auto border border-dark-100 rounded-lg p-3 bg-dark-50">${ed.sentences.map((s,i) =>
+                `<div class="flex gap-2 text-xs py-1 ${i < ed.sentences.length - 1 ? 'border-b border-dark-100' : ''}">
+                    <span class="font-mono text-dark-400 flex-shrink-0 w-6 text-right">${i+1}.</span>
+                    <span>${escapeHtml(s)}</span>
+                </div>`
+            ).join('')}</div>${buildCodeSnippet('extractive_get_sentences', 'Source: _get_sentences()')}`, true);
 
         // Step 2: TF-IDF
         if (ed.tfidf_shape) {
-            html += buildStepAccordion(2, 'table', 'Vektorisasi TF-IDF', `Matriks ${ed.tfidf_shape[0]}x${ed.tfidf_shape[1]}`,
-                `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-1">
-                    <p><span class="text-dark-500">Jumlah kalimat:</span> <span class="font-mono font-medium">${ed.tfidf_shape[0]}</span></p>
-                    <p><span class="text-dark-500">Jumlah fitur (kata unik):</span> <span class="font-mono font-medium">${ed.num_features}</span></p>
-                    <p class="text-dark-400 mt-2">Setiap kalimat direpresentasikan sebagai vektor TF-IDF berdimensi ${ed.num_features}. Bobot menunjukkan kepentingan kata dalam kalimat relatif terhadap seluruh dokumen.</p>
-                </div>`);
+            html += buildStepAccordion(2, 'table', 'Vektorisasi TF-IDF', `Matriks ${ed.tfidf_shape[0]} × ${ed.tfidf_shape[1]}`,
+                `<p class="text-xs text-dark-500 mb-3">Setiap kalimat diubah menjadi vektor numerik menggunakan TF-IDF (Term Frequency - Inverse Document Frequency).</p>
+                <div class="grid grid-cols-2 gap-3 mb-3">
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-2xl font-bold font-mono">${ed.tfidf_shape[0]}</p>
+                        <p class="text-xs text-dark-500 mt-1">Jumlah Kalimat</p>
+                    </div>
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-2xl font-bold font-mono">${ed.num_features}</p>
+                        <p class="text-xs text-dark-500 mt-1">Fitur (Kata Unik)</p>
+                    </div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs text-amber-800">
+                    <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+                    <p>Matriks TF-IDF berukuran <strong>${ed.tfidf_shape[0]}×${ed.tfidf_shape[1]}</strong>. Setiap baris merepresentasikan satu kalimat, setiap kolom merepresentasikan satu kata unik. Nilai bobot menunjukkan seberapa penting kata tersebut dalam kalimat relatif terhadap seluruh dokumen.</p></div>
+                </div>
+                ${buildCodeSnippet('build_tfidf', 'Source: _build_tfidf_matrix()')}`);
         }
 
         // Step 3: Cosine Similarity
         if (ed.top_pairs) {
-            let pairsHtml = `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-2">
-                <p><span class="text-dark-500">Rata-rata similarity:</span> <span class="font-mono font-medium">${ed.avg_similarity}</span></p>
-                <p><span class="text-dark-500">Max similarity:</span> <span class="font-mono font-medium">${ed.max_similarity}</span></p>
-                <p class="text-dark-500 mt-2 font-medium">Top pasangan kalimat paling mirip:</p>
-                <table class="w-full mt-1"><thead><tr class="text-dark-500 border-b border-dark-200"><th class="text-left py-1 px-1">Kal. A</th><th class="text-left py-1 px-1">Kal. B</th><th class="text-right py-1 px-1">Similarity</th></tr></thead><tbody>`;
-            ed.top_pairs.slice(0,5).forEach(p => {
+            let pairsHtml = `<p class="text-xs text-dark-500 mb-3">Mengukur kemiripan antar kalimat berdasarkan sudut antara vektor TF-IDF mereka. Nilai 1.0 = identik, 0.0 = tidak mirip sama sekali.</p>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-2xl font-bold font-mono">${ed.avg_similarity}</p>
+                        <p class="text-xs text-dark-500 mt-1">Rata-rata Similarity</p>
+                    </div>
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-2xl font-bold font-mono">${ed.max_similarity}</p>
+                        <p class="text-xs text-dark-500 mt-1">Similarity Tertinggi</p>
+                    </div>
+                </div>
+                <p class="text-xs text-dark-500 font-medium mb-2">Top 5 Pasangan Kalimat Paling Mirip:</p>
+                <div class="border border-dark-100 rounded-lg overflow-hidden">
+                <table class="w-full text-xs"><thead><tr class="bg-dark-50 text-dark-500 border-b border-dark-200"><th class="text-left py-2 px-3">Kalimat A</th><th class="text-left py-2 px-3">Kalimat B</th><th class="text-right py-2 px-3">Similarity</th></tr></thead><tbody>`;
+            ed.top_pairs.slice(0,5).forEach((p, idx) => {
                 const barWidth = Math.round(p.sim * 100);
-                pairsHtml += `<tr class="border-b border-dark-100"><td class="py-1 px-1 font-mono">[${p.i+1}]</td><td class="py-1 px-1 font-mono">[${p.j+1}]</td><td class="py-1 px-1 text-right"><div class="flex items-center justify-end gap-1"><div class="w-16 h-1.5 bg-dark-200 rounded-full overflow-hidden"><div class="h-full bg-dark-700 rounded-full" style="width:${barWidth}%"></div></div><span class="font-mono">${p.sim}</span></div></td></tr>`;
+                pairsHtml += `<tr class="border-b border-dark-100 ${idx % 2 === 0 ? '' : 'bg-dark-50'}"><td class="py-2 px-3 font-mono font-medium">[${p.i+1}]</td><td class="py-2 px-3 font-mono font-medium">[${p.j+1}]</td><td class="py-2 px-3 text-right"><div class="flex items-center justify-end gap-2"><div class="w-20 h-2 bg-dark-200 rounded-full overflow-hidden"><div class="h-full bg-dark-700 rounded-full" style="width:${barWidth}%"></div></div><span class="font-mono font-medium">${p.sim}</span></div></td></tr>`;
             });
             pairsHtml += '</tbody></table></div>';
+            pairsHtml += buildCodeSnippet('build_similarity', 'Source: _build_similarity_graph()');
             html += buildStepAccordion(3, 'network', 'Cosine Similarity Graph', `Avg: ${ed.avg_similarity}`, pairsHtml);
         }
 
         // Step 4: PageRank
         if (ed.sentence_scores) {
             const sorted = [...ed.sentence_scores].sort((a,b) => a.rank - b.rank);
-            let scoresHtml = '<div class="max-h-56 overflow-auto"><table class="w-full text-xs"><thead class="sticky top-0 bg-white"><tr class="border-b border-dark-200 text-dark-500"><th class="text-left py-1.5 px-1 w-12">Rank</th><th class="text-left py-1.5 px-1">Kalimat</th><th class="text-right py-1.5 px-1 w-20">Score</th></tr></thead><tbody>';
-            sorted.forEach(s => {
-                const bg = s.selected ? 'bg-green-50' : '';
-                const badge = s.selected ? ' <span class="inline-block bg-green-100 text-green-700 text-[10px] px-1.5 py-0.5 rounded font-medium">Terpilih</span>' : '';
-                scoresHtml += `<tr class="${bg} border-b border-dark-100"><td class="py-1.5 px-1 font-mono font-bold">#${s.rank}</td><td class="py-1.5 px-1">[${s.index+1}] ${escapeHtml(s.sentence.substring(0,100))}${s.sentence.length>100?'...':''}${badge}</td><td class="py-1.5 px-1 font-mono text-right">${s.score}</td></tr>`;
+            let scoresHtml = `<p class="text-xs text-dark-500 mb-3">Algoritma PageRank memberikan skor kepentingan pada setiap kalimat berdasarkan hubungan similarity-nya dengan kalimat lain. Kalimat yang paling "terhubung" (mirip dengan banyak kalimat lain) mendapat skor tertinggi.</p>
+            <div class="border border-dark-100 rounded-lg overflow-hidden">
+            <div class="max-h-72 overflow-auto"><table class="w-full text-xs"><thead class="sticky top-0 bg-dark-50"><tr class="border-b border-dark-200 text-dark-500"><th class="text-left py-2.5 px-3 w-16">Rank</th><th class="text-left py-2.5 px-3">Kalimat</th><th class="text-right py-2.5 px-3 w-24">Score</th></tr></thead><tbody>`;
+            sorted.forEach((s, idx) => {
+                const bg = s.selected ? 'bg-green-50' : (idx % 2 === 0 ? '' : 'bg-dark-50');
+                const badge = s.selected ? ' <span class="inline-flex items-center gap-1 bg-green-100 text-green-700 text-[10px] px-2 py-0.5 rounded-full font-medium ml-2"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>Terpilih</span>' : '';
+                scoresHtml += `<tr class="${bg} border-b border-dark-100"><td class="py-2.5 px-3 font-mono font-bold text-dark-600">#${s.rank}</td><td class="py-2.5 px-3"><span class="text-dark-400 font-mono mr-1">[${s.index+1}]</span> ${escapeHtml(s.sentence.substring(0,150))}${s.sentence.length>150?'...':''}${badge}</td><td class="py-2.5 px-3 font-mono text-right font-medium">${s.score}</td></tr>`;
             });
-            scoresHtml += '</tbody></table></div>';
+            scoresHtml += '</tbody></table></div></div>';
+            scoresHtml += buildCodeSnippet('rank_sentences', 'Source: _rank_sentences()');
             html += buildStepAccordion(4, 'bar-chart-3', 'PageRank Scoring', `${ed.num_selected} kalimat terpilih dari ${ed.num_sentences}`, scoresHtml);
         }
 
         // Step 5: Final Summary
         if (extSum) {
             html += buildStepAccordion(5, 'check-circle-2', 'Hasil Ringkasan Extractive', '',
-                `<div class="bg-green-50 border border-green-200 p-3 rounded-lg text-sm leading-relaxed">${escapeHtml(extSum)}</div>`, true);
+                `<div class="bg-green-50 border border-green-200 rounded-lg p-5">
+                    <p class="text-sm leading-relaxed">${escapeHtml(extSum)}</p>
+                </div>
+                ${buildCodeSnippet('extractive_summarize', 'Source: summarize() — Full Pipeline')}`, true);
         }
         html += '</div>';
     } else if (extSum) {
-        html += `<p class="text-sm leading-relaxed bg-dark-50 p-3 rounded-lg">${escapeHtml(extSum)}</p>`;
+        html += `<div class="bg-green-50 border border-green-200 rounded-lg p-5"><p class="text-sm leading-relaxed">${escapeHtml(extSum)}</p></div>`;
     } else {
-        html += `<p class="text-sm text-dark-400">${data.extractive_error || 'Tidak tersedia'}</p>`;
+        html += `<div class="flex items-center gap-2 text-sm text-dark-400 bg-dark-50 p-4 rounded-lg"><i data-lucide="info" class="w-4 h-4"></i><p>${data.extractive_error || 'Tidak tersedia'}</p></div>`;
     }
-    html += '</div>';
 
-    // ===== ABSTRACTIVE COLUMN =====
-    html += '<div>';
-    html += '<div class="flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5"></i><h3 class="font-semibold text-sm">Abstractive</h3><span class="text-xs bg-dark-100 px-2 py-0.5 rounded-full text-dark-600">mT5</span></div>';
+    container.innerHTML = html;
+    lucide.createIcons();
+}
 
+function renderAbstractiveDetail(docIdx, data) {
+    const container = document.getElementById('sum-method-content-abs');
     const absSum = data.abstractive && data.abstractive[docIdx];
     const ad = data.abstractive_details;
+    let html = '';
+
+    // Header
+    html += `<div class="flex items-center gap-3 mb-5">
+        <div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="brain" class="w-5 h-5"></i></div>
+        <div>
+            <h3 class="font-semibold text-base">Abstractive Summarization</h3>
+            <p class="text-xs text-dark-400">Menghasilkan ringkasan baru menggunakan model transformer mT5 (Seq2Seq)</p>
+        </div>
+    </div>`;
 
     if (ad || absSum) {
-        html += '<div class="space-y-2">';
+        html += '<div class="space-y-3">';
 
         if (ad) {
             html += buildStepAccordion(1, 'cpu', 'Informasi Model', ad.model_name,
-                `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-1">
-                    <p><span class="text-dark-500">Model:</span> <span class="font-mono font-medium">${escapeHtml(ad.model_name)}</span></p>
-                    <p><span class="text-dark-500">Parameters:</span> <span class="font-mono font-medium">${ad.num_parameters}</span></p>
-                    <p><span class="text-dark-500">Device:</span> <span class="font-mono font-medium">${ad.device}</span></p>
-                </div>`, true);
+                `<p class="text-xs text-dark-500 mb-3">Model transformer yang digunakan untuk men-generate ringkasan secara abstractive.</p>
+                <div class="grid grid-cols-3 gap-3 mb-3">
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-xs text-dark-500 mb-1">Model</p>
+                        <p class="text-xs font-mono font-medium break-all">${escapeHtml(ad.model_name)}</p>
+                    </div>
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-xs text-dark-500 mb-1">Parameters</p>
+                        <p class="text-lg font-bold font-mono">${ad.num_parameters}</p>
+                    </div>
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-xs text-dark-500 mb-1">Device</p>
+                        <p class="text-lg font-bold font-mono">${ad.device}</p>
+                    </div>
+                </div>
+                ${buildCodeSnippet('abstractive_load_model', 'Source: _load_model()')}`, true);
 
             html += buildStepAccordion(2, 'settings', 'Konfigurasi Generasi', `Beam: ${ad.num_beams}`,
-                `<div class="bg-dark-50 p-3 rounded-lg text-xs space-y-1">
-                    <p><span class="text-dark-500">Max source length:</span> <span class="font-mono font-medium">${ad.max_source_length} tokens</span></p>
-                    <p><span class="text-dark-500">Max target length:</span> <span class="font-mono font-medium">${ad.max_target_length} tokens</span></p>
-                    <p><span class="text-dark-500">Beam search width:</span> <span class="font-mono font-medium">${ad.num_beams}</span></p>
-                    <p class="text-dark-400 mt-2">Teks input di-tokenize → encoder memproses → decoder men-generate ringkasan token demi token menggunakan beam search untuk memilih output terbaik</p>
-                </div>`);
+                `<p class="text-xs text-dark-500 mb-3">Parameter yang mengontrol proses generate ringkasan oleh model.</p>
+                <div class="grid grid-cols-3 gap-3 mb-3">
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-xs text-dark-500 mb-1">Max Input</p>
+                        <p class="text-lg font-bold font-mono">${ad.max_source_length}</p>
+                        <p class="text-[10px] text-dark-400">tokens</p>
+                    </div>
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-xs text-dark-500 mb-1">Max Output</p>
+                        <p class="text-lg font-bold font-mono">${ad.max_target_length}</p>
+                        <p class="text-[10px] text-dark-400">tokens</p>
+                    </div>
+                    <div class="bg-dark-50 border border-dark-100 rounded-lg p-4 text-center">
+                        <p class="text-xs text-dark-500 mb-1">Beam Width</p>
+                        <p class="text-lg font-bold font-mono">${ad.num_beams}</p>
+                        <p class="text-[10px] text-dark-400">beams</p>
+                    </div>
+                </div>
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs text-blue-800">
+                    <div class="flex items-start gap-2"><i data-lucide="lightbulb" class="w-4 h-4 flex-shrink-0 mt-0.5"></i>
+                    <p><strong>Alur kerja:</strong> Teks input di-tokenize → Encoder memproses seluruh input → Decoder men-generate ringkasan token demi token → Beam search (width=${ad.num_beams}) memilih output terbaik dari beberapa kandidat.</p></div>
+                </div>
+                ${buildCodeSnippet('abstractive_config', 'Source: Konfigurasi Generate')}`);
         }
 
         if (absSum) {
             html += buildStepAccordion(ad ? 3 : 1, 'check-circle-2', 'Hasil Ringkasan Abstractive', '',
-                `<div class="bg-blue-50 border border-blue-200 p-3 rounded-lg text-sm leading-relaxed">${escapeHtml(absSum)}</div>`, true);
+                `<div class="bg-blue-50 border border-blue-200 rounded-lg p-5">
+                    <p class="text-sm leading-relaxed">${escapeHtml(absSum)}</p>
+                </div>
+                ${buildCodeSnippet('abstractive_summarize', 'Source: summarize() — Abstractive')}`, true);
         }
         html += '</div>';
     } else {
-        html += `<div class="flex items-start gap-2 text-sm text-dark-400 bg-dark-50 p-3 rounded-lg">
+        html += `<div class="flex items-start gap-2 text-sm text-dark-400 bg-dark-50 p-4 rounded-lg">
             <i data-lucide="alert-triangle" class="w-4 h-4 mt-0.5 flex-shrink-0"></i>
             <p>${data.abstractive_error || 'Model belum tersedia.'}</p>
         </div>`;
     }
-    html += '</div></div>';
 
     container.innerHTML = html;
     lucide.createIcons();
@@ -811,7 +1217,7 @@ function renderEvaluation(data) {
     html += '<div class="space-y-2">';
 
     // Step 1: Aggregate ROUGE scores
-    html += buildStepAccordion(1, 'bar-chart-2', 'Skor ROUGE Agregat', 'Rata-rata seluruh dokumen', buildRougeTable(data, metrics, labels, hasExt, hasAbs), true);
+    html += buildStepAccordion(1, 'bar-chart-2', 'Skor ROUGE Agregat', 'Rata-rata seluruh dokumen', buildRougeTable(data, metrics, labels, hasExt, hasAbs) + buildCodeSnippet('compute_rouge', 'Source: compute_rouge()'), true);
 
     // Step 2: Per-document scores
     if (data.per_document && data.per_document.length > 0) {

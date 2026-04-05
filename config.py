@@ -49,10 +49,10 @@ TFIDF_MAX_FEATURES = 5000  # Maximum number of TF-IDF features
 # Abstractive Summarization Configuration
 # =============================================================================
 # Model options:
-#   - "google/mt5-small" (multilingual T5, supports Indonesian)
-#   - "cahya/bert-base-indonesian-522M" (Indonesian BERT)
+#   - "csebuetnlp/mT5_multilingual_XLSum-small" (fine-tuned for summarization, supports Indonesian)
+#   - "google/mt5-small" (raw pre-trained, needs fine-tuning first)
 #   - "LazarusNLP/IndoNanoT5-base" (Indonesian T5)
-ABSTRACTIVE_MODEL_NAME = "google/mt5-small"
+ABSTRACTIVE_MODEL_NAME = "csebuetnlp/mT5_multilingual_XLSum"
 MAX_SOURCE_LENGTH = 512  # Max tokens for input text (tokenizer)
 MAX_TARGET_LENGTH = 128  # Max tokens for generated summary
 NUM_BEAMS = 4  # Number of beams for beam search decoding

@@ -75,8 +75,8 @@ class SummarizationDataset(Dataset):
         source = self.texts[idx]
         target = self.summaries[idx]
 
-        # Add task prefix for mT5 models
-        if "mt5" in config.ABSTRACTIVE_MODEL_NAME.lower():
+        # Add task prefix for raw mT5 models (not needed for fine-tuned XLSum)
+        if "mt5" in config.ABSTRACTIVE_MODEL_NAME.lower() and "xlsum" not in config.ABSTRACTIVE_MODEL_NAME.lower():
             source = "summarize: " + source
 
         source_encoding = self.tokenizer(
@@ -340,8 +340,8 @@ class AbstractiveSummarizer:
             logger.warning("Empty input text. Returning empty summary.")
             return ""
 
-        # Add task prefix for mT5 models
-        if "mt5" in self.model_name.lower():
+        # Add task prefix for raw mT5 models (not needed for fine-tuned XLSum)
+        if "mt5" in self.model_name.lower() and "xlsum" not in self.model_name.lower():
             text = "summarize: " + text
 
         # Tokenize
