@@ -96,6 +96,35 @@
         .code-toggle.active { background: #1e1e2e; color: #cdd6f4; border-color: #313244; }
         .code-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
         .code-wrapper.open { max-height: 3000px; }
+
+        /* Explanation modal */
+        .modal-overlay {
+            position: fixed; inset: 0; z-index: 100;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal-box {
+            background: white; border-radius: 16px;
+            max-width: 560px; width: 92%; max-height: 85vh;
+            overflow-y: auto; padding: 0;
+            transform: translateY(20px) scale(0.97);
+            transition: transform 0.25s ease;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+        }
+        .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+        .info-btn {
+            width: 22px; height: 22px; border-radius: 50%;
+            background: #f0f0f0; border: 1px solid #d4d4d4;
+            display: inline-flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700; color: #737373;
+            cursor: pointer; transition: all 0.15s; flex-shrink: 0;
+            line-height: 1;
+        }
+        .info-btn:hover { background: #171717; color: white; border-color: #171717; }
     </style>
     <script>
         tailwind.config = {
@@ -295,6 +324,22 @@
             NLP Summarization Pipeline &mdash; Built by <strong>Ainur Ridha Surya (D082251037)</strong>, <strong>Nirwana Samrin (D082251003)</strong>, <strong>Andi Agung Dwi Arya B (D082251057)</strong>
         </div>
     </footer>
+
+    <!-- Explanation Modal -->
+    <div id="explanation-modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
+        <div class="modal-box">
+            <div class="sticky top-0 bg-white border-b border-dark-200 px-6 py-4 flex items-center justify-between rounded-t-2xl">
+                <div class="flex items-center gap-3">
+                    <div id="modal-icon" class="w-9 h-9 rounded-xl bg-dark-900 text-white flex items-center justify-center"></div>
+                    <h3 id="modal-title" class="font-semibold text-base"></h3>
+                </div>
+                <button onclick="closeModal()" class="w-8 h-8 rounded-lg hover:bg-dark-100 flex items-center justify-center transition-colors">
+                    <i data-lucide="x" class="w-4 h-4"></i>
+                </button>
+            </div>
+            <div id="modal-body" class="px-6 py-5"></div>
+        </div>
+    </div>
 
     <!-- Toast -->
     <div id="toast" class="fixed bottom-6 right-6 bg-dark-900 text-white px-5 py-3 rounded-lg text-sm shadow-lg hidden flex items-center gap-2 z-50">
@@ -548,6 +593,217 @@ function toggleCode(id) {
     wrapper.classList.toggle('open');
     btn.classList.toggle('active');
 }
+
+// =====================================================================
+// EXPLANATION DATA
+// =====================================================================
+const EXPLANATIONS = {
+    // — Preprocessing —
+    'Case Folding': {
+        icon: 'arrow-down-a-z',
+        color: 'bg-purple-100 text-purple-700',
+        sections: [
+            { title: 'Apa itu Case Folding?', text: 'Case folding adalah proses mengubah seluruh karakter teks menjadi huruf kecil (lowercase). Ini adalah langkah pertama dalam preprocessing teks NLP.' },
+            { title: 'Kenapa diperlukan?', text: 'Komputer membedakan huruf besar dan kecil. Tanpa case folding, "Penelitian" dan "penelitian" dianggap kata berbeda. Dengan case folding, keduanya dianggap sama sehingga analisis menjadi konsisten.' },
+            { title: 'Contoh', text: '"Penelitian Ini MENGANALISIS" → "penelitian ini menganalisis"' },
+            { title: 'Library', text: 'Menggunakan fungsi bawaan Python: str.lower()' },
+        ],
+    },
+    'Cleaning': {
+        icon: 'sparkles',
+        color: 'bg-amber-100 text-amber-700',
+        sections: [
+            { title: 'Apa itu Text Cleaning?', text: 'Text cleaning adalah proses membersihkan teks dari elemen-elemen yang tidak relevan untuk analisis, seperti URL, alamat email, tag HTML, angka referensi, dan karakter spesial.' },
+            { title: 'Apa saja yang dihapus?', text: '• URL (https://..., www....)\n• Alamat email (user@domain.com)\n• Tag HTML (<b>, <p>, dll.)\n• Nomor referensi ([1], [2], [3])\n• Karakter spesial (!@#$%^&*) kecuali tanda baca akhir kalimat (.?!)\n• Spasi berlebih' },
+            { title: 'Kenapa tanda baca .?! dipertahankan?', text: 'Tanda baca ini diperlukan untuk tahap selanjutnya yaitu sentence tokenization. Tanpa tanda ini, program tidak bisa memecah teks menjadi kalimat-kalimat.' },
+            { title: 'Teknik', text: 'Menggunakan Regular Expression (regex) via library re di Python untuk pattern matching dan penggantian teks.' },
+        ],
+    },
+    'Sentence Tokenization': {
+        icon: 'split',
+        color: 'bg-blue-100 text-blue-700',
+        sections: [
+            { title: 'Apa itu Sentence Tokenization?', text: 'Proses memecah teks panjang menjadi kalimat-kalimat individual. Setiap kalimat menjadi unit analisis tersendiri.' },
+            { title: 'Kenapa diperlukan?', text: 'Dalam extractive summarization, kita perlu memilih kalimat terpenting. Untuk itu, teks harus dipecah dulu menjadi kalimat-kalimat terpisah.' },
+            { title: 'Bagaimana cara kerjanya?', text: 'Menggunakan NLTK sent_tokenize() dengan model bahasa Indonesia. Algoritma ini mengenali pola akhir kalimat (titik, tanda tanya, tanda seru) sambil menghindari false positive seperti singkatan (Dr., Prof., dll.).' },
+            { title: 'Library', text: 'NLTK (Natural Language Toolkit) — nltk.tokenize.sent_tokenize()' },
+        ],
+    },
+    'Word Tokenization': {
+        icon: 'text-cursor-input',
+        color: 'bg-green-100 text-green-700',
+        sections: [
+            { title: 'Apa itu Word Tokenization?', text: 'Proses memecah kalimat menjadi kata-kata individual (token). Setiap kata menjadi unit terkecil untuk analisis.' },
+            { title: 'Bedanya dengan split biasa?', text: 'Word tokenizer NLTK lebih cerdas dari sekadar split by spasi. Ia bisa menangani tanda baca, singkatan, dan kasus khusus bahasa Indonesia dengan tepat.' },
+            { title: 'Contoh', text: '"terdapat korelasi negatif." → ["terdapat", "korelasi", "negatif", "."]' },
+            { title: 'Library', text: 'NLTK — nltk.tokenize.word_tokenize()' },
+        ],
+    },
+    'Stopword Removal': {
+        icon: 'filter',
+        color: 'bg-red-100 text-red-700',
+        sections: [
+            { title: 'Apa itu Stopword?', text: 'Stopword adalah kata-kata umum yang sangat sering muncul tapi tidak membawa makna penting, seperti: "yang", "dan", "di", "ke", "dari", "ini", "itu", "untuk", "dengan", "adalah".' },
+            { title: 'Kenapa dihapus?', text: 'Stopword mendominasi frekuensi kemunculan kata dan bisa mengacaukan analisis TF-IDF. Dengan menghapusnya, kata-kata bermakna (content words) menjadi lebih menonjol.' },
+            { title: 'Aturan tambahan', text: 'Selain daftar stopword NLTK Indonesia, token berkarakter tunggal juga dihapus (misalnya: "d", "e") karena biasanya bukan kata bermakna.' },
+            { title: 'Library', text: 'NLTK Corpus — nltk.corpus.stopwords.words("indonesian")' },
+        ],
+    },
+    'Stemming': {
+        icon: 'scissors',
+        color: 'bg-indigo-100 text-indigo-700',
+        sections: [
+            { title: 'Apa itu Stemming?', text: 'Stemming adalah proses mengubah kata berimbuhan menjadi kata dasar. Contoh: "menganalisis" → "analisis", "penelitian" → "teliti", "mahasiswa" → "mahasiswa".' },
+            { title: 'Kenapa diperlukan?', text: 'Kata "menganalisis", "dianalisis", "analisisnya" sebenarnya merujuk konsep yang sama. Stemming menyatukan variasi ini sehingga frekuensi kata bisa dihitung lebih akurat.' },
+            { title: 'Algoritma', text: 'Menggunakan PySastrawi yang mengimplementasikan algoritma Nazief-Adriani, stemmer khusus bahasa Indonesia. Algoritma ini menghapus imbuhan (prefix, suffix, infix) sesuai aturan morfologi bahasa Indonesia.' },
+            { title: 'Library', text: 'PySastrawi — Sastrawi.Stemmer.StemmerFactory' },
+        ],
+    },
+
+    // — Extractive Summarization —
+    'Tokenisasi Kalimat': {
+        icon: 'split',
+        color: 'bg-emerald-100 text-emerald-700',
+        sections: [
+            { title: 'Langkah Pertama Extractive', text: 'Teks dokumen dipecah menjadi kalimat-kalimat individual. Pada extractive summarization, hanya dilakukan case folding dan cleaning (tanpa stemming/stopword removal) agar kalimat tetap utuh dan bisa langsung digunakan sebagai ringkasan.' },
+            { title: 'Bedanya dengan preprocessing?', text: 'Di preprocessing umum, dilakukan stemming dan stopword removal. Di sini tidak, karena kalimat asli (setelah cleaning) akan langsung menjadi output ringkasan.' },
+        ],
+    },
+    'Vektorisasi TF-IDF': {
+        icon: 'table',
+        color: 'bg-orange-100 text-orange-700',
+        sections: [
+            { title: 'Apa itu TF-IDF?', text: 'TF-IDF (Term Frequency-Inverse Document Frequency) adalah metode untuk mengubah teks menjadi representasi numerik (vektor). Setiap kata diberi bobot berdasarkan seberapa penting kata tersebut.' },
+            { title: 'Bagaimana cara kerjanya?', text: '• TF (Term Frequency): Seberapa sering kata muncul di kalimat tersebut\n• IDF (Inverse Document Frequency): Seberapa jarang kata muncul di seluruh kalimat — kata yang muncul di semua kalimat (seperti stopword) mendapat bobot rendah\n• TF-IDF = TF × IDF' },
+            { title: 'Hasil', text: 'Matriks berukuran N×M, di mana N = jumlah kalimat, M = jumlah kata unik (fitur). Setiap sel berisi bobot TF-IDF kata tersebut di kalimat tersebut.' },
+            { title: 'Library', text: 'scikit-learn — sklearn.feature_extraction.text.TfidfVectorizer' },
+        ],
+    },
+    'Cosine Similarity Graph': {
+        icon: 'network',
+        color: 'bg-cyan-100 text-cyan-700',
+        sections: [
+            { title: 'Apa itu Cosine Similarity?', text: 'Cosine similarity mengukur kemiripan dua kalimat berdasarkan sudut antara vektor TF-IDF mereka. Nilainya 0 (tidak mirip) sampai 1 (identik).' },
+            { title: 'Rumus', text: 'cos(θ) = (A · B) / (||A|| × ||B||)\n\nDi mana A dan B adalah vektor TF-IDF dari dua kalimat.' },
+            { title: 'Similarity Graph', text: 'Semua pasangan kalimat dihitung similarity-nya, membentuk graf. Setiap kalimat = node, setiap edge = bobot similarity. Self-loop dihapus karena kalimat pasti mirip 100% dengan dirinya sendiri.' },
+            { title: 'Library', text: 'scikit-learn (cosine_similarity) + NetworkX (untuk graf)' },
+        ],
+    },
+    'PageRank Scoring': {
+        icon: 'bar-chart-3',
+        color: 'bg-violet-100 text-violet-700',
+        sections: [
+            { title: 'Apa itu PageRank?', text: 'PageRank adalah algoritma yang awalnya dikembangkan Google untuk merangking halaman web. Dalam TextRank, algoritma ini digunakan untuk merangking kalimat berdasarkan "kepentingannya" dalam graf similarity.' },
+            { title: 'Intuisi', text: 'Kalimat yang mirip dengan banyak kalimat penting lainnya akan mendapat skor tinggi. Ini seperti "voting" — kalimat yang banyak "didukung" oleh kalimat lain dianggap penting.' },
+            { title: 'Proses', text: '1. Hitung PageRank score untuk setiap node (kalimat) di graf\n2. Rank kalimat berdasarkan skor\n3. Pilih N kalimat teratas\n4. Susun kembali sesuai urutan asli di dokumen' },
+            { title: 'Library', text: 'NetworkX — nx.pagerank(graph, weight="weight")' },
+        ],
+    },
+    'Hasil Ringkasan Extractive': {
+        icon: 'check-circle-2',
+        color: 'bg-green-100 text-green-700',
+        sections: [
+            { title: 'Extractive Summary', text: 'Ringkasan extractive terdiri dari kalimat-kalimat asli dokumen yang dipilih berdasarkan skor TextRank tertinggi. Kalimat tidak diubah sama sekali, hanya dipilih.' },
+            { title: 'Urutan kalimat', text: 'Kalimat terpilih disusun kembali sesuai urutan kemunculannya di dokumen asli (bukan berdasarkan skor) agar ringkasan tetap koheren dan mudah dibaca.' },
+            { title: 'Kelebihan', text: '• Cepat dan ringan (tidak perlu GPU)\n• Kalimat grammatically correct karena langsung dari dokumen\n• Tidak memerlukan training data' },
+            { title: 'Kekurangan', text: '• Tidak bisa menghasilkan kalimat baru\n• Mungkin ada redudansi antar kalimat terpilih\n• Ringkasan bisa kurang koheren' },
+        ],
+    },
+
+    // — Abstractive Summarization —
+    'Informasi Model': {
+        icon: 'cpu',
+        color: 'bg-blue-100 text-blue-700',
+        sections: [
+            { title: 'Model mT5', text: 'mT5 (multilingual T5) adalah model transformer dari Google yang mendukung 101 bahasa termasuk Bahasa Indonesia. Arsitekturnya encoder-decoder (Seq2Seq).' },
+            { title: 'Fine-tuned XLSum', text: 'Model yang digunakan sudah di-fine-tune pada dataset XLSum yang berisi artikel berita dan ringkasannya dalam 45 bahasa, sehingga sudah mampu menghasilkan ringkasan berbahasa Indonesia tanpa training ulang.' },
+            { title: 'Parameters', text: 'Jumlah parameter menunjukkan kompleksitas model. Semakin banyak parameter, semakin banyak "pengetahuan" yang bisa disimpan, tapi juga semakin berat komputasinya.' },
+            { title: 'Device', text: 'CPU atau GPU. GPU bisa 10-50x lebih cepat untuk inference model transformer. Jika GPU tidak tersedia, model otomatis berjalan di CPU.' },
+        ],
+    },
+    'Konfigurasi Generasi': {
+        icon: 'settings',
+        color: 'bg-slate-100 text-slate-700',
+        sections: [
+            { title: 'Max Source Length', text: 'Batas maksimum token input. Teks yang lebih panjang akan dipotong (truncated). 512 token ≈ 300-400 kata.' },
+            { title: 'Max Target Length', text: 'Batas maksimum token output ringkasan. Membatasi panjang ringkasan yang dihasilkan. 128 token ≈ 80-100 kata.' },
+            { title: 'Beam Search', text: 'Beam search adalah strategi decoding yang mengeksplorasi beberapa kandidat output secara paralel. Beam width = 4 berarti model mempertimbangkan 4 kandidat terbaik di setiap langkah, lalu memilih yang skornya tertinggi.' },
+            { title: 'no_repeat_ngram_size', text: 'Mencegah pengulangan frasa. Dengan nilai 3, model tidak akan mengulang trigram (3 kata berturut) yang sudah pernah di-generate.' },
+        ],
+    },
+    'Hasil Ringkasan Abstractive': {
+        icon: 'check-circle-2',
+        color: 'bg-blue-100 text-blue-700',
+        sections: [
+            { title: 'Abstractive Summary', text: 'Berbeda dari extractive, ringkasan abstractive menghasilkan kalimat BARU yang mungkin tidak ada di dokumen asli. Model "memahami" isi dokumen lalu menulis ulang ringkasannya.' },
+            { title: 'Proses generate', text: '1. Teks input di-tokenize menjadi subword tokens\n2. Encoder memproses seluruh input dan menghasilkan representasi konteksual\n3. Decoder men-generate output token demi token\n4. Beam search memilih kombinasi token terbaik\n5. Token di-decode kembali menjadi teks' },
+            { title: 'Kelebihan', text: '• Bisa menghasilkan kalimat baru yang lebih ringkas\n• Ringkasan lebih koheren dan natural\n• Bisa menyatukan informasi dari berbagai bagian dokumen' },
+            { title: 'Kekurangan', text: '• Butuh resource komputasi lebih besar\n• Bisa menghasilkan informasi yang salah (hallucination)\n• Memerlukan model yang sudah di-training' },
+        ],
+    },
+
+    // — Evaluation —
+    'Skor ROUGE Agregat': {
+        icon: 'bar-chart-2',
+        color: 'bg-rose-100 text-rose-700',
+        sections: [
+            { title: 'Apa itu ROUGE?', text: 'ROUGE (Recall-Oriented Understudy for Gisting Evaluation) adalah metrik standar untuk evaluasi kualitas ringkasan teks. Membandingkan ringkasan yang dihasilkan (prediction) dengan ringkasan referensi (ground truth).' },
+            { title: 'Jenis ROUGE', text: '• ROUGE-1: Mengukur overlap kata tunggal (unigram)\n• ROUGE-2: Mengukur overlap pasangan kata berturut (bigram)\n• ROUGE-L: Mengukur Longest Common Subsequence (LCS) — kemiripan struktur' },
+            { title: 'Precision, Recall, F1', text: '• Precision = kata di prediksi yang ada di referensi / total kata prediksi\n• Recall = kata di referensi yang tertangkap di prediksi / total kata referensi\n• F1 = 2 × (P × R) / (P + R) — harmonic mean, metrik utama' },
+            { title: 'Interpretasi Skor', text: 'Skor mendekati 1.0 = ringkasan sangat mirip dengan referensi. Skor di atas 0.3-0.4 umumnya sudah cukup baik untuk summarization bahasa Indonesia.' },
+        ],
+    },
+    'Skor Per Dokumen': {
+        icon: 'file-text',
+        color: 'bg-teal-100 text-teal-700',
+        sections: [
+            { title: 'Per-document Scores', text: 'Menampilkan skor ROUGE untuk setiap dokumen secara individual, bukan rata-rata. Berguna untuk melihat apakah kualitas ringkasan konsisten atau bervariasi antar dokumen.' },
+            { title: 'Kenapa penting?', text: 'Skor agregat bisa menyembunyikan variasi. Misalnya, rata-rata F1=0.4 bisa berarti semua dokumen ≈0.4 (konsisten) atau campuran 0.1 dan 0.7 (inkonsisten).' },
+        ],
+    },
+    'Interpretasi Metrik ROUGE': {
+        icon: 'book-open',
+        color: 'bg-yellow-100 text-yellow-700',
+        sections: [
+            { title: 'Cara membaca hasil', text: 'Bandingkan skor F1 antara Extractive dan Abstractive. Metode dengan F1 lebih tinggi = menghasilkan ringkasan yang lebih mirip dengan referensi.' },
+            { title: 'Limitasi ROUGE', text: 'ROUGE hanya mengukur overlap kata/frasa, bukan kualitas semantik. Ringkasan yang bagus secara makna tapi menggunakan kata berbeda bisa mendapat skor rendah.' },
+        ],
+    },
+};
+
+function showExplanation(title) {
+    const data = EXPLANATIONS[title];
+    if (!data) return;
+    const modal = document.getElementById('explanation-modal');
+    const iconEl = document.getElementById('modal-icon');
+    const titleEl = document.getElementById('modal-title');
+    const bodyEl = document.getElementById('modal-body');
+
+    iconEl.className = `w-9 h-9 rounded-xl ${data.color} flex items-center justify-center`;
+    iconEl.innerHTML = `<i data-lucide="${data.icon}" class="w-5 h-5"></i>`;
+    titleEl.textContent = title;
+
+    let html = '<div class="space-y-4">';
+    data.sections.forEach(s => {
+        html += `<div>
+            <h4 class="text-sm font-semibold mb-1.5">${escapeHtml(s.title)}</h4>
+            <p class="text-sm text-dark-600 leading-relaxed whitespace-pre-line">${escapeHtml(s.text)}</p>
+        </div>`;
+    });
+    html += '</div>';
+    bodyEl.innerHTML = html;
+
+    modal.classList.add('open');
+    lucide.createIcons();
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('explanation-modal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
 // =====================================================================
 // STATE
@@ -834,6 +1090,10 @@ function skipStep(step) {
 // SHARED HELPER: Accordion step builder
 // =====================================================================
 function buildStepAccordion(num, icon, title, desc, content, openByDefault) {
+    const hasExplanation = EXPLANATIONS[title] ? true : false;
+    const infoBtn = hasExplanation
+        ? `<span class="info-btn" onclick="event.stopPropagation(); showExplanation('${title.replace(/'/g, "\\'")}')" title="Penjelasan detail">?</span>`
+        : '';
     return `
     <div class="border border-dark-200 rounded-lg overflow-hidden">
         <button onclick="toggleAcc(this)" class="w-full flex items-center justify-between px-4 py-3 hover:bg-dark-50 transition-colors text-left">
@@ -843,7 +1103,10 @@ function buildStepAccordion(num, icon, title, desc, content, openByDefault) {
                 <span class="text-sm font-medium">${title}</span>
                 ${desc ? `<span class="text-xs text-dark-400 hidden sm:inline">${desc}</span>` : ''}
             </div>
-            <i data-lucide="chevron-down" class="w-4 h-4 text-dark-400 transition-transform"></i>
+            <div class="flex items-center gap-2">
+                ${infoBtn}
+                <i data-lucide="chevron-down" class="w-4 h-4 text-dark-400 transition-transform"></i>
+            </div>
         </button>
         <div class="acc-content ${openByDefault ? 'open' : ''}">
             <div class="px-4 pb-4">${content}</div>
