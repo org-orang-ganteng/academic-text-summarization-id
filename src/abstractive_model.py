@@ -429,10 +429,15 @@ class AbstractiveSummarizer:
 
         logger.info("No checkpoint found. Starting fine-tuning...")
 
-        if not all([train_texts, train_summaries, val_texts, val_summaries]):
+        if any(v is None for v in [train_texts, train_summaries, val_texts, val_summaries]):
             raise ValueError(
                 "Training data must be provided when no checkpoint exists. "
                 "Pass train_texts, train_summaries, val_texts, val_summaries."
+            )
+        if not train_texts or not train_summaries:
+            raise ValueError(
+                "Training data is empty. Provide a dataset with enough rows "
+                "to split into train/validation/test sets."
             )
 
         self.fine_tune(train_texts, train_summaries, val_texts, val_summaries)

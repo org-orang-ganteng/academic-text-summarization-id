@@ -208,6 +208,14 @@ class DataLoader:
         train_end = int(n * self.train_ratio)
         val_end = train_end + int(n * self.val_ratio)
 
+        # Ensure each split has at least 1 sample when dataset is small
+        if n >= 3:
+            # Need at least 1 for val and 1 for test
+            if train_end > n - 2:
+                train_end = n - 2
+            if val_end <= train_end:
+                val_end = train_end + 1
+
         train_df = df.iloc[:train_end].reset_index(drop=True)
         val_df = df.iloc[train_end:val_end].reset_index(drop=True)
         test_df = df.iloc[val_end:].reset_index(drop=True)
