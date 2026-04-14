@@ -66,13 +66,14 @@
                     <div class="w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center"><i data-lucide="file-text" class="w-6 h-6"></i></div>
                     <div>
                         <h1 class="text-lg font-bold tracking-tight">NLP Text Summarization Pipeline</h1>
-                        <p class="text-dark-400 text-xs">Perbandingan Extractive (TextRank) vs Abstractive (mT5) — Dokumen Akademik Bahasa Indonesia</p>
+                        <p class="text-dark-400 text-xs" data-i18n="header.subtitle">Perbandingan Extractive (TextRank) vs Abstractive (mT5) — Dokumen Akademik Bahasa Indonesia</p>
                     </div>
                 </div>
                 <nav class="hidden md:flex items-center gap-2">
                     <a href="#overview" class="px-3 py-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 text-xs transition-colors">Overview</a>
                     <a href="#input-section" class="px-3 py-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 text-xs transition-colors">Input</a>
-                    <a href="#results-section" class="px-3 py-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 text-xs transition-colors">Hasil</a>
+                    <a href="#results-section" class="px-3 py-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 text-xs transition-colors" data-i18n="nav.results">Hasil</a>
+                    <button onclick="switchLang()" class="ml-2 px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium transition-colors flex items-center gap-1.5"><i data-lucide="globe" class="w-3.5 h-3.5"></i> <span id="lang-label">EN</span></button>
                 </nav>
             </div>
         </div>
@@ -81,15 +82,15 @@
         <!-- OVERVIEW -->
         <section id="overview" class="mb-12">
             <div class="text-center mb-8">
-                <h2 class="text-2xl font-bold mb-2">Arsitektur Pipeline Summarization</h2>
-                <p class="text-dark-500 text-sm max-w-2xl mx-auto">Sistem ini membandingkan dua pendekatan summarization teks: <strong>Extractive</strong> (memilih kalimat penting) vs <strong>Abstractive</strong> (menghasilkan ringkasan baru dengan AI).</p>
+                <h2 class="text-2xl font-bold mb-2" data-i18n="overview.title">Arsitektur Pipeline Summarization</h2>
+                <p class="text-dark-500 text-sm max-w-2xl mx-auto" data-i18n-html="overview.desc">Sistem ini membandingkan dua pendekatan summarization teks: <strong>Extractive</strong> (memilih kalimat penting) vs <strong>Abstractive</strong> (menghasilkan ringkasan baru dengan AI).</p>
             </div>
             <!-- Visual Flow -->
             <div class="bg-dark-50 border border-dark-200 rounded-2xl p-8 mb-8">
                 <div class="flex flex-col lg:flex-row items-center justify-center gap-4">
-                    <div class="flow-node min-w-[140px]"><i data-lucide="file-input" class="w-6 h-6 mx-auto mb-2 text-dark-500"></i><p class="text-sm font-semibold">Input Dokumen</p><p class="text-[10px] text-dark-400 mt-1">CSV / PDF / Teks Manual</p></div>
+                    <div class="flow-node min-w-[140px]"><i data-lucide="file-input" class="w-6 h-6 mx-auto mb-2 text-dark-500"></i><p class="text-sm font-semibold" data-i18n="flow.input">Input Dokumen</p><p class="text-[10px] text-dark-400 mt-1" data-i18n="flow.input.sub">CSV / PDF / Teks Manual</p></div>
                     <div class="text-dark-400"><i data-lucide="arrow-right" class="w-5 h-5 hidden lg:block"></i><i data-lucide="arrow-down" class="w-5 h-5 lg:hidden"></i></div>
-                    <div class="flow-node min-w-[140px] border-purple-300 bg-purple-50"><i data-lucide="settings-2" class="w-6 h-6 mx-auto mb-2 text-purple-600"></i><p class="text-sm font-semibold text-purple-900">Preprocessing</p><p class="text-[10px] text-purple-600 mt-1">6 tahap pembersihan</p></div>
+                    <div class="flow-node min-w-[140px] border-purple-300 bg-purple-50"><i data-lucide="settings-2" class="w-6 h-6 mx-auto mb-2 text-purple-600"></i><p class="text-sm font-semibold text-purple-900">Preprocessing</p><p class="text-[10px] text-purple-600 mt-1" data-i18n="flow.preprocess.sub">6 tahap pembersihan</p></div>
                     <div class="text-dark-400"><i data-lucide="arrow-right" class="w-5 h-5 hidden lg:block"></i><i data-lucide="arrow-down" class="w-5 h-5 lg:hidden"></i></div>
                     <div class="flex flex-col gap-4 items-center">
                         <div class="flow-node min-w-[160px] border-emerald-300 bg-emerald-50"><i data-lucide="list-ordered" class="w-6 h-6 mx-auto mb-2 text-emerald-600"></i><p class="text-sm font-semibold text-emerald-900">Extractive</p><p class="text-[10px] text-emerald-600 mt-1">TF-IDF + TextRank + PageRank</p></div>
@@ -97,34 +98,34 @@
                         <div class="flow-node min-w-[160px] border-blue-300 bg-blue-50"><i data-lucide="brain" class="w-6 h-6 mx-auto mb-2 text-blue-600"></i><p class="text-sm font-semibold text-blue-900">Abstractive</p><p class="text-[10px] text-blue-600 mt-1">mT5 Transformer (Seq2Seq)</p></div>
                     </div>
                     <div class="text-dark-400"><i data-lucide="arrow-right" class="w-5 h-5 hidden lg:block"></i><i data-lucide="arrow-down" class="w-5 h-5 lg:hidden"></i></div>
-                    <div class="flow-node min-w-[140px] border-rose-300 bg-rose-50"><i data-lucide="bar-chart-2" class="w-6 h-6 mx-auto mb-2 text-rose-600"></i><p class="text-sm font-semibold text-rose-900">Evaluasi ROUGE</p><p class="text-[10px] text-rose-600 mt-1">ROUGE-1, 2, L</p></div>
+                    <div class="flow-node min-w-[140px] border-rose-300 bg-rose-50"><i data-lucide="bar-chart-2" class="w-6 h-6 mx-auto mb-2 text-rose-600"></i><p class="text-sm font-semibold text-rose-900" data-i18n="flow.eval">Evaluasi ROUGE</p><p class="text-[10px] text-rose-600 mt-1">ROUGE-1, 2, L</p></div>
                     <div class="text-dark-400"><i data-lucide="arrow-right" class="w-5 h-5 hidden lg:block"></i><i data-lucide="arrow-down" class="w-5 h-5 lg:hidden"></i></div>
-                    <div class="flow-node min-w-[140px] border-dark-900 bg-dark-900 text-white"><i data-lucide="trophy" class="w-6 h-6 mx-auto mb-2 text-yellow-400"></i><p class="text-sm font-semibold">Perbandingan</p><p class="text-[10px] text-white/60 mt-1">Metode Terbaik</p></div>
+                    <div class="flow-node min-w-[140px] border-dark-900 bg-dark-900 text-white"><i data-lucide="trophy" class="w-6 h-6 mx-auto mb-2 text-yellow-400"></i><p class="text-sm font-semibold" data-i18n="flow.compare">Perbandingan</p><p class="text-[10px] text-white/60 mt-1" data-i18n="flow.compare.sub">Metode Terbaik</p></div>
                 </div>
             </div>
             <!-- Method Cards -->
             <div class="grid md:grid-cols-2 gap-6 mb-8">
                 <div class="border border-emerald-200 bg-emerald-50/50 rounded-xl p-6">
-                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="list-ordered" class="w-5 h-5"></i></div><div><h3 class="font-bold text-emerald-900">Extractive Summarization</h3><p class="text-xs text-emerald-600">Memilih kalimat asli terpenting</p></div></div>
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="list-ordered" class="w-5 h-5"></i></div><div><h3 class="font-bold text-emerald-900">Extractive Summarization</h3><p class="text-xs text-emerald-600" data-i18n="ext.card.desc">Memilih kalimat asli terpenting</p></div></div>
                     <div class="space-y-3 text-sm text-emerald-900">
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span><p><strong>Tokenisasi kalimat</strong> — Pecah dokumen jadi kalimat</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span><p><strong>TF-IDF</strong> — Ubah kalimat jadi vektor angka</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span><p><strong>Cosine Similarity</strong> — Hitung kemiripan antar kalimat</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">4</span><p><strong>PageRank</strong> — Ranking kalimat terpenting</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">5</span><p><strong>Seleksi</strong> — Pilih N kalimat teratas</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span><p data-i18n-html="ext.s1"><strong>Tokenisasi kalimat</strong> — Pecah dokumen jadi kalimat</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span><p data-i18n-html="ext.s2"><strong>TF-IDF</strong> — Ubah kalimat jadi vektor angka</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span><p data-i18n-html="ext.s3"><strong>Cosine Similarity</strong> — Hitung kemiripan antar kalimat</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">4</span><p data-i18n-html="ext.s4"><strong>PageRank</strong> — Ranking kalimat terpenting</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-emerald-200 text-emerald-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">5</span><p data-i18n-html="ext.s5"><strong>Seleksi</strong> — Pilih N kalimat teratas</p></div>
                     </div>
-                    <div class="mt-4 bg-emerald-100 rounded-lg p-3 text-xs text-emerald-800"><strong>Analogi:</strong> Seperti highlighter — membaca buku lalu menandai kalimat paling penting.</div>
+                    <div class="mt-4 bg-emerald-100 rounded-lg p-3 text-xs text-emerald-800" data-i18n-html="ext.analogy"><strong>Analogi:</strong> Seperti highlighter — membaca buku lalu menandai kalimat paling penting.</div>
                 </div>
                 <div class="border border-blue-200 bg-blue-50/50 rounded-xl p-6">
-                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="brain" class="w-5 h-5"></i></div><div><h3 class="font-bold text-blue-900">Abstractive Summarization</h3><p class="text-xs text-blue-600">Menghasilkan kalimat ringkasan baru</p></div></div>
+                    <div class="flex items-center gap-3 mb-4"><div class="w-10 h-10 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="brain" class="w-5 h-5"></i></div><div><h3 class="font-bold text-blue-900">Abstractive Summarization</h3><p class="text-xs text-blue-600" data-i18n="abs.card.desc">Menghasilkan kalimat ringkasan baru</p></div></div>
                     <div class="space-y-3 text-sm text-blue-900">
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span><p><strong>Tokenisasi</strong> — Ubah teks ke subword tokens</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span><p><strong>Encoder</strong> — Model memahami konteks input</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span><p><strong>Decoder</strong> — Generate ringkasan token per token</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">4</span><p><strong>Beam Search</strong> — Pilih output terbaik</p></div>
-                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">5</span><p><strong>Decode</strong> — Ubah tokens kembali jadi teks</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">1</span><p data-i18n-html="abs.s1"><strong>Tokenisasi</strong> — Ubah teks ke subword tokens</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">2</span><p data-i18n-html="abs.s2"><strong>Encoder</strong> — Model memahami konteks input</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">3</span><p data-i18n-html="abs.s3"><strong>Decoder</strong> — Generate ringkasan token per token</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">4</span><p data-i18n-html="abs.s4"><strong>Beam Search</strong> — Pilih output terbaik</p></div>
+                        <div class="flex items-start gap-2"><span class="w-5 h-5 rounded-full bg-blue-200 text-blue-800 flex items-center justify-center text-[10px] font-bold flex-shrink-0 mt-0.5">5</span><p data-i18n-html="abs.s5"><strong>Decode</strong> — Ubah tokens kembali jadi teks</p></div>
                     </div>
-                    <div class="mt-4 bg-blue-100 rounded-lg p-3 text-xs text-blue-800"><strong>Analogi:</strong> Seperti mahasiswa yang membaca materi lalu menulis ringkasan dengan kata-katanya sendiri.</div>
+                    <div class="mt-4 bg-blue-100 rounded-lg p-3 text-xs text-blue-800" data-i18n-html="abs.analogy"><strong>Analogi:</strong> Seperti mahasiswa yang membaca materi lalu menulis ringkasan dengan kata-katanya sendiri.</div>
                 </div>
             </div>
         </section>
@@ -135,12 +136,12 @@
                 <div class="w-10 h-px bg-dark-300"></div>
                 <div class="step flex items-center gap-2" data-step="2"><div class="step-icon w-9 h-9 rounded-full border-2 border-dark-300 text-dark-400 flex items-center justify-center font-semibold text-sm">2</div><span class="text-sm font-medium text-dark-400 hidden sm:inline">Summarization</span></div>
                 <div class="w-10 h-px bg-dark-300"></div>
-                <div class="step flex items-center gap-2" data-step="3"><div class="step-icon w-9 h-9 rounded-full border-2 border-dark-300 text-dark-400 flex items-center justify-center font-semibold text-sm">3</div><span class="text-sm font-medium text-dark-400 hidden sm:inline">Evaluasi</span></div>
+                <div class="step flex items-center gap-2" data-step="3"><div class="step-icon w-9 h-9 rounded-full border-2 border-dark-300 text-dark-400 flex items-center justify-center font-semibold text-sm">3</div><span class="text-sm font-medium text-dark-400 hidden sm:inline" data-i18n="step.eval">Evaluasi</span></div>
             </div>
         </div>
         <!-- INPUT -->
         <section id="input-section" class="mb-8">
-            <div class="text-center mb-6"><h2 class="text-xl font-bold">Masukkan Data</h2><p class="text-dark-500 text-sm mt-1">Upload dataset CSV, upload PDF jurnal, atau input teks manual untuk memulai</p></div>
+            <div class="text-center mb-6"><h2 class="text-xl font-bold" data-i18n="input.title">Masukkan Data</h2><p class="text-dark-500 text-sm mt-1" data-i18n="input.desc">Upload dataset CSV, upload PDF jurnal, atau input teks manual untuk memulai</p></div>
             <div class="flex justify-center mb-6"><div class="inline-flex bg-dark-100 rounded-full p-1">
                 <button onclick="switchTab('upload')" id="tab-upload" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-dark-900 text-white flex items-center gap-2 transition-all"><i data-lucide="upload" class="w-4 h-4"></i> Upload CSV</button>
                 <button onclick="switchTab('pdf')" id="tab-pdf" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-dark-600 flex items-center gap-2 transition-all"><i data-lucide="file-text" class="w-4 h-4"></i> Upload PDF</button>
@@ -157,6 +158,7 @@
                 <div class="mt-4 flex items-center justify-center gap-4">
                     <button onclick="loadDefaultDataset()" id="btn-default" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="database" class="w-3.5 h-3.5"></i> Atau gunakan dataset contoh (dataset.csv)</button>
                     <a href="/api/download-dataset" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i> Download dataset.csv</a>
+                    <button onclick="showDatasetDetail()" id="btn-detail" class="hidden text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="table" class="w-3.5 h-3.5"></i> Tampilkan Detail Dataset</button>
                 </div>
                 <div id="file-info" class="hidden mt-4 p-4 border border-dark-200 rounded-lg fade-in">
                     <div class="flex items-center justify-between"><div class="flex items-center gap-3"><i data-lucide="file-spreadsheet" class="w-5 h-5 text-dark-600"></i><div><p class="font-medium text-sm" id="file-name">-</p><p class="text-xs text-dark-400" id="file-stats">-</p></div></div><button onclick="clearFile()" class="text-dark-400 hover:text-dark-900"><i data-lucide="x" class="w-4 h-4"></i></button></div>
@@ -197,12 +199,12 @@
                     <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> Ringkasan dari LLM <span class="text-dark-400 font-normal">(opsional, untuk perbandingan)</span></label><textarea id="manual-llm-summary" rows="4" placeholder="Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea><p class="text-xs text-dark-400 mt-1">Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.</p></div>
                 </div>
             </div>
-            <div class="mt-6 flex justify-center"><button onclick="startPipeline()" id="btn-start" class="bg-dark-900 text-white px-10 py-3.5 rounded-xl font-semibold text-sm hover:bg-dark-800 transition-colors flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-dark-900/20"><i data-lucide="play" class="w-5 h-5"></i> Mulai Proses Summarization</button></div>
+            <div class="mt-6 flex justify-center"><button onclick="startPipeline()" id="btn-start" class="bg-dark-900 text-white px-10 py-3.5 rounded-xl font-semibold text-sm hover:bg-dark-800 transition-colors flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-dark-900/20"><i data-lucide="play" class="w-5 h-5"></i> <span data-i18n="btn.start">Mulai Proses Summarization</span></button></div>
         </section>
         <!-- RESULTS -->
         <section id="results-section" class="hidden mt-10 space-y-8 fade-in">
             <div id="result-preprocessing" class="border border-dark-200 rounded-2xl overflow-hidden shadow-sm">
-                <div class="bg-gradient-to-r from-purple-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center text-sm font-bold">1</div><div><h2 class="font-bold text-base">Preprocessing</h2><p class="text-xs text-dark-400">Pembersihan dan persiapan teks</p></div></div><div id="status-preprocessing"><div class="spinner"></div></div></div>
+                <div class="bg-gradient-to-r from-purple-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center text-sm font-bold">1</div><div><h2 class="font-bold text-base">Preprocessing</h2><p class="text-xs text-dark-400" data-i18n="result.preprocess.desc">Pembersihan dan persiapan teks</p></div></div><div id="status-preprocessing"><div class="spinner"></div></div></div>
                 <div id="content-preprocessing" class="p-6"><div class="space-y-2"><div class="skeleton w-full h-4"></div><div class="skeleton w-3/4 h-4"></div></div></div>
             </div>
             <div id="result-summarization" class="border border-dark-200 rounded-2xl overflow-hidden opacity-40 shadow-sm">
@@ -210,13 +212,29 @@
                 <div id="content-summarization" class="p-6"><div class="space-y-2"><div class="skeleton w-full h-4"></div><div class="skeleton w-2/3 h-4"></div></div></div>
             </div>
             <div id="result-evaluation" class="border border-dark-200 rounded-2xl overflow-hidden opacity-40 shadow-sm">
-                <div class="bg-gradient-to-r from-rose-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-dark-300 text-dark-600 flex items-center justify-center text-sm font-bold">3</div><div><h2 class="font-bold text-base text-dark-400">Evaluasi ROUGE</h2><p class="text-xs text-dark-400">Perbandingan kualitas ringkasan</p></div></div><div id="status-evaluation"></div></div>
+                <div class="bg-gradient-to-r from-rose-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-dark-300 text-dark-600 flex items-center justify-center text-sm font-bold">3</div><div><h2 class="font-bold text-base text-dark-400" data-i18n="result.eval.title">Evaluasi ROUGE</h2><p class="text-xs text-dark-400" data-i18n="result.eval.desc">Perbandingan kualitas ringkasan</p></div></div><div id="status-evaluation"></div></div>
                 <div id="content-evaluation" class="p-6"><div class="space-y-2"><div class="skeleton w-full h-4"></div><div class="skeleton w-1/2 h-4"></div></div></div>
             </div>
             <div id="result-comparison" class="hidden"></div>
         </section>
     </main>
     <footer class="border-t border-dark-200 mt-16"><div class="max-w-7xl mx-auto px-6 py-4 text-center text-dark-400 text-xs">NLP Summarization Pipeline &mdash; Built by <strong>Ainur Ridha Surya (D082251037)</strong>, <strong>Nirwana Samrin (D082251003)</strong>, <strong>Andi Agung Dwi Arya B (D082251057)</strong></div></footer>
+    <!-- Dataset Detail Modal -->
+    <div id="dataset-modal" class="modal-overlay" onclick="if(event.target===this)closeDatasetModal()">
+        <div class="modal-box" style="max-width:95vw;width:1200px;">
+            <div class="sticky top-0 bg-white border-b border-dark-200 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
+                <div class="flex items-center gap-3">
+                    <div class="w-9 h-9 rounded-xl bg-dark-900 text-white flex items-center justify-center"><i data-lucide="database" class="w-5 h-5"></i></div>
+                    <div><h3 class="font-semibold text-base">Detail Dataset</h3><p class="text-xs text-dark-400" id="dataset-modal-count"></p></div>
+                </div>
+                <div class="flex items-center gap-3">
+                    <input type="text" id="dataset-search" placeholder="Cari dokumen..." class="border border-dark-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-dark-900 w-48" oninput="filterDatasetTable(this.value)">
+                    <button onclick="closeDatasetModal()" class="w-8 h-8 rounded-lg hover:bg-dark-100 flex items-center justify-center"><i data-lucide="x" class="w-4 h-4"></i></button>
+                </div>
+            </div>
+            <div id="dataset-modal-body" class="p-4 overflow-x-auto"></div>
+        </div>
+    </div>
     <!-- Modal -->
     <div id="explanation-modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
         <div class="modal-box">
@@ -226,6 +244,139 @@
     </div>
     <div id="toast" class="fixed bottom-6 right-6 bg-dark-900 text-white px-5 py-3 rounded-lg text-sm shadow-lg hidden flex items-center gap-2 z-50"><i data-lucide="alert-circle" class="w-4 h-4"></i><span id="toast-msg">-</span></div>
     <script>
+    // --- LANGUAGE SYSTEM ---
+    let currentLang = 'id';
+    const LANG = {
+      id: {
+        'header.subtitle':'Perbandingan Extractive (TextRank) vs Abstractive (mT5) — Dokumen Akademik Bahasa Indonesia',
+        'nav.results':'Hasil','overview.title':'Arsitektur Pipeline Summarization',
+        'overview.desc':'Sistem ini membandingkan dua pendekatan summarization teks: <strong>Extractive</strong> (memilih kalimat penting) vs <strong>Abstractive</strong> (menghasilkan ringkasan baru dengan AI).',
+        'input.title':'Masukkan Data','input.desc':'Upload dataset CSV, upload PDF jurnal, atau input teks manual untuk memulai',
+        'step.eval':'Evaluasi','result.preprocess.desc':'Pembersihan dan persiapan teks',
+        'result.eval.title':'Evaluasi ROUGE','result.eval.desc':'Perbandingan kualitas ringkasan',
+        'btn.start':'Mulai Proses Summarization',
+        'stat.sentences':'Kalimat','stat.tokens':'Token Awal','stat.after':'Setelah Stemming','stat.reduction':'Reduksi',
+        'label.original':'Teks Asli','doc':'Dokumen','sentences_found':'kalimat ditemukan:','tokens':'token:',
+        'what.happened':'Apa Yang Terjadi?','btn.show_code':'Lihat Source Code','btn.hide_code':'Sembunyikan Code',
+        'btn.show_all':'Tampilkan semua','btn.hide':'Sembunyikan',
+        'step.cf.desc':'Semua huruf diubah ke lowercase','step.cl.desc':'Karakter non-alfabet dihapus',
+        'step.st':'Tokenisasi Kalimat','step.st.desc':'Teks dipecah per kalimat',
+        'step.wt':'Tokenisasi Kata','step.wt.desc':'Setiap kata dipisahkan',
+        'step.sw.desc':'Kata umum dihapus','step.sm.desc':'Kata diubah ke bentuk dasar',
+        'ext.pipeline':'Extractive Pipeline','abs.pipeline':'Abstractive Pipeline','llm.pipeline':'LLM (Input Manual)',
+        'result.ext':'Hasil Extractive','result.abs':'Hasil Abstractive','result.llm':'Hasil LLM',
+        'compare':'Perbandingan','selected_from':'kalimat terpilih dari teks asli',
+        'generated_by':'Dihasilkan oleh model mT5 (Seq2Seq Transformer)',
+        'llm.note':'Ringkasan dari LLM (input manual, tidak dievaluasi ROUGE)',
+        'chars':'karakter','label.ref':'Ringkasan Referensi',
+        'rouge.scores':'Skor ROUGE','rouge.howto':'Cara Membaca Skor:',
+        'rouge.p':'Berapa % kata di ringkasan yang muncul di referensi',
+        'rouge.r':'Berapa % kata di referensi yang ditangkap oleh ringkasan',
+        'rouge.f':'Rata-rata harmonik precision & recall (skor utama)',
+        'eval.noref':'Evaluasi ROUGE membutuhkan ringkasan referensi.',
+        'eval.noref2':'Upload dataset dengan kolom summary, atau masukkan referensi di input manual.',
+        'conclusion':'Kesimpulan Perbandingan','best_method':'Metode Terbaik','analysis':'Analisis:',
+        'analysis.highest':'menghasilkan skor rata-rata F1 ROUGE tertinggi sebesar',
+        'analysis.ext':'Memilih kalimat asli yang penting menghasilkan ringkasan yang lebih dekat dengan referensi.',
+        'analysis.abs':'Model mT5 berhasil menghasilkan ringkasan yang lebih representatif.',
+        'analysis.method':'Metode','analysis.compare':'Perbandingan:',
+        'llm.comp':'Ringkasan LLM (Perbandingan)',
+        'llm.noeval':'Ringkasan ini dari input manual LLM dan tidak dievaluasi menggunakan ROUGE.',
+        'status.done':'Selesai','status.noref':'Tidak ada referensi',
+        'dataset.detail':'Detail Dataset','dataset.search':'Cari dokumen...',
+        'dataset.col.text':'Teks Dokumen','dataset.col.sum':'Ringkasan (Referensi)',
+        'dataset.noresult':'Tidak ada hasil ditemukan','dataset.full':'Teks Lengkap',
+        'dataset.refsum':'Ringkasan Referensi','dataset.tlen':'Panjang teks:','dataset.slen':'Panjang ringkasan:',
+        'flow.input':'Input Dokumen','flow.input.sub':'CSV / PDF / Teks Manual',
+        'flow.preprocess.sub':'6 tahap pembersihan','flow.eval':'Evaluasi ROUGE',
+        'flow.compare':'Perbandingan','flow.compare.sub':'Metode Terbaik',
+        'ext.card.desc':'Memilih kalimat asli terpenting',
+        'ext.s1':'<strong>Tokenisasi kalimat</strong> — Pecah dokumen jadi kalimat',
+        'ext.s2':'<strong>TF-IDF</strong> — Ubah kalimat jadi vektor angka',
+        'ext.s3':'<strong>Cosine Similarity</strong> — Hitung kemiripan antar kalimat',
+        'ext.s4':'<strong>PageRank</strong> — Ranking kalimat terpenting',
+        'ext.s5':'<strong>Seleksi</strong> — Pilih N kalimat teratas',
+        'ext.analogy':'<strong>Analogi:</strong> Seperti highlighter — membaca buku lalu menandai kalimat paling penting.',
+        'abs.card.desc':'Menghasilkan kalimat ringkasan baru',
+        'abs.s1':'<strong>Tokenisasi</strong> — Ubah teks ke subword tokens',
+        'abs.s2':'<strong>Encoder</strong> — Model memahami konteks input',
+        'abs.s3':'<strong>Decoder</strong> — Generate ringkasan token per token',
+        'abs.s4':'<strong>Beam Search</strong> — Pilih output terbaik',
+        'abs.s5':'<strong>Decode</strong> — Ubah tokens kembali jadi teks',
+        'abs.analogy':'<strong>Analogi:</strong> Seperti mahasiswa yang membaca materi lalu menulis ringkasan dengan kata-katanya sendiri.',
+      },
+      en: {
+        'header.subtitle':'Comparison of Extractive (TextRank) vs Abstractive (mT5) — Indonesian Academic Documents',
+        'nav.results':'Results','overview.title':'Summarization Pipeline Architecture',
+        'overview.desc':'This system compares two text summarization approaches: <strong>Extractive</strong> (selecting important sentences) vs <strong>Abstractive</strong> (generating new summaries with AI).',
+        'input.title':'Enter Data','input.desc':'Upload a CSV dataset, upload a journal PDF, or enter text manually to begin',
+        'step.eval':'Evaluation','result.preprocess.desc':'Text cleaning and preparation',
+        'result.eval.title':'ROUGE Evaluation','result.eval.desc':'Summary quality comparison',
+        'btn.start':'Start Summarization',
+        'stat.sentences':'Sentences','stat.tokens':'Initial Tokens','stat.after':'After Stemming','stat.reduction':'Reduction',
+        'label.original':'Original Text','doc':'Document','sentences_found':'sentences found:','tokens':'tokens:',
+        'what.happened':'What Happened?','btn.show_code':'View Source Code','btn.hide_code':'Hide Code',
+        'btn.show_all':'Show all','btn.hide':'Hide',
+        'step.cf.desc':'All letters converted to lowercase','step.cl.desc':'Non-alphabetic characters removed',
+        'step.st':'Sentence Tokenization','step.st.desc':'Text split into sentences',
+        'step.wt':'Word Tokenization','step.wt.desc':'Each word separated',
+        'step.sw.desc':'Common words removed','step.sm.desc':'Words converted to base form',
+        'ext.pipeline':'Extractive Pipeline','abs.pipeline':'Abstractive Pipeline','llm.pipeline':'LLM (Manual Input)',
+        'result.ext':'Extractive Result','result.abs':'Abstractive Result','result.llm':'LLM Result',
+        'compare':'Comparison','selected_from':'sentences selected from original text',
+        'generated_by':'Generated by mT5 model (Seq2Seq Transformer)',
+        'llm.note':'Summary from LLM (manual input, not evaluated with ROUGE)',
+        'chars':'characters','label.ref':'Reference Summary',
+        'rouge.scores':'ROUGE Scores','rouge.howto':'How to Read Scores:',
+        'rouge.p':'% of summary words appearing in the reference',
+        'rouge.r':'% of reference words captured by the summary',
+        'rouge.f':'Harmonic mean of precision & recall (main score)',
+        'eval.noref':'ROUGE evaluation requires a reference summary.',
+        'eval.noref2':'Upload a dataset with a summary column, or enter a reference in manual input.',
+        'conclusion':'Comparison Conclusion','best_method':'Best Method','analysis':'Analysis:',
+        'analysis.highest':'achieved the highest average ROUGE F1 score of',
+        'analysis.ext':'Selecting important original sentences produced summaries closer to the reference.',
+        'analysis.abs':'The mT5 model successfully generated more representative summaries.',
+        'analysis.method':'Method','analysis.compare':'Comparison:',
+        'llm.comp':'LLM Summary (Comparison)',
+        'llm.noeval':'This summary is from manual LLM input and is not evaluated using ROUGE.',
+        'status.done':'Done','status.noref':'No reference',
+        'dataset.detail':'Dataset Detail','dataset.search':'Search documents...',
+        'dataset.col.text':'Document Text','dataset.col.sum':'Summary (Reference)',
+        'dataset.noresult':'No results found','dataset.full':'Full Text',
+        'dataset.refsum':'Reference Summary','dataset.tlen':'Text length:','dataset.slen':'Summary length:',
+        'flow.input':'Input Document','flow.input.sub':'CSV / PDF / Manual Text',
+        'flow.preprocess.sub':'6 cleaning stages','flow.eval':'ROUGE Evaluation',
+        'flow.compare':'Comparison','flow.compare.sub':'Best Method',
+        'ext.card.desc':'Selects the most important original sentences',
+        'ext.s1':'<strong>Sentence Tokenization</strong> — Split document into sentences',
+        'ext.s2':'<strong>TF-IDF</strong> — Convert sentences to numeric vectors',
+        'ext.s3':'<strong>Cosine Similarity</strong> — Compute inter-sentence similarity',
+        'ext.s4':'<strong>PageRank</strong> — Rank most important sentences',
+        'ext.s5':'<strong>Selection</strong> — Pick top N sentences',
+        'ext.analogy':'<strong>Analogy:</strong> Like a highlighter — reading a book and marking the most important sentences.',
+        'abs.card.desc':'Generates new summary sentences',
+        'abs.s1':'<strong>Tokenization</strong> — Convert text to subword tokens',
+        'abs.s2':'<strong>Encoder</strong> — Model understands input context',
+        'abs.s3':'<strong>Decoder</strong> — Generate summary token by token',
+        'abs.s4':'<strong>Beam Search</strong> — Select best output',
+        'abs.s5':'<strong>Decode</strong> — Convert tokens back to text',
+        'abs.analogy':'<strong>Analogy:</strong> Like a student reading material then writing a summary in their own words.',
+      }
+    };
+    function t(k) { return (LANG[currentLang]||{})[k] || (LANG.id||{})[k] || k; }
+    function switchLang() { currentLang = currentLang==='id'?'en':'id'; document.getElementById('lang-label').textContent = currentLang==='id'?'EN':'ID'; document.documentElement.lang = currentLang; applyLang(); }
+    function applyLang() {
+        document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+        document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+        if(typeof appState!=='undefined') {
+            if(appState.preprocessResult) renderPreprocessing(appState.preprocessResult);
+            if(appState.summarizeResult) renderSummarization(appState.summarizeResult);
+            if(appState.evaluateResult) renderEvaluation(appState.evaluateResult);
+        }
+        lucide.createIcons();
+    }
+
     const EXPLANATIONS = {
         'case_folding': { title: 'Case Folding', icon: 'type', desc: 'Mengubah semua huruf menjadi huruf kecil (lowercase).', detail: 'Tujuannya agar kata "Mahasiswa" dan "mahasiswa" dianggap sama saat diproses. Ini langkah pertama yang menstandarkan teks.', example: '"UNIVERSITAS Hasanuddin" → "universitas hasanuddin"' },
         'cleaning': { title: 'Cleaning', icon: 'eraser', desc: 'Menghapus karakter yang tidak relevan.', detail: 'Menghilangkan tanda baca, angka, URL, simbol khusus, dan karakter non-alfabet. Hanya huruf dan spasi yang dipertahankan.', example: '"NLP ver.2.0 (Natural!)" → "NLP ver Natural"' },
@@ -267,7 +418,7 @@
         const code = SOURCE_CODE[key];
         if (!code) return '';
         const id = 'code-' + key + '-' + Math.random().toString(36).substr(2, 5);
-        return '<button class="code-toggle" onclick="toggleCodeBlock(\'' + id + '\', this)"><i data-lucide="code-2" class="w-3 h-3"></i> Lihat Source Code</button>' +
+        return '<button class="code-toggle" onclick="toggleCodeBlock(\'' + id + '\', this)"><i data-lucide="code-2" class="w-3 h-3"></i> ' + t('btn.show_code') + '</button>' +
             '<div class="code-wrapper" id="' + id + '"><div class="code-block">' + highlightPython(code) + '</div></div>';
     }
 
@@ -275,7 +426,7 @@
         const info = EXPLANATIONS[key];
         if (!info) return '';
         return '<div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">' +
-            '<p class="text-xs font-bold text-amber-700 mb-1 flex items-center gap-1"><i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> Apa Yang Terjadi?</p>' +
+            '<p class="text-xs font-bold text-amber-700 mb-1 flex items-center gap-1"><i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> ' + t('what.happened') + '</p>' +
             '<p class="text-xs text-amber-800 leading-relaxed">' + info.detail + '</p>' +
             (info.example ? '<div class="mt-2 bg-white/60 rounded px-2 py-1.5 text-xs font-mono text-amber-900">' + info.example + '</div>' : '') +
             '</div>';
@@ -286,8 +437,8 @@
         el.classList.toggle('open');
         btn.classList.toggle('active');
         btn.innerHTML = el.classList.contains('open')
-            ? '<i data-lucide="code-2" class="w-3 h-3"></i> Sembunyikan Code'
-            : '<i data-lucide="code-2" class="w-3 h-3"></i> Lihat Source Code';
+            ? '<i data-lucide="code-2" class="w-3 h-3"></i> ' + t('btn.hide_code')
+            : '<i data-lucide="code-2" class="w-3 h-3"></i> ' + t('btn.show_code');
         lucide.createIcons();
     }
 
@@ -325,6 +476,7 @@
             appState.isDefaultDataset = false;
             showFileInfo(file.name, data);
             showToast('Dataset berhasil di-load: ' + data.num_documents + ' dokumen', 'success');
+            document.getElementById('btn-detail').classList.remove('hidden');
         }).catch(e => { setLoading('btn-start', false); showToast('Error upload: ' + e.message); });
     }
 
@@ -341,6 +493,7 @@
             appState.isDefaultDataset = true;
             showFileInfo('dataset.csv (default)', data);
             showToast('Dataset default berhasil di-load: ' + data.num_documents + ' dokumen', 'success');
+            document.getElementById('btn-detail').classList.remove('hidden');
         }).catch(e => { btn.textContent = 'Atau gunakan dataset contoh (dataset.csv)'; btn.disabled = false; showToast('Error: ' + e.message); });
     }
 
@@ -356,7 +509,7 @@
             document.getElementById('preview-table').innerHTML = html;
         }
     }
-    function clearFile() { document.getElementById('file-info').classList.add('hidden'); appState.file = null; appState.texts = []; appState.summaries = []; document.getElementById('file-input').value = ''; }
+    function clearFile() { document.getElementById('file-info').classList.add('hidden'); appState.file = null; appState.texts = []; appState.summaries = []; document.getElementById('file-input').value = ''; document.getElementById('btn-detail').classList.add('hidden'); }
 
     // --- PDF HANDLING ---
     function handlePdfDragLeave(e) { e.preventDefault(); document.getElementById('pdf-drop-zone').classList.remove('drag-active'); }
@@ -418,7 +571,62 @@
         lucide.createIcons();
     }
     function closeModal() { document.getElementById('explanation-modal').classList.remove('open'); }
-    document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+    // --- DATASET DETAIL MODAL ---
+    let _allDatasetRows = [];
+    function showDatasetDetail() {
+        const texts = appState.texts || [];
+        const summaries = appState.summaries || [];
+        if (texts.length === 0) { showToast('Tidak ada data untuk ditampilkan'); return; }
+        _allDatasetRows = texts.map((t, i) => ({ idx: i, text: t, summary: summaries[i] || '' }));
+        document.getElementById('dataset-modal-count').textContent = texts.length + ' dokumen';
+        document.getElementById('dataset-search').value = '';
+        renderDatasetTable(_allDatasetRows);
+        document.getElementById('dataset-modal').classList.add('open');
+        lucide.createIcons();
+    }
+    function renderDatasetTable(rows) {
+        let html = '<table class="w-full text-xs border-collapse"><thead><tr>' +
+            '<th class="border border-dark-200 bg-dark-50 px-3 py-2 text-left font-medium w-12">#</th>' +
+            '<th class="border border-dark-200 bg-dark-50 px-3 py-2 text-left font-medium" style="min-width:400px">' + t('dataset.col.text') + '</th>' +
+            '<th class="border border-dark-200 bg-dark-50 px-3 py-2 text-left font-medium" style="min-width:250px">' + t('dataset.col.sum') + '</th>' +
+            '</tr></thead><tbody>';
+        rows.forEach(r => {
+            const textShort = escapeHtml(String(r.text).substring(0, 300)) + (String(r.text).length > 300 ? '...' : '');
+            const sumShort = escapeHtml(String(r.summary).substring(0, 200)) + (String(r.summary).length > 200 ? '...' : '');
+            html += '<tr class="hover:bg-dark-50 cursor-pointer" onclick="showDocDetail(' + r.idx + ')">' +
+                '<td class="border border-dark-200 px-3 py-2 text-center font-mono text-dark-400">' + (r.idx + 1) + '</td>' +
+                '<td class="border border-dark-200 px-3 py-2 leading-relaxed">' + textShort + '</td>' +
+                '<td class="border border-dark-200 px-3 py-2 leading-relaxed text-dark-600">' + sumShort + '</td>' +
+                '</tr>';
+        });
+        html += '</tbody></table>';
+        if (rows.length === 0) html = '<div class="text-center py-8 text-dark-400">' + t('dataset.noresult') + '</div>';
+        document.getElementById('dataset-modal-body').innerHTML = html;
+    }
+    function filterDatasetTable(query) {
+        if (!query.trim()) { renderDatasetTable(_allDatasetRows); return; }
+        const q = query.toLowerCase();
+        const filtered = _allDatasetRows.filter(r => String(r.text).toLowerCase().includes(q) || String(r.summary).toLowerCase().includes(q) || String(r.idx + 1).includes(q));
+        renderDatasetTable(filtered);
+    }
+    function showDocDetail(idx) {
+        const text = appState.texts[idx] || '';
+        const summary = appState.summaries[idx] || '';
+        document.getElementById('modal-title').textContent = t('doc') + ' #' + (idx + 1);
+        document.getElementById('modal-icon').innerHTML = '<i data-lucide="file-text" class="w-5 h-5"></i>';
+        document.getElementById('modal-body').innerHTML =
+            '<div class="space-y-4">' +
+            '<div><p class="text-xs font-semibold text-dark-500 mb-1">' + t('dataset.full') + '</p><div class="bg-dark-50 border border-dark-200 rounded-lg px-4 py-3 text-sm leading-relaxed max-h-[40vh] overflow-y-auto">' + escapeHtml(text) + '</div></div>' +
+            '<div><p class="text-xs font-semibold text-dark-500 mb-1">' + t('dataset.refsum') + '</p><div class="bg-emerald-50 border border-emerald-200 rounded-lg px-4 py-3 text-sm leading-relaxed max-h-[30vh] overflow-y-auto">' + escapeHtml(summary) + '</div></div>' +
+            '<div class="flex gap-4 text-xs text-dark-400"><span>' + t('dataset.tlen') + ' ' + text.length + ' ' + t('chars') + '</span><span>' + t('dataset.slen') + ' ' + summary.length + ' ' + t('chars') + '</span></div>' +
+            '</div>';
+        document.getElementById('explanation-modal').classList.add('open');
+        lucide.createIcons();
+    }
+    function closeDatasetModal() { document.getElementById('dataset-modal').classList.remove('open'); }
+
+    document.addEventListener('keydown', e => { if(e.key==='Escape') { closeModal(); closeDatasetModal(); } });
 
     // --- STEPPER ---
     function updateStepper(activeStep) {
@@ -443,13 +651,13 @@
     function buildTextViewer(text, maxHeight = 200) {
         const id = 'tv-' + Math.random().toString(36).substr(2, 8);
         const needsExpand = text.length > 500;
-        return `<div class="text-viewer${needsExpand ? '' : ' expanded'}" id="${id}" style="max-height: ${needsExpand ? maxHeight + 'px' : 'none'}"><p class="text-sm leading-relaxed text-dark-700 whitespace-pre-wrap">${escapeHtml(text)}</p></div>${needsExpand ? `<div class="text-expand-btn" onclick="toggleTextViewer('${id}', this)"><i data-lucide="chevron-down" class="w-3 h-3"></i> Tampilkan semua</div>` : ''}`;
+        return `<div class="text-viewer${needsExpand ? '' : ' expanded'}" id="${id}" style="max-height: ${needsExpand ? maxHeight + 'px' : 'none'}"><p class="text-sm leading-relaxed text-dark-700 whitespace-pre-wrap">${escapeHtml(text)}</p></div>${needsExpand ? `<div class="text-expand-btn" onclick="toggleTextViewer('${id}', this)"><i data-lucide="chevron-down" class="w-3 h-3"></i> ${t('btn.show_all')}</div>` : ''}`;
     }
     function toggleTextViewer(id, btn) {
         const el = document.getElementById(id);
         el.classList.toggle('expanded');
-        if(el.classList.contains('expanded')) { el.style.maxHeight = 'none'; btn.innerHTML = '<i data-lucide="chevron-up" class="w-3 h-3"></i> Sembunyikan'; }
-        else { el.style.maxHeight = '200px'; btn.innerHTML = '<i data-lucide="chevron-down" class="w-3 h-3"></i> Tampilkan semua'; }
+        if(el.classList.contains('expanded')) { el.style.maxHeight = 'none'; btn.innerHTML = '<i data-lucide="chevron-up" class="w-3 h-3"></i> ' + t('btn.hide'); }
+        else { el.style.maxHeight = '200px'; btn.innerHTML = '<i data-lucide="chevron-down" class="w-3 h-3"></i> ' + t('btn.show_all'); }
         lucide.createIcons();
     }
     function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
@@ -458,7 +666,7 @@
     function buildDocTabs(texts, callback) {
         if(texts.length === 1) return '';
         let html = '<div class="flex flex-wrap gap-1 mb-4">';
-        texts.forEach((_, i) => { html += `<button onclick="${callback}(${i})" class="doc-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium ${i === 0 ? 'bg-dark-900 text-white' : 'bg-dark-100 text-dark-600 hover:bg-dark-200'} transition-all">Dokumen ${i + 1}</button>`; });
+        texts.forEach((_, i) => { html += `<button onclick="${callback}(${i})" class="doc-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium ${i === 0 ? 'bg-dark-900 text-white' : 'bg-dark-100 text-dark-600 hover:bg-dark-200'} transition-all">${t('doc')} ${i + 1}</button>`; });
         return html + '</div>';
     }
 
@@ -524,7 +732,7 @@
         const data = await resp.json();
         if(data.error) throw new Error(data.error);
         appState.preprocessResult = data;
-        document.getElementById('status-preprocessing').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selesai</div>';
+        document.getElementById('status-preprocessing').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ' + t('status.done') + '</div>';
         renderPreprocessing(data);
         lucide.createIcons();
     }
@@ -543,34 +751,34 @@
         const reduction = origTokens > 0 ? Math.round((removed / origTokens) * 100) : 0;
 
         html += `<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
-            <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-purple-700">${r.num_sentences || (r.sentences ? r.sentences.length : '-')}</p><p class="text-xs text-purple-500 mt-1">Kalimat</p></div>
-            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-blue-700">${origTokens}</p><p class="text-xs text-blue-500 mt-1">Token Awal</p></div>
-            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-emerald-700">${afterTokens}</p><p class="text-xs text-emerald-500 mt-1">Setelah Stemming</p></div>
-            <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-rose-700">${reduction}%</p><p class="text-xs text-rose-500 mt-1">Reduksi</p></div>
+            <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-purple-700">${r.num_sentences || (r.sentences ? r.sentences.length : '-')}</p><p class="text-xs text-purple-500 mt-1">${t('stat.sentences')}</p></div>
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-blue-700">${origTokens}</p><p class="text-xs text-blue-500 mt-1">${t('stat.tokens')}</p></div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-emerald-700">${afterTokens}</p><p class="text-xs text-emerald-500 mt-1">${t('stat.after')}</p></div>
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-rose-700">${reduction}%</p><p class="text-xs text-rose-500 mt-1">${t('stat.reduction')}</p></div>
         </div>`;
 
         // Pipeline mini flow
         html += `<div class="bg-dark-50 rounded-xl border border-dark-200 p-4 mb-6"><div class="flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
             <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Case Folding</span><span class="text-dark-300">→</span>
             <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Cleaning</span><span class="text-dark-300">→</span>
-            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Tokenisasi Kalimat</span><span class="text-dark-300">→</span>
-            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Tokenisasi Kata</span><span class="text-dark-300">→</span>
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">${t('step.st')}</span><span class="text-dark-300">→</span>
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">${t('step.wt')}</span><span class="text-dark-300">→</span>
             <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Stopword Removal</span><span class="text-dark-300">→</span>
             <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Stemming</span>
         </div></div>`;
 
         // Detailed steps
         const steps = [
-            { key: 'case_folding', label: 'Case Folding', data: r.case_folding, icon: 'type', color: 'purple', desc: 'Semua huruf diubah ke lowercase' },
-            { key: 'cleaning', label: 'Cleaning', data: r.cleaning, icon: 'eraser', color: 'purple', desc: 'Karakter non-alfabet dihapus' },
-            { key: 'sentence_tokenize', label: 'Tokenisasi Kalimat', data: r.sentences, icon: 'split', color: 'purple', desc: 'Teks dipecah per kalimat', isList: true },
-            { key: 'word_tokenize', label: 'Tokenisasi Kata', data: r.word_tokens, icon: 'text-cursor-input', color: 'purple', desc: 'Setiap kata dipisahkan', isTokens: true },
-            { key: 'stopword_removal', label: 'Stopword Removal', data: r.after_stopword_removal, icon: 'filter', color: 'purple', desc: 'Kata umum dihapus', isTokens: true },
-            { key: 'stemming', label: 'Stemming', data: r.after_stemming, icon: 'scissors', color: 'purple', desc: 'Kata diubah ke bentuk dasar', isTokens: true }
+            { key: 'case_folding', label: 'Case Folding', data: r.case_folding, icon: 'type', color: 'purple', desc: t('step.cf.desc') },
+            { key: 'cleaning', label: 'Cleaning', data: r.cleaning, icon: 'eraser', color: 'purple', desc: t('step.cl.desc') },
+            { key: 'sentence_tokenize', label: t('step.st'), data: r.sentences, icon: 'split', color: 'purple', desc: t('step.st.desc'), isList: true },
+            { key: 'word_tokenize', label: t('step.wt'), data: r.word_tokens, icon: 'text-cursor-input', color: 'purple', desc: t('step.wt.desc'), isTokens: true },
+            { key: 'stopword_removal', label: 'Stopword Removal', data: r.after_stopword_removal, icon: 'filter', color: 'purple', desc: t('step.sw.desc'), isTokens: true },
+            { key: 'stemming', label: 'Stemming', data: r.after_stemming, icon: 'scissors', color: 'purple', desc: t('step.sm.desc'), isTokens: true }
         ];
 
         // Teks Asli
-        html += `<div class="mb-4"><div class="flex items-center gap-2 mb-2"><span class="font-semibold text-sm">Teks Asli</span></div>${buildTextViewer(r.original || '-')}</div><hr class="border-dark-100 my-4">`;
+        html += `<div class="mb-4"><div class="flex items-center gap-2 mb-2"><span class="font-semibold text-sm">${t('label.original')}</span></div>${buildTextViewer(r.original || '-')}</div><hr class="border-dark-100 my-4">`;
 
         steps.forEach((step, i) => {
             const accId = 'acc-' + step.key + '-' + Math.random().toString(36).substr(2, 5);
@@ -584,11 +792,11 @@
                 <div class="acc-content" id="${accId}"><div class="px-4 pb-4 pt-1">`;
 
             if(step.isList && Array.isArray(step.data)) {
-                html += `<p class="text-xs text-dark-500 mb-2">${step.data.length} kalimat ditemukan:</p><div class="space-y-1">`;
+                html += `<p class="text-xs text-dark-500 mb-2">${step.data.length} ${t('sentences_found')}</p><div class="space-y-1">`;
                 step.data.forEach((s, j) => { html += `<div class="flex gap-2 text-sm"><span class="text-dark-400 text-xs font-mono w-6 text-right flex-shrink-0">${j + 1}.</span><span class="text-dark-700">${escapeHtml(s)}</span></div>`; });
                 html += '</div>';
             } else if(step.isTokens && Array.isArray(step.data)) {
-                html += `<p class="text-xs text-dark-500 mb-2">${step.data.length} token:</p><div class="flex flex-wrap gap-1">`;
+                html += `<p class="text-xs text-dark-500 mb-2">${step.data.length} ${t('tokens')}</p><div class="flex flex-wrap gap-1">`;
                 step.data.forEach(t => { html += `<span class="token-chip kept">${escapeHtml(t)}</span>`; });
                 html += '</div>';
             } else {
@@ -626,7 +834,7 @@
             data.llm = [appState.llmSummary];
         }
         appState.summarizeResult = data;
-        document.getElementById('status-summarization').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selesai</div>';
+        document.getElementById('status-summarization').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ' + t('status.done') + '</div>';
         renderSummarization(data);
         lucide.createIcons();
     }
@@ -644,7 +852,6 @@
         const docResults = [];
         for(let i = 0; i < numDocs; i++) {
             docResults.push({ extractive: extArr[i] || '-', abstractive: absArr[i] || '-', llm: llmArr[i] || null, reference: appState.summaries[i] || null });
-            docResults.push({ extractive: extArr[i] || '-', abstractive: absArr[i] || '-', llm: llmArr[i] || null, reference: appState.summaries[i] || null });
         }
 
         let html = buildDocTabs(docResults, 'switchSummaryDoc');
@@ -653,7 +860,7 @@
         // Extractive and Abstractive mini flow
         html += `<div class="grid md:grid-cols-${hasLlm ? '3' : '2'} gap-4 mb-6">
             <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
-                <p class="text-xs font-bold text-emerald-700 mb-2">Extractive Pipeline</p>
+                <p class="text-xs font-bold text-emerald-700 mb-2">${t('ext.pipeline')}</p>
                 <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
                     <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Tokenisasi</span><span class="text-emerald-300">→</span>
                     <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">TF-IDF</span><span class="text-emerald-300">→</span>
@@ -663,7 +870,7 @@
                 </div>
             </div>
             <div class="bg-blue-50 rounded-xl border border-blue-200 p-4">
-                <p class="text-xs font-bold text-blue-700 mb-2">Abstractive Pipeline</p>
+                <p class="text-xs font-bold text-blue-700 mb-2">${t('abs.pipeline')}</p>
                 <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
                     <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Tokenisasi</span><span class="text-blue-300">→</span>
                     <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Encoder</span><span class="text-blue-300">→</span>
@@ -673,10 +880,10 @@
                 </div>
             </div>
             ${hasLlm ? `<div class="bg-amber-50 rounded-xl border border-amber-200 p-4">
-                <p class="text-xs font-bold text-amber-700 mb-2">LLM (Input Manual)</p>
+                <p class="text-xs font-bold text-amber-700 mb-2">${t('llm.pipeline')}</p>
                 <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
                     <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">User Input</span><span class="text-amber-300">→</span>
-                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Perbandingan</span>
+                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">${t('compare')}</span>
                 </div>
             </div>` : ''}
         </div>`;
@@ -686,16 +893,16 @@
             <button onclick="switchSumTab('ext')" id="sumtab-ext" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium bg-emerald-600 text-white transition-all">Extractive</button>
             <button onclick="switchSumTab('abs')" id="sumtab-abs" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium text-dark-600 transition-all">Abstractive</button>
             ${hasLlm ? '<button onclick="switchSumTab(\'llm\')" id="sumtab-llm" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium text-dark-600 transition-all">LLM</button>' : ''}
-            <button onclick="switchSumTab('cmp')" id="sumtab-cmp" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium text-dark-600 transition-all">Perbandingan</button>
+            <button onclick="switchSumTab('cmp')" id="sumtab-cmp" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium text-dark-600 transition-all">${t('compare')}</button>
         </div>`;
 
         // Extractive panel
         html += `<div id="sumpanel-ext" class="sumpanel">
             <div class="border border-emerald-200 rounded-xl p-5">
-                <div class="flex items-center gap-2 mb-3"><i data-lucide="list-ordered" class="w-5 h-5 text-emerald-600"></i><span class="font-semibold text-sm">Hasil Extractive</span>
+                <div class="flex items-center gap-2 mb-3"><i data-lucide="list-ordered" class="w-5 h-5 text-emerald-600"></i><span class="font-semibold text-sm">${t('result.ext')}</span>
                 <span class="info-btn" onclick="showExplanation('extractive')" title="Penjelasan">?</span></div>
                 ${buildTextViewer(r.extractive || '-')}
-                <p class="text-xs text-dark-400 mt-3">${(r.extractive || '').split(/[.!?]+/).filter(s => s.trim()).length} kalimat terpilih dari teks asli</p>
+                <p class="text-xs text-dark-400 mt-3">${(r.extractive || '').split(/[.!?]+/).filter(s => s.trim()).length} ${t('selected_from')}</p>
                 ${buildStepExplanation('extractive')}
                 ${buildCodeBlock('extractive')}
             </div>
@@ -704,10 +911,10 @@
         // Abstractive panel
         html += `<div id="sumpanel-abs" class="sumpanel hidden">
             <div class="border border-blue-200 rounded-xl p-5">
-                <div class="flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5 text-blue-600"></i><span class="font-semibold text-sm">Hasil Abstractive</span>
+                <div class="flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5 text-blue-600"></i><span class="font-semibold text-sm">${t('result.abs')}</span>
                 <span class="info-btn" onclick="showExplanation('abstractive')" title="Penjelasan">?</span></div>
                 ${buildTextViewer(r.abstractive || '-')}
-                <p class="text-xs text-dark-400 mt-3">Dihasilkan oleh model mT5 (Seq2Seq Transformer)</p>
+                <p class="text-xs text-dark-400 mt-3">${t('generated_by')}</p>
                 ${buildStepExplanation('abstractive')}
                 ${buildCodeBlock('abstractive')}
             </div>
@@ -717,9 +924,9 @@
         if(hasLlm) {
             html += `<div id="sumpanel-llm" class="sumpanel hidden">
                 <div class="border border-amber-200 rounded-xl p-5">
-                    <div class="flex items-center gap-2 mb-3"><i data-lucide="sparkles" class="w-5 h-5 text-amber-600"></i><span class="font-semibold text-sm">Hasil LLM</span></div>
+                    <div class="flex items-center gap-2 mb-3"><i data-lucide="sparkles" class="w-5 h-5 text-amber-600"></i><span class="font-semibold text-sm">${t('result.llm')}</span></div>
                     ${buildTextViewer(r.llm || '-')}
-                    <p class="text-xs text-dark-400 mt-3">Ringkasan dari LLM (input manual, tidak dievaluasi ROUGE)</p>
+                    <p class="text-xs text-dark-400 mt-3">${t('llm.note')}</p>
                 </div>
             </div>`;
         }
@@ -727,15 +934,15 @@
         // Comparison panel
         html += `<div id="sumpanel-cmp" class="sumpanel hidden">
             <div class="grid md:grid-cols-${hasLlm ? '3' : '2'} gap-4">
-                <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="list-ordered" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-emerald-800">Extractive</span></div>${buildTextViewer(r.extractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.extractive || '').length} karakter</p></div>
-                <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="brain" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-blue-800">Abstractive</span></div>${buildTextViewer(r.abstractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.abstractive || '').length} karakter</p></div>
-                ${hasLlm ? `<div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center"><i data-lucide="sparkles" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-amber-800">LLM</span></div>${buildTextViewer(r.llm || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.llm || '').length} karakter</p></div>` : ''}
+                <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="list-ordered" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-emerald-800">Extractive</span></div>${buildTextViewer(r.extractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.extractive || '').length} ${t('chars')}</p></div>
+                <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="brain" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-blue-800">Abstractive</span></div>${buildTextViewer(r.abstractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.abstractive || '').length} ${t('chars')}</p></div>
+                ${hasLlm ? `<div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center"><i data-lucide="sparkles" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-amber-800">LLM</span></div>${buildTextViewer(r.llm || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.llm || '').length} ${t('chars')}</p></div>` : ''}
             </div>
         </div>`;
 
         // Reference
         if(r.reference) {
-            html += `<div class="mt-4 border border-dark-200 rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="bookmark" class="w-5 h-5 text-dark-500"></i><span class="font-semibold text-sm">Ringkasan Referensi</span></div>${buildTextViewer(r.reference || '-')}</div>`;
+            html += `<div class="mt-4 border border-dark-200 rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="bookmark" class="w-5 h-5 text-dark-500"></i><span class="font-semibold text-sm">${t('label.ref')}</span></div>${buildTextViewer(r.reference || '-')}</div>`;
         }
 
         container.innerHTML = html;
@@ -767,8 +974,8 @@
 
         if(!refs || refs.length === 0) {
             // No references available — skip evaluation
-            document.getElementById('status-evaluation').innerHTML = '<div class="flex items-center gap-1.5 text-amber-600 text-sm font-medium"><i data-lucide="alert-triangle" class="w-4 h-4"></i> Tidak ada referensi</div>';
-            document.getElementById('content-evaluation').innerHTML = '<div class="text-center text-dark-400 py-8"><p class="text-sm">Evaluasi ROUGE membutuhkan ringkasan referensi.</p><p class="text-xs mt-1">Upload dataset dengan kolom summary, atau masukkan referensi di input manual.</p></div>';
+            document.getElementById('status-evaluation').innerHTML = '<div class="flex items-center gap-1.5 text-amber-600 text-sm font-medium"><i data-lucide="alert-triangle" class="w-4 h-4"></i> ' + t('status.noref') + '</div>';
+            document.getElementById('content-evaluation').innerHTML = '<div class="text-center text-dark-400 py-8"><p class="text-sm">' + t('eval.noref') + '</p><p class="text-xs mt-1">' + t('eval.noref2') + '</p></div>';
             lucide.createIcons();
             return;
         }
@@ -781,7 +988,7 @@
         const data = await resp.json();
         if(data.error) throw new Error(data.error);
         appState.evaluateResult = data;
-        document.getElementById('status-evaluation').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selesai</div>';
+        document.getElementById('status-evaluation').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ' + t('status.done') + '</div>';
         renderEvaluation(data);
         lucide.createIcons();
     }
@@ -794,14 +1001,14 @@
         let html = buildDocTabs(perDoc, 'switchEvalDoc');
         const r = perDoc[idx] || perDoc[0] || {};
 
-        html += `<div class="flex items-center gap-2 mb-6"><i data-lucide="bar-chart-2" class="w-5 h-5 text-rose-600"></i><span class="font-semibold text-sm">Skor ROUGE</span><span class="info-btn" onclick="showExplanation('rouge')" title="Penjelasan">?</span></div>`;
+        html += `<div class="flex items-center gap-2 mb-6"><i data-lucide="bar-chart-2" class="w-5 h-5 text-rose-600"></i><span class="font-semibold text-sm">${t('rouge.scores')}</span><span class="info-btn" onclick="showExplanation('rouge')" title="Penjelasan">?</span></div>`;
 
         html += `<div class="bg-dark-50 border border-dark-200 rounded-xl p-4 mb-6 text-xs text-dark-600">
-            <p class="font-semibold text-dark-700 mb-2">Cara Membaca Skor:</p>
+            <p class="font-semibold text-dark-700 mb-2">${t('rouge.howto')}</p>
             <div class="grid md:grid-cols-3 gap-3">
-                <div><strong>Precision</strong>: Berapa % kata di ringkasan yang muncul di referensi</div>
-                <div><strong>Recall</strong>: Berapa % kata di referensi yang ditangkap oleh ringkasan</div>
-                <div><strong>F1-Score</strong>: Rata-rata harmonik precision & recall (skor utama)</div>
+                <div><strong>Precision</strong>: ${t('rouge.p')}</div>
+                <div><strong>Recall</strong>: ${t('rouge.r')}</div>
+                <div><strong>F1-Score</strong>: ${t('rouge.f')}</div>
             </div>
         </div>`;
 
@@ -871,12 +1078,12 @@
         const comp = document.getElementById('result-comparison');
         comp.classList.remove('hidden');
         comp.innerHTML = `<div class="border-2 border-dark-900 rounded-2xl overflow-hidden shadow-lg fade-in">
-            <div class="bg-dark-900 text-white px-6 py-5"><div class="flex items-center gap-3"><i data-lucide="trophy" class="w-6 h-6 text-yellow-400"></i><h2 class="text-lg font-bold">Kesimpulan Perbandingan</h2></div></div>
+            <div class="bg-dark-900 text-white px-6 py-5"><div class="flex items-center gap-3"><i data-lucide="trophy" class="w-6 h-6 text-yellow-400"></i><h2 class="text-lg font-bold">${t('conclusion')}</h2></div></div>
             <div class="p-6">
                 <div class="text-center mb-6">
                     <div class="inline-flex items-center gap-3 bg-${wColor}-50 border-2 border-${wColor}-300 rounded-2xl px-8 py-4">
                         <i data-lucide="${wIcon}" class="w-8 h-8 text-${wColor}-600"></i>
-                        <div class="text-left"><p class="text-xs text-${wColor}-600 font-medium">Metode Terbaik</p><p class="text-2xl font-bold text-${wColor}-800">${wLabel}</p></div>
+                        <div class="text-left"><p class="text-xs text-${wColor}-600 font-medium">${t('best_method')}</p><p class="text-2xl font-bold text-${wColor}-800">${wLabel}</p></div>
                         <span class="bg-${wColor}-600 text-white px-3 py-1 rounded-full text-sm font-bold">${wAvg}%</span>
                     </div>
                 </div>
@@ -893,11 +1100,11 @@
                             ).join('<span class="text-dark-300 text-xs">vs</span>')}</div></div>`;
                     }).join('')}
                 </div>
-                <div class="bg-dark-50 border border-dark-200 rounded-xl p-4 text-sm text-dark-600"><p class="font-semibold text-dark-800 mb-2">Analisis:</p><p>Metode <strong>${wLabel}</strong> menghasilkan skor rata-rata F1 ROUGE tertinggi sebesar <strong>${wAvg}%</strong>. Perbandingan: Extractive (${extAvg}%) vs Abstractive (${absAvg}%). ${winner === 'extractive' ? 'Memilih kalimat asli yang penting menghasilkan ringkasan yang lebih dekat dengan referensi.' : 'Model mT5 berhasil menghasilkan ringkasan yang lebih representatif.'}</p></div>
+                <div class="bg-dark-50 border border-dark-200 rounded-xl p-4 text-sm text-dark-600"><p class="font-semibold text-dark-800 mb-2">${t('analysis')}</p><p>${t('analysis.method')||'Metode'} <strong>${wLabel}</strong> ${t('analysis.highest')} <strong>${wAvg}%</strong>. ${t('analysis.compare')||'Perbandingan:'} Extractive (${extAvg}%) vs Abstractive (${absAvg}%). ${winner === 'extractive' ? t('analysis.ext') : t('analysis.abs')}</p></div>
                 ${hasLlm ? `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
-                    <div class="flex items-center gap-2 mb-2"><i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i><span class="font-semibold text-sm text-amber-800">Ringkasan LLM (Perbandingan)</span></div>
+                    <div class="flex items-center gap-2 mb-2"><i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i><span class="font-semibold text-sm text-amber-800">${t('llm.comp')}</span></div>
                     <p class="text-sm text-dark-700">${llmText}</p>
-                    <p class="text-xs text-amber-600 mt-2">Ringkasan ini dari input manual LLM dan tidak dievaluasi menggunakan ROUGE.</p>
+                    <p class="text-xs text-amber-600 mt-2">${t('llm.noeval')}</p>
                 </div>` : ''}
             </div>
         </div>`;

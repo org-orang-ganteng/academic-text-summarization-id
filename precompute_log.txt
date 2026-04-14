@@ -1,0 +1,540 @@
+nohup: ignoring input
+2026-04-14 12:00:27,662 [INFO] src.utils: Random seed set to 42 (Python, NumPy, PyTorch)
+2026-04-14 12:00:27,662 [INFO] __main__: ============================================================
+2026-04-14 12:00:27,662 [INFO] __main__: PRE-COMPUTING ALL PIPELINE RESULTS
+2026-04-14 12:00:27,662 [INFO] __main__: ============================================================
+2026-04-14 12:00:27,662 [INFO] __main__: Loading dataset from /workspaces/academic-text-summarization-id/data/raw/dataset.csv
+2026-04-14 12:00:27,704 [INFO] __main__: Loaded 100 documents
+2026-04-14 12:00:27,704 [INFO] __main__: === Generating dataset.json ===
+2026-04-14 12:00:27,724 [INFO] __main__: Saved /workspaces/academic-text-summarization-id/output/results/dataset.json (2567.8 KB)
+2026-04-14 12:00:27,724 [INFO] __main__: === Generating preprocess.json ===
+2026-04-14 12:00:27,726 [INFO] src.preprocessor: Stopword list loaded with 757 words
+2026-04-14 12:00:27,744 [INFO] src.preprocessor: PySastrawi stemmer initialized successfully
+2026-04-14 12:00:27,744 [INFO] __main__:   Preprocessing doc 1/100
+2026-04-14 12:00:27,856 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,890 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:27,911 [INFO] __main__:   Preprocessing doc 2/100
+2026-04-14 12:00:27,914 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,916 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:27,941 [INFO] __main__:   Preprocessing doc 3/100
+2026-04-14 12:00:27,943 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,945 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:27,954 [INFO] __main__:   Preprocessing doc 4/100
+2026-04-14 12:00:27,955 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,956 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:27,963 [INFO] __main__:   Preprocessing doc 5/100
+2026-04-14 12:00:27,965 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,967 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:27,978 [INFO] __main__:   Preprocessing doc 6/100
+2026-04-14 12:00:27,980 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,981 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:27,986 [INFO] __main__:   Preprocessing doc 7/100
+2026-04-14 12:00:27,988 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,989 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:27,996 [INFO] __main__:   Preprocessing doc 8/100
+2026-04-14 12:00:27,997 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:27,999 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,009 [INFO] __main__:   Preprocessing doc 9/100
+2026-04-14 12:00:28,011 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,012 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,019 [INFO] __main__:   Preprocessing doc 10/100
+2026-04-14 12:00:28,021 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,024 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,063 [INFO] __main__:   Preprocessing doc 11/100
+2026-04-14 12:00:28,065 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,067 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,083 [INFO] __main__:   Preprocessing doc 12/100
+2026-04-14 12:00:28,084 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,086 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,090 [INFO] __main__:   Preprocessing doc 13/100
+2026-04-14 12:00:28,092 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,093 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,106 [INFO] __main__:   Preprocessing doc 14/100
+2026-04-14 12:00:28,108 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,110 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,126 [INFO] __main__:   Preprocessing doc 15/100
+2026-04-14 12:00:28,127 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,128 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,133 [INFO] __main__:   Preprocessing doc 16/100
+2026-04-14 12:00:28,137 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,143 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,204 [INFO] __main__:   Preprocessing doc 17/100
+2026-04-14 12:00:28,206 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,207 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,213 [INFO] __main__:   Preprocessing doc 18/100
+2026-04-14 12:00:28,214 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,216 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,226 [INFO] __main__:   Preprocessing doc 19/100
+2026-04-14 12:00:28,227 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,229 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,242 [INFO] __main__:   Preprocessing doc 20/100
+2026-04-14 12:00:28,244 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,245 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,255 [INFO] __main__:   Preprocessing doc 21/100
+2026-04-14 12:00:28,257 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,260 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,285 [INFO] __main__:   Preprocessing doc 22/100
+2026-04-14 12:00:28,289 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,293 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,451 [INFO] __main__:   Preprocessing doc 23/100
+2026-04-14 12:00:28,457 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,463 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,694 [INFO] __main__:   Preprocessing doc 24/100
+2026-04-14 12:00:28,701 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,708 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,893 [INFO] __main__:   Preprocessing doc 25/100
+2026-04-14 12:00:28,897 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:28,902 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:28,993 [INFO] __main__:   Preprocessing doc 26/100
+2026-04-14 12:00:28,997 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,003 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,127 [INFO] __main__:   Preprocessing doc 27/100
+2026-04-14 12:00:29,132 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,138 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,289 [INFO] __main__:   Preprocessing doc 28/100
+2026-04-14 12:00:29,293 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,297 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,353 [INFO] __main__:   Preprocessing doc 29/100
+2026-04-14 12:00:29,355 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,360 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,384 [INFO] __main__:   Preprocessing doc 30/100
+2026-04-14 12:00:29,388 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,392 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,447 [INFO] __main__:   Preprocessing doc 31/100
+2026-04-14 12:00:29,452 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,458 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,540 [INFO] __main__:   Preprocessing doc 32/100
+2026-04-14 12:00:29,544 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,549 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,648 [INFO] __main__:   Preprocessing doc 33/100
+2026-04-14 12:00:29,652 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,657 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,723 [INFO] __main__:   Preprocessing doc 34/100
+2026-04-14 12:00:29,728 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,733 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,800 [INFO] __main__:   Preprocessing doc 35/100
+2026-04-14 12:00:29,804 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,809 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,864 [INFO] __main__:   Preprocessing doc 36/100
+2026-04-14 12:00:29,868 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,872 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,929 [INFO] __main__:   Preprocessing doc 37/100
+2026-04-14 12:00:29,932 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,936 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,981 [INFO] __main__:   Preprocessing doc 38/100
+2026-04-14 12:00:29,983 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:29,985 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:29,998 [INFO] __main__:   Preprocessing doc 39/100
+2026-04-14 12:00:30,003 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,010 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,138 [INFO] __main__:   Preprocessing doc 40/100
+2026-04-14 12:00:30,143 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,148 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,216 [INFO] __main__:   Preprocessing doc 41/100
+2026-04-14 12:00:30,222 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,227 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,247 [INFO] __main__:   Preprocessing doc 42/100
+2026-04-14 12:00:30,251 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,255 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,345 [INFO] __main__:   Preprocessing doc 43/100
+2026-04-14 12:00:30,347 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,349 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,367 [INFO] __main__:   Preprocessing doc 44/100
+2026-04-14 12:00:30,372 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,377 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,439 [INFO] __main__:   Preprocessing doc 45/100
+2026-04-14 12:00:30,442 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,446 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,494 [INFO] __main__:   Preprocessing doc 46/100
+2026-04-14 12:00:30,499 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,503 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,555 [INFO] __main__:   Preprocessing doc 47/100
+2026-04-14 12:00:30,560 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,565 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,648 [INFO] __main__:   Preprocessing doc 48/100
+2026-04-14 12:00:30,654 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,661 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,772 [INFO] __main__:   Preprocessing doc 49/100
+2026-04-14 12:00:30,777 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,782 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,861 [INFO] __main__:   Preprocessing doc 50/100
+2026-04-14 12:00:30,866 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,871 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:30,976 [INFO] __main__:   Preprocessing doc 51/100
+2026-04-14 12:00:30,981 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:30,986 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,084 [INFO] __main__:   Preprocessing doc 52/100
+2026-04-14 12:00:31,087 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,091 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,124 [INFO] __main__:   Preprocessing doc 53/100
+2026-04-14 12:00:31,126 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,128 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,137 [INFO] __main__:   Preprocessing doc 54/100
+2026-04-14 12:00:31,139 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,142 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,159 [INFO] __main__:   Preprocessing doc 55/100
+2026-04-14 12:00:31,162 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,165 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,194 [INFO] __main__:   Preprocessing doc 56/100
+2026-04-14 12:00:31,196 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,198 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,205 [INFO] __main__:   Preprocessing doc 57/100
+2026-04-14 12:00:31,209 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,214 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,270 [INFO] __main__:   Preprocessing doc 58/100
+2026-04-14 12:00:31,276 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,284 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,381 [INFO] __main__:   Preprocessing doc 59/100
+2026-04-14 12:00:31,384 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,389 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,432 [INFO] __main__:   Preprocessing doc 60/100
+2026-04-14 12:00:31,437 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,441 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,498 [INFO] __main__:   Preprocessing doc 61/100
+2026-04-14 12:00:31,503 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,509 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,589 [INFO] __main__:   Preprocessing doc 62/100
+2026-04-14 12:00:31,594 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,599 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,690 [INFO] __main__:   Preprocessing doc 63/100
+2026-04-14 12:00:31,694 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,698 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,736 [INFO] __main__:   Preprocessing doc 64/100
+2026-04-14 12:00:31,740 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,744 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,816 [INFO] __main__:   Preprocessing doc 65/100
+2026-04-14 12:00:31,821 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,826 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:31,921 [INFO] __main__:   Preprocessing doc 66/100
+2026-04-14 12:00:31,925 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:31,931 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,008 [INFO] __main__:   Preprocessing doc 67/100
+2026-04-14 12:00:32,013 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,019 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,101 [INFO] __main__:   Preprocessing doc 68/100
+2026-04-14 12:00:32,106 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,111 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,222 [INFO] __main__:   Preprocessing doc 69/100
+2026-04-14 12:00:32,226 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,230 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,315 [INFO] __main__:   Preprocessing doc 70/100
+2026-04-14 12:00:32,318 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,321 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,360 [INFO] __main__:   Preprocessing doc 71/100
+2026-04-14 12:00:32,366 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,370 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,440 [INFO] __main__:   Preprocessing doc 72/100
+2026-04-14 12:00:32,444 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,450 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,512 [INFO] __main__:   Preprocessing doc 73/100
+2026-04-14 12:00:32,515 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,520 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,580 [INFO] __main__:   Preprocessing doc 74/100
+2026-04-14 12:00:32,585 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,590 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,655 [INFO] __main__:   Preprocessing doc 75/100
+2026-04-14 12:00:32,657 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,663 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,690 [INFO] __main__:   Preprocessing doc 76/100
+2026-04-14 12:00:32,695 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,699 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,764 [INFO] __main__:   Preprocessing doc 77/100
+2026-04-14 12:00:32,768 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,771 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,805 [INFO] __main__:   Preprocessing doc 78/100
+2026-04-14 12:00:32,808 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,812 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,849 [INFO] __main__:   Preprocessing doc 79/100
+2026-04-14 12:00:32,852 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,857 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,899 [INFO] __main__:   Preprocessing doc 80/100
+2026-04-14 12:00:32,902 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,905 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:32,943 [INFO] __main__:   Preprocessing doc 81/100
+2026-04-14 12:00:32,949 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:32,959 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,053 [INFO] __main__:   Preprocessing doc 82/100
+2026-04-14 12:00:33,057 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,061 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,100 [INFO] __main__:   Preprocessing doc 83/100
+2026-04-14 12:00:33,102 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,104 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,116 [INFO] __main__:   Preprocessing doc 84/100
+2026-04-14 12:00:33,120 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,126 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,210 [INFO] __main__:   Preprocessing doc 85/100
+2026-04-14 12:00:33,214 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,219 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,300 [INFO] __main__:   Preprocessing doc 86/100
+2026-04-14 12:00:33,304 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,309 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,364 [INFO] __main__:   Preprocessing doc 87/100
+2026-04-14 12:00:33,369 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,373 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,426 [INFO] __main__:   Preprocessing doc 88/100
+2026-04-14 12:00:33,430 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,433 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,468 [INFO] __main__:   Preprocessing doc 89/100
+2026-04-14 12:00:33,473 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,479 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,557 [INFO] __main__:   Preprocessing doc 90/100
+2026-04-14 12:00:33,560 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,565 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,608 [INFO] __main__:   Preprocessing doc 91/100
+2026-04-14 12:00:33,612 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,617 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,685 [INFO] __main__:   Preprocessing doc 92/100
+2026-04-14 12:00:33,688 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,692 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,735 [INFO] __main__:   Preprocessing doc 93/100
+2026-04-14 12:00:33,741 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,750 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,877 [INFO] __main__:   Preprocessing doc 94/100
+2026-04-14 12:00:33,880 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,883 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:33,904 [INFO] __main__:   Preprocessing doc 95/100
+2026-04-14 12:00:33,909 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:33,916 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:34,023 [INFO] __main__:   Preprocessing doc 96/100
+2026-04-14 12:00:34,027 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,031 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:34,069 [INFO] __main__:   Preprocessing doc 97/100
+2026-04-14 12:00:34,073 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,076 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:34,103 [INFO] __main__:   Preprocessing doc 98/100
+2026-04-14 12:00:34,105 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,109 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:34,135 [INFO] __main__:   Preprocessing doc 99/100
+2026-04-14 12:00:34,140 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,146 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:34,214 [INFO] __main__:   Preprocessing doc 100/100
+2026-04-14 12:00:34,219 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,226 [WARNING] src.preprocessor: Indonesian word tokenizer not available. Using default.
+2026-04-14 12:00:34,691 [INFO] __main__: Saved /workspaces/academic-text-summarization-id/output/results/preprocess.json (27186.0 KB)
+2026-04-14 12:00:34,699 [INFO] __main__: === Generating summarize.json ===
+2026-04-14 12:00:34,699 [INFO] src.preprocessor: Stopword list loaded with 757 words
+2026-04-14 12:00:34,703 [INFO] src.preprocessor: PySastrawi stemmer initialized successfully
+2026-04-14 12:00:34,703 [INFO] src.extractive_model: ExtractiveSummarizer initialized — num_sentences=5, max_features=5000
+2026-04-14 12:00:34,704 [INFO] __main__:   Running extractive summarization...
+2026-04-14 12:00:34,704 [INFO] __main__:   Extractive doc 1/100
+2026-04-14 12:00:34,705 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,954 [INFO] __main__:   Extractive doc 2/100
+2026-04-14 12:00:34,956 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,961 [INFO] __main__:   Extractive doc 3/100
+2026-04-14 12:00:34,963 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,966 [INFO] __main__:   Extractive doc 4/100
+2026-04-14 12:00:34,968 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,971 [INFO] __main__:   Extractive doc 5/100
+2026-04-14 12:00:34,973 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,976 [INFO] __main__:   Extractive doc 6/100
+2026-04-14 12:00:34,978 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,980 [INFO] __main__:   Extractive doc 7/100
+2026-04-14 12:00:34,982 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,985 [INFO] __main__:   Extractive doc 8/100
+2026-04-14 12:00:34,987 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,990 [INFO] __main__:   Extractive doc 9/100
+2026-04-14 12:00:34,991 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:34,995 [INFO] __main__:   Extractive doc 10/100
+2026-04-14 12:00:34,997 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,012 [INFO] __main__:   Extractive doc 11/100
+2026-04-14 12:00:35,014 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,022 [INFO] __main__:   Extractive doc 12/100
+2026-04-14 12:00:35,023 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,026 [INFO] __main__:   Extractive doc 13/100
+2026-04-14 12:00:35,028 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,031 [INFO] __main__:   Extractive doc 14/100
+2026-04-14 12:00:35,033 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,038 [INFO] __main__:   Extractive doc 15/100
+2026-04-14 12:00:35,039 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,043 [INFO] __main__:   Extractive doc 16/100
+2026-04-14 12:00:35,046 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,088 [INFO] __main__:   Extractive doc 17/100
+2026-04-14 12:00:35,090 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,093 [INFO] __main__:   Extractive doc 18/100
+2026-04-14 12:00:35,095 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,099 [INFO] __main__:   Extractive doc 19/100
+2026-04-14 12:00:35,101 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,105 [INFO] __main__:   Extractive doc 20/100
+2026-04-14 12:00:35,106 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,111 [INFO] __main__:   Extractive doc 21/100
+2026-04-14 12:00:35,113 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,131 [INFO] __main__:   Extractive doc 22/100
+2026-04-14 12:00:35,134 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,257 [INFO] __main__:   Extractive doc 23/100
+2026-04-14 12:00:35,262 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,433 [INFO] __main__:   Extractive doc 24/100
+2026-04-14 12:00:35,439 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,727 [INFO] __main__:   Extractive doc 25/100
+2026-04-14 12:00:35,731 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,858 [INFO] __main__:   Extractive doc 26/100
+2026-04-14 12:00:35,862 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:35,938 [INFO] __main__:   Extractive doc 27/100
+2026-04-14 12:00:35,942 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,030 [INFO] __main__:   Extractive doc 28/100
+2026-04-14 12:00:36,034 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,079 [INFO] __main__:   Extractive doc 29/100
+2026-04-14 12:00:36,081 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,098 [INFO] __main__:   Extractive doc 30/100
+2026-04-14 12:00:36,101 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,154 [INFO] __main__:   Extractive doc 31/100
+2026-04-14 12:00:36,158 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,272 [INFO] __main__:   Extractive doc 32/100
+2026-04-14 12:00:36,276 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,502 [INFO] __main__:   Extractive doc 33/100
+2026-04-14 12:00:36,506 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,578 [INFO] __main__:   Extractive doc 34/100
+2026-04-14 12:00:36,583 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,664 [INFO] __main__:   Extractive doc 35/100
+2026-04-14 12:00:36,668 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,744 [INFO] __main__:   Extractive doc 36/100
+2026-04-14 12:00:36,748 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,805 [INFO] __main__:   Extractive doc 37/100
+2026-04-14 12:00:36,808 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,846 [INFO] __main__:   Extractive doc 38/100
+2026-04-14 12:00:36,847 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,854 [INFO] __main__:   Extractive doc 39/100
+2026-04-14 12:00:36,858 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:36,980 [INFO] __main__:   Extractive doc 40/100
+2026-04-14 12:00:36,983 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,042 [INFO] __main__:   Extractive doc 41/100
+2026-04-14 12:00:37,045 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,062 [INFO] __main__:   Extractive doc 42/100
+2026-04-14 12:00:37,066 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,126 [INFO] __main__:   Extractive doc 43/100
+2026-04-14 12:00:37,128 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,137 [INFO] __main__:   Extractive doc 44/100
+2026-04-14 12:00:37,141 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,268 [INFO] __main__:   Extractive doc 45/100
+2026-04-14 12:00:37,271 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,324 [INFO] __main__:   Extractive doc 46/100
+2026-04-14 12:00:37,328 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,409 [INFO] __main__:   Extractive doc 47/100
+2026-04-14 12:00:37,414 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,513 [INFO] __main__:   Extractive doc 48/100
+2026-04-14 12:00:37,518 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,722 [INFO] __main__:   Extractive doc 49/100
+2026-04-14 12:00:37,727 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,823 [INFO] __main__:   Extractive doc 50/100
+2026-04-14 12:00:37,828 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:37,924 [INFO] __main__:   Extractive doc 51/100
+2026-04-14 12:00:37,928 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,047 [INFO] __main__:   Extractive doc 52/100
+2026-04-14 12:00:38,050 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,077 [INFO] __main__:   Extractive doc 53/100
+2026-04-14 12:00:38,079 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,087 [INFO] __main__:   Extractive doc 54/100
+2026-04-14 12:00:38,089 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,108 [INFO] __main__:   Extractive doc 55/100
+2026-04-14 12:00:38,110 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,141 [INFO] __main__:   Extractive doc 56/100
+2026-04-14 12:00:38,143 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,148 [INFO] __main__:   Extractive doc 57/100
+2026-04-14 12:00:38,152 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,269 [INFO] __main__:   Extractive doc 58/100
+2026-04-14 12:00:38,275 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,560 [INFO] __main__:   Extractive doc 59/100
+2026-04-14 12:00:38,563 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,793 [INFO] __main__:   Extractive doc 60/100
+2026-04-14 12:00:38,798 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,862 [INFO] __main__:   Extractive doc 61/100
+2026-04-14 12:00:38,867 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:38,998 [INFO] __main__:   Extractive doc 62/100
+2026-04-14 12:00:39,003 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,105 [INFO] __main__:   Extractive doc 63/100
+2026-04-14 12:00:39,108 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,156 [INFO] __main__:   Extractive doc 64/100
+2026-04-14 12:00:39,160 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,223 [INFO] __main__:   Extractive doc 65/100
+2026-04-14 12:00:39,231 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,315 [INFO] __main__:   Extractive doc 66/100
+2026-04-14 12:00:39,319 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,418 [INFO] __main__:   Extractive doc 67/100
+2026-04-14 12:00:39,422 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,510 [INFO] __main__:   Extractive doc 68/100
+2026-04-14 12:00:39,515 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,621 [INFO] __main__:   Extractive doc 69/100
+2026-04-14 12:00:39,625 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,665 [INFO] __main__:   Extractive doc 70/100
+2026-04-14 12:00:39,668 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,696 [INFO] __main__:   Extractive doc 71/100
+2026-04-14 12:00:39,701 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,781 [INFO] __main__:   Extractive doc 72/100
+2026-04-14 12:00:39,785 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,878 [INFO] __main__:   Extractive doc 73/100
+2026-04-14 12:00:39,882 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:39,934 [INFO] __main__:   Extractive doc 74/100
+2026-04-14 12:00:39,938 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,061 [INFO] __main__:   Extractive doc 75/100
+2026-04-14 12:00:40,064 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,096 [INFO] __main__:   Extractive doc 76/100
+2026-04-14 12:00:40,100 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,180 [INFO] __main__:   Extractive doc 77/100
+2026-04-14 12:00:40,183 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,211 [INFO] __main__:   Extractive doc 78/100
+2026-04-14 12:00:40,215 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,250 [INFO] __main__:   Extractive doc 79/100
+2026-04-14 12:00:40,253 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,333 [INFO] __main__:   Extractive doc 80/100
+2026-04-14 12:00:40,336 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,358 [INFO] __main__:   Extractive doc 81/100
+2026-04-14 12:00:40,364 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,668 [INFO] __main__:   Extractive doc 82/100
+2026-04-14 12:00:40,672 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,733 [INFO] __main__:   Extractive doc 83/100
+2026-04-14 12:00:40,735 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,743 [INFO] __main__:   Extractive doc 84/100
+2026-04-14 12:00:40,747 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,867 [INFO] __main__:   Extractive doc 85/100
+2026-04-14 12:00:40,871 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:40,970 [INFO] __main__:   Extractive doc 86/100
+2026-04-14 12:00:40,973 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,014 [INFO] __main__:   Extractive doc 87/100
+2026-04-14 12:00:41,017 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,060 [INFO] __main__:   Extractive doc 88/100
+2026-04-14 12:00:41,063 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,111 [INFO] __main__:   Extractive doc 89/100
+2026-04-14 12:00:41,115 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,304 [INFO] __main__:   Extractive doc 90/100
+2026-04-14 12:00:41,307 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,387 [INFO] __main__:   Extractive doc 91/100
+2026-04-14 12:00:41,391 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,474 [INFO] __main__:   Extractive doc 92/100
+2026-04-14 12:00:41,477 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,537 [INFO] __main__:   Extractive doc 93/100
+2026-04-14 12:00:41,543 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,755 [INFO] __main__:   Extractive doc 94/100
+2026-04-14 12:00:41,758 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,781 [INFO] __main__:   Extractive doc 95/100
+2026-04-14 12:00:41,786 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:41,967 [INFO] __main__:   Extractive doc 96/100
+2026-04-14 12:00:41,971 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:42,029 [INFO] __main__:   Extractive doc 97/100
+2026-04-14 12:00:42,032 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:42,057 [INFO] __main__:   Extractive doc 98/100
+2026-04-14 12:00:42,059 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:42,086 [INFO] __main__:   Extractive doc 99/100
+2026-04-14 12:00:42,091 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:42,257 [INFO] __main__:   Extractive doc 100/100
+2026-04-14 12:00:42,262 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 12:00:42,480 [INFO] __main__:   Running abstractive summarization (this may take a few minutes)...
+2026-04-14 12:00:42,481 [INFO] src.abstractive_model: GPU not available. Using CPU for abstractive model.
+2026-04-14 12:00:42,481 [INFO] src.abstractive_model: AbstractiveSummarizer initialized — model=csebuetnlp/mT5_multilingual_XLSum, device=cpu
+2026-04-14 12:01:04,852 [INFO] src.abstractive_model: Loading fine-tuned checkpoint from: /workspaces/academic-text-summarization-id/output/checkpoints/best_model
+Loading weights:   0%|          | 0/282 [00:00<?, ?it/s]Loading weights:   4%|▍         | 11/282 [00:00<00:11, 23.15it/s]Loading weights:   6%|▌         | 16/282 [00:00<00:13, 19.81it/s]Loading weights:   7%|▋         | 20/282 [00:01<00:21, 11.93it/s]Loading weights:   8%|▊         | 22/282 [00:01<00:22, 11.56it/s]Loading weights:   9%|▊         | 24/282 [00:01<00:24, 10.60it/s]Loading weights:  11%|█         | 30/282 [00:02<00:19, 12.74it/s]Loading weights:  12%|█▏        | 33/282 [00:02<00:17, 14.34it/s]Loading weights:  12%|█▏        | 35/282 [00:02<00:18, 13.46it/s]Loading weights:  13%|█▎        | 37/282 [00:02<00:21, 11.60it/s]Loading weights:  14%|█▍        | 39/282 [00:03<00:22, 10.82it/s]Loading weights:  15%|█▍        | 41/282 [00:03<00:20, 11.50it/s]Loading weights:  16%|█▋        | 46/282 [00:03<00:22, 10.56it/s]Loading weights:  17%|█▋        | 48/282 [00:03<00:24,  9.51it/s]Loading weights:  18%|█▊        | 50/282 [00:04<00:23,  9.92it/s]Loading weights:  19%|█▉        | 53/282 [00:04<00:18, 12.07it/s]Loading weights:  20%|█▉        | 55/282 [00:04<00:24,  9.26it/s]Loading weights:  20%|██        | 57/282 [00:05<00:38,  5.90it/s]Loading weights:  21%|██        | 58/282 [00:05<00:38,  5.89it/s]Loading weights:  21%|██        | 59/282 [00:05<00:37,  5.95it/s]Loading weights:  24%|██▍       | 68/282 [00:06<00:21, 10.13it/s]Loading weights:  26%|██▌       | 74/282 [00:06<00:18, 11.46it/s]Loading weights:  27%|██▋       | 76/282 [00:07<00:24,  8.49it/s]Loading weights:  27%|██▋       | 77/282 [00:07<00:29,  6.93it/s]Loading weights:  28%|██▊       | 78/282 [00:07<00:30,  6.75it/s]Loading weights:  30%|██▉       | 84/282 [00:08<00:19, 10.39it/s]Loading weights:  30%|███       | 86/282 [00:08<00:21,  9.31it/s]Loading weights:  31%|███       | 87/282 [00:08<00:21,  8.98it/s]Loading weights:  31%|███       | 88/282 [00:08<00:25,  7.73it/s]Loading weights:  33%|███▎      | 92/282 [00:09<00:22,  8.47it/s]Loading weights:  36%|███▌      | 102/282 [00:09<00:13, 12.92it/s]Loading weights:  38%|███▊      | 107/282 [00:10<00:19,  9.01it/s]Loading weights:  38%|███▊      | 108/282 [00:11<00:25,  6.72it/s]Loading weights:  44%|████▎     | 123/282 [00:12<00:14, 10.74it/s]Loading weights:  44%|████▍     | 124/282 [00:12<00:14, 10.64it/s]Loading weights:  49%|████▊     | 137/282 [00:12<00:10, 14.24it/s]Loading weights:  49%|████▉     | 139/282 [00:13<00:15,  9.45it/s]Loading weights:  50%|████▉     | 140/282 [00:14<00:18,  7.48it/s]Loading weights:  56%|█████▌    | 157/282 [00:14<00:07, 16.92it/s]Loading weights:  57%|█████▋    | 160/282 [00:14<00:07, 17.01it/s]Loading weights:  58%|█████▊    | 163/282 [00:15<00:09, 12.08it/s]Loading weights:  60%|█████▉    | 168/282 [00:15<00:07, 14.71it/s]Loading weights:  63%|██████▎   | 177/282 [00:15<00:06, 17.12it/s]Loading weights:  64%|██████▍   | 180/282 [00:15<00:05, 17.71it/s]Loading weights:  65%|██████▍   | 183/282 [00:16<00:05, 17.48it/s]Loading weights:  66%|██████▌   | 186/282 [00:16<00:06, 15.60it/s]Loading weights:  67%|██████▋   | 189/282 [00:16<00:05, 17.21it/s]Loading weights:  69%|██████▉   | 194/282 [00:17<00:06, 13.73it/s]Loading weights:  71%|███████   | 200/282 [00:17<00:04, 16.83it/s]Loading weights:  72%|███████▏  | 203/282 [00:17<00:04, 16.90it/s]Loading weights:  73%|███████▎  | 205/282 [00:17<00:05, 15.12it/s]Loading weights:  73%|███████▎  | 207/282 [00:17<00:04, 15.87it/s]Loading weights:  74%|███████▍  | 210/282 [00:17<00:04, 17.22it/s]Loading weights:  75%|███████▌  | 212/282 [00:18<00:07,  9.96it/s]Loading weights:  76%|███████▌  | 214/282 [00:18<00:06, 11.30it/s]Loading weights:  77%|███████▋  | 218/282 [00:18<00:05, 12.20it/s]Loading weights:  80%|████████  | 227/282 [00:19<00:02, 20.09it/s]Loading weights:  82%|████████▏ | 230/282 [00:19<00:02, 21.28it/s]Loading weights:  83%|████████▎ | 233/282 [00:19<00:03, 12.85it/s]Loading weights:  83%|████████▎ | 235/282 [00:19<00:03, 13.04it/s]Loading weights:  86%|████████▌ | 243/282 [00:20<00:01, 19.52it/s]Loading weights:  87%|████████▋ | 246/282 [00:20<00:01, 19.08it/s]Loading weights:  88%|████████▊ | 249/282 [00:20<00:01, 18.95it/s]Loading weights:  89%|████████▉ | 252/282 [00:20<00:01, 15.82it/s]Loading weights:  90%|█████████ | 254/282 [00:20<00:01, 14.54it/s]Loading weights:  91%|█████████ | 256/282 [00:20<00:01, 15.15it/s]Loading weights:  91%|█████████▏| 258/282 [00:21<00:01, 14.42it/s]Loading weights:  93%|█████████▎| 263/282 [00:21<00:01, 18.43it/s]Loading weights:  94%|█████████▍| 266/282 [00:21<00:01, 11.29it/s]Loading weights:  97%|█████████▋| 274/282 [00:21<00:00, 17.87it/s]Loading weights: 100%|██████████| 282/282 [00:21<00:00, 12.82it/s]
+The tied weights mapping and config for this model specifies to tie shared.weight to lm_head.weight, but both are present in the checkpoints with different values, so we will NOT tie them. You should update the config with `tie_word_embeddings=False` to silence this warning.
+2026-04-14 12:01:32,255 [INFO] src.abstractive_model: Checkpoint loaded successfully.
+Abstractive Summarization:   0%|          | 0/100 [00:00<?, ?doc/s]Abstractive Summarization:   1%|          | 1/100 [02:10<3:35:05, 130.36s/doc]Abstractive Summarization:   2%|▏         | 2/100 [02:29<1:45:41, 64.71s/doc] Abstractive Summarization:   3%|▎         | 3/100 [02:44<1:08:27, 42.34s/doc]Abstractive Summarization:   4%|▍         | 4/100 [02:54<46:59, 29.37s/doc]  Abstractive Summarization:   5%|▌         | 5/100 [03:06<36:29, 23.05s/doc]Abstractive Summarization:   6%|▌         | 6/100 [03:16<29:08, 18.60s/doc]Abstractive Summarization:   7%|▋         | 7/100 [03:28<25:48, 16.65s/doc]Abstractive Summarization:   8%|▊         | 8/100 [03:40<23:00, 15.00s/doc]Abstractive Summarization:   9%|▉         | 9/100 [03:50<20:38, 13.61s/doc]Abstractive Summarization:  10%|█         | 10/100 [04:02<19:33, 13.04s/doc]Abstractive Summarization:  11%|█         | 11/100 [04:13<18:23, 12.40s/doc]Abstractive Summarization:  12%|█▏        | 12/100 [04:25<17:51, 12.17s/doc]Abstractive Summarization:  13%|█▎        | 13/100 [04:35<16:59, 11.72s/doc]Abstractive Summarization:  14%|█▍        | 14/100 [04:46<16:24, 11.45s/doc]Abstractive Summarization:  15%|█▌        | 15/100 [04:58<16:16, 11.49s/doc]Abstractive Summarization:  16%|█▌        | 16/100 [05:09<16:10, 11.55s/doc]Abstractive Summarization:  17%|█▋        | 17/100 [05:19<15:08, 10.95s/doc]Abstractive Summarization:  18%|█▊        | 18/100 [05:34<16:29, 12.07s/doc]Abstractive Summarization:  19%|█▉        | 19/100 [05:46<16:17, 12.06s/doc]Abstractive Summarization:  20%|██        | 20/100 [06:00<16:59, 12.74s/doc]Abstractive Summarization:  21%|██        | 21/100 [06:18<18:50, 14.31s/doc]Abstractive Summarization:  22%|██▏       | 22/100 [06:36<20:01, 15.40s/doc]Abstractive Summarization:  23%|██▎       | 23/100 [07:11<27:30, 21.43s/doc]Abstractive Summarization:  24%|██▍       | 24/100 [07:36<28:30, 22.51s/doc]Abstractive Summarization:  25%|██▌       | 25/100 [08:00<28:34, 22.86s/doc]Abstractive Summarization:  26%|██▌       | 26/100 [08:25<28:59, 23.50s/doc]Abstractive Summarization:  27%|██▋       | 27/100 [08:50<29:15, 24.05s/doc]Abstractive Summarization:  28%|██▊       | 28/100 [09:16<29:25, 24.52s/doc]Abstractive Summarization:  29%|██▉       | 29/100 [09:47<31:19, 26.47s/doc]Abstractive Summarization:  30%|███       | 30/100 [10:14<31:01, 26.59s/doc]Abstractive Summarization:  31%|███       | 31/100 [10:58<36:30, 31.74s/doc]Abstractive Summarization:  32%|███▏      | 32/100 [11:36<38:20, 33.83s/doc]Abstractive Summarization:  33%|███▎      | 33/100 [12:21<41:29, 37.16s/doc]Abstractive Summarization:  34%|███▍      | 34/100 [13:06<43:23, 39.44s/doc]Abstractive Summarization:  35%|███▌      | 35/100 [13:27<36:42, 33.89s/doc]Abstractive Summarization:  36%|███▌      | 36/100 [14:06<37:51, 35.50s/doc]Abstractive Summarization:  37%|███▋      | 37/100 [14:39<36:29, 34.76s/doc]Abstractive Summarization:  38%|███▊      | 38/100 [15:25<39:15, 38.00s/doc]Abstractive Summarization:  39%|███▉      | 39/100 [16:10<40:38, 39.97s/doc]Abstractive Summarization:  40%|████      | 40/100 [16:45<38:36, 38.61s/doc]Abstractive Summarization:  41%|████      | 41/100 [17:30<39:58, 40.66s/doc]Abstractive Summarization:  42%|████▏     | 42/100 [18:16<40:47, 42.20s/doc]Abstractive Summarization:  43%|████▎     | 43/100 [19:02<41:01, 43.19s/doc]Abstractive Summarization:  44%|████▍     | 44/100 [19:38<38:28, 41.23s/doc]Abstractive Summarization:  45%|████▌     | 45/100 [20:13<36:03, 39.33s/doc]Abstractive Summarization:  46%|████▌     | 46/100 [21:00<37:28, 41.65s/doc]Abstractive Summarization:  47%|████▋     | 47/100 [21:49<38:46, 43.90s/doc]Abstractive Summarization:  48%|████▊     | 48/100 [22:36<38:41, 44.65s/doc]Abstractive Summarization:  49%|████▉     | 49/100 [23:22<38:15, 45.00s/doc]Abstractive Summarization:  50%|█████     | 50/100 [23:54<34:13, 41.07s/doc]Abstractive Summarization:  51%|█████     | 51/100 [24:40<34:54, 42.74s/doc]Abstractive Summarization:  52%|█████▏    | 52/100 [25:26<35:01, 43.77s/doc]Abstractive Summarization:  53%|█████▎    | 53/100 [25:46<28:43, 36.67s/doc]Abstractive Summarization:  54%|█████▍    | 54/100 [26:11<25:13, 32.91s/doc]Abstractive Summarization:  55%|█████▌    | 55/100 [26:23<20:10, 26.90s/doc]Abstractive Summarization:  56%|█████▌    | 56/100 [26:47<19:00, 25.92s/doc]Abstractive Summarization:  57%|█████▋    | 57/100 [27:03<16:27, 22.97s/doc]Abstractive Summarization:  58%|█████▊    | 58/100 [27:33<17:27, 24.95s/doc]Abstractive Summarization:  59%|█████▉    | 59/100 [28:19<21:29, 31.44s/doc]Abstractive Summarization:  60%|██████    | 60/100 [29:12<25:10, 37.76s/doc]Abstractive Summarization:  61%|██████    | 61/100 [30:10<28:25, 43.73s/doc]Abstractive Summarization:  62%|██████▏   | 62/100 [30:42<25:31, 40.32s/doc]Abstractive Summarization:  63%|██████▎   | 63/100 [31:16<23:46, 38.54s/doc]Abstractive Summarization:  64%|██████▍   | 64/100 [32:02<24:23, 40.65s/doc]Abstractive Summarization:  65%|██████▌   | 65/100 [32:38<22:55, 39.29s/doc]Abstractive Summarization:  66%|██████▌   | 66/100 [33:18<22:20, 39.44s/doc]Abstractive Summarization:  67%|██████▋   | 67/100 [33:41<19:05, 34.71s/doc]Abstractive Summarization:  68%|██████▊   | 68/100 [34:28<20:21, 38.18s/doc]Abstractive Summarization:  69%|██████▉   | 69/100 [34:53<17:41, 34.24s/doc]Abstractive Summarization:  70%|███████   | 70/100 [35:30<17:33, 35.13s/doc]Abstractive Summarization:  71%|███████   | 71/100 [36:13<18:09, 37.56s/doc]Abstractive Summarization:  72%|███████▏  | 72/100 [36:58<18:28, 39.60s/doc]Abstractive Summarization:  73%|███████▎  | 73/100 [37:15<14:51, 33.02s/doc]Abstractive Summarization:  74%|███████▍  | 74/100 [38:02<16:04, 37.10s/doc]Abstractive Summarization:  75%|███████▌  | 75/100 [38:20<13:08, 31.52s/doc]Abstractive Summarization:  76%|███████▌  | 76/100 [39:01<13:43, 34.33s/doc]Abstractive Summarization:  77%|███████▋  | 77/100 [39:13<10:34, 27.59s/doc]Abstractive Summarization:  78%|███████▊  | 78/100 [39:41<10:11, 27.78s/doc]Abstractive Summarization:  79%|███████▉  | 79/100 [40:19<10:42, 30.60s/doc]Abstractive Summarization:  80%|████████  | 80/100 [41:04<11:41, 35.05s/doc]Abstractive Summarization:  81%|████████  | 81/100 [41:50<12:07, 38.27s/doc]Abstractive Summarization:  82%|████████▏ | 82/100 [42:33<11:57, 39.87s/doc]Abstractive Summarization:  83%|████████▎ | 83/100 [42:51<09:25, 33.26s/doc]Abstractive Summarization:  84%|████████▍ | 84/100 [43:31<09:21, 35.11s/doc]Abstractive Summarization:  85%|████████▌ | 85/100 [44:01<08:26, 33.80s/doc]Abstractive Summarization:  86%|████████▌ | 86/100 [44:35<07:51, 33.70s/doc]Abstractive Summarization:  87%|████████▋ | 87/100 [44:59<06:41, 30.92s/doc]Abstractive Summarization:  88%|████████▊ | 88/100 [45:46<07:06, 35.54s/doc]Abstractive Summarization:  89%|████████▉ | 89/100 [46:15<06:09, 33.60s/doc]Abstractive Summarization:  90%|█████████ | 90/100 [46:47<05:31, 33.13s/doc]Abstractive Summarization:  91%|█████████ | 91/100 [47:34<05:36, 37.38s/doc]Abstractive Summarization:  92%|█████████▏| 92/100 [48:08<04:51, 36.42s/doc]Abstractive Summarization:  93%|█████████▎| 93/100 [48:56<04:38, 39.78s/doc]Abstractive Summarization:  94%|█████████▍| 94/100 [49:12<03:16, 32.73s/doc]Abstractive Summarization:  95%|█████████▌| 95/100 [49:35<02:29, 29.91s/doc]Abstractive Summarization:  96%|█████████▌| 96/100 [49:59<01:52, 28.15s/doc]Abstractive Summarization:  97%|█████████▋| 97/100 [50:17<01:14, 24.84s/doc]Abstractive Summarization:  98%|█████████▊| 98/100 [50:32<00:44, 22.08s/doc]Abstractive Summarization:  99%|█████████▉| 99/100 [51:07<00:25, 25.97s/doc]Abstractive Summarization: 100%|██████████| 100/100 [51:53<00:00, 31.84s/doc]Abstractive Summarization: 100%|██████████| 100/100 [51:53<00:00, 31.13s/doc]
+2026-04-14 12:53:25,510 [INFO] src.abstractive_model: Batch abstractive summarization completed: 100 documents
+2026-04-14 12:53:25,511 [INFO] __main__:   Abstractive done in 3113.3s (31.1s/doc)
+2026-04-14 12:53:25,822 [INFO] __main__: Saved /workspaces/academic-text-summarization-id/output/results/summarize.json (7518.3 KB)
+2026-04-14 12:53:26,075 [INFO] __main__: === Generating evaluate.json ===
+2026-04-14 12:53:26,089 [INFO] absl: Using default tokenizer.
+2026-04-14 12:53:26,089 [INFO] src.evaluator: ROUGE scorer initialized with metrics: ['rouge1', 'rouge2', 'rougeL']
+2026-04-14 12:53:27,012 [INFO] src.evaluator: ROUGE scores computed for 100 document pairs.
+2026-04-14 12:53:27,643 [INFO] src.evaluator: ROUGE scores computed for 100 document pairs.
+2026-04-14 12:53:29,259 [INFO] __main__: Saved /workspaces/academic-text-summarization-id/output/results/evaluate.json (119.5 KB)
+2026-04-14 12:53:29,259 [INFO] __main__: ============================================================
+2026-04-14 12:53:29,259 [INFO] __main__: ALL DONE in 3181.6s
+2026-04-14 12:53:29,260 [INFO] __main__: JSON files saved to: /workspaces/academic-text-summarization-id/output/results
+2026-04-14 12:53:29,260 [INFO] __main__: Files: dataset.json, preprocess.json, summarize.json, evaluate.json
+2026-04-14 12:53:29,260 [INFO] __main__: ============================================================

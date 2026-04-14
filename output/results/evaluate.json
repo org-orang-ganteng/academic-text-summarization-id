@@ -2,36 +2,36 @@
   "success": true,
   "extractive_scores": {
     "rouge1": {
-      "precision": 0.09674022397600444,
-      "recall": 0.4376818174907756,
-      "fmeasure": 0.1569653239346852
+      "precision": 0.3768592003381068,
+      "recall": 0.4732372407659329,
+      "fmeasure": 0.387292407223433
     },
     "rouge2": {
-      "precision": 0.026006326032960915,
-      "recall": 0.11738068579167651,
-      "fmeasure": 0.042008476747036255
+      "precision": 0.16610101666209193,
+      "recall": 0.1948837982182957,
+      "fmeasure": 0.16683481410066162
     },
     "rougeL": {
-      "precision": 0.07091438288567727,
-      "recall": 0.31685441510673706,
-      "fmeasure": 0.11465636370576686
+      "precision": 0.22708172516912822,
+      "recall": 0.29028323469244466,
+      "fmeasure": 0.2329679018165413
     }
   },
   "abstractive_scores": {
     "rouge1": {
-      "precision": 0.34302805317133733,
-      "recall": 0.4189172953734469,
-      "fmeasure": 0.37064406978157627
+      "precision": 0.7393639285443673,
+      "recall": 0.5875003376170648,
+      "fmeasure": 0.6310061831359737
     },
     "rouge2": {
-      "precision": 0.1773494057182878,
-      "recall": 0.21906068137555007,
-      "fmeasure": 0.19254103871192713
+      "precision": 0.6062966610642169,
+      "recall": 0.4913159522397369,
+      "fmeasure": 0.5260507945147114
     },
     "rougeL": {
-      "precision": 0.27157428296582914,
-      "recall": 0.3399417112291995,
-      "fmeasure": 0.2972317236660915
+      "precision": 0.6795388063509828,
+      "recall": 0.5500627970984842,
+      "fmeasure": 0.587610803024412
     }
   },
   "per_document": [
@@ -56,22 +56,22 @@
           "f": 0.1286
         }
       },
-      "abstractive_preview": "Seorang militan al-Qaeda, Said al-Shihri, tewas dalam sebuah serangan udara di Yaman, demikian keterangan resmi militer Yaman kepada BBC, tetapi belum",
+      "abstractive_preview": "Said al-Shihri, seorang militan al-Qaeda yang pernah dibebaskan dari penjara Guantanamo, dilaporkan tewas dalam sebuah operasi udara di Yaman, demikia",
       "abs": {
         "rouge1": {
-          "p": 0.4,
-          "r": 0.4762,
-          "f": 0.4348
+          "p": 0.5417,
+          "r": 0.619,
+          "f": 0.5778
         },
         "rouge2": {
-          "p": 0.25,
-          "r": 0.3,
-          "f": 0.2727
+          "p": 0.3478,
+          "r": 0.4,
+          "f": 0.3721
         },
         "rougeL": {
-          "p": 0.32,
-          "r": 0.381,
-          "f": 0.3478
+          "p": 0.5,
+          "r": 0.5714,
+          "f": 0.5333
         }
       }
     },
@@ -96,22 +96,22 @@
           "f": 0.0811
         }
       },
-      "abstractive_preview": "Sejumlah partai politik sudah menggelar acara menonton film Pengkhianatan G30S/PKI di Jakarta Utara, Kamis (21/9) lalu. Namun, sejumlah anggota DPR da",
+      "abstractive_preview": "Sementara Partai Amanat Nasional menggelar acara menonton film Pengkhianatan G30S/PKI di Hotel Mercure, Jakarta Utara, pada Kamis (21/9) lalu, sejumla",
       "abs": {
         "rouge1": {
-          "p": 0.2121,
-          "r": 0.2333,
-          "f": 0.2222
+          "p": 0.1389,
+          "r": 0.1667,
+          "f": 0.1515
         },
         "rouge2": {
-          "p": 0.0312,
+          "p": 0.0286,
           "r": 0.0345,
-          "f": 0.0328
+          "f": 0.0312
         },
         "rougeL": {
-          "p": 0.1818,
-          "r": 0.2,
-          "f": 0.1905
+          "p": 0.1389,
+          "r": 0.1667,
+          "f": 0.1515
         }
       }
     },
@@ -136,22 +136,22 @@
           "f": 0.0839
         }
       },
-      "abstractive_preview": "Mahkamah Agung Amerika Serikat telah menunda eksekusi tiga terpidana mati dengan suntikan mematikan berisi midazolam hingga setelah proses hukum telah",
+      "abstractive_preview": "Mahkamah Agung Amerika Serikat telah menunda eksekusi tiga terpidana mati yang dianggap gagal dengan suntikan mematikan berisi midazolam hingga setela",
       "abs": {
         "rouge1": {
-          "p": 0.36,
-          "r": 0.3913,
-          "f": 0.375
+          "p": 0.3333,
+          "r": 0.4783,
+          "f": 0.3929
         },
         "rouge2": {
-          "p": 0.2083,
-          "r": 0.2273,
-          "f": 0.2174
+          "p": 0.1875,
+          "r": 0.2727,
+          "f": 0.2222
         },
         "rougeL": {
-          "p": 0.36,
-          "r": 0.3913,
-          "f": 0.375
+          "p": 0.303,
+          "r": 0.4348,
+          "f": 0.3571
         }
       }
     },
@@ -176,22 +176,22 @@
           "f": 0.1935
         }
       },
-      "abstractive_preview": "Penyerang Borussia Dortmund, Robert Lewandowski, jelas tidak akan pindah ke Bayern Muenchen pada 2013 karena tidak mengajukan penawaran tertulis dari ",
+      "abstractive_preview": "Penyerang Borussia Dortmund, Robert Lewandowski, jelas tidak akan pindah ke Bayern Muenchen pada 2013, setelah ia menolak menandatangani perpanjangan ",
       "abs": {
         "rouge1": {
-          "p": 0.3571,
+          "p": 0.3704,
           "r": 0.4545,
-          "f": 0.4
+          "f": 0.4082
         },
         "rouge2": {
-          "p": 0.2593,
+          "p": 0.2692,
           "r": 0.3333,
-          "f": 0.2917
+          "f": 0.2979
         },
         "rougeL": {
-          "p": 0.3571,
+          "p": 0.3704,
           "r": 0.4545,
-          "f": 0.4
+          "f": 0.4082
         }
       }
     },
@@ -216,22 +216,22 @@
           "f": 0.112
         }
       },
-      "abstractive_preview": "Karya perupa India, Anish Kapoor, yang memasang sebuah vagina raksasa di Istana Versailles, Prancis, dikritik oleh sejumlah turis Jerman dan Jerman ka",
+      "abstractive_preview": "Sebuah karya karya perupa Inggris, Anish Kapoor, yang dipamerkan di istana Versailles, Prancis, memunculkan kritik sekaligus pujian di Prancis karena ",
       "abs": {
         "rouge1": {
-          "p": 0.32,
-          "r": 0.3478,
-          "f": 0.3333
+          "p": 0.3846,
+          "r": 0.4348,
+          "f": 0.4082
         },
         "rouge2": {
-          "p": 0.125,
-          "r": 0.1364,
-          "f": 0.1304
+          "p": 0.24,
+          "r": 0.2727,
+          "f": 0.2553
         },
         "rougeL": {
-          "p": 0.28,
-          "r": 0.3043,
-          "f": 0.2917
+          "p": 0.3462,
+          "r": 0.3913,
+          "f": 0.3673
         }
       }
     },
@@ -256,22 +256,22 @@
           "f": 0.0943
         }
       },
-      "abstractive_preview": "Para atlet Rusia tidak akan bertanding di Paralimpiade 2016 di Rio de Janeiro setelah Mahkamah Arbitrase Olahraga memutuskan untuk melarang Rusia untu",
+      "abstractive_preview": "Para atlet Rusia tidak akan bertanding di Paralimpiade Rio tahun depan setelah Mahkamah Arbitrase Olahraga, CAS, memutuskan untuk melarang seluruh ang",
       "abs": {
         "rouge1": {
-          "p": 0.2812,
-          "r": 0.5,
-          "f": 0.36
+          "p": 0.2759,
+          "r": 0.4444,
+          "f": 0.3404
         },
         "rouge2": {
-          "p": 0.0968,
-          "r": 0.1765,
-          "f": 0.125
+          "p": 0.1786,
+          "r": 0.2941,
+          "f": 0.2222
         },
         "rougeL": {
-          "p": 0.25,
+          "p": 0.2759,
           "r": 0.4444,
-          "f": 0.32
+          "f": 0.3404
         }
       }
     },
@@ -296,22 +296,22 @@
           "f": 0.1263
         }
       },
-      "abstractive_preview": "Presiden Joko Widodo membebaskan empat WNI yang disandera kelompok panyandera di Filipina sejak 15 Maret lalu, seperti disampaikan oleh juru bicara Pr",
+      "abstractive_preview": "Presiden Joko Widodo membebaskan empat warga negara Indonesia yang disandera di Filipina sejak 15 April lalu. Mereka adalah anak buah kapal tunda TB H",
       "abs": {
         "rouge1": {
-          "p": 0.44,
-          "r": 0.5789,
-          "f": 0.5
+          "p": 0.4412,
+          "r": 0.7895,
+          "f": 0.566
         },
         "rouge2": {
-          "p": 0.25,
-          "r": 0.3333,
-          "f": 0.2857
+          "p": 0.3939,
+          "r": 0.7222,
+          "f": 0.5098
         },
         "rougeL": {
-          "p": 0.36,
-          "r": 0.4737,
-          "f": 0.4091
+          "p": 0.3529,
+          "r": 0.6316,
+          "f": 0.4528
         }
       }
     },
@@ -336,22 +336,22 @@
           "f": 0.1143
         }
       },
-      "abstractive_preview": "Amerika Serikat mengatakan dua pesawat militernya melintasi wilayah udara yang disengketakan antara Jepang dan Korea setelah Cina mengindahkan aturan ",
+      "abstractive_preview": "Militer AS mengatakan dua pesawatnya melintasi wilayah udara di Laut Cina Selatan yang disengketakan dengan Jepang dan Korea Utara karena \"tengah meng",
       "abs": {
         "rouge1": {
-          "p": 0.2667,
-          "r": 0.3077,
-          "f": 0.2857
+          "p": 0.3871,
+          "r": 0.4615,
+          "f": 0.4211
         },
         "rouge2": {
-          "p": 0.1034,
-          "r": 0.12,
-          "f": 0.1111
+          "p": 0.2667,
+          "r": 0.32,
+          "f": 0.2909
         },
         "rougeL": {
-          "p": 0.2667,
-          "r": 0.3077,
-          "f": 0.2857
+          "p": 0.3871,
+          "r": 0.4615,
+          "f": 0.4211
         }
       }
     },
@@ -376,22 +376,22 @@
           "f": 0.1111
         }
       },
-      "abstractive_preview": "Pihak berwenang Filipina mengatakan mereka telah melaksanakan perintah evakuasi setelah Topan Hagupit menerjang kota Tacloban, Filipina Tengah, hari M",
+      "abstractive_preview": "Topan Hagupit yang menghantam Filipina pada Sabtu lalu telah mengakibatkan ribuan orang mengungsi dari tempat penampungan sementara, namun para pejaba",
       "abs": {
         "rouge1": {
-          "p": 0.1429,
-          "r": 0.2105,
-          "f": 0.1702
+          "p": 0.2143,
+          "r": 0.3158,
+          "f": 0.2553
         },
         "rouge2": {
-          "p": 0.037,
-          "r": 0.0556,
-          "f": 0.0444
+          "p": 0.1111,
+          "r": 0.1667,
+          "f": 0.1333
         },
         "rougeL": {
-          "p": 0.1429,
-          "r": 0.2105,
-          "f": 0.1702
+          "p": 0.1786,
+          "r": 0.2632,
+          "f": 0.2128
         }
       }
     },
@@ -416,22 +416,22 @@
           "f": 0.1208
         }
       },
-      "abstractive_preview": "DKI Jakarta kembali memperpanjang masa transisi Pembatasan Sosial Berskala Besar (PSBB) untuk ketiga kalinya sampai dengan tanggal 13 Agustus 2020. Na",
+      "abstractive_preview": "DKI Jakarta menempati urutan teratas dalam daftar provinsi-provinsi penyumbang kasus Covid-19 di Indonesia pada Kamis (10/09). Jumlah kasus baru dalam",
       "abs": {
         "rouge1": {
-          "p": 0.2667,
-          "r": 0.2051,
-          "f": 0.2319
+          "p": 0.4194,
+          "r": 0.3333,
+          "f": 0.3714
         },
         "rouge2": {
-          "p": 0.1724,
-          "r": 0.1316,
-          "f": 0.1493
+          "p": 0.2333,
+          "r": 0.1842,
+          "f": 0.2059
         },
         "rougeL": {
-          "p": 0.2333,
-          "r": 0.1795,
-          "f": 0.2029
+          "p": 0.3548,
+          "r": 0.2821,
+          "f": 0.3143
         }
       }
     },
@@ -456,22 +456,22 @@
           "f": 0.1583
         }
       },
-      "abstractive_preview": "Pemerintah China meminta sekolah-sekolah untuk sepenuhnya mereformasi pendidikan jasmani dan memperkuat perekrutan guru-guru. Namun, apa yang akan dil",
+      "abstractive_preview": "Sebuah pemberitahuan yang dikeluarkan Kementerian Pendidikan China meminta sekolah-sekolah untuk sepenuhnya mereformasi pendidikan jasmani dan memperk",
       "abs": {
         "rouge1": {
-          "p": 0.1429,
-          "r": 0.1026,
-          "f": 0.1194
+          "p": 0.3214,
+          "r": 0.2308,
+          "f": 0.2687
         },
         "rouge2": {
-          "p": 0.0,
-          "r": 0.0,
-          "f": 0.0
+          "p": 0.1852,
+          "r": 0.1316,
+          "f": 0.1538
         },
         "rougeL": {
-          "p": 0.0714,
-          "r": 0.0513,
-          "f": 0.0597
+          "p": 0.2857,
+          "r": 0.2051,
+          "f": 0.2388
         }
       }
     },
@@ -496,22 +496,22 @@
           "f": 0.1282
         }
       },
-      "abstractive_preview": "Facebook meminta maaf kepada kaum transgender dan waria yang menggunakan nama asli mereka di dunia daring karena melanggar kebijakan perusahaan itu, k",
+      "abstractive_preview": "Facebook meminta maaf kepada masyarakat transgender dan waria karena melanggar kebijakan perusahaan itu untuk menyembunyikan identitas asli mereka di ",
       "abs": {
         "rouge1": {
-          "p": 0.4483,
-          "r": 0.5652,
-          "f": 0.5
+          "p": 0.3571,
+          "r": 0.4348,
+          "f": 0.3922
         },
         "rouge2": {
-          "p": 0.25,
-          "r": 0.3182,
-          "f": 0.28
+          "p": 0.2222,
+          "r": 0.2727,
+          "f": 0.2449
         },
         "rougeL": {
-          "p": 0.3448,
+          "p": 0.3571,
           "r": 0.4348,
-          "f": 0.3846
+          "f": 0.3922
         }
       }
     },
@@ -536,22 +536,22 @@
           "f": 0.0656
         }
       },
-      "abstractive_preview": "Mantan Menteri Keuangan Gamawan Fauzi mengaku 'tidak penah menerima satu sen' terkait proyek pengadaan KTP elektronik atau e-KTP, yang dianggap salah ",
+      "abstractive_preview": "Mantan Menteri Energi dan Sumber Daya Mineral Gamawan Fauzi mengaku tidak penah menerima dana proyek KTP elektronik atau e-KTP yang dianggap salah sat",
       "abs": {
         "rouge1": {
-          "p": 0.1935,
+          "p": 0.1875,
           "r": 0.2727,
-          "f": 0.2264
+          "f": 0.2222
         },
         "rouge2": {
-          "p": 0.0667,
+          "p": 0.0645,
           "r": 0.0952,
-          "f": 0.0784
+          "f": 0.0769
         },
         "rougeL": {
-          "p": 0.0968,
+          "p": 0.0938,
           "r": 0.1364,
-          "f": 0.1132
+          "f": 0.1111
         }
       }
     },
@@ -576,22 +576,22 @@
           "f": 0.0656
         }
       },
-      "abstractive_preview": "Walaupun sudah diserang berulang kali oleh Amerika Serikat dan sekutu-sekutunya, kelompok yang menamakan diri Negara Islam (ISIS) masih kuat. Namun, a",
+      "abstractive_preview": "Walaupun sudah diserang berulang kali oleh Amerika Serikat dan sekutu-sekutunya, kelompok yang menamakan diri Negara Islam atau ISIS masih kuat. Sebua",
       "abs": {
         "rouge1": {
-          "p": 0.5769,
+          "p": 0.5556,
           "r": 0.5769,
-          "f": 0.5769
+          "f": 0.566
         },
         "rouge2": {
-          "p": 0.44,
+          "p": 0.4231,
           "r": 0.44,
-          "f": 0.44
+          "f": 0.4314
         },
         "rougeL": {
-          "p": 0.4231,
+          "p": 0.4074,
           "r": 0.4231,
-          "f": 0.4231
+          "f": 0.4151
         }
       }
     },
@@ -616,22 +616,22 @@
           "f": 0.1194
         }
       },
-      "abstractive_preview": "Sebuah video eksperimen yang menampilkan dua orang gay di pusat kota Moskow, Rusia, menimbulkan perdebatan besar di dunia maya tentang bagaimana negar",
+      "abstractive_preview": "Sebuah video eksperimen di Rusia yang menampilkan dua orang pemuda yang tampak bergandengan tangan menghadapi seorang pria agresif membuat perdebatan ",
       "abs": {
         "rouge1": {
-          "p": 0.3548,
-          "r": 0.55,
-          "f": 0.4314
+          "p": 0.3636,
+          "r": 0.6,
+          "f": 0.4528
         },
         "rouge2": {
-          "p": 0.2333,
-          "r": 0.3684,
-          "f": 0.2857
+          "p": 0.1875,
+          "r": 0.3158,
+          "f": 0.2353
         },
         "rougeL": {
-          "p": 0.3548,
-          "r": 0.55,
-          "f": 0.4314
+          "p": 0.303,
+          "r": 0.5,
+          "f": 0.3774
         }
       }
     },
@@ -656,22 +656,22 @@
           "f": 0.1525
         }
       },
-      "abstractive_preview": "Pemerintah Belanda meminta maaf atas pelanggaran yang dilakukan oleh pasangan Belanda dalam proses adopsi anak-anak dari Indonesia pada era 1980-an hi",
+      "abstractive_preview": "Pemerintah Belanda meminta maaf atas pelanggaran serius dalam proses adopsi anak-anak dari Indonesia yang diadopsi oleh pasangan Belanda pada era 1980",
       "abs": {
         "rouge1": {
-          "p": 0.7419,
-          "r": 0.575,
-          "f": 0.6479
+          "p": 0.7742,
+          "r": 0.6,
+          "f": 0.6761
         },
         "rouge2": {
-          "p": 0.4,
-          "r": 0.3077,
-          "f": 0.3478
+          "p": 0.5,
+          "r": 0.3846,
+          "f": 0.4348
         },
         "rougeL": {
-          "p": 0.3548,
-          "r": 0.275,
-          "f": 0.3099
+          "p": 0.4516,
+          "r": 0.35,
+          "f": 0.3944
         }
       }
     },
@@ -696,22 +696,22 @@
           "f": 0.0962
         }
       },
-      "abstractive_preview": "Chelsea dan Queens Park Rangers telah mencapai kesepakatan tentang kepindahan pemain tengah Alex dari Chelsea ke klub lain, Rangers. Namun nilai trans",
+      "abstractive_preview": "Queens Park Rangers masih belum mencapai kesepakatan dengan Chelsea untuk mendapatkan pemain belakang asal Spanyol, Alex, setelah kehilangan izin kerj",
       "abs": {
         "rouge1": {
-          "p": 0.1429,
-          "r": 0.2857,
-          "f": 0.1905
+          "p": 0.2667,
+          "r": 0.5714,
+          "f": 0.3636
         },
         "rouge2": {
-          "p": 0.0,
-          "r": 0.0,
-          "f": 0.0
+          "p": 0.1379,
+          "r": 0.3077,
+          "f": 0.1905
         },
         "rougeL": {
-          "p": 0.1071,
-          "r": 0.2143,
-          "f": 0.1429
+          "p": 0.2667,
+          "r": 0.5714,
+          "f": 0.3636
         }
       }
     },
@@ -736,22 +736,22 @@
           "f": 0.1316
         }
       },
-      "abstractive_preview": "Presiden Joko Widodo mengumumkan tanggal 1 Juni ditetapkan sebagai hari libur dan hari lahir Pancasila, dalam pidato sambutan peringatan Pidato Bung K",
+      "abstractive_preview": "Presiden Joko Widodo mengumumkan tanggal 1 Juni sebagai hari lahir Pancasila yang ditetapkan, diliburkan dan diperingati sebagai Hari Lahir Pancasila ",
       "abs": {
         "rouge1": {
-          "p": 0.3939,
+          "p": 0.2955,
           "r": 0.7647,
-          "f": 0.52
+          "f": 0.4262
         },
         "rouge2": {
-          "p": 0.2812,
-          "r": 0.5625,
-          "f": 0.375
+          "p": 0.2326,
+          "r": 0.625,
+          "f": 0.339
         },
         "rougeL": {
-          "p": 0.3333,
-          "r": 0.6471,
-          "f": 0.44
+          "p": 0.2955,
+          "r": 0.7647,
+          "f": 0.4262
         }
       }
     },
@@ -776,12 +776,12 @@
           "f": 0.125
         }
       },
-      "abstractive_preview": "Konser Jason Donovan dan Kylie Minogue di luar ruangan harus dibatalkan karena cuaca buruk, kata juru bicara festival musik itu, Pete Waterman, yang a",
+      "abstractive_preview": "Konser khusus Jason Donovan dan Kylie Minogue yang akan digelar di luar ruangan dibatalkan karena cuaca yang \"tidak biasa\", kata pengacara kedua penya",
       "abs": {
         "rouge1": {
-          "p": 0.3571,
-          "r": 0.5,
-          "f": 0.4167
+          "p": 0.4286,
+          "r": 0.6,
+          "f": 0.5
         },
         "rouge2": {
           "p": 0.2222,
@@ -789,9 +789,9 @@
           "f": 0.2609
         },
         "rougeL": {
-          "p": 0.2857,
-          "r": 0.4,
-          "f": 0.3333
+          "p": 0.3214,
+          "r": 0.45,
+          "f": 0.375
         }
       }
     },
@@ -816,27 +816,3227 @@
           "f": 0.0848
         }
       },
-      "abstractive_preview": "Beberapa rumah sakit di Manaus, Brasil, telah \"kehabisan oksigen\" dan ribuan orang sekarat, seperti dilaporkan sejumlah laporan tentang kondisi keseha",
+      "abstractive_preview": "Beberapa rumah sakit di Kota Manaus, Brasil, telah menghabiskan oksigen dan ribuan orang sekarat akibat pandemi virus corona, kata para ahli kesehatan",
       "abs": {
         "rouge1": {
-          "p": 0.4615,
-          "r": 0.48,
-          "f": 0.4706
+          "p": 0.275,
+          "r": 0.44,
+          "f": 0.3385
         },
         "rouge2": {
-          "p": 0.12,
-          "r": 0.125,
-          "f": 0.1224
+          "p": 0.1282,
+          "r": 0.2083,
+          "f": 0.1587
         },
         "rougeL": {
-          "p": 0.3077,
-          "r": 0.32,
-          "f": 0.3137
+          "p": 0.25,
+          "r": 0.4,
+          "f": 0.3077
+        }
+      }
+    },
+    {
+      "doc_id": 20,
+      "reference_preview": "Penelitian ini bertujuan untuk menyelidiki dampak perkembangan teknologi informasi terhadap pembelajaran Bahasa Indonesia, dengan fokus pada SMPIT Rah",
+      "extractive_preview": "penelitian ini juga mengukur peningkatan interaktivitas dan keterlibatan siswa dalam proses pembelajaran menggunakan teknologi informasi. penggunaan a",
+      "ext": {
+        "rouge1": {
+          "p": 0.4417,
+          "r": 0.4417,
+          "f": 0.4417
+        },
+        "rouge2": {
+          "p": 0.2017,
+          "r": 0.2017,
+          "f": 0.2017
+        },
+        "rougeL": {
+          "p": 0.2667,
+          "r": 0.2667,
+          "f": 0.2667
+        }
+      },
+      "abstractive_preview": "Sejak diperkenalkannya teknologi informasi, terutama internet, komputer, dan perangkat mobile, dunia pendidikan telah mengalami perubahan mendalam. Da",
+      "abs": {
+        "rouge1": {
+          "p": 0.5897,
+          "r": 0.1917,
+          "f": 0.2893
+        },
+        "rouge2": {
+          "p": 0.2632,
+          "r": 0.084,
+          "f": 0.1274
+        },
+        "rougeL": {
+          "p": 0.4872,
+          "r": 0.1583,
+          "f": 0.239
+        }
+      }
+    },
+    {
+      "doc_id": 21,
+      "reference_preview": "This study aims to describe the development of folklore-based serial image media in learning to write narrative texts for elementary school students. ",
+      "extractive_preview": "classification of categories for assessment of folklore based serial image media classification interval excellent good poor very poor results and dis",
+      "ext": {
+        "rouge1": {
+          "p": 0.1272,
+          "r": 0.5669,
+          "f": 0.2078
+        },
+        "rouge2": {
+          "p": 0.0549,
+          "r": 0.246,
+          "f": 0.0897
+        },
+        "rougeL": {
+          "p": 0.0777,
+          "r": 0.3465,
+          "f": 0.127
+        }
+      },
+      "abstractive_preview": "The prototype of Serial Image Media based on Folklore was developed for learning to write narrative texts. The development of folklore-based serial im",
+      "abs": {
+        "rouge1": {
+          "p": 0.6042,
+          "r": 0.2283,
+          "f": 0.3314
+        },
+        "rouge2": {
+          "p": 0.3191,
+          "r": 0.119,
+          "f": 0.1734
+        },
+        "rougeL": {
+          "p": 0.3958,
+          "r": 0.1496,
+          "f": 0.2171
+        }
+      }
+    },
+    {
+      "doc_id": 22,
+      "reference_preview": "This writing aims to synthesize the misrepresentation strategy presented by the MUI in its fatwa on Shia. This writing is a descriptive qualitative ty",
+      "extractive_preview": "the research data consists of the vocabulary and grammar utilized and selected by the mui in the fatwa on shia. furthermore legal products related to ",
+      "ext": {
+        "rouge1": {
+          "p": 0.4802,
+          "r": 0.4413,
+          "f": 0.4599
+        },
+        "rouge2": {
+          "p": 0.1726,
+          "r": 0.1585,
+          "f": 0.1653
+        },
+        "rougeL": {
+          "p": 0.2819,
+          "r": 0.2591,
+          "f": 0.27
+        }
+      },
+      "abstractive_preview": "This writing aims to sintetise the misrepresentation strategy presented by the MUI in its fatwa on Shia. This writing is a descript qualitative type w",
+      "abs": {
+        "rouge1": {
+          "p": 0.8889,
+          "r": 0.583,
+          "f": 0.7042
+        },
+        "rouge2": {
+          "p": 0.7888,
+          "r": 0.5163,
+          "f": 0.6241
+        },
+        "rougeL": {
+          "p": 0.8704,
+          "r": 0.5709,
+          "f": 0.6895
+        }
+      }
+    },
+    {
+      "doc_id": 23,
+      "reference_preview": "The purpose of this study was to evaluate the use of reference as markers of propositional relations in essays written by junior high school students.",
+      "extractive_preview": "reference as relation markers in student essays number of data types of reference as relation markers form of reference used by the students essays wr",
+      "ext": {
+        "rouge1": {
+          "p": 0.3938,
+          "r": 0.4684,
+          "f": 0.4279
+        },
+        "rouge2": {
+          "p": 0.1111,
+          "r": 0.1323,
+          "f": 0.1208
+        },
+        "rougeL": {
+          "p": 0.1903,
+          "r": 0.2263,
+          "f": 0.2067
+        }
+      },
+      "abstractive_preview": "The purpose of this study was to evaluate the use of reference as markers of propositional relations in essays written by junior high school students.",
+      "abs": {
+        "rouge1": {
+          "p": 0.9763,
+          "r": 0.8684,
+          "f": 0.9192
+        },
+        "rouge2": {
+          "p": 0.9405,
+          "r": 0.836,
+          "f": 0.8852
+        },
+        "rougeL": {
+          "p": 0.9704,
+          "r": 0.8632,
+          "f": 0.9136
+        }
+      }
+    },
+    {
+      "doc_id": 24,
+      "reference_preview": "This study aims to determine the values of peace contained in Indonesian language textbooks and the relevance and implications for the development of ",
+      "extractive_preview": "from data one of the values of peace is found namely understanding conflict. aulia gumilar from data the value of peace is found namely understanding ",
+      "ext": {
+        "rouge1": {
+          "p": 0.5315,
+          "r": 0.343,
+          "f": 0.417
+        },
+        "rouge2": {
+          "p": 0.2091,
+          "r": 0.1345,
+          "f": 0.1637
+        },
+        "rougeL": {
+          "p": 0.3063,
+          "r": 0.1977,
+          "f": 0.2403
+        }
+      },
+      "abstractive_preview": "This study aims to determine the values of peace contained in Indonesian language textbooks and the relevance and implications for the development of ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9302,
+          "r": 0.9302,
+          "f": 0.9302
+        },
+        "rouge2": {
+          "p": 0.8538,
+          "r": 0.8538,
+          "f": 0.8538
+        },
+        "rougeL": {
+          "p": 0.9244,
+          "r": 0.9244,
+          "f": 0.9244
+        }
+      }
+    },
+    {
+      "doc_id": 25,
+      "reference_preview": "The research aims to find out the symbolic meaning of the film Dua Garis Biru by Ginatri S. Noer, the impact of early marriage and how to internalize ",
+      "extractive_preview": "abstract the research aims to find out the symbolic meaning of the film dua garis biru by ginatri s. noer the impact of early marriage and how to inte",
+      "ext": {
+        "rouge1": {
+          "p": 0.6492,
+          "r": 0.5299,
+          "f": 0.5835
+        },
+        "rouge2": {
+          "p": 0.4737,
+          "r": 0.3863,
+          "f": 0.4255
+        },
+        "rougeL": {
+          "p": 0.555,
+          "r": 0.453,
+          "f": 0.4988
+        }
+      },
+      "abstractive_preview": "The research aims to find out the symbolic meaning of the film Dua Garis Biru by Ginatri S. Noer, the impact of early marriage and how to internalize ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9524,
+          "r": 0.6838,
+          "f": 0.796
+        },
+        "rouge2": {
+          "p": 0.9102,
+          "r": 0.6524,
+          "f": 0.76
+        },
+        "rougeL": {
+          "p": 0.9464,
+          "r": 0.6795,
+          "f": 0.791
+        }
+      }
+    },
+    {
+      "doc_id": 26,
+      "reference_preview": "This study investigates the phenomenon of verbal aggression in posts on social media platforms, particularly Facebook, in Indonesian language. The res",
+      "extractive_preview": "the design prioritizes both the procedure and results of the research with the goal of offering a comprehensive understanding of verbal aggression on ",
+      "ext": {
+        "rouge1": {
+          "p": 0.381,
+          "r": 0.3057,
+          "f": 0.3392
+        },
+        "rouge2": {
+          "p": 0.096,
+          "r": 0.0769,
+          "f": 0.0854
+        },
+        "rougeL": {
+          "p": 0.246,
+          "r": 0.1975,
+          "f": 0.2191
+        }
+      },
+      "abstractive_preview": "This study investigates the phenomenon of verbal aggression in posts on social media platforms, particularly Facebook, in Indonesian language. The res",
+      "abs": {
+        "rouge1": {
+          "p": 0.932,
+          "r": 0.8726,
+          "f": 0.9013
+        },
+        "rouge2": {
+          "p": 0.8699,
+          "r": 0.8141,
+          "f": 0.8411
+        },
+        "rougeL": {
+          "p": 0.932,
+          "r": 0.8726,
+          "f": 0.9013
+        }
+      }
+    },
+    {
+      "doc_id": 27,
+      "reference_preview": "This study aims to explore the ecological content contained in Indonesian teaching materials in thematic textbooks for grade VI primary school student",
+      "extractive_preview": "ecological awareness about animals the ecological skills contained in the picture are related to students understanding of the benefits of fish for gr",
+      "ext": {
+        "rouge1": {
+          "p": 0.4843,
+          "r": 0.3532,
+          "f": 0.4085
+        },
+        "rouge2": {
+          "p": 0.1203,
+          "r": 0.0876,
+          "f": 0.1013
+        },
+        "rougeL": {
+          "p": 0.2453,
+          "r": 0.1789,
+          "f": 0.2069
+        }
+      },
+      "abstractive_preview": "This study aims to explore the ecological content contained in Indonesian teaching materials in thematic textbooks for grade VI primary school student",
+      "abs": {
+        "rouge1": {
+          "p": 0.9128,
+          "r": 0.7202,
+          "f": 0.8051
+        },
+        "rouge2": {
+          "p": 0.8304,
+          "r": 0.6544,
+          "f": 0.732
+        },
+        "rougeL": {
+          "p": 0.9012,
+          "r": 0.711,
+          "f": 0.7949
+        }
+      }
+    },
+    {
+      "doc_id": 28,
+      "reference_preview": "This study aims to determine the effect of interest and motivation in hybrid learning on the learning outcomes of Indonesian language courses. The met",
+      "extractive_preview": "the following is a table of the results of the analysis of the regression linearity test on hybrid learning interest. the following are the results of",
+      "ext": {
+        "rouge1": {
+          "p": 0.5508,
+          "r": 0.3963,
+          "f": 0.461
+        },
+        "rouge2": {
+          "p": 0.1966,
+          "r": 0.1411,
+          "f": 0.1643
+        },
+        "rougeL": {
+          "p": 0.3051,
+          "r": 0.2195,
+          "f": 0.2553
+        }
+      },
+      "abstractive_preview": "Quantitative data analysis techniques test the significance of regressive coefficients and the calculation of regression line equations to determine w",
+      "abs": {
+        "rouge1": {
+          "p": 0.3701,
+          "r": 0.3476,
+          "f": 0.3585
+        },
+        "rouge2": {
+          "p": 0.1111,
+          "r": 0.1043,
+          "f": 0.1076
+        },
+        "rougeL": {
+          "p": 0.1948,
+          "r": 0.1829,
+          "f": 0.1887
+        }
+      }
+    },
+    {
+      "doc_id": 29,
+      "reference_preview": "This study aims to describe the effectiveness of using padlet media in beginner-level BIPA learning. This type of research is experimental. The resear",
+      "extractive_preview": "the data in this study are the results of bipa learning using padlet media. the utilisation of padlet media in bipa learning is to support the languag",
+      "ext": {
+        "rouge1": {
+          "p": 0.4957,
+          "r": 0.5135,
+          "f": 0.5044
+        },
+        "rouge2": {
+          "p": 0.2632,
+          "r": 0.2727,
+          "f": 0.2679
+        },
+        "rougeL": {
+          "p": 0.3391,
+          "r": 0.3514,
+          "f": 0.3451
+        }
+      },
+      "abstractive_preview": "This study aims to describe the effectiveness of using padlet media in beginner-level BIPA learning. This type of research is experimental. The resear",
+      "abs": {
+        "rouge1": {
+          "p": 0.9604,
+          "r": 0.8739,
+          "f": 0.9151
+        },
+        "rouge2": {
+          "p": 0.92,
+          "r": 0.8364,
+          "f": 0.8762
+        },
+        "rougeL": {
+          "p": 0.9604,
+          "r": 0.8739,
+          "f": 0.9151
+        }
+      }
+    },
+    {
+      "doc_id": 30,
+      "reference_preview": "This research aims to develop teaching materials for natural disaster mitigation literacy with the help of book creators for junior high school studen",
+      "extractive_preview": "the results of the study show that based on the analysis of the need for the availability of teaching materials natural disaster mitigation literacy i",
+      "ext": {
+        "rouge1": {
+          "p": 0.5022,
+          "r": 0.5225,
+          "f": 0.5121
+        },
+        "rouge2": {
+          "p": 0.2565,
+          "r": 0.267,
+          "f": 0.2616
+        },
+        "rougeL": {
+          "p": 0.2641,
+          "r": 0.2748,
+          "f": 0.2693
+        }
+      },
+      "abstractive_preview": "This research aims to develop teaching materials for natural disaster mitigation literacy with the help of book creators for junior high school studen",
+      "abs": {
+        "rouge1": {
+          "p": 0.9465,
+          "r": 0.7973,
+          "f": 0.8655
+        },
+        "rouge2": {
+          "p": 0.8925,
+          "r": 0.7511,
+          "f": 0.8157
+        },
+        "rougeL": {
+          "p": 0.9465,
+          "r": 0.7973,
+          "f": 0.8655
+        }
+      }
+    },
+    {
+      "doc_id": 31,
+      "reference_preview": "This study aimed to investigate an analysis of students’ expressive speech acts in online discussion through Whatssapp group. The method used was desc",
+      "extractive_preview": "the function of expressive speech acts is also found in learning. the function of the expressive speech act of apologizing is a speech act to express ",
+      "ext": {
+        "rouge1": {
+          "p": 0.3828,
+          "r": 0.2952,
+          "f": 0.3333
+        },
+        "rouge2": {
+          "p": 0.0945,
+          "r": 0.0727,
+          "f": 0.0822
+        },
+        "rougeL": {
+          "p": 0.2344,
+          "r": 0.1807,
+          "f": 0.2041
+        }
+      },
+      "abstractive_preview": "This study aimed to investigate an analysis of students’ expressive speech acts in online discussion through Whatssapp group. The method used was desk",
+      "abs": {
+        "rouge1": {
+          "p": 0.8583,
+          "r": 0.6205,
+          "f": 0.7203
+        },
+        "rouge2": {
+          "p": 0.7395,
+          "r": 0.5333,
+          "f": 0.6197
+        },
+        "rougeL": {
+          "p": 0.7417,
+          "r": 0.5361,
+          "f": 0.6224
+        }
+      }
+    },
+    {
+      "doc_id": 32,
+      "reference_preview": "This research aims to describe the vitality of the Lauje language as an enclave of ethnic minority languages in Tolitoli Regency, Central Sulawesi. Th",
+      "extractive_preview": "a total of respondents often use lauje language respondents or rarely use lauje language in the family domain respondents have ever used lauje languag",
+      "ext": {
+        "rouge1": {
+          "p": 0.428,
+          "r": 0.5133,
+          "f": 0.4668
+        },
+        "rouge2": {
+          "p": 0.2407,
+          "r": 0.2889,
+          "f": 0.2626
+        },
+        "rougeL": {
+          "p": 0.2878,
+          "r": 0.3451,
+          "f": 0.3139
+        }
+      },
+      "abstractive_preview": "This research aims to describe the vitality of the Lauje language as an enclave of ethnic minority languages in Tolitoli Regency, Central Sulawesi. Th",
+      "abs": {
+        "rouge1": {
+          "p": 0.8497,
+          "r": 0.5752,
+          "f": 0.686
+        },
+        "rouge2": {
+          "p": 0.7303,
+          "r": 0.4933,
+          "f": 0.5889
+        },
+        "rougeL": {
+          "p": 0.817,
+          "r": 0.5531,
+          "f": 0.6596
+        }
+      }
+    },
+    {
+      "doc_id": 33,
+      "reference_preview": "This study is an experimental research aimed at determining the influence of project-based pop-up book creafting on literacy skills. The population in",
+      "extractive_preview": "the results showed that the average post test score of students who participated in project learning in the creation of pop up books increased to . th",
+      "ext": {
+        "rouge1": {
+          "p": 0.2677,
+          "r": 0.478,
+          "f": 0.3432
+        },
+        "rouge2": {
+          "p": 0.1204,
+          "r": 0.2155,
+          "f": 0.1545
+        },
+        "rougeL": {
+          "p": 0.1354,
+          "r": 0.2418,
+          "f": 0.1736
+        }
+      },
+      "abstractive_preview": "This study is an experimental research aimed at determining the influence of project- based pop-up book creafting on literacy skills. The population i",
+      "abs": {
+        "rouge1": {
+          "p": 0.9667,
+          "r": 0.3187,
+          "f": 0.4793
+        },
+        "rouge2": {
+          "p": 0.9322,
+          "r": 0.3039,
+          "f": 0.4583
+        },
+        "rougeL": {
+          "p": 0.9667,
+          "r": 0.3187,
+          "f": 0.4793
+        }
+      }
+    },
+    {
+      "doc_id": 34,
+      "reference_preview": "The primary objective of this study was to evaluate the implementation of Indonesian language learning in Indonesian Islamic higher education. To achi",
+      "extractive_preview": "process teachers preparation and design of the learning and teaching the utilization of various learning and teaching methods the integration of ict a",
+      "ext": {
+        "rouge1": {
+          "p": 0.411,
+          "r": 0.4949,
+          "f": 0.4491
+        },
+        "rouge2": {
+          "p": 0.0851,
+          "r": 0.1026,
+          "f": 0.093
+        },
+        "rougeL": {
+          "p": 0.1907,
+          "r": 0.2296,
+          "f": 0.2083
+        }
+      },
+      "abstractive_preview": "Following the objectives of the research, we presented the research results in several subheadings, which are the evaluation of context, input, proces",
+      "abs": {
+        "rouge1": {
+          "p": 0.5067,
+          "r": 0.1939,
+          "f": 0.2804
+        },
+        "rouge2": {
+          "p": 0.1081,
+          "r": 0.041,
+          "f": 0.0595
+        },
+        "rougeL": {
+          "p": 0.28,
+          "r": 0.1071,
+          "f": 0.155
+        }
+      }
+    },
+    {
+      "doc_id": 35,
+      "reference_preview": "The aim of this study is to describe the internalization of inclusive education through children's literature with the theme of disability. The resear",
+      "extractive_preview": "humanity through these literary works children as readers can identify themselves both as people with disabilities and as children who interact with p",
+      "ext": {
+        "rouge1": {
+          "p": 0.3518,
+          "r": 0.5853,
+          "f": 0.4394
+        },
+        "rouge2": {
+          "p": 0.1333,
+          "r": 0.2222,
+          "f": 0.1667
+        },
+        "rougeL": {
+          "p": 0.1911,
+          "r": 0.318,
+          "f": 0.2388
+        }
+      },
+      "abstractive_preview": "The children's story  Mein Fuese sind der Rollstol is based on the physical and background of disability. The story is described as an independent chi",
+      "abs": {
+        "rouge1": {
+          "p": 0.4872,
+          "r": 0.3502,
+          "f": 0.4075
+        },
+        "rouge2": {
+          "p": 0.1032,
+          "r": 0.0741,
+          "f": 0.0863
+        },
+        "rougeL": {
+          "p": 0.2436,
+          "r": 0.1751,
+          "f": 0.2038
+        }
+      }
+    },
+    {
+      "doc_id": 36,
+      "reference_preview": "This research was conducted with the aim of producing instructional materials on mobile learning-based digital literacy skills as a preventive measure",
+      "extractive_preview": "that the instructional materials on digital literacy based on mobile learning are suitable for use as a preventive measure for social media conflicts.",
+      "ext": {
+        "rouge1": {
+          "p": 0.4085,
+          "r": 0.563,
+          "f": 0.4735
+        },
+        "rouge2": {
+          "p": 0.2699,
+          "r": 0.3729,
+          "f": 0.3132
+        },
+        "rougeL": {
+          "p": 0.2439,
+          "r": 0.3361,
+          "f": 0.2827
+        }
+      },
+      "abstractive_preview": "This research was conducted with the aim of producing instructional materials on mobile learning-based digital literacy skills as a preventive measure",
+      "abs": {
+        "rouge1": {
+          "p": 0.9407,
+          "r": 0.9328,
+          "f": 0.9367
+        },
+        "rouge2": {
+          "p": 0.8803,
+          "r": 0.8729,
+          "f": 0.8766
+        },
+        "rougeL": {
+          "p": 0.9407,
+          "r": 0.9328,
+          "f": 0.9367
+        }
+      }
+    },
+    {
+      "doc_id": 37,
+      "reference_preview": "This study aims to explain the process of creative thinking, including analytic, evaluative, applicative, and interpretative students in scientific wo",
+      "extractive_preview": "abstract this study aims to explain the process of creative thinking including analytic evaluative applicative and interpretative students in scientif",
+      "ext": {
+        "rouge1": {
+          "p": 0.9167,
+          "r": 0.3877,
+          "f": 0.5449
+        },
+        "rouge2": {
+          "p": 0.7789,
+          "r": 0.3274,
+          "f": 0.4611
+        },
+        "rougeL": {
+          "p": 0.8333,
+          "r": 0.3524,
+          "f": 0.4954
+        }
+      },
+      "abstractive_preview": "This study aims to explain the process of creative thinking, including  Analytic, evaluative, applicative, and interpretative students in scientific w",
+      "abs": {
+        "rouge1": {
+          "p": 0.9777,
+          "r": 0.7709,
+          "f": 0.8621
+        },
+        "rouge2": {
+          "p": 0.9438,
+          "r": 0.7434,
+          "f": 0.8317
+        },
+        "rougeL": {
+          "p": 0.9777,
+          "r": 0.7709,
+          "f": 0.8621
+        }
+      }
+    },
+    {
+      "doc_id": 38,
+      "reference_preview": "The present study aimed at analyzing round and dynamic characters to look into the various dimensions of the antagonist in Gaston Leroux's The Phantom",
+      "extractive_preview": "the data were obtained from gaston leroux s novel the phantom of the opera in which erik the main antagonist was focused the most. the objective was t",
+      "ext": {
+        "rouge1": {
+          "p": 0.4048,
+          "r": 0.4444,
+          "f": 0.4237
+        },
+        "rouge2": {
+          "p": 0.2036,
+          "r": 0.2237,
+          "f": 0.2132
+        },
+        "rougeL": {
+          "p": 0.2083,
+          "r": 0.2288,
+          "f": 0.2181
+        }
+      },
+      "abstractive_preview": "The present study aimed at  analizing round and dynamic characters to look into the various dimensions of the antagonist in Gaston Leroux's The Phanto",
+      "abs": {
+        "rouge1": {
+          "p": 0.9459,
+          "r": 0.915,
+          "f": 0.9302
+        },
+        "rouge2": {
+          "p": 0.8707,
+          "r": 0.8421,
+          "f": 0.8562
+        },
+        "rougeL": {
+          "p": 0.9392,
+          "r": 0.9085,
+          "f": 0.9236
+        }
+      }
+    },
+    {
+      "doc_id": 39,
+      "reference_preview": "This research aims to describe the forms and expressions of understanding in Indonesian and Thai with a focus on homographs. The techniques used in th",
+      "extractive_preview": "homographs in indonesian homographs are words with the same spelling but have different pronunciations and meanings.homographs can also be said to be ",
+      "ext": {
+        "rouge1": {
+          "p": 0.3739,
+          "r": 0.3071,
+          "f": 0.3373
+        },
+        "rouge2": {
+          "p": 0.1228,
+          "r": 0.1007,
+          "f": 0.1107
+        },
+        "rougeL": {
+          "p": 0.2435,
+          "r": 0.2,
+          "f": 0.2196
+        }
+      },
+      "abstractive_preview": "This research aims to describe the forms and expressions of understanding in Indonesian and Thai with a focus on homographs. The techniques used in th",
+      "abs": {
+        "rouge1": {
+          "p": 0.9556,
+          "r": 0.9214,
+          "f": 0.9382
+        },
+        "rouge2": {
+          "p": 0.9254,
+          "r": 0.8921,
+          "f": 0.9084
+        },
+        "rougeL": {
+          "p": 0.9556,
+          "r": 0.9214,
+          "f": 0.9382
+        }
+      }
+    },
+    {
+      "doc_id": 40,
+      "reference_preview": "Objective study this is for know effectiveness of environmental models study constructive in learning skills listen . Method study this use type quant",
+      "extractive_preview": "more tall and different significant with the average class posttest score control that is amounting to . condition the show that implementation lectur",
+      "ext": {
+        "rouge1": {
+          "p": 0.5714,
+          "r": 0.298,
+          "f": 0.3918
+        },
+        "rouge2": {
+          "p": 0.1515,
+          "r": 0.0787,
+          "f": 0.1036
+        },
+        "rougeL": {
+          "p": 0.2782,
+          "r": 0.1451,
+          "f": 0.1907
+        }
+      },
+      "abstractive_preview": "The objective study this is for know effectiveness of environmental models study constructive in learning skills listen . Method study this use type q",
+      "abs": {
+        "rouge1": {
+          "p": 0.957,
+          "r": 0.698,
+          "f": 0.8073
+        },
+        "rouge2": {
+          "p": 0.9027,
+          "r": 0.6575,
+          "f": 0.7608
+        },
+        "rougeL": {
+          "p": 0.9462,
+          "r": 0.6902,
+          "f": 0.7982
+        }
+      }
+    },
+    {
+      "doc_id": 41,
+      "reference_preview": "This research aims to uncover the social irregularities behind President Joko Widodo's speech on 17/01/2023 entitled \"Remarks by President Joko Widodo",
+      "extractive_preview": "the occurrence of obstacles prohibiting the establishment of houses of worship is due to the overlap between the constitution in this case the constit",
+      "ext": {
+        "rouge1": {
+          "p": 0.4507,
+          "r": 0.5677,
+          "f": 0.5025
+        },
+        "rouge2": {
+          "p": 0.1766,
+          "r": 0.2226,
+          "f": 0.197
+        },
+        "rougeL": {
+          "p": 0.2119,
+          "r": 0.2669,
+          "f": 0.2363
+        }
+      },
+      "abstractive_preview": "This research aims to uncover the social irregularities behind President Joko Widodo's speech on 17/01/2023 entitled \"Remarks by President Jokо Widodo",
+      "abs": {
+        "rouge1": {
+          "p": 0.9833,
+          "r": 0.2218,
+          "f": 0.362
+        },
+        "rouge2": {
+          "p": 0.9661,
+          "r": 0.2151,
+          "f": 0.3519
+        },
+        "rougeL": {
+          "p": 0.9833,
+          "r": 0.2218,
+          "f": 0.362
+        }
+      }
+    },
+    {
+      "doc_id": 42,
+      "reference_preview": "The research objective of this research is to develop a multiliteracy learning model for the course ofKeterampilan Berbahasa. The research procedure a",
+      "extractive_preview": "based on the need analysis of the students and lecturers can be implied that the multiliteracy learning model needs to be developed to be implemented ",
+      "ext": {
+        "rouge1": {
+          "p": 0.6479,
+          "r": 0.3725,
+          "f": 0.473
+        },
+        "rouge2": {
+          "p": 0.3617,
+          "r": 0.2073,
+          "f": 0.2636
+        },
+        "rougeL": {
+          "p": 0.4577,
+          "r": 0.2632,
+          "f": 0.3342
+        }
+      },
+      "abstractive_preview": "The research objective of this research is to develop a multiliteracy learning model for the course of Keterampilan Berbahasa. The research procedure ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9825,
+          "r": 0.6802,
+          "f": 0.8038
+        },
+        "rouge2": {
+          "p": 0.9412,
+          "r": 0.6504,
+          "f": 0.7692
+        },
+        "rougeL": {
+          "p": 0.9591,
+          "r": 0.664,
+          "f": 0.7847
+        }
+      }
+    },
+    {
+      "doc_id": 43,
+      "reference_preview": "This research is a experimental research that aims to know: the interaction effect between REA and learning style on language ability. The population ",
+      "extractive_preview": "groups of children with field dependent learning styles b based on data that has been collected from students as respondents data is obtained on the g",
+      "ext": {
+        "rouge1": {
+          "p": 0.3388,
+          "r": 0.4161,
+          "f": 0.3735
+        },
+        "rouge2": {
+          "p": 0.1319,
+          "r": 0.1622,
+          "f": 0.1455
+        },
+        "rougeL": {
+          "p": 0.2404,
+          "r": 0.2953,
+          "f": 0.2651
+        }
+      },
+      "abstractive_preview": "This research is a experimental research that aims to know: the interaction effect between REA and learning style on language ability. The population ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9662,
+          "r": 0.9597,
+          "f": 0.963
+        },
+        "rouge2": {
+          "p": 0.932,
+          "r": 0.9257,
+          "f": 0.9288
+        },
+        "rougeL": {
+          "p": 0.9662,
+          "r": 0.9597,
+          "f": 0.963
+        }
+      }
+    },
+    {
+      "doc_id": 44,
+      "reference_preview": "Anxiety problems often occur in elderly women. This study aims to describe the word representation of anxiety emotion in elderly women. This research ",
+      "extractive_preview": "keywords word emotion anxiety elderly women research on the representation of the word emotion of anxiety in elderly women that is reviewed psycholing",
+      "ext": {
+        "rouge1": {
+          "p": 0.2986,
+          "r": 0.4809,
+          "f": 0.3684
+        },
+        "rouge2": {
+          "p": 0.1286,
+          "r": 0.2077,
+          "f": 0.1588
+        },
+        "rougeL": {
+          "p": 0.2038,
+          "r": 0.3282,
+          "f": 0.2515
+        }
+      },
+      "abstractive_preview": "Anxiety problems often occur in elderly women. This study aims to describe the word representation of anxiety emotion in adults. This research uses qu",
+      "abs": {
+        "rouge1": {
+          "p": 0.9725,
+          "r": 0.8092,
+          "f": 0.8833
+        },
+        "rouge2": {
+          "p": 0.9352,
+          "r": 0.7769,
+          "f": 0.8487
+        },
+        "rougeL": {
+          "p": 0.9725,
+          "r": 0.8092,
+          "f": 0.8833
+        }
+      }
+    },
+    {
+      "doc_id": 45,
+      "reference_preview": "The purpose of this research is to explore the beliefs of BIPA (Indonesian Language for Foreign Speakers) instructors and learners regarding grammar i",
+      "extractive_preview": "the research data is in the form of quantitative data and qualitative data related to the beliefs of teachers and learners of indonesian for foreign s",
+      "ext": {
+        "rouge1": {
+          "p": 0.3939,
+          "r": 0.5,
+          "f": 0.4407
+        },
+        "rouge2": {
+          "p": 0.1398,
+          "r": 0.1776,
+          "f": 0.1565
+        },
+        "rougeL": {
+          "p": 0.197,
+          "r": 0.25,
+          "f": 0.2203
+        }
+      },
+      "abstractive_preview": "The purpose of this research is to explore the beliefs of BIPA (Indonesian Language for Foreign Speakers) instructors and learners regarding grammar i",
+      "abs": {
+        "rouge1": {
+          "p": 0.7712,
+          "r": 0.4538,
+          "f": 0.5714
+        },
+        "rouge2": {
+          "p": 0.6447,
+          "r": 0.3784,
+          "f": 0.4769
+        },
+        "rougeL": {
+          "p": 0.7516,
+          "r": 0.4423,
+          "f": 0.5569
+        }
+      }
+    },
+    {
+      "doc_id": 46,
+      "reference_preview": "The interaction of gender and disability has gained attention in academia and activism, emphasizing the importance of combating prejudice and stigma e",
+      "extractive_preview": "news patterns of women with disabilities in kompas.com the analysis of kompas.com s reporting on women with disabilities using the antconc version . a",
+      "ext": {
+        "rouge1": {
+          "p": 0.4387,
+          "r": 0.4408,
+          "f": 0.4397
+        },
+        "rouge2": {
+          "p": 0.1469,
+          "r": 0.1476,
+          "f": 0.1473
+        },
+        "rougeL": {
+          "p": 0.217,
+          "r": 0.218,
+          "f": 0.2175
+        }
+      },
+      "abstractive_preview": "The portrayal of this group in the media is critical because it has the potential to either perpetuate stereotypes or contribute to constructive socie",
+      "abs": {
+        "rouge1": {
+          "p": 0.9524,
+          "r": 0.6635,
+          "f": 0.7821
+        },
+        "rouge2": {
+          "p": 0.8904,
+          "r": 0.619,
+          "f": 0.7303
+        },
+        "rougeL": {
+          "p": 0.9524,
+          "r": 0.6635,
+          "f": 0.7821
+        }
+      }
+    },
+    {
+      "doc_id": 47,
+      "reference_preview": "This study aims to describe the form of directive speech act, mode, and function in expression of magical power on the walls of elementary school at K",
+      "extractive_preview": "this study aims to describe of a the form of directive speech act in expression of magical power on the walls of elementary school karesidenan surakar",
+      "ext": {
+        "rouge1": {
+          "p": 0.7381,
+          "r": 0.3941,
+          "f": 0.5138
+        },
+        "rouge2": {
+          "p": 0.376,
+          "r": 0.2,
+          "f": 0.2611
+        },
+        "rougeL": {
+          "p": 0.5238,
+          "r": 0.2797,
+          "f": 0.3646
+        }
+      },
+      "abstractive_preview": "This study aims to describe the form of directive speech act, mode, and function in expression of magical power on the walls of elementary school at K",
+      "abs": {
+        "rouge1": {
+          "p": 0.8289,
+          "r": 0.5339,
+          "f": 0.6495
+        },
+        "rouge2": {
+          "p": 0.6358,
+          "r": 0.4085,
+          "f": 0.4974
+        },
+        "rougeL": {
+          "p": 0.7632,
+          "r": 0.4915,
+          "f": 0.5979
+        }
+      }
+    },
+    {
+      "doc_id": 48,
+      "reference_preview": "This research evaluates Klamer's statement that says several languages in the Lesser Sunda Islands (and some languages in Sulawesi) do not have passiv",
+      "extractive_preview": "the actor role in the active clause or the patient role in the passive clause can fill the subject function. there is no corresponding subject in the ",
+      "ext": {
+        "rouge1": {
+          "p": 0.471,
+          "r": 0.3989,
+          "f": 0.432
+        },
+        "rouge2": {
+          "p": 0.1364,
+          "r": 0.1154,
+          "f": 0.125
+        },
+        "rougeL": {
+          "p": 0.271,
+          "r": 0.2295,
+          "f": 0.2485
+        }
+      },
+      "abstractive_preview": "This research evaluates Klamer's statement that says several languages in the Lesser Sunda Islands (and some languages in Sulawesi) do not have passiv",
+      "abs": {
+        "rouge1": {
+          "p": 0.9141,
+          "r": 0.8142,
+          "f": 0.8613
+        },
+        "rouge2": {
+          "p": 0.8395,
+          "r": 0.7473,
+          "f": 0.7907
+        },
+        "rougeL": {
+          "p": 0.9141,
+          "r": 0.8142,
+          "f": 0.8613
+        }
+      }
+    },
+    {
+      "doc_id": 49,
+      "reference_preview": "This study seeks to conduct an analysis of locutions, illocutions, and perlocutions within the context of the utilization of the Indonesian language i",
+      "extractive_preview": "abstract this study seeks to conduct an analysis of locutions illocutions and perlocutions within the context of the utilization of the indonesian lan",
+      "ext": {
+        "rouge1": {
+          "p": 0.6522,
+          "r": 0.3383,
+          "f": 0.4455
+        },
+        "rouge2": {
+          "p": 0.3431,
+          "r": 0.1774,
+          "f": 0.2338
+        },
+        "rougeL": {
+          "p": 0.4783,
+          "r": 0.2481,
+          "f": 0.3267
+        }
+      },
+      "abstractive_preview": "This study seeks to conduct an analysis of locutions, illocutions, and perlocutions within the context of the utilization of the Indonesian language i",
+      "abs": {
+        "rouge1": {
+          "p": 0.9739,
+          "r": 0.4211,
+          "f": 0.5879
+        },
+        "rouge2": {
+          "p": 0.9474,
+          "r": 0.4075,
+          "f": 0.5699
+        },
+        "rougeL": {
+          "p": 0.9739,
+          "r": 0.4211,
+          "f": 0.5879
+        }
+      }
+    },
+    {
+      "doc_id": 50,
+      "reference_preview": "This study aims to examine the various roles of metaphor in the oral literature ofPepali Babad Banyumasan. This study was qualitative and descriptive ",
+      "extractive_preview": "the findings in this study are belief in magical and occult things as a way of life for taking attitudes for the ancient javanese people particularly ",
+      "ext": {
+        "rouge1": {
+          "p": 0.6682,
+          "r": 0.4727,
+          "f": 0.5537
+        },
+        "rouge2": {
+          "p": 0.3927,
+          "r": 0.2774,
+          "f": 0.3251
+        },
+        "rougeL": {
+          "p": 0.4091,
+          "r": 0.2894,
+          "f": 0.339
+        }
+      },
+      "abstractive_preview": "This study aims to examine the various roles of metaphor in the oral literature of Pepali Babad Banyumasan. This study was qualitative and descriptive",
+      "abs": {
+        "rouge1": {
+          "p": 0.9398,
+          "r": 0.5016,
+          "f": 0.6541
+        },
+        "rouge2": {
+          "p": 0.8606,
+          "r": 0.4581,
+          "f": 0.5979
+        },
+        "rougeL": {
+          "p": 0.9096,
+          "r": 0.4855,
+          "f": 0.6331
+        }
+      }
+    },
+    {
+      "doc_id": 51,
+      "reference_preview": "This study aims to describe the feasibility and effectiveness of a Neuro Linguistic Programming (NLP) based speech therapy model. The speech therapy m",
+      "extractive_preview": "thus the speech therapy model based on neuro linguistic programming nlp is declared very feasible to be used to improve the speech ability of the deaf",
+      "ext": {
+        "rouge1": {
+          "p": 0.637,
+          "r": 0.5082,
+          "f": 0.5653
+        },
+        "rouge2": {
+          "p": 0.3103,
+          "r": 0.2473,
+          "f": 0.2752
+        },
+        "rougeL": {
+          "p": 0.3425,
+          "r": 0.2732,
+          "f": 0.304
+        }
+      },
+      "abstractive_preview": "This study aims to describe the feasibility and effectiveness of a Neuro Linguistic programming (NLB) based speech therapy model. The speech-therapy m",
+      "abs": {
+        "rouge1": {
+          "p": 0.9639,
+          "r": 0.4372,
+          "f": 0.6015
+        },
+        "rouge2": {
+          "p": 0.9268,
+          "r": 0.4176,
+          "f": 0.5758
+        },
+        "rougeL": {
+          "p": 0.9639,
+          "r": 0.4372,
+          "f": 0.6015
+        }
+      }
+    },
+    {
+      "doc_id": 52,
+      "reference_preview": "The purpose of this study is to determine whether or not utilizing the REAP technique can help students with reading comprehension, specifically at th",
+      "extractive_preview": "h the use of read encode annotate and ponder reap strategy is not effective to improve students reading comprehension ha the use of read encode annota",
+      "ext": {
+        "rouge1": {
+          "p": 0.405,
+          "r": 0.3984,
+          "f": 0.4016
+        },
+        "rouge2": {
+          "p": 0.15,
+          "r": 0.1475,
+          "f": 0.1488
+        },
+        "rougeL": {
+          "p": 0.2727,
+          "r": 0.2683,
+          "f": 0.2705
+        }
+      },
+      "abstractive_preview": "The results of this research were collected to find whether or not the use of read, encode, annotate, and ponder (REAP) strategy is to students’ compr",
+      "abs": {
+        "rouge1": {
+          "p": 0.6625,
+          "r": 0.4309,
+          "f": 0.5222
+        },
+        "rouge2": {
+          "p": 0.2405,
+          "r": 0.1557,
+          "f": 0.1891
+        },
+        "rougeL": {
+          "p": 0.3375,
+          "r": 0.2195,
+          "f": 0.266
+        }
+      }
+    },
+    {
+      "doc_id": 53,
+      "reference_preview": "The purpose of this research is to describe the implementation of the Google Classroom application to improve creative writing skills in students of t",
+      "extractive_preview": "the third aspect is the intensive student process choosing the building blocks of creative writing according to their imagination as many as students ",
+      "ext": {
+        "rouge1": {
+          "p": 0.254,
+          "r": 0.5517,
+          "f": 0.3478
+        },
+        "rouge2": {
+          "p": 0.0996,
+          "r": 0.2174,
+          "f": 0.1366
+        },
+        "rougeL": {
+          "p": 0.1508,
+          "r": 0.3276,
+          "f": 0.2065
+        }
+      },
+      "abstractive_preview": "The results obtained from the research questionnaire instrument are presented in the frequency distribution table shown in the table 1. The intensive ",
+      "abs": {
+        "rouge1": {
+          "p": 0.4375,
+          "r": 0.3621,
+          "f": 0.3962
+        },
+        "rouge2": {
+          "p": 0.0947,
+          "r": 0.0783,
+          "f": 0.0857
+        },
+        "rougeL": {
+          "p": 0.2188,
+          "r": 0.181,
+          "f": 0.1981
+        }
+      }
+    },
+    {
+      "doc_id": 54,
+      "reference_preview": "Speaking skills and mother tongue are strongly suspected of having an influence on language politeness in communication. The study aims to investigate",
+      "extractive_preview": "based on the t test in the group of students with a mother tongue indonesian shown in table the results are sig. so it can be concluded that there is ",
+      "ext": {
+        "rouge1": {
+          "p": 0.3649,
+          "r": 0.4793,
+          "f": 0.4143
+        },
+        "rouge2": {
+          "p": 0.1176,
+          "r": 0.1548,
+          "f": 0.1337
+        },
+        "rougeL": {
+          "p": 0.2117,
+          "r": 0.2781,
+          "f": 0.2404
+        }
+      },
+      "abstractive_preview": "This study focuses on treatment in the form of applying language politeness-based speaking skills teaching materials. This study aims to determine the",
+      "abs": {
+        "rouge1": {
+          "p": 0.675,
+          "r": 0.1598,
+          "f": 0.2584
+        },
+        "rouge2": {
+          "p": 0.2564,
+          "r": 0.0595,
+          "f": 0.0966
+        },
+        "rougeL": {
+          "p": 0.475,
+          "r": 0.1124,
+          "f": 0.1818
+        }
+      }
+    },
+    {
+      "doc_id": 55,
+      "reference_preview": "This research is experimental research that aims to find out: a description of the usage platform AKSI (Advance Knowledge and Skills for Sustainable G",
+      "extractive_preview": "as for the data analysis results from the posttest the reading literacy skills of experimental and control class students can be seen below table . th",
+      "ext": {
+        "rouge1": {
+          "p": 0.513,
+          "r": 0.3371,
+          "f": 0.4069
+        },
+        "rouge2": {
+          "p": 0.1667,
+          "r": 0.1092,
+          "f": 0.1319
+        },
+        "rougeL": {
+          "p": 0.2435,
+          "r": 0.16,
+          "f": 0.1931
+        }
+      },
+      "abstractive_preview": "The results of the posttest reading literacy skills of the experimental class and the control class were shown in the average value of 84.5 which is h",
+      "abs": {
+        "rouge1": {
+          "p": 0.697,
+          "r": 0.2629,
+          "f": 0.3817
+        },
+        "rouge2": {
+          "p": 0.2462,
+          "r": 0.092,
+          "f": 0.1339
+        },
+        "rougeL": {
+          "p": 0.3333,
+          "r": 0.1257,
+          "f": 0.1826
+        }
+      }
+    },
+    {
+      "doc_id": 56,
+      "reference_preview": "This study revealed the representation of Joko Widodo as oneof the presidential candidates in the 2019 Indonesian presidential election in one of theT",
+      "extractive_preview": "the first sayer in the article is joko widodo which appears times or . the notion inside this clause is the use of the accusation . joko widodo s posi",
+      "ext": {
+        "rouge1": {
+          "p": 0.3406,
+          "r": 0.4476,
+          "f": 0.3868
+        },
+        "rouge2": {
+          "p": 0.0876,
+          "r": 0.1154,
+          "f": 0.0996
+        },
+        "rougeL": {
+          "p": 0.2101,
+          "r": 0.2762,
+          "f": 0.2387
+        }
+      },
+      "abstractive_preview": "The preliminary studies of the Jakarta Post's article revealed the representation of Joko Widodo as a leader in the presidential election. The researc",
+      "abs": {
+        "rouge1": {
+          "p": 0.5345,
+          "r": 0.2952,
+          "f": 0.3804
+        },
+        "rouge2": {
+          "p": 0.2456,
+          "r": 0.1346,
+          "f": 0.1739
+        },
+        "rougeL": {
+          "p": 0.3448,
+          "r": 0.1905,
+          "f": 0.2454
+        }
+      }
+    },
+    {
+      "doc_id": 57,
+      "reference_preview": "This research is a survey research to find out the opportunities and challenges of online learning in West Sumatra. A total of 227 students were rando",
+      "extractive_preview": "however the research findings have not specifically discussed online learning from the student s point of view especially those related to the dualism",
+      "ext": {
+        "rouge1": {
+          "p": 0.2844,
+          "r": 0.5714,
+          "f": 0.3797
+        },
+        "rouge2": {
+          "p": 0.0855,
+          "r": 0.1722,
+          "f": 0.1143
+        },
+        "rougeL": {
+          "p": 0.1469,
+          "r": 0.2952,
+          "f": 0.1962
+        }
+      },
+      "abstractive_preview": "This research is a survey research to find out the opportunities and challenges of online learning in West Sumatra. A total of 227 students were rando",
+      "abs": {
+        "rouge1": {
+          "p": 0.9672,
+          "r": 0.5619,
+          "f": 0.7108
+        },
+        "rouge2": {
+          "p": 0.9091,
+          "r": 0.5263,
+          "f": 0.6667
+        },
+        "rougeL": {
+          "p": 0.959,
+          "r": 0.5571,
+          "f": 0.7048
+        }
+      }
+    },
+    {
+      "doc_id": 58,
+      "reference_preview": "This research aims to analyze the passive construction in Acehnese Language (AL) by using X- Bar Theory which utilized the oral, written, and the data",
+      "extractive_preview": "the result of this research exhibits that the passive construction in acehnese language is in the form of syntactical passive. in acehnese language th",
+      "ext": {
+        "rouge1": {
+          "p": 0.8017,
+          "r": 0.3676,
+          "f": 0.5041
+        },
+        "rouge2": {
+          "p": 0.513,
+          "r": 0.2341,
+          "f": 0.3215
+        },
+        "rougeL": {
+          "p": 0.4914,
+          "r": 0.2253,
+          "f": 0.3089
+        }
+      },
+      "abstractive_preview": "This research aims to  анализe the passive construction in Acehnese Language (AL) by using X- Bar Theory which utilized the oral, written, and the dat",
+      "abs": {
+        "rouge1": {
+          "p": 0.954,
+          "r": 0.6561,
+          "f": 0.7775
+        },
+        "rouge2": {
+          "p": 0.9133,
+          "r": 0.627,
+          "f": 0.7435
+        },
+        "rougeL": {
+          "p": 0.9483,
+          "r": 0.6522,
+          "f": 0.7728
+        }
+      }
+    },
+    {
+      "doc_id": 59,
+      "reference_preview": "This study aims to substantially discuss the principles of integrating prophetic eco-literacy values in Indonesian Language teaching materials. Partic",
+      "extractive_preview": "the results of the adaptation of this research step are an initial study that includes a needs analysis and the development of principles of integrati",
+      "ext": {
+        "rouge1": {
+          "p": 0.4281,
+          "r": 0.6699,
+          "f": 0.5224
+        },
+        "rouge2": {
+          "p": 0.3067,
+          "r": 0.4808,
+          "f": 0.3745
+        },
+        "rougeL": {
+          "p": 0.2661,
+          "r": 0.4163,
+          "f": 0.3246
+        }
+      },
+      "abstractive_preview": "This study aims to substantially discuss the principles of integrating prophetic eco-literacy values in Indonesian Language teaching materials. Partic",
+      "abs": {
+        "rouge1": {
+          "p": 0.908,
+          "r": 0.7081,
+          "f": 0.7957
+        },
+        "rouge2": {
+          "p": 0.8272,
+          "r": 0.6442,
+          "f": 0.7243
+        },
+        "rougeL": {
+          "p": 0.865,
+          "r": 0.6746,
+          "f": 0.7581
+        }
+      }
+    },
+    {
+      "doc_id": 60,
+      "reference_preview": "This study examines the choice of personal pronouns made by pedophiles in interactions in e-mail. The main focus of this study is to determine who is ",
+      "extractive_preview": "for the use of the second person pronouns used in the form of you while the use of the third person pronouns in the form of he and they. the use of th",
+      "ext": {
+        "rouge1": {
+          "p": 0.5627,
+          "r": 0.5382,
+          "f": 0.5502
+        },
+        "rouge2": {
+          "p": 0.2786,
+          "r": 0.2664,
+          "f": 0.2724
+        },
+        "rougeL": {
+          "p": 0.2928,
+          "r": 0.28,
+          "f": 0.2862
+        }
+      },
+      "abstractive_preview": "This study examines the choice of personal pronouns made by pedophiles in  interaktions in e-mail. The main focus of this study is to determine who is",
+      "abs": {
+        "rouge1": {
+          "p": 0.9162,
+          "r": 0.5964,
+          "f": 0.7225
+        },
+        "rouge2": {
+          "p": 0.8315,
+          "r": 0.5401,
+          "f": 0.6549
+        },
+        "rougeL": {
+          "p": 0.905,
+          "r": 0.5891,
+          "f": 0.7137
+        }
+      }
+    },
+    {
+      "doc_id": 61,
+      "reference_preview": "Trilogy ofRara Mendut’snovels are focused on four things with a working method based on Michel Foucault's genealogical theory which examines past even",
+      "extractive_preview": "while the focus of this research is the study of genealogy in the trilogy of novels which include the role of parents towards their children unlimited",
+      "ext": {
+        "rouge1": {
+          "p": 0.2156,
+          "r": 0.4017,
+          "f": 0.2806
+        },
+        "rouge2": {
+          "p": 0.0507,
+          "r": 0.0948,
+          "f": 0.0661
+        },
+        "rougeL": {
+          "p": 0.1284,
+          "r": 0.2393,
+          "f": 0.1672
+        }
+      },
+      "abstractive_preview": "Trilogy of Rara Mendut’s novels are focused on four things with a working method based on Michel Foucault's  генеalogical theory which examines past e",
+      "abs": {
+        "rouge1": {
+          "p": 0.958,
+          "r": 0.9744,
+          "f": 0.9661
+        },
+        "rouge2": {
+          "p": 0.9322,
+          "r": 0.9483,
+          "f": 0.9402
+        },
+        "rougeL": {
+          "p": 0.958,
+          "r": 0.9744,
+          "f": 0.9661
+        }
+      }
+    },
+    {
+      "doc_id": 62,
+      "reference_preview": "This study aims to investigate the effect of the chain whisper game on children’s receptive language skills. This study used a quasy-experimental desi",
+      "extractive_preview": "meaning that the chain whisper game had an effect on results the following are the results of the study conducted on children in the experimental and ",
+      "ext": {
+        "rouge1": {
+          "p": 0.5,
+          "r": 0.4762,
+          "f": 0.4878
+        },
+        "rouge2": {
+          "p": 0.2662,
+          "r": 0.2534,
+          "f": 0.2596
+        },
+        "rougeL": {
+          "p": 0.2714,
+          "r": 0.2585,
+          "f": 0.2648
+        }
+      },
+      "abstractive_preview": "Early childhood education is a phase of life with unique characteristics for each child physically, psychologically, social-emotionally and morally. T",
+      "abs": {
+        "rouge1": {
+          "p": 0.2644,
+          "r": 0.1565,
+          "f": 0.1966
+        },
+        "rouge2": {
+          "p": 0.0233,
+          "r": 0.0137,
+          "f": 0.0172
+        },
+        "rougeL": {
+          "p": 0.1839,
+          "r": 0.1088,
+          "f": 0.1368
+        }
+      }
+    },
+    {
+      "doc_id": 63,
+      "reference_preview": "The language used in business’ name in the Sosrowijayan tourism village is varied, including the inevitably use of foreign language. This study aims t",
+      "extractive_preview": "after that the data of the business name which relates to its identity is interpreted using social and cultural approach to understand the strategies ",
+      "ext": {
+        "rouge1": {
+          "p": 0.4773,
+          "r": 0.6402,
+          "f": 0.5469
+        },
+        "rouge2": {
+          "p": 0.242,
+          "r": 0.3252,
+          "f": 0.2775
+        },
+        "rougeL": {
+          "p": 0.2045,
+          "r": 0.2744,
+          "f": 0.2344
+        }
+      },
+      "abstractive_preview": "The language used in business’ name in the Sosrowijayan tourism village is varied, including the inevitably use of foreign language. The research ques",
+      "abs": {
+        "rouge1": {
+          "p": 0.9931,
+          "r": 0.878,
+          "f": 0.932
+        },
+        "rouge2": {
+          "p": 0.9792,
+          "r": 0.865,
+          "f": 0.9186
+        },
+        "rougeL": {
+          "p": 0.9931,
+          "r": 0.878,
+          "f": 0.932
+        }
+      }
+    },
+    {
+      "doc_id": 64,
+      "reference_preview": "This research aims to show how women’s bodies and their functions shape the role of women in dystopian society reflected inBlade Runner 2049. Cyborgfe",
+      "extractive_preview": "hence the writer believes that this research is important to study owing to the fact that the film has depicted many problems of our present as much a",
+      "ext": {
+        "rouge1": {
+          "p": 0.3473,
+          "r": 0.6385,
+          "f": 0.4499
+        },
+        "rouge2": {
+          "p": 0.1387,
+          "r": 0.2558,
+          "f": 0.1798
+        },
+        "rougeL": {
+          "p": 0.1967,
+          "r": 0.3615,
+          "f": 0.2547
+        }
+      },
+      "abstractive_preview": "This research aims to show how women’s bodies and their functions shape the role of women in dystopian society reflected in Blade Runner 2049. Cyborgf",
+      "abs": {
+        "rouge1": {
+          "p": 0.9449,
+          "r": 0.9231,
+          "f": 0.9339
+        },
+        "rouge2": {
+          "p": 0.881,
+          "r": 0.8605,
+          "f": 0.8706
+        },
+        "rougeL": {
+          "p": 0.9449,
+          "r": 0.9231,
+          "f": 0.9339
+        }
+      }
+    },
+    {
+      "doc_id": 65,
+      "reference_preview": "Masculinity in Javanese People: How does Arjuna Masculinity Describe in Javanese version of Mahabharata. Masculinity is a form of maleness constructio",
+      "extractive_preview": "the research result indicates that there is a figure of arjuna in the javanese mahabharata story that has masculinity characters. the data in this stu",
+      "ext": {
+        "rouge1": {
+          "p": 0.6043,
+          "r": 0.525,
+          "f": 0.5619
+        },
+        "rouge2": {
+          "p": 0.2681,
+          "r": 0.2327,
+          "f": 0.2492
+        },
+        "rougeL": {
+          "p": 0.295,
+          "r": 0.2562,
+          "f": 0.2742
+        }
+      },
+      "abstractive_preview": "Masculinity is a form of maleness construction toward man. Man is not just born with his masculinity naturally, instead it is formed by culture. In a ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9306,
+          "r": 0.8375,
+          "f": 0.8816
+        },
+        "rouge2": {
+          "p": 0.8671,
+          "r": 0.7799,
+          "f": 0.8212
+        },
+        "rougeL": {
+          "p": 0.9306,
+          "r": 0.8375,
+          "f": 0.8816
+        }
+      }
+    },
+    {
+      "doc_id": 66,
+      "reference_preview": "This study aims to explore and strengthen the concept of narratology as one of the theories of contemporary literature. The study focuses on three asp",
+      "extractive_preview": "he just wanted abdul to understand the condition of sub district development that is being carried out in lampap village herman rn from the example th",
+      "ext": {
+        "rouge1": {
+          "p": 0.4947,
+          "r": 0.4537,
+          "f": 0.4733
+        },
+        "rouge2": {
+          "p": 0.2139,
+          "r": 0.1961,
+          "f": 0.2046
+        },
+        "rougeL": {
+          "p": 0.2553,
+          "r": 0.2341,
+          "f": 0.2443
+        }
+      },
+      "abstractive_preview": "The number of short stories by Herman RN published within 12 years is almost the same as the number of stories that use the third person, according to",
+      "abs": {
+        "rouge1": {
+          "p": 0.5823,
+          "r": 0.2244,
+          "f": 0.3239
+        },
+        "rouge2": {
+          "p": 0.2051,
+          "r": 0.0784,
+          "f": 0.1135
+        },
+        "rougeL": {
+          "p": 0.3544,
+          "r": 0.1366,
+          "f": 0.1972
+        }
+      }
+    },
+    {
+      "doc_id": 67,
+      "reference_preview": "Singgi' passikola in Kada Tomina's discourse as one of the cultural assets contains messages that are meaningful to the Toraja people. This study used",
+      "extractive_preview": "the study analyzed data qualitatively with the steps of selecting and reducing the utterances of singgi passikola classifying and categorizing the utt",
+      "ext": {
+        "rouge1": {
+          "p": 0.5333,
+          "r": 0.5098,
+          "f": 0.5213
+        },
+        "rouge2": {
+          "p": 0.232,
+          "r": 0.2217,
+          "f": 0.2267
+        },
+        "rougeL": {
+          "p": 0.2769,
+          "r": 0.2647,
+          "f": 0.2707
+        }
+      },
+      "abstractive_preview": "Singgi' passikilia in Kada Tomina's discourse as one of the cultural assets contains messages that are meaningful to the Toraja people. This study use",
+      "abs": {
+        "rouge1": {
+          "p": 0.8442,
+          "r": 0.6373,
+          "f": 0.7263
+        },
+        "rouge2": {
+          "p": 0.7516,
+          "r": 0.5665,
+          "f": 0.6461
+        },
+        "rougeL": {
+          "p": 0.8312,
+          "r": 0.6275,
+          "f": 0.7151
+        }
+      }
+    },
+    {
+      "doc_id": 68,
+      "reference_preview": "Stunting is a disorder of growth and development of children due to chronic malnutrition and recurrent infections, especially in the first 1000 days o",
+      "extractive_preview": "the negative impact of stunting on children especially on the development of fine motor skills and cognitive abilities including speech delays but how",
+      "ext": {
+        "rouge1": {
+          "p": 0.3387,
+          "r": 0.759,
+          "f": 0.4684
+        },
+        "rouge2": {
+          "p": 0.2432,
+          "r": 0.5488,
+          "f": 0.3371
+        },
+        "rougeL": {
+          "p": 0.2634,
+          "r": 0.5904,
+          "f": 0.3643
+        }
+      },
+      "abstractive_preview": "Stunting is a disorder of growth and development of children due to chronic malnutrition and recurrent infections, especially in the first 1000 days o",
+      "abs": {
+        "rouge1": {
+          "p": 0.9634,
+          "r": 0.9518,
+          "f": 0.9576
+        },
+        "rouge2": {
+          "p": 0.9259,
+          "r": 0.9146,
+          "f": 0.9202
+        },
+        "rougeL": {
+          "p": 0.9634,
+          "r": 0.9518,
+          "f": 0.9576
+        }
+      }
+    },
+    {
+      "doc_id": 69,
+      "reference_preview": "The purpose of this study is to understand the importance of mastering translation theory in translation learning. This is qualitative research. Data ",
+      "extractive_preview": "to achieve this a translator is not only required to understand the meaning of the source language text the translator is also required to master the ",
+      "ext": {
+        "rouge1": {
+          "p": 0.3641,
+          "r": 0.5068,
+          "f": 0.4237
+        },
+        "rouge2": {
+          "p": 0.1317,
+          "r": 0.1837,
+          "f": 0.1534
+        },
+        "rougeL": {
+          "p": 0.1748,
+          "r": 0.2432,
+          "f": 0.2034
+        }
+      },
+      "abstractive_preview": "The purpose of this study is to understand the importance of mastering translation theory in translation learning. This is qualitative research. Data ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9724,
+          "r": 0.9527,
+          "f": 0.9625
+        },
+        "rouge2": {
+          "p": 0.9375,
+          "r": 0.9184,
+          "f": 0.9278
+        },
+        "rougeL": {
+          "p": 0.9655,
+          "r": 0.9459,
+          "f": 0.9556
+        }
+      }
+    },
+    {
+      "doc_id": 70,
+      "reference_preview": "The analysis of this study tries to observe the low literacy level of students in primary education, especially regarding the implementation of e-lear",
+      "extractive_preview": "as these issues and foundations it is urgent to tackle the increasingly lame and low literacy of elementary school students as a basic level of educat",
+      "ext": {
+        "rouge1": {
+          "p": 0.2115,
+          "r": 0.5423,
+          "f": 0.3043
+        },
+        "rouge2": {
+          "p": 0.0606,
+          "r": 0.156,
+          "f": 0.0873
+        },
+        "rougeL": {
+          "p": 0.1154,
+          "r": 0.2958,
+          "f": 0.166
+        }
+      },
+      "abstractive_preview": "The analysis of this study tries to observe the low literacy level of students in primary education, especially regarding the implementation of e-lear",
+      "abs": {
+        "rouge1": {
+          "p": 0.8658,
+          "r": 0.9085,
+          "f": 0.8866
+        },
+        "rouge2": {
+          "p": 0.7973,
+          "r": 0.8369,
+          "f": 0.8166
+        },
+        "rougeL": {
+          "p": 0.8658,
+          "r": 0.9085,
+          "f": 0.8866
+        }
+      }
+    },
+    {
+      "doc_id": 71,
+      "reference_preview": "This research was inspired by discourse analysis of human expressive speech act as thepart of Illocutionary act. This study aims to analyze speech act",
+      "extractive_preview": "the function of the expressive speech act of complaining in this study is indicated by the use of the word should . data is a speech from one of the p",
+      "ext": {
+        "rouge1": {
+          "p": 0.7065,
+          "r": 0.3266,
+          "f": 0.4467
+        },
+        "rouge2": {
+          "p": 0.2967,
+          "r": 0.1364,
+          "f": 0.1869
+        },
+        "rougeL": {
+          "p": 0.4783,
+          "r": 0.2211,
+          "f": 0.3024
+        }
+      },
+      "abstractive_preview": "This research was inspired by discourse analysis of human expressive speech act as the part of Ilocutionary act. This study aims to describe the funct",
+      "abs": {
+        "rouge1": {
+          "p": 0.951,
+          "r": 0.4874,
+          "f": 0.6445
+        },
+        "rouge2": {
+          "p": 0.8317,
+          "r": 0.4242,
+          "f": 0.5619
+        },
+        "rougeL": {
+          "p": 0.8627,
+          "r": 0.4422,
+          "f": 0.5847
+        }
+      }
+    },
+    {
+      "doc_id": 72,
+      "reference_preview": "This research examines the using metaphors in the commentary column on Instagram social media accounts @serambinews and @haba_acehbarat. The chosen to",
+      "extractive_preview": "from the use of diction and the purpose of the status made by the owner of the status it can be classified as hate speech that has the potential to be",
+      "ext": {
+        "rouge1": {
+          "p": 0.4161,
+          "r": 0.4061,
+          "f": 0.411
+        },
+        "rouge2": {
+          "p": 0.125,
+          "r": 0.122,
+          "f": 0.1235
+        },
+        "rougeL": {
+          "p": 0.236,
+          "r": 0.2303,
+          "f": 0.2331
+        }
+      },
+      "abstractive_preview": "The structural metaphor of Aceh language is a concept formed metaphorically using the other concepts. The phrase lagee bui (like a pig) means a bad th",
+      "abs": {
+        "rouge1": {
+          "p": 0.2615,
+          "r": 0.103,
+          "f": 0.1478
+        },
+        "rouge2": {
+          "p": 0.0156,
+          "r": 0.0061,
+          "f": 0.0088
+        },
+        "rougeL": {
+          "p": 0.1692,
+          "r": 0.0667,
+          "f": 0.0957
+        }
+      }
+    },
+    {
+      "doc_id": 73,
+      "reference_preview": "The research discusses the revitalization of Javanese in a school environment from a landscape linguistic perspective. This research is conducted base",
+      "extractive_preview": "this study focuses more on the use of the javanese language in outdoor media in the school environment as an effort to revitalize the javanese languag",
+      "ext": {
+        "rouge1": {
+          "p": 0.4793,
+          "r": 0.3985,
+          "f": 0.4351
+        },
+        "rouge2": {
+          "p": 0.1389,
+          "r": 0.1154,
+          "f": 0.1261
+        },
+        "rougeL": {
+          "p": 0.2765,
+          "r": 0.2299,
+          "f": 0.251
+        }
+      },
+      "abstractive_preview": "The research discusses the revitalization of the Javanese in a school environment from a landscape linguistic perspective. . The research aims to desc",
+      "abs": {
+        "rouge1": {
+          "p": 0.9116,
+          "r": 0.5134,
+          "f": 0.6569
+        },
+        "rouge2": {
+          "p": 0.8082,
+          "r": 0.4538,
+          "f": 0.5813
+        },
+        "rougeL": {
+          "p": 0.7007,
+          "r": 0.3946,
+          "f": 0.5049
+        }
+      }
+    },
+    {
+      "doc_id": 74,
+      "reference_preview": "This study aims to describe and explain the implementation of Indonesian language and literature learning in SMP Negeri 2 Surakarta and SMP Negeri 4 S",
+      "extractive_preview": "learning materials in indonesian language and literature online learning at smp negeri surakarta used the wahana pengetahuan package book indonesian l",
+      "ext": {
+        "rouge1": {
+          "p": 0.4731,
+          "r": 0.4757,
+          "f": 0.4744
+        },
+        "rouge2": {
+          "p": 0.1405,
+          "r": 0.1413,
+          "f": 0.1409
+        },
+        "rougeL": {
+          "p": 0.2043,
+          "r": 0.2054,
+          "f": 0.2049
+        }
+      },
+      "abstractive_preview": "Learning materials in Indonesian language and literature online learning at SMP Negeri 4 Surakarta used the Wahana Pengetahuan package book, Indonesia",
+      "abs": {
+        "rouge1": {
+          "p": 0.5893,
+          "r": 0.1784,
+          "f": 0.2739
+        },
+        "rouge2": {
+          "p": 0.2182,
+          "r": 0.0652,
+          "f": 0.1004
+        },
+        "rougeL": {
+          "p": 0.375,
+          "r": 0.1135,
+          "f": 0.1743
+        }
+      }
+    },
+    {
+      "doc_id": 75,
+      "reference_preview": "The demand of writing for scholarly publication as a part of graduation requirements has now been apparent in many graduate programs. The present stud",
+      "extractive_preview": "for this study the data were garnered from the practices of master s degree students of a university in writing for scholarly publication as a graduat",
+      "ext": {
+        "rouge1": {
+          "p": 0.4451,
+          "r": 0.5586,
+          "f": 0.4954
+        },
+        "rouge2": {
+          "p": 0.1823,
+          "r": 0.2292,
+          "f": 0.2031
+        },
+        "rougeL": {
+          "p": 0.2582,
+          "r": 0.3241,
+          "f": 0.2875
+        }
+      },
+      "abstractive_preview": "The demand of writing for scholarly publication as a part of graduation requirements has now been apparent in many graduate programs. The present stud",
+      "abs": {
+        "rouge1": {
+          "p": 0.972,
+          "r": 0.9586,
+          "f": 0.9653
+        },
+        "rouge2": {
+          "p": 0.9366,
+          "r": 0.9236,
+          "f": 0.9301
+        },
+        "rougeL": {
+          "p": 0.972,
+          "r": 0.9586,
+          "f": 0.9653
+        }
+      }
+    },
+    {
+      "doc_id": 76,
+      "reference_preview": "Masculinity refers to the ideal nature of male constructed by society. Developments in various sectors make masculinity grows, which one is metrosexua",
+      "extractive_preview": "ervin in miss pesimis aliazalea alex in sunshine becomes you tan ale in critical eleven natassa and ares in love on probation juzwar are depicted as t",
+      "ext": {
+        "rouge1": {
+          "p": 0.2079,
+          "r": 0.4242,
+          "f": 0.2791
+        },
+        "rouge2": {
+          "p": 0.0547,
+          "r": 0.1122,
+          "f": 0.0736
+        },
+        "rougeL": {
+          "p": 0.1238,
+          "r": 0.2525,
+          "f": 0.1661
+        }
+      },
+      "abstractive_preview": "In our series of letters from African journalists, novelist and writer Adaobi Tricia Nwaubani considers the importance of having a perfect body figure",
+      "abs": {
+        "rouge1": {
+          "p": 0.2571,
+          "r": 0.0909,
+          "f": 0.1343
+        },
+        "rouge2": {
+          "p": 0.0294,
+          "r": 0.0102,
+          "f": 0.0152
+        },
+        "rougeL": {
+          "p": 0.2,
+          "r": 0.0707,
+          "f": 0.1045
+        }
+      }
+    },
+    {
+      "doc_id": 77,
+      "reference_preview": "This article aims to describe the implementation of the creative-innovative aspects in the evaluation instrument in the Indonesian BSE SMA 2019/2020. ",
+      "extractive_preview": "based on the research data in the table above it can be seen that the number of evaluation instruments contained in the indonesian bse sma class xi in",
+      "ext": {
+        "rouge1": {
+          "p": 0.3723,
+          "r": 0.5882,
+          "f": 0.456
+        },
+        "rouge2": {
+          "p": 0.2353,
+          "r": 0.3729,
+          "f": 0.2885
+        },
+        "rougeL": {
+          "p": 0.2766,
+          "r": 0.437,
+          "f": 0.3388
+        }
+      },
+      "abstractive_preview": "This article aims to describe the implementation of the creative-innovative aspects in the evaluation instrument in the Indonesian BSE SMA 2019/2020. ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9746,
+          "r": 0.9664,
+          "f": 0.9705
+        },
+        "rouge2": {
+          "p": 0.9487,
+          "r": 0.9407,
+          "f": 0.9447
+        },
+        "rougeL": {
+          "p": 0.9746,
+          "r": 0.9664,
+          "f": 0.9705
+        }
+      }
+    },
+    {
+      "doc_id": 78,
+      "reference_preview": "The research aimed to identify the solidarity and social change represented by the presidents’ attitudes in the debates. The research applied positive",
+      "extractive_preview": "however by not focusing on the power relations of the speakers instead of the relationship between tenor and language the speakers show their attitude",
+      "ext": {
+        "rouge1": {
+          "p": 0.3616,
+          "r": 0.6183,
+          "f": 0.4563
+        },
+        "rouge2": {
+          "p": 0.1345,
+          "r": 0.2308,
+          "f": 0.17
+        },
+        "rougeL": {
+          "p": 0.2098,
+          "r": 0.3588,
+          "f": 0.2648
+        }
+      },
+      "abstractive_preview": "This research aimed to identify the solidarity and social change represented by the presidents’ attitudes in the debates. The research applied positiv",
+      "abs": {
+        "rouge1": {
+          "p": 0.9462,
+          "r": 0.9389,
+          "f": 0.9425
+        },
+        "rouge2": {
+          "p": 0.8915,
+          "r": 0.8846,
+          "f": 0.888
+        },
+        "rougeL": {
+          "p": 0.9385,
+          "r": 0.9313,
+          "f": 0.9349
+        }
+      }
+    },
+    {
+      "doc_id": 79,
+      "reference_preview": "This study aimed to describe many greetings forms found in Susupu community. The research method applied in this study was a descriptive qualitative m",
+      "extractive_preview": "the result of the study indicated there are several forms of greeting used by susupu community which included name abbreviation for addressing their b",
+      "ext": {
+        "rouge1": {
+          "p": 0.297,
+          "r": 0.6923,
+          "f": 0.4156
+        },
+        "rouge2": {
+          "p": 0.1781,
+          "r": 0.4167,
+          "f": 0.2496
+        },
+        "rougeL": {
+          "p": 0.1523,
+          "r": 0.355,
+          "f": 0.2131
+        }
+      },
+      "abstractive_preview": "This study aimed to describe many greetings forms found in Susupu community. The research method applied in this study was a descriptive qualitative m",
+      "abs": {
+        "rouge1": {
+          "p": 0.9467,
+          "r": 0.9467,
+          "f": 0.9467
+        },
+        "rouge2": {
+          "p": 0.8988,
+          "r": 0.8988,
+          "f": 0.8988
+        },
+        "rougeL": {
+          "p": 0.9467,
+          "r": 0.9467,
+          "f": 0.9467
+        }
+      }
+    },
+    {
+      "doc_id": 80,
+      "reference_preview": "Paralanguage, as a part of non-verbal communication, is believed to have fruitful contribution to the successful teaching and learning process. Theref",
+      "extractive_preview": "the aims of this research were to find out the features of paralanguage used by the teacher in efl classroom and to explore the functions of those par",
+      "ext": {
+        "rouge1": {
+          "p": 0.4237,
+          "r": 0.3191,
+          "f": 0.3641
+        },
+        "rouge2": {
+          "p": 0.1648,
+          "r": 0.1239,
+          "f": 0.1415
+        },
+        "rougeL": {
+          "p": 0.2542,
+          "r": 0.1915,
+          "f": 0.2184
+        }
+      },
+      "abstractive_preview": "Paralanguage, as a part of non-verbal communication, is believed to have fruitful contribution to the successful teaching and learning process. Theref",
+      "abs": {
+        "rouge1": {
+          "p": 0.9825,
+          "r": 0.7149,
+          "f": 0.8276
+        },
+        "rouge2": {
+          "p": 0.9529,
+          "r": 0.6923,
+          "f": 0.802
+        },
+        "rougeL": {
+          "p": 0.9708,
+          "r": 0.7064,
+          "f": 0.8177
+        }
+      }
+    },
+    {
+      "doc_id": 81,
+      "reference_preview": "This study aims to describe the ability of students to write narrative essays based on a genre-based approach using MPS and using video. This research",
+      "extractive_preview": "learning to write gba based narrative essays using photo story media in the experimental class and learning to write gba based narrative essays withou",
+      "ext": {
+        "rouge1": {
+          "p": 0.3836,
+          "r": 0.5,
+          "f": 0.4341
+        },
+        "rouge2": {
+          "p": 0.1514,
+          "r": 0.1976,
+          "f": 0.1714
+        },
+        "rougeL": {
+          "p": 0.21,
+          "r": 0.2738,
+          "f": 0.2377
+        }
+      },
+      "abstractive_preview": "This study aims to describe the ability of students to write narrative essays based on a genre-based approach using MPS and using video. This research",
+      "abs": {
+        "rouge1": {
+          "p": 0.9341,
+          "r": 0.9286,
+          "f": 0.9313
+        },
+        "rouge2": {
+          "p": 0.8675,
+          "r": 0.8623,
+          "f": 0.8649
+        },
+        "rougeL": {
+          "p": 0.9341,
+          "r": 0.9286,
+          "f": 0.9313
+        }
+      }
+    },
+    {
+      "doc_id": 82,
+      "reference_preview": "This study aims to develop an academic module based on High Order Thinking skills (HOTS) for BIPA students from Guandong University Foreign Studies (G",
+      "extractive_preview": "revisions will be carried out at the next research stage according to the results of the expert validity test especially in parts the language used in",
+      "ext": {
+        "rouge1": {
+          "p": 0.3082,
+          "r": 0.5595,
+          "f": 0.3975
+        },
+        "rouge2": {
+          "p": 0.125,
+          "r": 0.2275,
+          "f": 0.1614
+        },
+        "rougeL": {
+          "p": 0.1705,
+          "r": 0.3095,
+          "f": 0.2199
+        }
+      },
+      "abstractive_preview": "The results of the expert validity test on the feasibility aspect of HotS in the module on material expert 1 obtained an average score of 4.25 or a pe",
+      "abs": {
+        "rouge1": {
+          "p": 0.5273,
+          "r": 0.1726,
+          "f": 0.2601
+        },
+        "rouge2": {
+          "p": 0.1667,
+          "r": 0.0539,
+          "f": 0.0814
+        },
+        "rougeL": {
+          "p": 0.3455,
+          "r": 0.1131,
+          "f": 0.1704
+        }
+      }
+    },
+    {
+      "doc_id": 83,
+      "reference_preview": "The purpose of this study was to discuss the scaffolding techniques used in the Jenius Writing (JW) program to support students’ creative writing. The",
+      "extractive_preview": "the findings reveal four distinct types of creative writing scaffolding techniques writing inconsequentially directly or as things utilizing a hypnoti",
+      "ext": {
+        "rouge1": {
+          "p": 0.4885,
+          "r": 0.5705,
+          "f": 0.5263
+        },
+        "rouge2": {
+          "p": 0.3526,
+          "r": 0.4122,
+          "f": 0.3801
+        },
+        "rougeL": {
+          "p": 0.3678,
+          "r": 0.4295,
+          "f": 0.3963
+        }
+      },
+      "abstractive_preview": "The purpose of this study was to discuss the scaffolding techniques used in the Jenius Writing (JW) program to support students’ creative writing. The",
+      "abs": {
+        "rouge1": {
+          "p": 0.9595,
+          "r": 0.953,
+          "f": 0.9562
+        },
+        "rouge2": {
+          "p": 0.932,
+          "r": 0.9257,
+          "f": 0.9288
+        },
+        "rougeL": {
+          "p": 0.9595,
+          "r": 0.953,
+          "f": 0.9562
+        }
+      }
+    },
+    {
+      "doc_id": 84,
+      "reference_preview": "The purpose of this study was to determine the speech acts strategies used by a gaming Youtuber, Jess No Limit in one of his online-game streaming vid",
+      "extractive_preview": "the purpose of analyzing youtube videos uploaded by a youtuber is to ascertain the speech acts strategies employed by the youtuber to persuade viewers",
+      "ext": {
+        "rouge1": {
+          "p": 0.4961,
+          "r": 0.5294,
+          "f": 0.5122
+        },
+        "rouge2": {
+          "p": 0.1905,
+          "r": 0.2034,
+          "f": 0.1967
+        },
+        "rougeL": {
+          "p": 0.3071,
+          "r": 0.3277,
+          "f": 0.3171
+        }
+      },
+      "abstractive_preview": "This study was to determine the speech acts strategies used by a gaming Youtuber, Jess No Limit in one of his online-game streaming videos. A mixed- m",
+      "abs": {
+        "rouge1": {
+          "p": 0.9826,
+          "r": 0.9496,
+          "f": 0.9658
+        },
+        "rouge2": {
+          "p": 0.9649,
+          "r": 0.9322,
+          "f": 0.9483
+        },
+        "rougeL": {
+          "p": 0.9826,
+          "r": 0.9496,
+          "f": 0.9658
+        }
+      }
+    },
+    {
+      "doc_id": 85,
+      "reference_preview": "This study aimed to measure the effectiveness of interactive multimedia aided social cognitive model in early reading learning, implemented to improve",
+      "extractive_preview": "the instru ment was used for measuring students early read ing skills comprised of reading letters reading syllables reading words reading sentences a",
+      "ext": {
+        "rouge1": {
+          "p": 0.3935,
+          "r": 0.5041,
+          "f": 0.442
+        },
+        "rouge2": {
+          "p": 0.1818,
+          "r": 0.2333,
+          "f": 0.2044
+        },
+        "rougeL": {
+          "p": 0.2258,
+          "r": 0.2893,
+          "f": 0.2536
+        }
+      },
+      "abstractive_preview": "This study aimed to measure the effectiveness of interactive multimedia aided social cog- nitive model in early reading learning, implemented to impro",
+      "abs": {
+        "rouge1": {
+          "p": 0.888,
+          "r": 0.9174,
+          "f": 0.9024
+        },
+        "rouge2": {
+          "p": 0.7984,
+          "r": 0.825,
+          "f": 0.8115
+        },
+        "rougeL": {
+          "p": 0.88,
+          "r": 0.9091,
+          "f": 0.8943
+        }
+      }
+    },
+    {
+      "doc_id": 86,
+      "reference_preview": "The purpose of this study is to see how polite netizens are in commenting on Nadiem Makarim's Instagram account, Minister of Education and Culture. Th",
+      "extractive_preview": "the data is sourced from the instagram account nadiemmakariem speech or writing in the comments of nadiem makarim s first post on august the focus of ",
+      "ext": {
+        "rouge1": {
+          "p": 0.4409,
+          "r": 0.6474,
+          "f": 0.5246
+        },
+        "rouge2": {
+          "p": 0.249,
+          "r": 0.3663,
+          "f": 0.2965
+        },
+        "rougeL": {
+          "p": 0.2559,
+          "r": 0.3757,
+          "f": 0.3044
+        }
+      },
+      "abstractive_preview": "The purpose of this study is to see how polite netizens are in commenting on Nadiem Makarim's Instagram account, Minister of Education and Culture. Th",
+      "abs": {
+        "rouge1": {
+          "p": 0.9592,
+          "r": 0.5434,
+          "f": 0.6937
+        },
+        "rouge2": {
+          "p": 0.8866,
+          "r": 0.5,
+          "f": 0.6394
+        },
+        "rougeL": {
+          "p": 0.9286,
+          "r": 0.526,
+          "f": 0.6716
+        }
+      }
+    },
+    {
+      "doc_id": 87,
+      "reference_preview": "Ternate Malay Language Interference in the Indonesian Language Learning Process.This research was conducted with the aim of explaining the interferenc",
+      "extractive_preview": "the results of the data analysis concluded that the form of interference in the ternate malay language in the indonesian language learning process nam",
+      "ext": {
+        "rouge1": {
+          "p": 0.6774,
+          "r": 0.6396,
+          "f": 0.658
+        },
+        "rouge2": {
+          "p": 0.5514,
+          "r": 0.5204,
+          "f": 0.5354
+        },
+        "rougeL": {
+          "p": 0.3871,
+          "r": 0.3655,
+          "f": 0.376
+        }
+      },
+      "abstractive_preview": "This research was conducted with the aim of explaining the interference of the Ternate Malay language in the Indonesian language learning process for ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9416,
+          "r": 0.6548,
+          "f": 0.7725
+        },
+        "rouge2": {
+          "p": 0.875,
+          "r": 0.6071,
+          "f": 0.7169
+        },
+        "rougeL": {
+          "p": 0.9343,
+          "r": 0.6497,
+          "f": 0.7665
+        }
+      }
+    },
+    {
+      "doc_id": 88,
+      "reference_preview": "This study describes and compares euphemisms in Indonesian and Mandarin. The research is qualitative and applies a contrastive approach. Data was coll",
+      "extractive_preview": "this study focuses on euphemisms used in mandarin and indonesian languages and similarities and differences of both languages in terms of euphemism us",
+      "ext": {
+        "rouge1": {
+          "p": 0.4071,
+          "r": 0.4423,
+          "f": 0.424
+        },
+        "rouge2": {
+          "p": 0.0893,
+          "r": 0.0971,
+          "f": 0.093
+        },
+        "rougeL": {
+          "p": 0.2478,
+          "r": 0.2692,
+          "f": 0.2581
+        }
+      },
+      "abstractive_preview": "This study describes and compares euphemisms in Indonesian and Mandarin languages. This is a qualitative study with the contrastive approach. Data wer",
+      "abs": {
+        "rouge1": {
+          "p": 0.6867,
+          "r": 0.5481,
+          "f": 0.6096
+        },
+        "rouge2": {
+          "p": 0.378,
+          "r": 0.301,
+          "f": 0.3351
+        },
+        "rougeL": {
+          "p": 0.6024,
+          "r": 0.4808,
+          "f": 0.5348
+        }
+      }
+    },
+    {
+      "doc_id": 89,
+      "reference_preview": "In this era, English plays an important role in opening access to education and career. Regarding the significance, universities in Indonesia not only",
+      "extractive_preview": "therefore the study aims to see the students readiness to use english media and the effect of students readiness to their learning process. of the stu",
+      "ext": {
+        "rouge1": {
+          "p": 0.4667,
+          "r": 0.3889,
+          "f": 0.4242
+        },
+        "rouge2": {
+          "p": 0.1346,
+          "r": 0.112,
+          "f": 0.1223
+        },
+        "rougeL": {
+          "p": 0.2381,
+          "r": 0.1984,
+          "f": 0.2165
+        }
+      },
+      "abstractive_preview": "In this era, English plays an important role in opening access to education and career. Regarding the significance, universities in Indonesia not only",
+      "abs": {
+        "rouge1": {
+          "p": 0.9431,
+          "r": 0.9206,
+          "f": 0.9317
+        },
+        "rouge2": {
+          "p": 0.8852,
+          "r": 0.864,
+          "f": 0.8745
+        },
+        "rougeL": {
+          "p": 0.9431,
+          "r": 0.9206,
+          "f": 0.9317
+        }
+      }
+    },
+    {
+      "doc_id": 90,
+      "reference_preview": "Abstract:Lakuin Attaining Perfection of Life According to Javanese Manuscript “Ngelmi Pangrucat”.Life tranquility is something which is always wanted ",
+      "extractive_preview": "then the manuscript ngelmi pangrucat whose content is about the way to attain life tranquility to lead to perfection of life is related to laku or wha",
+      "ext": {
+        "rouge1": {
+          "p": 0.3942,
+          "r": 0.4824,
+          "f": 0.4339
+        },
+        "rouge2": {
+          "p": 0.1401,
+          "r": 0.1716,
+          "f": 0.1543
+        },
+        "rougeL": {
+          "p": 0.226,
+          "r": 0.2765,
+          "f": 0.2487
+        }
+      },
+      "abstractive_preview": "Laku in Attaining Perfection of Life According to Javanese Manuscript “Ngelmi Pangrucat”. Life tranquility is something which is always wanted by ever",
+      "abs": {
+        "rouge1": {
+          "p": 1.0,
+          "r": 0.3176,
+          "f": 0.4821
+        },
+        "rouge2": {
+          "p": 0.9811,
+          "r": 0.3077,
+          "f": 0.4685
+        },
+        "rougeL": {
+          "p": 0.963,
+          "r": 0.3059,
+          "f": 0.4643
+        }
+      }
+    },
+    {
+      "doc_id": 91,
+      "reference_preview": "The gender role of a person, whether male or female, depends on the cultural values that develop in the classroom. In the patriarchal class, from the ",
+      "extractive_preview": "analysis of the new order discourse can be categorized at the same time in the study of the fields of history politics social culture and even social ",
+      "ext": {
+        "rouge1": {
+          "p": 0.4315,
+          "r": 0.4701,
+          "f": 0.45
+        },
+        "rouge2": {
+          "p": 0.1448,
+          "r": 0.1579,
+          "f": 0.1511
+        },
+        "rougeL": {
+          "p": 0.2329,
+          "r": 0.2537,
+          "f": 0.2429
+        }
+      },
+      "abstractive_preview": "The gender role of a person, whether male or female, depends on the cultural values that develop in the classroom. In the patriarchal class, from the ",
+      "abs": {
+        "rouge1": {
+          "p": 0.9923,
+          "r": 0.9627,
+          "f": 0.9773
+        },
+        "rouge2": {
+          "p": 0.9767,
+          "r": 0.9474,
+          "f": 0.9618
+        },
+        "rougeL": {
+          "p": 0.9923,
+          "r": 0.9627,
+          "f": 0.9773
+        }
+      }
+    },
+    {
+      "doc_id": 92,
+      "reference_preview": "There are two objectives to be achieved by this study, first revealing the dominance of patriarchism in systems of inheritance. Secondly, revealing ef",
+      "extractive_preview": "patriarchism in the context of the inheritance customary law system in bali is evident in the rules which state that boys as heirs have the right to i",
+      "ext": {
+        "rouge1": {
+          "p": 0.5419,
+          "r": 0.5467,
+          "f": 0.5442
+        },
+        "rouge2": {
+          "p": 0.146,
+          "r": 0.1473,
+          "f": 0.1467
+        },
+        "rougeL": {
+          "p": 0.2335,
+          "r": 0.2356,
+          "f": 0.2345
+        }
+      },
+      "abstractive_preview": "This study has an urgency for the development of literary discourse, while practically giving an understanding to the public about the attitude of inh",
+      "abs": {
+        "rouge1": {
+          "p": 0.9416,
+          "r": 0.6444,
+          "f": 0.7652
+        },
+        "rouge2": {
+          "p": 0.8758,
+          "r": 0.5982,
+          "f": 0.7109
+        },
+        "rougeL": {
+          "p": 0.9351,
+          "r": 0.64,
+          "f": 0.7599
+        }
+      }
+    },
+    {
+      "doc_id": 93,
+      "reference_preview": "Metacognition is important in learning since it is a higher order thinking process. Metacognition emphasizes on the students’ autonomy to determine th",
+      "extractive_preview": "very good the student has very good metacognition knowledge of self task and strategy variables findings and discussion findings procedural knowledge ",
+      "ext": {
+        "rouge1": {
+          "p": 0.4088,
+          "r": 0.5333,
+          "f": 0.4628
+        },
+        "rouge2": {
+          "p": 0.1397,
+          "r": 0.1827,
+          "f": 0.1583
+        },
+        "rougeL": {
+          "p": 0.1825,
+          "r": 0.2381,
+          "f": 0.2066
+        }
+      },
+      "abstractive_preview": "In this study, three students were selected by the researcher’s criteria and the teacher's recommendation. The results of the interview related to stu",
+      "abs": {
+        "rouge1": {
+          "p": 0.4655,
+          "r": 0.2571,
+          "f": 0.3313
+        },
+        "rouge2": {
+          "p": 0.1053,
+          "r": 0.0577,
+          "f": 0.0745
+        },
+        "rougeL": {
+          "p": 0.2759,
+          "r": 0.1524,
+          "f": 0.1963
+        }
+      }
+    },
+    {
+      "doc_id": 94,
+      "reference_preview": "The purpose of this research was to describe the image of women in Hanindawan's drama scriptLampoe Plenthong 15 Watt. This research was a descriptive ",
+      "extractive_preview": "based on the results of the research it was found that the form of women s image included the role of women as individuals the role of women as mother",
+      "ext": {
+        "rouge1": {
+          "p": 0.3627,
+          "r": 0.625,
+          "f": 0.459
+        },
+        "rouge2": {
+          "p": 0.2656,
+          "r": 0.4595,
+          "f": 0.3366
+        },
+        "rougeL": {
+          "p": 0.2591,
+          "r": 0.4464,
+          "f": 0.3279
+        }
+      },
+      "abstractive_preview": "This research was a deskripsi qualitative research with content analysis. The data was from Hanindawan's Lampoe Plenthong 15 Watt drama script. Data c",
+      "abs": {
+        "rouge1": {
+          "p": 0.931,
+          "r": 0.7232,
+          "f": 0.8141
+        },
+        "rouge2": {
+          "p": 0.8372,
+          "r": 0.6486,
+          "f": 0.731
+        },
+        "rougeL": {
+          "p": 0.8966,
+          "r": 0.6964,
+          "f": 0.7839
+        }
+      }
+    },
+    {
+      "doc_id": 95,
+      "reference_preview": "The ability of students to analyze literary works is very weak. An important effort to improve students’ abilities in analyzing literary works is to i",
+      "extractive_preview": "by the description technique researcher describes this research with data in the form of words phrases and sentences sourced from the results of the s",
+      "ext": {
+        "rouge1": {
+          "p": 0.4127,
+          "r": 0.4815,
+          "f": 0.4444
+        },
+        "rouge2": {
+          "p": 0.1702,
+          "r": 0.1988,
+          "f": 0.1834
+        },
+        "rougeL": {
+          "p": 0.3016,
+          "r": 0.3519,
+          "f": 0.3248
+        }
+      },
+      "abstractive_preview": "The results of Javadi & Mohammadi’s research (2019: 34) that students who read textual show boreehaviour, learning is interpreted as repetitive activi",
+      "abs": {
+        "rouge1": {
+          "p": 0.4545,
+          "r": 0.1852,
+          "f": 0.2632
+        },
+        "rouge2": {
+          "p": 0.1385,
+          "r": 0.0559,
+          "f": 0.0796
+        },
+        "rougeL": {
+          "p": 0.303,
+          "r": 0.1235,
+          "f": 0.1754
+        }
+      }
+    },
+    {
+      "doc_id": 96,
+      "reference_preview": "This study aims to determine the effectiveness of the computer-assisted learning module for drill and practice model of Indonesian language learning i",
+      "extractive_preview": "control the data above shows that the learning outcomes of students in the experimental group or groups that are taught using the drill and practice m",
+      "ext": {
+        "rouge1": {
+          "p": 0.444,
+          "r": 0.5691,
+          "f": 0.4988
+        },
+        "rouge2": {
+          "p": 0.2333,
+          "r": 0.2995,
+          "f": 0.2623
+        },
+        "rougeL": {
+          "p": 0.2905,
+          "r": 0.3723,
+          "f": 0.3263
+        }
+      },
+      "abstractive_preview": "The results of the experimental testing of the computer-assisted learning Mo- dules in Indonesia have been obtained by the University of Indonesia. Th",
+      "abs": {
+        "rouge1": {
+          "p": 0.6364,
+          "r": 0.2234,
+          "f": 0.3307
+        },
+        "rouge2": {
+          "p": 0.3231,
+          "r": 0.1123,
+          "f": 0.1667
+        },
+        "rougeL": {
+          "p": 0.4242,
+          "r": 0.1489,
+          "f": 0.2205
+        }
+      }
+    },
+    {
+      "doc_id": 97,
+      "reference_preview": "This study is motivated by many expert opinions which state that the students' reading motivation in Indonesia still needs to be increased. The resear",
+      "extractive_preview": "reading motivation profile of students having high and low level reading comprehension aspects of e pre e e pre e getting satisfaction improving skill",
+      "ext": {
+        "rouge1": {
+          "p": 0.3166,
+          "r": 0.4091,
+          "f": 0.3569
+        },
+        "rouge2": {
+          "p": 0.096,
+          "r": 0.1242,
+          "f": 0.1083
+        },
+        "rougeL": {
+          "p": 0.206,
+          "r": 0.2662,
+          "f": 0.2323
+        }
+      },
+      "abstractive_preview": "The study of the Dramatization Strategy for High- and Low-level Reading Comprehension is being carried out by the University of Cambridge. The study a",
+      "abs": {
+        "rouge1": {
+          "p": 0.8085,
+          "r": 0.2468,
+          "f": 0.3781
+        },
+        "rouge2": {
+          "p": 0.4783,
+          "r": 0.1438,
+          "f": 0.2211
+        },
+        "rougeL": {
+          "p": 0.5532,
+          "r": 0.1688,
+          "f": 0.2587
+        }
+      }
+    },
+    {
+      "doc_id": 98,
+      "reference_preview": "The product of this research is in the form of a textbook which aims to facilitate students in learning to understand and to produce descriptive texts",
+      "extractive_preview": "the fifth exercise asks the students to determine the suitable information in accordance with the content of the text. the eighth exercise asks the st",
+      "ext": {
+        "rouge1": {
+          "p": 0.2315,
+          "r": 0.4017,
+          "f": 0.2938
+        },
+        "rouge2": {
+          "p": 0.0743,
+          "r": 0.1293,
+          "f": 0.0943
+        },
+        "rougeL": {
+          "p": 0.1527,
+          "r": 0.265,
+          "f": 0.1938
+        }
+      },
+      "abstractive_preview": "The product of this research is in the form of a textbook which aims to facilitate students in learning to understand and to produce descriptive texts",
+      "abs": {
+        "rouge1": {
+          "p": 0.9828,
+          "r": 0.9744,
+          "f": 0.9785
+        },
+        "rouge2": {
+          "p": 0.9565,
+          "r": 0.9483,
+          "f": 0.9524
+        },
+        "rougeL": {
+          "p": 0.9828,
+          "r": 0.9744,
+          "f": 0.9785
+        }
+      }
+    },
+    {
+      "doc_id": 99,
+      "reference_preview": "Many learning theories and studies on classroom discourse explain that teachers’ speech has an important role in determining student learning success.",
+      "extractive_preview": "by qualitative analysis this study found that the teachers speech at the beginning of learning in the learning process and at the end of learning has ",
+      "ext": {
+        "rouge1": {
+          "p": 0.6323,
+          "r": 0.5078,
+          "f": 0.5632
+        },
+        "rouge2": {
+          "p": 0.3506,
+          "r": 0.2812,
+          "f": 0.3121
+        },
+        "rougeL": {
+          "p": 0.3806,
+          "r": 0.3057,
+          "f": 0.3391
+        }
+      },
+      "abstractive_preview": "This study aimed to describe how the teachers’ speech to stimulate students in learning inteaction. This study used a qualitative approach to the type",
+      "abs": {
+        "rouge1": {
+          "p": 0.949,
+          "r": 0.772,
+          "f": 0.8514
+        },
+        "rouge2": {
+          "p": 0.891,
+          "r": 0.724,
+          "f": 0.7989
+        },
+        "rougeL": {
+          "p": 0.9427,
+          "r": 0.7668,
+          "f": 0.8457
         }
       }
     }
   ],
-  "extractive_avg_f1": 0.1045,
-  "abstractive_avg_f1": 0.2868,
+  "extractive_avg_f1": 0.2624,
+  "abstractive_avg_f1": 0.5816,
   "best_method": "Abstractive"
 }
