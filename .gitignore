@@ -1,0 +1,29 @@
+# Model checkpoints (large files)
+output/checkpoints/best_model/model.safetensors
+output/checkpoints/best_model/tokenizer.json
+output/checkpoints/best_model/training_args.bin
+
+# Large precomputed results
+output/results/preprocess.json
+output/results/summarize.json
+output/results/dataset.json
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# Environment
+.env
+.venv
+venv/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uploads
+data/uploads/
