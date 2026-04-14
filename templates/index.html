@@ -143,22 +143,22 @@
         <section id="input-section" class="mb-8">
             <div class="text-center mb-6"><h2 class="text-xl font-bold" data-i18n="input.title">Masukkan Data</h2><p class="text-dark-500 text-sm mt-1" data-i18n="input.desc">Upload dataset CSV, upload PDF jurnal, atau input teks manual untuk memulai</p></div>
             <div class="flex justify-center mb-6"><div class="inline-flex bg-dark-100 rounded-full p-1">
-                <button onclick="switchTab('upload')" id="tab-upload" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-dark-900 text-white flex items-center gap-2 transition-all"><i data-lucide="upload" class="w-4 h-4"></i> Upload CSV</button>
-                <button onclick="switchTab('pdf')" id="tab-pdf" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-dark-600 flex items-center gap-2 transition-all"><i data-lucide="file-text" class="w-4 h-4"></i> Upload PDF</button>
-                <button onclick="switchTab('manual')" id="tab-manual" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-dark-600 flex items-center gap-2 transition-all"><i data-lucide="pencil-line" class="w-4 h-4"></i> Input Manual</button>
+                <button onclick="switchTab('upload')" id="tab-upload" class="tab-btn px-5 py-2 rounded-full text-sm font-medium bg-dark-900 text-white flex items-center gap-2 transition-all"><i data-lucide="upload" class="w-4 h-4"></i> <span data-i18n="tab.csv">Upload CSV</span></button>
+                <button onclick="switchTab('pdf')" id="tab-pdf" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-dark-600 flex items-center gap-2 transition-all"><i data-lucide="file-text" class="w-4 h-4"></i> <span data-i18n="tab.pdf">Upload PDF</span></button>
+                <button onclick="switchTab('manual')" id="tab-manual" class="tab-btn px-5 py-2 rounded-full text-sm font-medium text-dark-600 flex items-center gap-2 transition-all"><i data-lucide="pencil-line" class="w-4 h-4"></i> <span data-i18n="tab.manual">Input Manual</span></button>
             </div></div>
             <div id="panel-upload" class="tab-panel max-w-3xl mx-auto">
                 <div id="drop-zone" class="border-2 border-dashed border-dark-300 rounded-xl p-12 text-center cursor-pointer hover:border-dark-500 transition-colors" ondrop="handleDrop(event)" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" onclick="document.getElementById('file-input').click()">
                     <i data-lucide="upload-cloud" class="w-12 h-12 mx-auto text-dark-400 mb-4"></i>
-                    <p class="font-medium mb-1">Drag & drop file CSV di sini</p>
-                    <p class="text-dark-400 text-sm">atau klik untuk browse file</p>
-                    <p class="text-dark-300 text-xs mt-2">Format: CSV dengan kolom <code class="bg-dark-100 px-1 rounded">full_text</code> dan <code class="bg-dark-100 px-1 rounded">summary</code></p>
+                    <p class="font-medium mb-1" data-i18n="drop.csv">Drag & drop file CSV di sini</p>
+                    <p class="text-dark-400 text-sm" data-i18n="drop.browse">atau klik untuk browse file</p>
+                    <p class="text-dark-300 text-xs mt-2" data-i18n-html="drop.format">Format: CSV dengan kolom <code class="bg-dark-100 px-1 rounded">full_text</code> dan <code class="bg-dark-100 px-1 rounded">summary</code></p>
                     <input type="file" id="file-input" accept=".csv,.json" class="hidden" onchange="handleFileSelect(event)">
                 </div>
                 <div class="mt-4 flex items-center justify-center gap-4">
-                    <button onclick="loadDefaultDataset()" id="btn-default" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="database" class="w-3.5 h-3.5"></i> Atau gunakan dataset contoh (dataset.csv)</button>
-                    <a href="/api/download-dataset" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i> Download dataset.csv</a>
-                    <button onclick="showDatasetDetail()" id="btn-detail" class="hidden text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="table" class="w-3.5 h-3.5"></i> Tampilkan Detail Dataset</button>
+                    <button onclick="loadDefaultDataset()" id="btn-default" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="database" class="w-3.5 h-3.5"></i> <span data-i18n="btn.default">Atau gunakan dataset contoh (dataset.csv)</span></button>
+                    <a href="/api/download-dataset" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i> <span data-i18n="btn.download">Download dataset.csv</span></a>
+                    <button onclick="showDatasetDetail()" id="btn-detail" class="hidden text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="table" class="w-3.5 h-3.5"></i> <span data-i18n="btn.detail">Tampilkan Detail Dataset</span></button>
                 </div>
                 <div id="file-info" class="hidden mt-4 p-4 border border-dark-200 rounded-lg fade-in">
                     <div class="flex items-center justify-between"><div class="flex items-center gap-3"><i data-lucide="file-spreadsheet" class="w-5 h-5 text-dark-600"></i><div><p class="font-medium text-sm" id="file-name">-</p><p class="text-xs text-dark-400" id="file-stats">-</p></div></div><button onclick="clearFile()" class="text-dark-400 hover:text-dark-900"><i data-lucide="x" class="w-4 h-4"></i></button></div>
@@ -168,35 +168,35 @@
             <div id="panel-pdf" class="tab-panel hidden max-w-3xl mx-auto">
                 <div id="pdf-drop-zone" class="border-2 border-dashed border-dark-300 rounded-xl p-12 text-center cursor-pointer hover:border-dark-500 transition-colors" ondrop="handlePdfDrop(event)" ondragover="handleDragOver(event)" ondragleave="handlePdfDragLeave(event)" onclick="document.getElementById('pdf-file-input').click()">
                     <i data-lucide="file-text" class="w-12 h-12 mx-auto text-dark-400 mb-4"></i>
-                    <p class="font-medium mb-1">Drag & drop file PDF jurnal di sini</p>
-                    <p class="text-dark-400 text-sm">atau klik untuk browse file</p>
-                    <p class="text-dark-300 text-xs mt-2">Upload 1 file PDF jurnal, teks akan diekstrak otomatis</p>
+                    <p class="font-medium mb-1" data-i18n="drop.pdf">Drag & drop file PDF jurnal di sini</p>
+                    <p class="text-dark-400 text-sm" data-i18n="drop.browse">atau klik untuk browse file</p>
+                    <p class="text-dark-300 text-xs mt-2" data-i18n="drop.pdf.note">Upload 1 file PDF jurnal, teks akan diekstrak otomatis</p>
                     <input type="file" id="pdf-file-input" accept=".pdf" class="hidden" onchange="handlePdfFileSelect(event)">
                 </div>
                 <div id="pdf-file-info" class="hidden mt-4 p-4 border border-dark-200 rounded-lg fade-in">
                     <div class="flex items-center justify-between"><div class="flex items-center gap-3"><i data-lucide="file-text" class="w-5 h-5 text-dark-600"></i><div><p class="font-medium text-sm" id="pdf-file-name">-</p><p class="text-xs text-dark-400" id="pdf-file-stats">-</p></div></div><button onclick="clearPdf()" class="text-dark-400 hover:text-dark-900"><i data-lucide="x" class="w-4 h-4"></i></button></div>
                     <div id="pdf-preview" class="mt-4"></div>
                     <div class="mt-4">
-                        <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="pencil-line" class="w-4 h-4"></i> Teks Hasil Ekstraksi <span class="text-dark-400 font-normal">(edit/hapus bagian yang tidak perlu sebelum diproses)</span></label>
+                        <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="pencil-line" class="w-4 h-4"></i> <span data-i18n="label.extracted">Teks Hasil Ekstraksi</span> <span class="text-dark-400 font-normal" data-i18n="label.extracted.hint">(edit/hapus bagian yang tidak perlu sebelum diproses)</span></label>
                         <textarea id="pdf-extracted-text" rows="12" class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y font-mono"></textarea>
-                        <p class="text-xs text-dark-400 mt-1">Filter otomatis sudah menghapus nomor halaman, URL, daftar pustaka, dsb. Anda bisa edit manual jika masih ada bagian yang tidak diperlukan.</p>
+                        <p class="text-xs text-dark-400 mt-1" data-i18n="label.extracted.note">Filter otomatis sudah menghapus nomor halaman, URL, daftar pustaka, dsb. Anda bisa edit manual jika masih ada bagian yang tidak diperlukan.</p>
                     </div>
                 </div>
                 <div class="mt-4">
-                    <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="bookmark" class="w-4 h-4"></i> Ringkasan Referensi <span class="text-dark-400 font-normal">(opsional, untuk evaluasi ROUGE)</span></label>
-                    <textarea id="pdf-reference" rows="4" placeholder="Paste abstrak/ringkasan referensi di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea>
+                    <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="bookmark" class="w-4 h-4"></i> <span data-i18n="label.refsum">Ringkasan Referensi</span> <span class="text-dark-400 font-normal" data-i18n="label.refsum.hint">(opsional, untuk evaluasi ROUGE)</span></label>
+                    <textarea id="pdf-reference" rows="4" data-i18n-ph="ph.ref" placeholder="Paste abstrak/ringkasan referensi di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea>
                 </div>
                 <div class="mt-4">
-                    <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> Ringkasan dari LLM <span class="text-dark-400 font-normal">(opsional, untuk perbandingan)</span></label>
-                    <textarea id="pdf-llm-summary" rows="4" placeholder="Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea>
-                    <p class="text-xs text-dark-400 mt-1">Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.</p>
+                    <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> <span data-i18n="label.llm">Ringkasan dari LLM</span> <span class="text-dark-400 font-normal" data-i18n="label.llm.hint">(opsional, untuk perbandingan)</span></label>
+                    <textarea id="pdf-llm-summary" rows="4" data-i18n-ph="ph.llm" placeholder="Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea>
+                    <p class="text-xs text-dark-400 mt-1" data-i18n="label.llm.note">Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.</p>
                 </div>
             </div>
             <div id="panel-manual" class="tab-panel hidden max-w-3xl mx-auto">
                 <div class="space-y-4">
-                    <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="file-text" class="w-4 h-4"></i> Teks Dokumen</label><textarea id="input-text" rows="10" placeholder="Paste isi lengkap dokumen akademik di sini..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea></div>
-                    <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="bookmark" class="w-4 h-4"></i> Ringkasan Referensi <span class="text-dark-400 font-normal">(opsional, untuk evaluasi ROUGE)</span></label><textarea id="input-reference" rows="4" placeholder="Paste abstrak/ringkasan referensi di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea></div>
-                    <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> Ringkasan dari LLM <span class="text-dark-400 font-normal">(opsional, untuk perbandingan)</span></label><textarea id="manual-llm-summary" rows="4" placeholder="Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea><p class="text-xs text-dark-400 mt-1">Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.</p></div>
+                    <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="file-text" class="w-4 h-4"></i> <span data-i18n="label.doctext">Teks Dokumen</span></label><textarea id="input-text" rows="10" data-i18n-ph="ph.doctext" placeholder="Paste isi lengkap dokumen akademik di sini..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea></div>
+                    <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="bookmark" class="w-4 h-4"></i> <span data-i18n="label.refsum">Ringkasan Referensi</span> <span class="text-dark-400 font-normal" data-i18n="label.refsum.hint">(opsional, untuk evaluasi ROUGE)</span></label><textarea id="input-reference" rows="4" data-i18n-ph="ph.ref" placeholder="Paste abstrak/ringkasan referensi di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea></div>
+                    <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> <span data-i18n="label.llm">Ringkasan dari LLM</span> <span class="text-dark-400 font-normal" data-i18n="label.llm.hint">(opsional, untuk perbandingan)</span></label><textarea id="manual-llm-summary" rows="4" data-i18n-ph="ph.llm" placeholder="Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea><p class="text-xs text-dark-400 mt-1" data-i18n="label.llm.note">Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.</p></div>
                 </div>
             </div>
             <div class="mt-6 flex justify-center"><button onclick="startPipeline()" id="btn-start" class="bg-dark-900 text-white px-10 py-3.5 rounded-xl font-semibold text-sm hover:bg-dark-800 transition-colors flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-dark-900/20"><i data-lucide="play" class="w-5 h-5"></i> <span data-i18n="btn.start">Mulai Proses Summarization</span></button></div>
@@ -204,15 +204,15 @@
         <!-- RESULTS -->
         <section id="results-section" class="hidden mt-10 space-y-8 fade-in">
             <div id="result-preprocessing" class="border border-dark-200 rounded-2xl overflow-hidden shadow-sm">
-                <div class="bg-gradient-to-r from-purple-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center text-sm font-bold">1</div><div><h2 class="font-bold text-base">Preprocessing</h2><p class="text-xs text-dark-400" data-i18n="result.preprocess.desc">Pembersihan dan persiapan teks</p></div></div><div id="status-preprocessing"><div class="spinner"></div></div></div>
+                <div class="bg-gradient-to-r from-purple-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center text-sm font-bold">1</div><div><h2 class="font-bold text-base">Preprocessing</h2><p class="text-xs text-dark-400" data-i18n="result.preprocess.desc">Pembersihan dan persiapan teks</p></div></div><div class="flex items-center gap-2"><a href="/detail/preprocessing" target="_blank" class="w-8 h-8 rounded-lg bg-purple-100 hover:bg-purple-200 flex items-center justify-center transition-colors" title="Detail"><i data-lucide="external-link" class="w-4 h-4 text-purple-600"></i></a><div id="status-preprocessing"><div class="spinner"></div></div></div></div>
                 <div id="content-preprocessing" class="p-6"><div class="space-y-2"><div class="skeleton w-full h-4"></div><div class="skeleton w-3/4 h-4"></div></div></div>
             </div>
             <div id="result-summarization" class="border border-dark-200 rounded-2xl overflow-hidden opacity-40 shadow-sm">
-                <div class="bg-gradient-to-r from-emerald-50 to-blue-50 px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-dark-300 text-dark-600 flex items-center justify-center text-sm font-bold">2</div><div><h2 class="font-bold text-base text-dark-400">Summarization</h2><p class="text-xs text-dark-400">Extractive vs Abstractive</p></div></div><div id="status-summarization"></div></div>
+                <div class="bg-gradient-to-r from-emerald-50 to-blue-50 px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-dark-300 text-dark-600 flex items-center justify-center text-sm font-bold">2</div><div><h2 class="font-bold text-base text-dark-400">Summarization</h2><p class="text-xs text-dark-400" data-i18n="result.sum.desc">Extractive vs Abstractive</p></div></div><div class="flex items-center gap-2"><a href="/detail/summarization" target="_blank" class="w-8 h-8 rounded-lg bg-emerald-100 hover:bg-emerald-200 flex items-center justify-center transition-colors" title="Detail"><i data-lucide="external-link" class="w-4 h-4 text-emerald-600"></i></a><div id="status-summarization"></div></div></div>
                 <div id="content-summarization" class="p-6"><div class="space-y-2"><div class="skeleton w-full h-4"></div><div class="skeleton w-2/3 h-4"></div></div></div>
             </div>
             <div id="result-evaluation" class="border border-dark-200 rounded-2xl overflow-hidden opacity-40 shadow-sm">
-                <div class="bg-gradient-to-r from-rose-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-dark-300 text-dark-600 flex items-center justify-center text-sm font-bold">3</div><div><h2 class="font-bold text-base text-dark-400" data-i18n="result.eval.title">Evaluasi ROUGE</h2><p class="text-xs text-dark-400" data-i18n="result.eval.desc">Perbandingan kualitas ringkasan</p></div></div><div id="status-evaluation"></div></div>
+                <div class="bg-gradient-to-r from-rose-50 to-white px-6 py-4 flex items-center justify-between border-b border-dark-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-dark-300 text-dark-600 flex items-center justify-center text-sm font-bold">3</div><div><h2 class="font-bold text-base text-dark-400" data-i18n="result.eval.title">Evaluasi ROUGE</h2><p class="text-xs text-dark-400" data-i18n="result.eval.desc">Perbandingan kualitas ringkasan</p></div></div><div class="flex items-center gap-2"><a href="/detail/evaluation" target="_blank" class="w-8 h-8 rounded-lg bg-rose-100 hover:bg-rose-200 flex items-center justify-center transition-colors" title="Detail"><i data-lucide="external-link" class="w-4 h-4 text-rose-600"></i></a><div id="status-evaluation"></div></div></div>
                 <div id="content-evaluation" class="p-6"><div class="space-y-2"><div class="skeleton w-full h-4"></div><div class="skeleton w-1/2 h-4"></div></div></div>
             </div>
             <div id="result-comparison" class="hidden"></div>
@@ -225,10 +225,10 @@
             <div class="sticky top-0 bg-white border-b border-dark-200 px-6 py-4 flex items-center justify-between rounded-t-2xl z-10">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-dark-900 text-white flex items-center justify-center"><i data-lucide="database" class="w-5 h-5"></i></div>
-                    <div><h3 class="font-semibold text-base">Detail Dataset</h3><p class="text-xs text-dark-400" id="dataset-modal-count"></p></div>
+                    <div><h3 class="font-semibold text-base" data-i18n="dataset.detail">Detail Dataset</h3><p class="text-xs text-dark-400" id="dataset-modal-count"></p></div>
                 </div>
                 <div class="flex items-center gap-3">
-                    <input type="text" id="dataset-search" placeholder="Cari dokumen..." class="border border-dark-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-dark-900 w-48" oninput="filterDatasetTable(this.value)">
+                    <input type="text" id="dataset-search" data-i18n-ph="dataset.search" placeholder="Cari dokumen..." class="border border-dark-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-dark-900 w-48" oninput="filterDatasetTable(this.value)">
                     <button onclick="closeDatasetModal()" class="w-8 h-8 rounded-lg hover:bg-dark-100 flex items-center justify-center"><i data-lucide="x" class="w-4 h-4"></i></button>
                 </div>
             </div>
@@ -304,6 +304,53 @@
         'abs.s4':'<strong>Beam Search</strong> — Pilih output terbaik',
         'abs.s5':'<strong>Decode</strong> — Ubah tokens kembali jadi teks',
         'abs.analogy':'<strong>Analogi:</strong> Seperti mahasiswa yang membaca materi lalu menulis ringkasan dengan kata-katanya sendiri.',
+        'tab.csv':'Upload CSV','tab.pdf':'Upload PDF','tab.manual':'Input Manual',
+        'drop.csv':'Drag & drop file CSV di sini','drop.browse':'atau klik untuk browse file',
+        'drop.format':'Format: CSV dengan kolom <code class="bg-dark-100 px-1 rounded">full_text</code> dan <code class="bg-dark-100 px-1 rounded">summary</code>',
+        'btn.default':'Atau gunakan dataset contoh (dataset.csv)','btn.download':'Download dataset.csv','btn.detail':'Tampilkan Detail Dataset',
+        'drop.pdf':'Drag & drop file PDF jurnal di sini','drop.pdf.note':'Upload 1 file PDF jurnal, teks akan diekstrak otomatis',
+        'label.extracted':'Teks Hasil Ekstraksi','label.extracted.hint':'(edit/hapus bagian yang tidak perlu sebelum diproses)',
+        'label.extracted.note':'Filter otomatis sudah menghapus nomor halaman, URL, daftar pustaka, dsb. Anda bisa edit manual jika masih ada bagian yang tidak diperlukan.',
+        'label.refsum':'Ringkasan Referensi','label.refsum.hint':'(opsional, untuk evaluasi ROUGE)',
+        'ph.ref':'Paste abstrak/ringkasan referensi di sini (opsional)...',
+        'label.llm':'Ringkasan dari LLM','label.llm.hint':'(opsional, untuk perbandingan)',
+        'ph.llm':'Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)...',
+        'label.llm.note':'Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.',
+        'label.doctext':'Teks Dokumen','ph.doctext':'Paste isi lengkap dokumen akademik di sini...',
+        'toast.dataset.ok':'Dataset berhasil di-load:','toast.pdf.ok':'PDF berhasil diekstrak:',
+        'toast.doc':'dokumen','toast.page':'halaman',
+        'toast.upload.csv':'Upload dataset CSV terlebih dahulu','toast.upload.pdf':'Upload file PDF terlebih dahulu',
+        'toast.pdf.empty':'Teks PDF kosong. Upload ulang atau isi teks.','toast.pdf.format':'File harus berformat PDF',
+        'toast.manual.empty':'Masukkan teks dokumen terlebih dahulu','toast.no.data':'Tidak ada data untuk ditampilkan',
+        'file.stats.doc':'dokumen','file.stats.avg':'Rata-rata teks:',
+        'pdf.stats.page':'halaman','pdf.stats.chars':'karakter (setelah filter)',
+        'result.sum.desc':'Extractive vs Abstractive',
+        'table.metric':'Metrik',
+        'modal.example':'Contoh:',
+        'expl.cf.title':'Case Folding','expl.cf.desc':'Mengubah semua huruf menjadi huruf kecil (lowercase).',
+        'expl.cf.detail':'Tujuannya agar kata "Mahasiswa" dan "mahasiswa" dianggap sama saat diproses. Ini langkah pertama yang menstandarkan teks.',
+        'expl.cl.title':'Cleaning','expl.cl.desc':'Menghapus karakter yang tidak relevan.',
+        'expl.cl.detail':'Menghilangkan tanda baca, angka, URL, simbol khusus, dan karakter non-alfabet. Hanya huruf dan spasi yang dipertahankan.',
+        'expl.st.title':'Tokenisasi Kalimat','expl.st.desc':'Memecah teks menjadi kalimat-kalimat.',
+        'expl.st.detail':'Menggunakan tanda titik, tanda seru, dan tanda tanya sebagai pemisah kalimat. Setiap kalimat menjadi unit analisis.',
+        'expl.wt.title':'Tokenisasi Kata','expl.wt.desc':'Memecah kalimat menjadi kata-kata individual.',
+        'expl.wt.detail':'Setiap kata dipisahkan berdasarkan spasi. Daftar kata ini nantinya digunakan untuk analisis frekuensi dan penghapusan stopword.',
+        'expl.sw.title':'Stopword Removal','expl.sw.desc':'Menghapus kata-kata umum yang tidak bermakna.',
+        'expl.sw.detail':'Kata-kata seperti "yang", "dan", "di", "ke", "dari", "ini", "itu" dihapus karena tidak memberikan informasi penting untuk pemahaman teks. Menggunakan library Sastrawi.',
+        'expl.sm.title':'Stemming','expl.sm.desc':'Mengubah kata ke bentuk dasar (root word).',
+        'expl.sm.detail':'Menghapus imbuhan (prefix, suffix, infix) untuk mendapatkan kata dasar. Misal: "berlari" → "lari", "memakan" → "makan". Menggunakan Sastrawi Stemmer untuk Bahasa Indonesia.',
+        'expl.ext.title':'Extractive Summarization','expl.ext.desc':'Memilih kalimat terpenting dari teks asli.',
+        'expl.ext.detail':'<strong>Langkah-langkah:</strong><br>1. <strong>TF-IDF Vectorization:</strong> Menghitung bobot setiap kata berdasarkan kemunculannya.<br>2. <strong>Cosine Similarity Matrix:</strong> Membangun graph kemiripan antar kalimat.<br>3. <strong>PageRank/TextRank:</strong> Menjalankan algoritma ranking untuk menemukan kalimat terpenting.<br>4. <strong>Seleksi:</strong> Memilih N kalimat dengan skor tertinggi.<br><br>Kalimat yang dipilih adalah kalimat asli tanpa perubahan kata.',
+        'expl.ext.example':'Dari 15 kalimat → Dipilih 3 kalimat paling penting',
+        'expl.abs.title':'Abstractive Summarization','expl.abs.desc':'Menghasilkan ringkasan baru dengan model AI.',
+        'expl.abs.detail':'<strong>Model:</strong> mT5-small (Multilingual T5)<br><strong>Arsitektur:</strong> Sequence-to-Sequence Transformer<br><br>1. <strong>Encoder:</strong> Membaca dan memahami seluruh konteks teks input.<br>2. <strong>Decoder:</strong> Menggenerate kata-kata ringkasan satu per satu.<br>3. <strong>Beam Search:</strong> Memilih rangkaian kata terbaik dari beberapa kandidat.<br><br>Model ini sudah di-finetuning pada dataset teks akademik Bahasa Indonesia.',
+        'expl.abs.example':'Input panjang → Output ringkasan baru yang ditulis ulang oleh AI',
+        'expl.rouge.title':'Metrik ROUGE','expl.rouge.desc':'Mengukur kualitas ringkasan secara otomatis.',
+        'expl.rouge.detail':'<strong>ROUGE-1:</strong> Overlap unigram (kata tunggal) antara ringkasan dan referensi.<br><strong>ROUGE-2:</strong> Overlap bigram (pasangan kata berurutan).<br><strong>ROUGE-L:</strong> Longest Common Subsequence — urutan terpanjang yang cocok.<br><br>Setiap metrik menghasilkan:<br>• <strong>Precision:</strong> Seberapa banyak kata ringkasan yang ada di referensi<br>• <strong>Recall:</strong> Seberapa banyak kata referensi yang ada di ringkasan<br>• <strong>F1:</strong> Rata-rata harmonik precision dan recall',
+        'expl.rouge.example':'Skor F1 0.45 = 45% overlap kata dengan referensi',
+        'tooltip.explain':'Penjelasan',
+        'loading':'Memuat...','error.upload':'Error upload: ','error.generic':'Error: ','error.pdf':'Error upload PDF: ','error.pipeline':'Pipeline error: ',
+        'flow.tokenize':'Tokenisasi','flow.selection':'Seleksi','flow.userinput':'Input Pengguna',
       },
       en: {
         'header.subtitle':'Comparison of Extractive (TextRank) vs Abstractive (mT5) — Indonesian Academic Documents',
@@ -362,6 +409,53 @@
         'abs.s4':'<strong>Beam Search</strong> — Select best output',
         'abs.s5':'<strong>Decode</strong> — Convert tokens back to text',
         'abs.analogy':'<strong>Analogy:</strong> Like a student reading material then writing a summary in their own words.',
+        'tab.csv':'Upload CSV','tab.pdf':'Upload PDF','tab.manual':'Manual Input',
+        'drop.csv':'Drag & drop a CSV file here','drop.browse':'or click to browse files',
+        'drop.format':'Format: CSV with columns <code class="bg-dark-100 px-1 rounded">full_text</code> and <code class="bg-dark-100 px-1 rounded">summary</code>',
+        'btn.default':'Or use sample dataset (dataset.csv)','btn.download':'Download dataset.csv','btn.detail':'Show Dataset Detail',
+        'drop.pdf':'Drag & drop a journal PDF file here','drop.pdf.note':'Upload 1 journal PDF file, text will be extracted automatically',
+        'label.extracted':'Extracted Text','label.extracted.hint':'(edit/remove unnecessary parts before processing)',
+        'label.extracted.note':'Auto filter has removed page numbers, URLs, references, etc. You can manually edit if unnecessary parts remain.',
+        'label.refsum':'Reference Summary','label.refsum.hint':'(optional, for ROUGE evaluation)',
+        'ph.ref':'Paste abstract/reference summary here (optional)...',
+        'label.llm':'LLM Summary','label.llm.hint':'(optional, for comparison)',
+        'ph.llm':'Paste summary from ChatGPT / other LLM here (optional)...',
+        'label.llm.note':'Paste LLM summary (e.g. ChatGPT) for comparison display. Not evaluated with ROUGE.',
+        'label.doctext':'Document Text','ph.doctext':'Paste full academic document text here...',
+        'toast.dataset.ok':'Dataset loaded successfully:','toast.pdf.ok':'PDF extracted successfully:',
+        'toast.doc':'documents','toast.page':'pages',
+        'toast.upload.csv':'Please upload a CSV dataset first','toast.upload.pdf':'Please upload a PDF file first',
+        'toast.pdf.empty':'PDF text is empty. Re-upload or fill in text.','toast.pdf.format':'File must be in PDF format',
+        'toast.manual.empty':'Please enter document text first','toast.no.data':'No data to display',
+        'file.stats.doc':'documents','file.stats.avg':'Average text:',
+        'pdf.stats.page':'pages','pdf.stats.chars':'characters (after filter)',
+        'result.sum.desc':'Extractive vs Abstractive',
+        'table.metric':'Metric',
+        'modal.example':'Example:',
+        'expl.cf.title':'Case Folding','expl.cf.desc':'Converts all letters to lowercase.',
+        'expl.cf.detail':'This ensures "University" and "university" are treated the same during processing. This is the first step to standardize text.',
+        'expl.cl.title':'Cleaning','expl.cl.desc':'Removes irrelevant characters.',
+        'expl.cl.detail':'Removes punctuation, numbers, URLs, special symbols, and non-alphabetic characters. Only letters and spaces are kept.',
+        'expl.st.title':'Sentence Tokenization','expl.st.desc':'Splits text into sentences.',
+        'expl.st.detail':'Uses periods, exclamation marks, and question marks as sentence delimiters. Each sentence becomes a unit of analysis.',
+        'expl.wt.title':'Word Tokenization','expl.wt.desc':'Splits sentences into individual words.',
+        'expl.wt.detail':'Each word is separated by spaces. The resulting word list is used for frequency analysis and stopword removal.',
+        'expl.sw.title':'Stopword Removal','expl.sw.desc':'Removes common meaningless words.',
+        'expl.sw.detail':'Common words like "the", "and", "in", "to", "from", "this", "that" are removed as they do not provide important information for text understanding. Uses the Sastrawi library.',
+        'expl.sm.title':'Stemming','expl.sm.desc':'Converts words to their base form (root word).',
+        'expl.sm.detail':'Removes affixes (prefix, suffix, infix) to get the root word. Example: "running" → "run", "eating" → "eat". Uses Sastrawi Stemmer for Indonesian language.',
+        'expl.ext.title':'Extractive Summarization','expl.ext.desc':'Selects the most important sentences from the original text.',
+        'expl.ext.detail':'<strong>Steps:</strong><br>1. <strong>TF-IDF Vectorization:</strong> Calculates word weights based on occurrence.<br>2. <strong>Cosine Similarity Matrix:</strong> Builds a similarity graph between sentences.<br>3. <strong>PageRank/TextRank:</strong> Runs ranking algorithm to find the most important sentences.<br>4. <strong>Selection:</strong> Picks N sentences with the highest scores.<br><br>Selected sentences are original sentences without word changes.',
+        'expl.ext.example':'From 15 sentences → 3 most important sentences selected',
+        'expl.abs.title':'Abstractive Summarization','expl.abs.desc':'Generates new summaries using an AI model.',
+        'expl.abs.detail':'<strong>Model:</strong> mT5-small (Multilingual T5)<br><strong>Architecture:</strong> Sequence-to-Sequence Transformer<br><br>1. <strong>Encoder:</strong> Reads and understands the entire input text context.<br>2. <strong>Decoder:</strong> Generates summary words one by one.<br>3. <strong>Beam Search:</strong> Selects the best word sequence from multiple candidates.<br><br>This model has been fine-tuned on Indonesian academic text datasets.',
+        'expl.abs.example':'Long input → New summary rewritten by AI',
+        'expl.rouge.title':'ROUGE Metrics','expl.rouge.desc':'Measures summary quality automatically.',
+        'expl.rouge.detail':'<strong>ROUGE-1:</strong> Unigram (single word) overlap between summary and reference.<br><strong>ROUGE-2:</strong> Bigram (consecutive word pairs) overlap.<br><strong>ROUGE-L:</strong> Longest Common Subsequence — longest matching sequence.<br><br>Each metric produces:<br>• <strong>Precision:</strong> How many summary words appear in the reference<br>• <strong>Recall:</strong> How many reference words are captured by the summary<br>• <strong>F1:</strong> Harmonic mean of precision and recall',
+        'expl.rouge.example':'F1 Score 0.45 = 45% word overlap with reference',
+        'tooltip.explain':'Explanation',
+        'loading':'Loading...','error.upload':'Upload error: ','error.generic':'Error: ','error.pdf':'PDF upload error: ','error.pipeline':'Pipeline error: ',
+        'flow.tokenize':'Tokenization','flow.selection':'Selection','flow.userinput':'User Input',
       }
     };
     function t(k) { return (LANG[currentLang]||{})[k] || (LANG.id||{})[k] || k; }
@@ -369,6 +463,7 @@
     function applyLang() {
         document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
         document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+        document.querySelectorAll('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
         if(typeof appState!=='undefined') {
             if(appState.preprocessResult) renderPreprocessing(appState.preprocessResult);
             if(appState.summarizeResult) renderSummarization(appState.summarizeResult);
@@ -377,17 +472,20 @@
         lucide.createIcons();
     }
 
-    const EXPLANATIONS = {
-        'case_folding': { title: 'Case Folding', icon: 'type', desc: 'Mengubah semua huruf menjadi huruf kecil (lowercase).', detail: 'Tujuannya agar kata "Mahasiswa" dan "mahasiswa" dianggap sama saat diproses. Ini langkah pertama yang menstandarkan teks.', example: '"UNIVERSITAS Hasanuddin" → "universitas hasanuddin"' },
-        'cleaning': { title: 'Cleaning', icon: 'eraser', desc: 'Menghapus karakter yang tidak relevan.', detail: 'Menghilangkan tanda baca, angka, URL, simbol khusus, dan karakter non-alfabet. Hanya huruf dan spasi yang dipertahankan.', example: '"NLP ver.2.0 (Natural!)" → "NLP ver Natural"' },
-        'sentence_tokenize': { title: 'Tokenisasi Kalimat', icon: 'split', desc: 'Memecah teks menjadi kalimat-kalimat.', detail: 'Menggunakan tanda titik, tanda seru, dan tanda tanya sebagai pemisah kalimat. Setiap kalimat menjadi unit analisis.', example: '"Saya belajar. Dia bekerja." → ["Saya belajar", "Dia bekerja"]' },
-        'word_tokenize': { title: 'Tokenisasi Kata', icon: 'text-cursor-input', desc: 'Memecah kalimat menjadi kata-kata individual.', detail: 'Setiap kata dipisahkan berdasarkan spasi. Daftar kata ini nantinya digunakan untuk analisis frekuensi dan penghapusan stopword.', example: '"saya belajar nlp" → ["saya", "belajar", "nlp"]' },
-        'stopword_removal': { title: 'Stopword Removal', icon: 'filter', desc: 'Menghapus kata-kata umum yang tidak bermakna.', detail: 'Kata-kata seperti "yang", "dan", "di", "ke", "dari", "ini", "itu" dihapus karena tidak memberikan informasi penting untuk pemahaman teks. Menggunakan library Sastrawi.', example: '"dia pergi ke rumah yang besar" → ["pergi", "rumah", "besar"]' },
-        'stemming': { title: 'Stemming', icon: 'scissors', desc: 'Mengubah kata ke bentuk dasar (root word).', detail: 'Menghapus imbuhan (prefix, suffix, infix) untuk mendapatkan kata dasar. Misal: "berlari" → "lari", "memakan" → "makan". Menggunakan Sastrawi Stemmer untuk Bahasa Indonesia.', example: '"pembelajaran" → "ajar", "berlari" → "lari"' },
-        'extractive': { title: 'Extractive Summarization', icon: 'list-ordered', desc: 'Memilih kalimat terpenting dari teks asli.', detail: '<strong>Langkah-langkah:</strong><br>1. <strong>TF-IDF Vectorization:</strong> Menghitung bobot setiap kata berdasarkan kemunculannya.<br>2. <strong>Cosine Similarity Matrix:</strong> Membangun graph kemiripan antar kalimat.<br>3. <strong>PageRank/TextRank:</strong> Menjalankan algoritma ranking untuk menemukan kalimat terpenting.<br>4. <strong>Seleksi:</strong> Memilih N kalimat dengan skor tertinggi.<br><br>Kalimat yang dipilih adalah kalimat asli tanpa perubahan kata.', example: 'Dari 15 kalimat → Dipilih 3 kalimat paling penting' },
-        'abstractive': { title: 'Abstractive Summarization', icon: 'brain', desc: 'Menghasilkan ringkasan baru dengan model AI.', detail: '<strong>Model:</strong> mT5-small (Multilingual T5)<br><strong>Arsitektur:</strong> Sequence-to-Sequence Transformer<br><br>1. <strong>Encoder:</strong> Membaca dan memahami seluruh konteks teks input.<br>2. <strong>Decoder:</strong> Menggenerate kata-kata ringkasan satu per satu.<br>3. <strong>Beam Search:</strong> Memilih rangkaian kata terbaik dari beberapa kandidat.<br><br>Model ini sudah di-finetuning pada dataset teks akademik Bahasa Indonesia.', example: 'Input panjang → Output ringkasan baru yang ditulis ulang oleh AI' },
-        'rouge': { title: 'Metrik ROUGE', icon: 'bar-chart-2', desc: 'Mengukur kualitas ringkasan secara otomatis.', detail: '<strong>ROUGE-1:</strong> Overlap unigram (kata tunggal) antara ringkasan dan referensi.<br><strong>ROUGE-2:</strong> Overlap bigram (pasangan kata berurutan).<br><strong>ROUGE-L:</strong> Longest Common Subsequence — urutan terpanjang yang cocok.<br><br>Setiap metrik menghasilkan:<br>• <strong>Precision:</strong> Seberapa banyak kata ringkasan yang ada di referensi<br>• <strong>Recall:</strong> Seberapa banyak kata referensi yang ada di ringkasan<br>• <strong>F1:</strong> Rata-rata harmonik precision dan recall', example: 'Skor F1 0.45 = 45% overlap kata dengan referensi' }
-    };
+    function getExplanation(key) {
+        const map = {
+            'case_folding': { title: t('expl.cf.title'), icon: 'type', desc: t('expl.cf.desc'), detail: t('expl.cf.detail'), example: '"UNIVERSITAS Hasanuddin" → "universitas hasanuddin"' },
+            'cleaning': { title: t('expl.cl.title'), icon: 'eraser', desc: t('expl.cl.desc'), detail: t('expl.cl.detail'), example: '"NLP ver.2.0 (Natural!)" → "NLP ver Natural"' },
+            'sentence_tokenize': { title: t('expl.st.title'), icon: 'split', desc: t('expl.st.desc'), detail: t('expl.st.detail'), example: '"Saya belajar. Dia bekerja." → ["Saya belajar", "Dia bekerja"]' },
+            'word_tokenize': { title: t('expl.wt.title'), icon: 'text-cursor-input', desc: t('expl.wt.desc'), detail: t('expl.wt.detail'), example: '"saya belajar nlp" → ["saya", "belajar", "nlp"]' },
+            'stopword_removal': { title: t('expl.sw.title'), icon: 'filter', desc: t('expl.sw.desc'), detail: t('expl.sw.detail'), example: '"dia pergi ke rumah yang besar" → ["pergi", "rumah", "besar"]' },
+            'stemming': { title: t('expl.sm.title'), icon: 'scissors', desc: t('expl.sm.desc'), detail: t('expl.sm.detail'), example: '"pembelajaran" → "ajar", "berlari" → "lari"' },
+            'extractive': { title: t('expl.ext.title'), icon: 'list-ordered', desc: t('expl.ext.desc'), detail: t('expl.ext.detail'), example: t('expl.ext.example') },
+            'abstractive': { title: t('expl.abs.title'), icon: 'brain', desc: t('expl.abs.desc'), detail: t('expl.abs.detail'), example: t('expl.abs.example') },
+            'rouge': { title: t('expl.rouge.title'), icon: 'bar-chart-2', desc: t('expl.rouge.desc'), detail: t('expl.rouge.detail'), example: t('expl.rouge.example') }
+        };
+        return map[key] || null;
+    }
 
     const SOURCE_CODE = {
         'case_folding': `# src/preprocessor.py \u2014 Case Folding\ndef case_folding(self, text: str) -> str:\n    """Mengubah semua huruf menjadi lowercase."""\n    if not text:\n        return ""\n    return text.lower()`,
@@ -423,7 +521,7 @@
     }
 
     function buildStepExplanation(key) {
-        const info = EXPLANATIONS[key];
+        const info = getExplanation(key);
         if (!info) return '';
         return '<div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">' +
             '<p class="text-xs font-bold text-amber-700 mb-1 flex items-center gap-1"><i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> ' + t('what.happened') + '</p>' +
@@ -475,32 +573,32 @@
             appState.summaries = data.summaries || [];
             appState.isDefaultDataset = false;
             showFileInfo(file.name, data);
-            showToast('Dataset berhasil di-load: ' + data.num_documents + ' dokumen', 'success');
+            showToast(t('toast.dataset.ok') + ' ' + data.num_documents + ' ' + t('toast.doc'), 'success');
             document.getElementById('btn-detail').classList.remove('hidden');
-        }).catch(e => { setLoading('btn-start', false); showToast('Error upload: ' + e.message); });
+        }).catch(e => { setLoading('btn-start', false); showToast(t('error.upload') + e.message); });
     }
 
     function loadDefaultDataset() {
         const btn = document.getElementById('btn-default');
-        btn.textContent = 'Loading...'; btn.disabled = true;
+        btn.textContent = t('loading'); btn.disabled = true;
         fetch('/api/load-default', { method: 'POST' })
         .then(r => r.json()).then(data => {
-            btn.textContent = 'Atau gunakan dataset contoh (dataset.csv)'; btn.disabled = false;
+            btn.textContent = t('btn.default'); btn.disabled = false;
             if(data.error) return showToast(data.error);
             switchTab('upload');
             appState.texts = data.texts;
             appState.summaries = data.summaries || [];
             appState.isDefaultDataset = true;
             showFileInfo('dataset.csv (default)', data);
-            showToast('Dataset default berhasil di-load: ' + data.num_documents + ' dokumen', 'success');
+            showToast(t('toast.dataset.ok') + ' ' + data.num_documents + ' ' + t('toast.doc'), 'success');
             document.getElementById('btn-detail').classList.remove('hidden');
-        }).catch(e => { btn.textContent = 'Atau gunakan dataset contoh (dataset.csv)'; btn.disabled = false; showToast('Error: ' + e.message); });
+        }).catch(e => { btn.textContent = t('btn.default'); btn.disabled = false; showToast(t('error.generic') + e.message); });
     }
 
     function showFileInfo(name, data) {
         document.getElementById('file-info').classList.remove('hidden');
         document.getElementById('file-name').textContent = name;
-        document.getElementById('file-stats').textContent = `${data.num_documents} dokumen • Rata-rata teks: ${data.stats?.avg_text_length || '-'} karakter`;
+        document.getElementById('file-stats').textContent = `${data.num_documents} ${t('file.stats.doc')} • ${t('file.stats.avg')} ${data.stats?.avg_text_length || '-'} ${t('chars')}`;
         if(data.preview && data.preview.length > 0) {
             const cols = Object.keys(data.preview[0]);
             let html = '<table class="w-full text-xs border-collapse"><thead><tr>' + cols.map(c => `<th class="border border-dark-200 bg-dark-50 px-3 py-2 text-left font-medium">${c}</th>`).join('') + '</tr></thead><tbody>';
@@ -517,7 +615,7 @@
     function handlePdfFileSelect(e) { const f = e.target.files[0]; if(f) uploadPdf(f); }
 
     function uploadPdf(file) {
-        if(!file.name.toLowerCase().endsWith('.pdf')) { showToast('File harus berformat PDF'); return; }
+        if(!file.name.toLowerCase().endsWith('.pdf')) { showToast(t('toast.pdf.format')); return; }
         const fd = new FormData(); fd.append('file', file);
         setLoading('btn-start', true);
         fetch('/api/upload-pdf', { method: 'POST', body: fd })
@@ -529,14 +627,14 @@
             appState.summaries = [];
             appState.isDefaultDataset = false;
             showPdfInfo(data);
-            showToast('PDF berhasil diekstrak: ' + data.num_pages + ' halaman', 'success');
-        }).catch(e => { setLoading('btn-start', false); showToast('Error upload PDF: ' + e.message); });
+            showToast(t('toast.pdf.ok') + ' ' + data.num_pages + ' ' + t('toast.page'), 'success');
+        }).catch(e => { setLoading('btn-start', false); showToast(t('error.pdf') + e.message); });
     }
 
     function showPdfInfo(data) {
         document.getElementById('pdf-file-info').classList.remove('hidden');
         document.getElementById('pdf-file-name').textContent = data.filename;
-        document.getElementById('pdf-file-stats').textContent = data.num_pages + ' halaman • ' + data.text_length + ' karakter (setelah filter)';
+        document.getElementById('pdf-file-stats').textContent = data.num_pages + ' ' + t('pdf.stats.page') + ' • ' + data.text_length + ' ' + t('pdf.stats.chars');
         document.getElementById('pdf-extracted-text').value = data.text;
         let html = '';
         document.getElementById('pdf-preview').innerHTML = html;
@@ -560,11 +658,11 @@
 
     // --- MODAL ---
     function showExplanation(key) {
-        const info = EXPLANATIONS[key]; if(!info) return;
+        const info = getExplanation(key); if(!info) return;
         document.getElementById('modal-title').textContent = info.title;
         document.getElementById('modal-icon').innerHTML = `<i data-lucide="${info.icon}" class="w-5 h-5"></i>`;
         let body = `<div class="space-y-4"><p class="text-sm text-dark-600">${info.desc}</p><div class="text-sm leading-relaxed text-dark-700">${info.detail}</div>`;
-        if(info.example) body += `<div class="bg-dark-50 border border-dark-200 rounded-lg px-4 py-3"><p class="text-xs font-semibold text-dark-500 mb-1">Contoh:</p><p class="text-sm font-mono">${info.example}</p></div>`;
+        if(info.example) body += `<div class="bg-dark-50 border border-dark-200 rounded-lg px-4 py-3"><p class="text-xs font-semibold text-dark-500 mb-1">${t('modal.example')}</p><p class="text-sm font-mono">${info.example}</p></div>`;
         body += '</div>';
         document.getElementById('modal-body').innerHTML = body;
         document.getElementById('explanation-modal').classList.add('open');
@@ -577,9 +675,9 @@
     function showDatasetDetail() {
         const texts = appState.texts || [];
         const summaries = appState.summaries || [];
-        if (texts.length === 0) { showToast('Tidak ada data untuk ditampilkan'); return; }
-        _allDatasetRows = texts.map((t, i) => ({ idx: i, text: t, summary: summaries[i] || '' }));
-        document.getElementById('dataset-modal-count').textContent = texts.length + ' dokumen';
+        if (texts.length === 0) { showToast(t('toast.no.data')); return; }
+        _allDatasetRows = texts.map((txt, i) => ({ idx: i, text: txt, summary: summaries[i] || '' }));
+        document.getElementById('dataset-modal-count').textContent = texts.length + ' ' + t('toast.doc');
         document.getElementById('dataset-search').value = '';
         renderDatasetTable(_allDatasetRows);
         document.getElementById('dataset-modal').classList.add('open');
@@ -643,7 +741,8 @@
         const card1 = document.getElementById('result-preprocessing');
         const card2 = document.getElementById('result-summarization');
         const card3 = document.getElementById('result-evaluation');
-        if(stepNum >= 2) { card2.classList.remove('opacity-40'); card2.querySelector('.step-icon-2, div:first-child > div > div:first-child').className = card2.querySelector('.bg-dark-300') ? '' : ''; }
+        if(stepNum >= 2) { card2.classList.remove('opacity-40'); const icon2 = card2.querySelector('.step-icon-2, div:first-child > div > div:first-child'); if(icon2) icon2.className = 'w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-sm font-bold'; }
+        if(stepNum >= 3) { card3.classList.remove('opacity-40'); const icon3 = card3.querySelector('div:first-child > div > div:first-child'); if(icon3) icon3.className = 'w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center text-sm font-bold'; }
         [card1, card2, card3].forEach((c, i) => { if(i + 1 <= stepNum) c.classList.remove('opacity-40'); });
     }
 
@@ -673,11 +772,11 @@
     // --- MAIN PIPELINE ---
     async function startPipeline() {
         // Validate
-        if(appState.currentTab === 'upload' && appState.texts.length === 0) return showToast('Upload dataset CSV terlebih dahulu');
-        if(appState.currentTab === 'pdf' && appState.texts.length === 0) return showToast('Upload file PDF terlebih dahulu');
+        if(appState.currentTab === 'upload' && appState.texts.length === 0) return showToast(t('toast.upload.csv'));
+        if(appState.currentTab === 'pdf' && appState.texts.length === 0) return showToast(t('toast.upload.pdf'));
         if(appState.currentTab === 'pdf') {
             const editedText = document.getElementById('pdf-extracted-text').value.trim();
-            if(!editedText) return showToast('Teks PDF kosong. Upload ulang atau isi teks.');
+            if(!editedText) return showToast(t('toast.pdf.empty'));
             appState.texts = [editedText];
             const ref = document.getElementById('pdf-reference').value.trim();
             if(ref) appState.summaries = [ref];
@@ -685,7 +784,7 @@
         }
         if(appState.currentTab === 'manual') {
             const txt = document.getElementById('input-text').value.trim();
-            if(!txt) return showToast('Masukkan teks dokumen terlebih dahulu');
+            if(!txt) return showToast(t('toast.manual.empty'));
             appState.llmSummary = document.getElementById('manual-llm-summary').value.trim();
         }
         // Show results
@@ -697,7 +796,7 @@
             await doPreprocessing(); updateStepper(2); activateStepCard(2);
             await doSummarization(); updateStepper(3); activateStepCard(3);
             await doEvaluation();
-        } catch(e) { showToast('Pipeline error: ' + e.message); }
+        } catch(e) { showToast(t('error.pipeline') + e.message); }
     }
 
     function resetResults() {
@@ -734,6 +833,7 @@
         appState.preprocessResult = data;
         document.getElementById('status-preprocessing').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ' + t('status.done') + '</div>';
         renderPreprocessing(data);
+        try { localStorage.setItem('nlp_preprocess', JSON.stringify(data)); localStorage.setItem('nlp_appstate', JSON.stringify({ texts: appState.texts, summaries: appState.summaries, currentDocIndex: appState.currentDocIndex, llmSummary: appState.llmSummary, isDefaultDataset: appState.isDefaultDataset })); localStorage.setItem('nlp_lang', currentLang); } catch(e) { console.warn('localStorage save failed:', e.message); }
         lucide.createIcons();
     }
 
@@ -786,7 +886,7 @@
                 <button class="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-dark-50 transition-colors" onclick="toggleAcc('${accId}')">
                     <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold">${i + 1}</span>
                     <div class="flex-1"><span class="font-medium text-sm">${step.label}</span><p class="text-xs text-dark-400">${step.desc}</p></div>
-                    <span class="info-btn" onclick="event.stopPropagation();showExplanation('${step.key}')" title="Penjelasan">?</span>
+                    <span class="info-btn" onclick="event.stopPropagation();showExplanation('${step.key}')" title="${t('tooltip.explain')}">?</span>
                     <i data-lucide="chevron-down" class="w-4 h-4 text-dark-400"></i>
                 </button>
                 <div class="acc-content" id="${accId}"><div class="px-4 pb-4 pt-1">`;
@@ -836,6 +936,7 @@
         appState.summarizeResult = data;
         document.getElementById('status-summarization').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ' + t('status.done') + '</div>';
         renderSummarization(data);
+        try { localStorage.setItem('nlp_summarize', JSON.stringify(data)); localStorage.setItem('nlp_appstate', JSON.stringify({ texts: appState.texts, summaries: appState.summaries, currentDocIndex: appState.currentDocIndex, llmSummary: appState.llmSummary, isDefaultDataset: appState.isDefaultDataset })); } catch(e) { console.warn('localStorage save failed:', e.message); }
         lucide.createIcons();
     }
 
@@ -862,17 +963,17 @@
             <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
                 <p class="text-xs font-bold text-emerald-700 mb-2">${t('ext.pipeline')}</p>
                 <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
-                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Tokenisasi</span><span class="text-emerald-300">→</span>
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">${t('flow.tokenize')}</span><span class="text-emerald-300">→</span>
                     <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">TF-IDF</span><span class="text-emerald-300">→</span>
                     <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Cosine Sim</span><span class="text-emerald-300">→</span>
                     <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">PageRank</span><span class="text-emerald-300">→</span>
-                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Seleksi</span>
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">${t('flow.selection')}</span>
                 </div>
             </div>
             <div class="bg-blue-50 rounded-xl border border-blue-200 p-4">
                 <p class="text-xs font-bold text-blue-700 mb-2">${t('abs.pipeline')}</p>
                 <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
-                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Tokenisasi</span><span class="text-blue-300">→</span>
+                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">${t('flow.tokenize')}</span><span class="text-blue-300">→</span>
                     <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Encoder</span><span class="text-blue-300">→</span>
                     <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Decoder</span><span class="text-blue-300">→</span>
                     <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Beam Search</span><span class="text-blue-300">→</span>
@@ -882,7 +983,7 @@
             ${hasLlm ? `<div class="bg-amber-50 rounded-xl border border-amber-200 p-4">
                 <p class="text-xs font-bold text-amber-700 mb-2">${t('llm.pipeline')}</p>
                 <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
-                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">User Input</span><span class="text-amber-300">→</span>
+                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">${t('flow.userinput')}</span><span class="text-amber-300">→</span>
                     <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">${t('compare')}</span>
                 </div>
             </div>` : ''}
@@ -900,7 +1001,7 @@
         html += `<div id="sumpanel-ext" class="sumpanel">
             <div class="border border-emerald-200 rounded-xl p-5">
                 <div class="flex items-center gap-2 mb-3"><i data-lucide="list-ordered" class="w-5 h-5 text-emerald-600"></i><span class="font-semibold text-sm">${t('result.ext')}</span>
-                <span class="info-btn" onclick="showExplanation('extractive')" title="Penjelasan">?</span></div>
+                <span class="info-btn" onclick="showExplanation('extractive')" title="${t('tooltip.explain')}">?</span></div>
                 ${buildTextViewer(r.extractive || '-')}
                 <p class="text-xs text-dark-400 mt-3">${(r.extractive || '').split(/[.!?]+/).filter(s => s.trim()).length} ${t('selected_from')}</p>
                 ${buildStepExplanation('extractive')}
@@ -912,7 +1013,7 @@
         html += `<div id="sumpanel-abs" class="sumpanel hidden">
             <div class="border border-blue-200 rounded-xl p-5">
                 <div class="flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5 text-blue-600"></i><span class="font-semibold text-sm">${t('result.abs')}</span>
-                <span class="info-btn" onclick="showExplanation('abstractive')" title="Penjelasan">?</span></div>
+                <span class="info-btn" onclick="showExplanation('abstractive')" title="${t('tooltip.explain')}">?</span></div>
                 ${buildTextViewer(r.abstractive || '-')}
                 <p class="text-xs text-dark-400 mt-3">${t('generated_by')}</p>
                 ${buildStepExplanation('abstractive')}
@@ -990,6 +1091,7 @@
         appState.evaluateResult = data;
         document.getElementById('status-evaluation').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> ' + t('status.done') + '</div>';
         renderEvaluation(data);
+        try { localStorage.setItem('nlp_evaluate', JSON.stringify(data)); localStorage.setItem('nlp_appstate', JSON.stringify({ texts: appState.texts, summaries: appState.summaries, currentDocIndex: appState.currentDocIndex, llmSummary: appState.llmSummary, isDefaultDataset: appState.isDefaultDataset })); } catch(e) { console.warn('localStorage save failed:', e.message); }
         lucide.createIcons();
     }
 
@@ -1001,7 +1103,7 @@
         let html = buildDocTabs(perDoc, 'switchEvalDoc');
         const r = perDoc[idx] || perDoc[0] || {};
 
-        html += `<div class="flex items-center gap-2 mb-6"><i data-lucide="bar-chart-2" class="w-5 h-5 text-rose-600"></i><span class="font-semibold text-sm">${t('rouge.scores')}</span><span class="info-btn" onclick="showExplanation('rouge')" title="Penjelasan">?</span></div>`;
+        html += `<div class="flex items-center gap-2 mb-6"><i data-lucide="bar-chart-2" class="w-5 h-5 text-rose-600"></i><span class="font-semibold text-sm">${t('rouge.scores')}</span><span class="info-btn" onclick="showExplanation('rouge')" title="${t('tooltip.explain')}">?</span></div>`;
 
         html += `<div class="bg-dark-50 border border-dark-200 rounded-xl p-4 mb-6 text-xs text-dark-600">
             <p class="font-semibold text-dark-700 mb-2">${t('rouge.howto')}</p>
@@ -1038,7 +1140,7 @@
         html += `<div class="grid md:grid-cols-2 gap-4">`;
         methodTables.forEach(({ label, data: d, color }) => {
             html += `<div class="border border-${color}-200 rounded-xl overflow-hidden"><div class="bg-${color}-50 px-4 py-2 border-b border-${color}-200"><span class="font-semibold text-sm text-${color}-800">${label}</span></div>
-            <table class="w-full text-xs"><thead><tr class="border-b border-dark-100"><th class="px-4 py-2 text-left font-medium text-dark-500">Metrik</th><th class="px-4 py-2 text-right font-medium text-dark-500">Precision</th><th class="px-4 py-2 text-right font-medium text-dark-500">Recall</th><th class="px-4 py-2 text-right font-medium text-dark-500">F1</th></tr></thead><tbody>`;
+            <table class="w-full text-xs"><thead><tr class="border-b border-dark-100"><th class="px-4 py-2 text-left font-medium text-dark-500">${t('table.metric')}</th><th class="px-4 py-2 text-right font-medium text-dark-500">Precision</th><th class="px-4 py-2 text-right font-medium text-dark-500">Recall</th><th class="px-4 py-2 text-right font-medium text-dark-500">F1</th></tr></thead><tbody>`;
             ['rouge1', 'rouge2', 'rougeL'].forEach(m => {
                 const v = d[m] || { p: 0, r: 0, f: 0 };
                 const mLabel = m === 'rouge1' ? 'ROUGE-1' : m === 'rouge2' ? 'ROUGE-2' : 'ROUGE-L';
@@ -1100,7 +1202,7 @@
                             ).join('<span class="text-dark-300 text-xs">vs</span>')}</div></div>`;
                     }).join('')}
                 </div>
-                <div class="bg-dark-50 border border-dark-200 rounded-xl p-4 text-sm text-dark-600"><p class="font-semibold text-dark-800 mb-2">${t('analysis')}</p><p>${t('analysis.method')||'Metode'} <strong>${wLabel}</strong> ${t('analysis.highest')} <strong>${wAvg}%</strong>. ${t('analysis.compare')||'Perbandingan:'} Extractive (${extAvg}%) vs Abstractive (${absAvg}%). ${winner === 'extractive' ? t('analysis.ext') : t('analysis.abs')}</p></div>
+                <div class="bg-dark-50 border border-dark-200 rounded-xl p-4 text-sm text-dark-600"><p class="font-semibold text-dark-800 mb-2">${t('analysis')}</p><p>${t('analysis.method')} <strong>${wLabel}</strong> ${t('analysis.highest')} <strong>${wAvg}%</strong>. ${t('analysis.compare')} Extractive (${extAvg}%) vs Abstractive (${absAvg}%). ${winner === 'extractive' ? t('analysis.ext') : t('analysis.abs')}</p></div>
                 ${hasLlm ? `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
                     <div class="flex items-center gap-2 mb-2"><i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i><span class="font-semibold text-sm text-amber-800">${t('llm.comp')}</span></div>
                     <p class="text-sm text-dark-700">${llmText}</p>

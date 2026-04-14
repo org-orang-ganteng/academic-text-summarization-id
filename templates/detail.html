@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ step_title }} — NLP Summarization Pipeline</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>📝</text></svg>" type="image/svg+xml">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .token-chip { display: inline-block; padding: 2px 8px; margin: 2px; background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 4px; font-size: 12px; font-family: monospace; }
+        .token-chip.removed { background: #fee; border-color: #fcc; text-decoration: line-through; color: #999; }
+        .token-chip.kept { background: #efe; border-color: #cfc; }
+        .acc-content { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+        .acc-content.open { max-height: 8000px; }
+        .code-block { background: #1e1e2e; color: #cdd6f4; border-radius: 8px; padding: 16px; font-family: 'Courier New', monospace; font-size: 12px; line-height: 1.6; overflow-x: auto; white-space: pre; margin-top: 8px; border: 1px solid #313244; }
+        .code-block .kw { color: #cba6f7; } .code-block .fn { color: #89b4fa; } .code-block .st { color: #a6e3a1; }
+        .code-block .cm { color: #6c7086; font-style: italic; } .code-block .op { color: #89dceb; } .code-block .nb { color: #fab387; }
+        .code-toggle { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; padding: 4px 10px; font-size: 11px; font-weight: 500; color: #6c7086; background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 6px; cursor: pointer; transition: all 0.2s; }
+        .code-toggle:hover { background: #e8e8e8; color: #333; }
+        .code-toggle.active { background: #1e1e2e; color: #cdd6f4; border-color: #313244; }
+        .code-wrapper { max-height: 0; overflow: hidden; transition: max-height 0.4s ease-out; }
+        .code-wrapper.open { max-height: 3000px; }
+        .modal-overlay { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.25s ease; }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal-box { background: white; border-radius: 16px; max-width: 640px; width: 92%; max-height: 85vh; overflow-y: auto; padding: 0; transform: translateY(20px) scale(0.97); transition: transform 0.25s ease; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); }
+        .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
+        .info-btn { width: 22px; height: 22px; border-radius: 50%; background: #f0f0f0; border: 1px solid #d4d4d4; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: #737373; cursor: pointer; transition: all 0.15s; flex-shrink: 0; line-height: 1; }
+        .info-btn:hover { background: #171717; color: white; border-color: #171717; }
+        .text-viewer { max-height: 300px; overflow-y: auto; transition: max-height 0.3s ease; }
+        .text-viewer.expanded { max-height: none; }
+        .text-expand-btn { cursor: pointer; color: #525252; font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; margin-top: 6px; padding: 4px 10px; background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 6px; transition: all 0.2s; }
+        .text-expand-btn:hover { background: #e0e0e0; }
+        .compare-card { border: 2px solid #e5e5e5; border-radius: 12px; transition: all 0.2s; }
+        .compare-card:hover { border-color: #a3a3a3; }
+        .step-nav-item { transition: all 0.2s; }
+        .step-nav-item:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .step-nav-item.active { border-color: #171717 !important; }
+        .no-data-msg { text-align: center; padding: 4rem 2rem; color: #a3a3a3; }
+        .no-data-msg i { margin-bottom: 1rem; }
+    </style>
+    <script>tailwind.config = { theme: { extend: { colors: { dark: { 50:'#f9f9f9',100:'#f0f0f0',200:'#e5e5e5',300:'#d4d4d4',400:'#a3a3a3',500:'#737373',600:'#525252',700:'#404040',800:'#262626',900:'#171717',950:'#0a0a0a' } } } } }</script>
+</head>
+<body class="bg-white text-dark-900 min-h-screen">
+    <header class="border-b border-dark-200 bg-dark-950 text-white sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <a href="/" class="w-10 h-10 rounded-xl bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors" title="Back"><i data-lucide="arrow-left" class="w-5 h-5"></i></a>
+                    <div>
+                        <h1 class="text-lg font-bold tracking-tight" id="page-title">{{ step_title }}</h1>
+                        <p class="text-dark-400 text-xs" data-i18n="header.subtitle">Perbandingan Extractive (TextRank) vs Abstractive (mT5) — Dokumen Akademik Bahasa Indonesia</p>
+                    </div>
+                </div>
+                <div class="flex items-center gap-2">
+                    <a href="/" class="px-3 py-1.5 rounded-lg text-white/60 hover:text-white hover:bg-white/10 text-xs transition-colors flex items-center gap-1"><i data-lucide="home" class="w-3.5 h-3.5"></i> <span data-i18n="nav.home">Beranda</span></a>
+                    <button onclick="switchLang()" class="px-3 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-xs font-medium transition-colors flex items-center gap-1.5"><i data-lucide="globe" class="w-3.5 h-3.5"></i> <span id="lang-label">EN</span></button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Step Navigation -->
+        <div class="flex items-center justify-center gap-4 mb-8">
+            <a href="/detail/preprocessing" class="step-nav-item flex items-center gap-3 border-2 {{ 'border-purple-400 bg-purple-50' if step == 'preprocessing' else 'border-dark-200 bg-white hover:border-dark-400' }} rounded-xl px-5 py-3 {{ 'active' if step == 'preprocessing' else '' }}">
+                <div class="w-8 h-8 rounded-lg {{ 'bg-purple-600 text-white' if step == 'preprocessing' else 'bg-dark-100 text-dark-500' }} flex items-center justify-center text-sm font-bold">1</div>
+                <span class="text-sm font-medium {{ 'text-purple-900' if step == 'preprocessing' else 'text-dark-500' }}">Preprocessing</span>
+            </a>
+            <div class="w-8 h-px bg-dark-300"></div>
+            <a href="/detail/summarization" class="step-nav-item flex items-center gap-3 border-2 {{ 'border-emerald-400 bg-emerald-50' if step == 'summarization' else 'border-dark-200 bg-white hover:border-dark-400' }} rounded-xl px-5 py-3 {{ 'active' if step == 'summarization' else '' }}">
+                <div class="w-8 h-8 rounded-lg {{ 'bg-emerald-600 text-white' if step == 'summarization' else 'bg-dark-100 text-dark-500' }} flex items-center justify-center text-sm font-bold">2</div>
+                <span class="text-sm font-medium {{ 'text-emerald-900' if step == 'summarization' else 'text-dark-500' }}">Summarization</span>
+            </a>
+            <div class="w-8 h-px bg-dark-300"></div>
+            <a href="/detail/evaluation" class="step-nav-item flex items-center gap-3 border-2 {{ 'border-rose-400 bg-rose-50' if step == 'evaluation' else 'border-dark-200 bg-white hover:border-dark-400' }} rounded-xl px-5 py-3 {{ 'active' if step == 'evaluation' else '' }}">
+                <div class="w-8 h-8 rounded-lg {{ 'bg-rose-600 text-white' if step == 'evaluation' else 'bg-dark-100 text-dark-500' }} flex items-center justify-center text-sm font-bold">3</div>
+                <span class="text-sm font-medium {{ 'text-rose-900' if step == 'evaluation' else 'text-dark-500' }}" data-i18n="step.eval">Evaluasi</span>
+            </a>
+        </div>
+
+        <!-- Content -->
+        <div id="detail-content" class="fade-in"></div>
+        <div id="detail-comparison" class="hidden mt-8"></div>
+    </main>
+
+    <footer class="border-t border-dark-200 mt-16"><div class="max-w-7xl mx-auto px-6 py-4 text-center text-dark-400 text-xs">NLP Summarization Pipeline &mdash; Built by <strong>Ainur Ridha Surya (D082251037)</strong>, <strong>Nirwana Samrin (D082251003)</strong>, <strong>Andi Agung Dwi Arya B (D082251057)</strong></div></footer>
+
+    <!-- Explanation Modal -->
+    <div id="explanation-modal" class="modal-overlay" onclick="if(event.target===this)closeModal()">
+        <div class="modal-box">
+            <div class="sticky top-0 bg-white border-b border-dark-200 px-6 py-4 flex items-center justify-between rounded-t-2xl"><div class="flex items-center gap-3"><div id="modal-icon" class="w-9 h-9 rounded-xl bg-dark-900 text-white flex items-center justify-center"></div><h3 id="modal-title" class="font-semibold text-base"></h3></div><button onclick="closeModal()" class="w-8 h-8 rounded-lg hover:bg-dark-100 flex items-center justify-center"><i data-lucide="x" class="w-4 h-4"></i></button></div>
+            <div id="modal-body" class="px-6 py-5"></div>
+        </div>
+    </div>
+
+    <script>
+    // --- LANGUAGE SYSTEM ---
+    let currentLang = localStorage.getItem('nlp_lang') || 'id';
+    const LANG = {
+      id: {
+        'header.subtitle':'Perbandingan Extractive (TextRank) vs Abstractive (mT5) — Dokumen Akademik Bahasa Indonesia',
+        'nav.results':'Hasil','nav.home':'Beranda',
+        'overview.title':'Arsitektur Pipeline Summarization',
+        'overview.desc':'Sistem ini membandingkan dua pendekatan summarization teks: <strong>Extractive</strong> (memilih kalimat penting) vs <strong>Abstractive</strong> (menghasilkan ringkasan baru dengan AI).',
+        'input.title':'Masukkan Data','input.desc':'Upload dataset CSV, upload PDF jurnal, atau input teks manual untuk memulai',
+        'step.eval':'Evaluasi','result.preprocess.desc':'Pembersihan dan persiapan teks',
+        'result.eval.title':'Evaluasi ROUGE','result.eval.desc':'Perbandingan kualitas ringkasan',
+        'btn.start':'Mulai Proses Summarization',
+        'stat.sentences':'Kalimat','stat.tokens':'Token Awal','stat.after':'Setelah Stemming','stat.reduction':'Reduksi',
+        'label.original':'Teks Asli','doc':'Dokumen','sentences_found':'kalimat ditemukan:','tokens':'token:',
+        'what.happened':'Apa Yang Terjadi?','btn.show_code':'Lihat Source Code','btn.hide_code':'Sembunyikan Code',
+        'btn.show_all':'Tampilkan semua','btn.hide':'Sembunyikan',
+        'step.cf.desc':'Semua huruf diubah ke lowercase','step.cl.desc':'Karakter non-alfabet dihapus',
+        'step.st':'Tokenisasi Kalimat','step.st.desc':'Teks dipecah per kalimat',
+        'step.wt':'Tokenisasi Kata','step.wt.desc':'Setiap kata dipisahkan',
+        'step.sw.desc':'Kata umum dihapus','step.sm.desc':'Kata diubah ke bentuk dasar',
+        'ext.pipeline':'Extractive Pipeline','abs.pipeline':'Abstractive Pipeline','llm.pipeline':'LLM (Input Manual)',
+        'result.ext':'Hasil Extractive','result.abs':'Hasil Abstractive','result.llm':'Hasil LLM',
+        'compare':'Perbandingan','selected_from':'kalimat terpilih dari teks asli',
+        'generated_by':'Dihasilkan oleh model mT5 (Seq2Seq Transformer)',
+        'llm.note':'Ringkasan dari LLM (input manual, tidak dievaluasi ROUGE)',
+        'chars':'karakter','label.ref':'Ringkasan Referensi',
+        'rouge.scores':'Skor ROUGE','rouge.howto':'Cara Membaca Skor:',
+        'rouge.p':'Berapa % kata di ringkasan yang muncul di referensi',
+        'rouge.r':'Berapa % kata di referensi yang ditangkap oleh ringkasan',
+        'rouge.f':'Rata-rata harmonik precision & recall (skor utama)',
+        'eval.noref':'Evaluasi ROUGE membutuhkan ringkasan referensi.',
+        'eval.noref2':'Upload dataset dengan kolom summary, atau masukkan referensi di input manual.',
+        'conclusion':'Kesimpulan Perbandingan','best_method':'Metode Terbaik','analysis':'Analisis:',
+        'analysis.highest':'menghasilkan skor rata-rata F1 ROUGE tertinggi sebesar',
+        'analysis.ext':'Memilih kalimat asli yang penting menghasilkan ringkasan yang lebih dekat dengan referensi.',
+        'analysis.abs':'Model mT5 berhasil menghasilkan ringkasan yang lebih representatif.',
+        'analysis.method':'Metode','analysis.compare':'Perbandingan:',
+        'llm.comp':'Ringkasan LLM (Perbandingan)',
+        'llm.noeval':'Ringkasan ini dari input manual LLM dan tidak dievaluasi menggunakan ROUGE.',
+        'status.done':'Selesai','status.noref':'Tidak ada referensi',
+        'table.metric':'Metrik','modal.example':'Contoh:',
+        'tooltip.explain':'Penjelasan',
+        'flow.tokenize':'Tokenisasi','flow.selection':'Seleksi','flow.userinput':'Input Pengguna',
+        'detail.nodata':'Belum ada data. Jalankan pipeline di halaman utama terlebih dahulu.',
+        'detail.nodata.btn':'Kembali ke Halaman Utama',
+        'expl.cf.title':'Case Folding','expl.cf.desc':'Mengubah semua huruf menjadi huruf kecil (lowercase).',
+        'expl.cf.detail':'Tujuannya agar kata "Mahasiswa" dan "mahasiswa" dianggap sama saat diproses. Ini langkah pertama yang menstandarkan teks.',
+        'expl.cl.title':'Cleaning','expl.cl.desc':'Menghapus karakter yang tidak relevan.',
+        'expl.cl.detail':'Menghilangkan tanda baca, angka, URL, simbol khusus, dan karakter non-alfabet. Hanya huruf dan spasi yang dipertahankan.',
+        'expl.st.title':'Tokenisasi Kalimat','expl.st.desc':'Memecah teks menjadi kalimat-kalimat.',
+        'expl.st.detail':'Menggunakan tanda titik, tanda seru, dan tanda tanya sebagai pemisah kalimat. Setiap kalimat menjadi unit analisis.',
+        'expl.wt.title':'Tokenisasi Kata','expl.wt.desc':'Memecah kalimat menjadi kata-kata individual.',
+        'expl.wt.detail':'Setiap kata dipisahkan berdasarkan spasi. Daftar kata ini nantinya digunakan untuk analisis frekuensi dan penghapusan stopword.',
+        'expl.sw.title':'Stopword Removal','expl.sw.desc':'Menghapus kata-kata umum yang tidak bermakna.',
+        'expl.sw.detail':'Kata-kata seperti "yang", "dan", "di", "ke", "dari", "ini", "itu" dihapus karena tidak memberikan informasi penting untuk pemahaman teks. Menggunakan library Sastrawi.',
+        'expl.sm.title':'Stemming','expl.sm.desc':'Mengubah kata ke bentuk dasar (root word).',
+        'expl.sm.detail':'Menghapus imbuhan (prefix, suffix, infix) untuk mendapatkan kata dasar. Misal: "berlari" → "lari", "memakan" → "makan". Menggunakan Sastrawi Stemmer untuk Bahasa Indonesia.',
+        'expl.ext.title':'Extractive Summarization','expl.ext.desc':'Memilih kalimat terpenting dari teks asli.',
+        'expl.ext.detail':'<strong>Langkah-langkah:</strong><br>1. <strong>TF-IDF Vectorization:</strong> Menghitung bobot setiap kata berdasarkan kemunculannya.<br>2. <strong>Cosine Similarity Matrix:</strong> Membangun graph kemiripan antar kalimat.<br>3. <strong>PageRank/TextRank:</strong> Menjalankan algoritma ranking untuk menemukan kalimat terpenting.<br>4. <strong>Seleksi:</strong> Memilih N kalimat dengan skor tertinggi.<br><br>Kalimat yang dipilih adalah kalimat asli tanpa perubahan kata.',
+        'expl.ext.example':'Dari 15 kalimat → Dipilih 3 kalimat paling penting',
+        'expl.abs.title':'Abstractive Summarization','expl.abs.desc':'Menghasilkan ringkasan baru dengan model AI.',
+        'expl.abs.detail':'<strong>Model:</strong> mT5-small (Multilingual T5)<br><strong>Arsitektur:</strong> Sequence-to-Sequence Transformer<br><br>1. <strong>Encoder:</strong> Membaca dan memahami seluruh konteks teks input.<br>2. <strong>Decoder:</strong> Menggenerate kata-kata ringkasan satu per satu.<br>3. <strong>Beam Search:</strong> Memilih rangkaian kata terbaik dari beberapa kandidat.<br><br>Model ini sudah di-finetuning pada dataset teks akademik Bahasa Indonesia.',
+        'expl.abs.example':'Input panjang → Output ringkasan baru yang ditulis ulang oleh AI',
+        'expl.rouge.title':'Metrik ROUGE','expl.rouge.desc':'Mengukur kualitas ringkasan secara otomatis.',
+        'expl.rouge.detail':'<strong>ROUGE-1:</strong> Overlap unigram (kata tunggal) antara ringkasan dan referensi.<br><strong>ROUGE-2:</strong> Overlap bigram (pasangan kata berurutan).<br><strong>ROUGE-L:</strong> Longest Common Subsequence — urutan terpanjang yang cocok.<br><br>Setiap metrik menghasilkan:<br>• <strong>Precision:</strong> Seberapa banyak kata ringkasan yang ada di referensi<br>• <strong>Recall:</strong> Seberapa banyak kata referensi yang ada di ringkasan<br>• <strong>F1:</strong> Rata-rata harmonik precision dan recall',
+        'expl.rouge.example':'Skor F1 0.45 = 45% overlap kata dengan referensi',
+      },
+      en: {
+        'header.subtitle':'Comparison of Extractive (TextRank) vs Abstractive (mT5) — Indonesian Academic Documents',
+        'nav.results':'Results','nav.home':'Home',
+        'overview.title':'Summarization Pipeline Architecture',
+        'overview.desc':'This system compares two text summarization approaches: <strong>Extractive</strong> (selecting important sentences) vs <strong>Abstractive</strong> (generating new summaries with AI).',
+        'input.title':'Enter Data','input.desc':'Upload a CSV dataset, upload a journal PDF, or enter text manually to begin',
+        'step.eval':'Evaluation','result.preprocess.desc':'Text cleaning and preparation',
+        'result.eval.title':'ROUGE Evaluation','result.eval.desc':'Summary quality comparison',
+        'btn.start':'Start Summarization',
+        'stat.sentences':'Sentences','stat.tokens':'Initial Tokens','stat.after':'After Stemming','stat.reduction':'Reduction',
+        'label.original':'Original Text','doc':'Document','sentences_found':'sentences found:','tokens':'tokens:',
+        'what.happened':'What Happened?','btn.show_code':'View Source Code','btn.hide_code':'Hide Code',
+        'btn.show_all':'Show all','btn.hide':'Hide',
+        'step.cf.desc':'All letters converted to lowercase','step.cl.desc':'Non-alphabetic characters removed',
+        'step.st':'Sentence Tokenization','step.st.desc':'Text split into sentences',
+        'step.wt':'Word Tokenization','step.wt.desc':'Each word separated',
+        'step.sw.desc':'Common words removed','step.sm.desc':'Words converted to base form',
+        'ext.pipeline':'Extractive Pipeline','abs.pipeline':'Abstractive Pipeline','llm.pipeline':'LLM (Manual Input)',
+        'result.ext':'Extractive Result','result.abs':'Abstractive Result','result.llm':'LLM Result',
+        'compare':'Comparison','selected_from':'sentences selected from original text',
+        'generated_by':'Generated by mT5 model (Seq2Seq Transformer)',
+        'llm.note':'Summary from LLM (manual input, not evaluated with ROUGE)',
+        'chars':'characters','label.ref':'Reference Summary',
+        'rouge.scores':'ROUGE Scores','rouge.howto':'How to Read Scores:',
+        'rouge.p':'% of summary words appearing in the reference',
+        'rouge.r':'% of reference words captured by the summary',
+        'rouge.f':'Harmonic mean of precision & recall (main score)',
+        'eval.noref':'ROUGE evaluation requires a reference summary.',
+        'eval.noref2':'Upload a dataset with a summary column, or enter a reference in manual input.',
+        'conclusion':'Comparison Conclusion','best_method':'Best Method','analysis':'Analysis:',
+        'analysis.highest':'achieved the highest average ROUGE F1 score of',
+        'analysis.ext':'Selecting important original sentences produced summaries closer to the reference.',
+        'analysis.abs':'The mT5 model successfully generated more representative summaries.',
+        'analysis.method':'Method','analysis.compare':'Comparison:',
+        'llm.comp':'LLM Summary (Comparison)',
+        'llm.noeval':'This summary is from manual LLM input and is not evaluated using ROUGE.',
+        'status.done':'Done','status.noref':'No reference',
+        'table.metric':'Metric','modal.example':'Example:',
+        'tooltip.explain':'Explanation',
+        'flow.tokenize':'Tokenization','flow.selection':'Selection','flow.userinput':'User Input',
+        'detail.nodata':'No data yet. Run the pipeline on the main page first.',
+        'detail.nodata.btn':'Back to Main Page',
+        'expl.cf.title':'Case Folding','expl.cf.desc':'Converts all letters to lowercase.',
+        'expl.cf.detail':'This ensures "University" and "university" are treated the same during processing. This is the first step to standardize text.',
+        'expl.cl.title':'Cleaning','expl.cl.desc':'Removes irrelevant characters.',
+        'expl.cl.detail':'Removes punctuation, numbers, URLs, special symbols, and non-alphabetic characters. Only letters and spaces are kept.',
+        'expl.st.title':'Sentence Tokenization','expl.st.desc':'Splits text into sentences.',
+        'expl.st.detail':'Uses periods, exclamation marks, and question marks as sentence delimiters. Each sentence becomes a unit of analysis.',
+        'expl.wt.title':'Word Tokenization','expl.wt.desc':'Splits sentences into individual words.',
+        'expl.wt.detail':'Each word is separated by spaces. The resulting word list is used for frequency analysis and stopword removal.',
+        'expl.sw.title':'Stopword Removal','expl.sw.desc':'Removes common meaningless words.',
+        'expl.sw.detail':'Common words like "the", "and", "in", "to", "from", "this", "that" are removed as they do not provide important information for text understanding. Uses the Sastrawi library.',
+        'expl.sm.title':'Stemming','expl.sm.desc':'Converts words to their base form (root word).',
+        'expl.sm.detail':'Removes affixes (prefix, suffix, infix) to get the root word. Example: "running" → "run", "eating" → "eat". Uses Sastrawi Stemmer for Indonesian language.',
+        'expl.ext.title':'Extractive Summarization','expl.ext.desc':'Selects the most important sentences from the original text.',
+        'expl.ext.detail':'<strong>Steps:</strong><br>1. <strong>TF-IDF Vectorization:</strong> Calculates word weights based on occurrence.<br>2. <strong>Cosine Similarity Matrix:</strong> Builds a similarity graph between sentences.<br>3. <strong>PageRank/TextRank:</strong> Runs ranking algorithm to find the most important sentences.<br>4. <strong>Selection:</strong> Picks N sentences with the highest scores.<br><br>Selected sentences are original sentences without word changes.',
+        'expl.ext.example':'From 15 sentences → 3 most important sentences selected',
+        'expl.abs.title':'Abstractive Summarization','expl.abs.desc':'Generates new summaries using an AI model.',
+        'expl.abs.detail':'<strong>Model:</strong> mT5-small (Multilingual T5)<br><strong>Architecture:</strong> Sequence-to-Sequence Transformer<br><br>1. <strong>Encoder:</strong> Reads and understands the entire input text context.<br>2. <strong>Decoder:</strong> Generates summary words one by one.<br>3. <strong>Beam Search:</strong> Selects the best word sequence from multiple candidates.<br><br>This model has been fine-tuned on Indonesian academic text datasets.',
+        'expl.abs.example':'Long input → New summary rewritten by AI',
+        'expl.rouge.title':'ROUGE Metrics','expl.rouge.desc':'Measures summary quality automatically.',
+        'expl.rouge.detail':'<strong>ROUGE-1:</strong> Unigram (single word) overlap between summary and reference.<br><strong>ROUGE-2:</strong> Bigram (consecutive word pairs) overlap.<br><strong>ROUGE-L:</strong> Longest Common Subsequence — longest matching sequence.<br><br>Each metric produces:<br>• <strong>Precision:</strong> How many summary words appear in the reference<br>• <strong>Recall:</strong> How many reference words are captured by the summary<br>• <strong>F1:</strong> Harmonic mean of precision and recall',
+        'expl.rouge.example':'F1 Score 0.45 = 45% word overlap with reference',
+      }
+    };
+    function t(k) { return (LANG[currentLang]||{})[k] || (LANG.id||{})[k] || k; }
+    function switchLang() {
+        currentLang = currentLang==='id'?'en':'id';
+        localStorage.setItem('nlp_lang', currentLang);
+        document.getElementById('lang-label').textContent = currentLang==='id'?'EN':'ID';
+        document.documentElement.lang = currentLang;
+        applyLang();
+    }
+    function applyLang() {
+        document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+        document.querySelectorAll('[data-i18n-html]').forEach(el => { el.innerHTML = t(el.dataset.i18nHtml); });
+        // Re-render content
+        const step = '{{ step }}';
+        if(step === 'preprocessing' && _data) renderPreprocessing(_data);
+        else if(step === 'summarization' && _data) renderSummarization(_data);
+        else if(step === 'evaluation' && _data) renderEvaluation(_data);
+        lucide.createIcons();
+    }
+
+    // --- STATE ---
+    const _step = '{{ step }}';
+    let _data = null;
+    let appState = { texts: [], summaries: [], currentDocIndex: 0, summarizeResult: null };
+
+    // --- SHARED HELPERS ---
+    function escapeHtml(t) { const d = document.createElement('div'); d.textContent = t; return d.innerHTML; }
+
+    function getExplanation(key) {
+        const map = {
+            'case_folding': { title: t('expl.cf.title'), icon: 'type', desc: t('expl.cf.desc'), detail: t('expl.cf.detail'), example: '"UNIVERSITAS Hasanuddin" → "universitas hasanuddin"' },
+            'cleaning': { title: t('expl.cl.title'), icon: 'eraser', desc: t('expl.cl.desc'), detail: t('expl.cl.detail'), example: '"NLP ver.2.0 (Natural!)" → "NLP ver Natural"' },
+            'sentence_tokenize': { title: t('expl.st.title'), icon: 'split', desc: t('expl.st.desc'), detail: t('expl.st.detail'), example: '"Saya belajar. Dia bekerja." → ["Saya belajar", "Dia bekerja"]' },
+            'word_tokenize': { title: t('expl.wt.title'), icon: 'text-cursor-input', desc: t('expl.wt.desc'), detail: t('expl.wt.detail'), example: '"saya belajar nlp" → ["saya", "belajar", "nlp"]' },
+            'stopword_removal': { title: t('expl.sw.title'), icon: 'filter', desc: t('expl.sw.desc'), detail: t('expl.sw.detail'), example: '"dia pergi ke rumah yang besar" → ["pergi", "rumah", "besar"]' },
+            'stemming': { title: t('expl.sm.title'), icon: 'scissors', desc: t('expl.sm.desc'), detail: t('expl.sm.detail'), example: '"pembelajaran" → "ajar", "berlari" → "lari"' },
+            'extractive': { title: t('expl.ext.title'), icon: 'list-ordered', desc: t('expl.ext.desc'), detail: t('expl.ext.detail'), example: t('expl.ext.example') },
+            'abstractive': { title: t('expl.abs.title'), icon: 'brain', desc: t('expl.abs.desc'), detail: t('expl.abs.detail'), example: t('expl.abs.example') },
+            'rouge': { title: t('expl.rouge.title'), icon: 'bar-chart-2', desc: t('expl.rouge.desc'), detail: t('expl.rouge.detail'), example: t('expl.rouge.example') }
+        };
+        return map[key] || null;
+    }
+
+    const SOURCE_CODE = {
+        'case_folding': `# src/preprocessor.py \u2014 Case Folding\ndef case_folding(self, text: str) -> str:\n    """Mengubah semua huruf menjadi lowercase."""\n    if not text:\n        return ""\n    return text.lower()`,
+        'cleaning': `# src/preprocessor.py \u2014 Cleaning\ndef clean_text(self, text: str) -> str:\n    if not text:\n        return ""\n    text = re.sub(r"https?://\\S+|www\\.\\S+", " ", text)\n    text = re.sub(r"\\S+@\\S+\\.\\S+", " ", text)\n    text = re.sub(r"<[^>]+>", " ", text)\n    text = re.sub(r"[^a-zA-Z\\s.?!]", " ", text)\n    text = re.sub(r"\\s+", " ", text).strip()\n    return text`,
+        'sentence_tokenize': `# src/preprocessor.py \u2014 Tokenisasi Kalimat\nfrom nltk.tokenize import sent_tokenize\n\ndef sentence_tokenize(self, text: str) -> List[str]:\n    if not text:\n        return []\n    sentences = sent_tokenize(text, language="indonesian")\n    sentences = [s.strip() for s in sentences if s.strip()]\n    return sentences`,
+        'word_tokenize': `# src/preprocessor.py \u2014 Tokenisasi Kata\nfrom nltk.tokenize import word_tokenize\n\ndef word_tokenize(self, text: str) -> List[str]:\n    if not text:\n        return []\n    tokens = word_tokenize(text, language="indonesian")\n    return tokens`,
+        'stopword_removal': `# src/preprocessor.py \u2014 Stopword Removal\nfrom nltk.corpus import stopwords\n\ndef remove_stopwords(self, tokens: List[str]) -> List[str]:\n    if not tokens:\n        return []\n    filtered = [\n        token for token in tokens\n        if token.lower() not in self.indonesian_stopwords\n        and len(token) > 1\n    ]\n    return filtered`,
+        'stemming': `# src/preprocessor.py \u2014 Stemming\nfrom Sastrawi.Stemmer.StemmerFactory import StemmerFactory\n\ndef stem_tokens(self, tokens: List[str]) -> List[str]:\n    if not tokens:\n        return []\n    stemmed = [self.stemmer.stem(token) for token in tokens]\n    return stemmed`,
+        'extractive': `# src/extractive_model.py \u2014 Extractive Summarization\nfrom sklearn.feature_extraction.text import TfidfVectorizer\nfrom sklearn.metrics.pairwise import cosine_similarity\nimport networkx as nx\n\ndef summarize(self, text, num_sentences=None):\n    sentences = self._get_sentences(text)\n    vectorizer = TfidfVectorizer(max_features=self.max_features)\n    tfidf_matrix = vectorizer.fit_transform(sentences)\n    similarity_matrix = cosine_similarity(tfidf_matrix)\n    graph = nx.from_numpy_array(similarity_matrix)\n    scores = nx.pagerank(graph, weight="weight")\n    ranked = sorted(scores, key=scores.get, reverse=True)\n    top_indices = sorted(ranked[:num_sentences])\n    summary = " ".join([sentences[i] for i in top_indices])\n    return summary`,
+        'abstractive': `# src/abstractive_model.py \u2014 Abstractive Summarization\nfrom transformers import AutoTokenizer, AutoModelForSeq2SeqLM\n\ndef summarize(self, texts):\n    inputs = self.tokenizer(\n        texts, max_length=512,\n        truncation=True, padding=True,\n        return_tensors="pt"\n    ).to(self.device)\n    outputs = self.model.generate(\n        **inputs,\n        num_beams=4,\n        max_length=150,\n        early_stopping=True\n    )\n    summaries = self.tokenizer.batch_decode(\n        outputs, skip_special_tokens=True\n    )\n    return summaries`,
+        'rouge': `# src/evaluator.py \u2014 ROUGE Evaluation\nfrom rouge_score import rouge_scorer\n\ndef compute_rouge(self, predictions, references):\n    scorer = rouge_scorer.RougeScorer(\n        ["rouge1", "rouge2", "rougeL"],\n        use_stemmer=False\n    )\n    for pred, ref in zip(predictions, references):\n        scores = scorer.score(ref, pred)\n        for metric in self.rouge_metrics:\n            precision = scores[metric].precision\n            recall = scores[metric].recall\n            fmeasure = scores[metric].fmeasure\n    avg_scores = {metric: {\n        "precision": mean(precisions),\n        "recall": mean(recalls),\n        "fmeasure": mean(fmeasures)\n    } for metric in metrics}\n    return avg_scores`
+    };
+
+    function highlightPython(code) {
+        code = code.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const ph = [];
+        const save = (h) => { ph.push(h); return '~PH' + (ph.length-1) + '~'; };
+        code = code.replace(/(#[^\n]*)/g, (m) => save('<span class="cm">' + m + '</span>'));
+        code = code.replace(/("(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')/g, (m) => save('<span class="st">' + m + '</span>'));
+        code = code.replace(/\b(def|class|if|else|elif|return|for|in|not|and|or|import|from|as|try|except|with|True|False|None|self)\b/g, '<span class="kw">$1</span>');
+        code = code.replace(/\b(str|int|float|list|dict|tuple|set|bool|len|print|range|zip|sum|sorted|type)\b/g, '<span class="nb">$1</span>');
+        code = code.replace(/(class="kw">def<\/span>\s+)(\w+)/g, '$1<span class="fn">$2</span>');
+        code = code.replace(/~PH(\d+)~/g, (_, i) => ph[parseInt(i)]);
+        return code;
+    }
+
+    function buildCodeBlock(key) {
+        const code = SOURCE_CODE[key];
+        if (!code) return '';
+        const id = 'code-' + key + '-' + Math.random().toString(36).substr(2, 5);
+        return '<button class="code-toggle" onclick="toggleCodeBlock(\'' + id + '\', this)"><i data-lucide="code-2" class="w-3 h-3"></i> ' + t('btn.show_code') + '</button>' +
+            '<div class="code-wrapper" id="' + id + '"><div class="code-block">' + highlightPython(code) + '</div></div>';
+    }
+
+    function buildStepExplanation(key) {
+        const info = getExplanation(key);
+        if (!info) return '';
+        return '<div class="bg-amber-50 border border-amber-200 rounded-lg p-3 mt-3">' +
+            '<p class="text-xs font-bold text-amber-700 mb-1 flex items-center gap-1"><i data-lucide="lightbulb" class="w-3.5 h-3.5"></i> ' + t('what.happened') + '</p>' +
+            '<p class="text-xs text-amber-800 leading-relaxed">' + info.detail + '</p>' +
+            (info.example ? '<div class="mt-2 bg-white/60 rounded px-2 py-1.5 text-xs font-mono text-amber-900">' + info.example + '</div>' : '') +
+            '</div>';
+    }
+
+    function toggleCodeBlock(id, btn) {
+        const el = document.getElementById(id);
+        el.classList.toggle('open');
+        btn.classList.toggle('active');
+        btn.innerHTML = el.classList.contains('open')
+            ? '<i data-lucide="code-2" class="w-3 h-3"></i> ' + t('btn.hide_code')
+            : '<i data-lucide="code-2" class="w-3 h-3"></i> ' + t('btn.show_code');
+        lucide.createIcons();
+    }
+
+    function buildTextViewer(text, maxHeight = 300) {
+        const id = 'tv-' + Math.random().toString(36).substr(2, 8);
+        const needsExpand = text.length > 500;
+        return `<div class="text-viewer${needsExpand ? '' : ' expanded'}" id="${id}" style="max-height: ${needsExpand ? maxHeight + 'px' : 'none'}"><p class="text-sm leading-relaxed text-dark-700 whitespace-pre-wrap">${escapeHtml(text)}</p></div>${needsExpand ? `<div class="text-expand-btn" onclick="toggleTextViewer('${id}', this)"><i data-lucide="chevron-down" class="w-3 h-3"></i> ${t('btn.show_all')}</div>` : ''}`;
+    }
+    function toggleTextViewer(id, btn) {
+        const el = document.getElementById(id);
+        el.classList.toggle('expanded');
+        if(el.classList.contains('expanded')) { el.style.maxHeight = 'none'; btn.innerHTML = '<i data-lucide="chevron-up" class="w-3 h-3"></i> ' + t('btn.hide'); }
+        else { el.style.maxHeight = '300px'; btn.innerHTML = '<i data-lucide="chevron-down" class="w-3 h-3"></i> ' + t('btn.show_all'); }
+        lucide.createIcons();
+    }
+
+    function buildDocTabs(texts, callback) {
+        if(texts.length === 1) return '';
+        let html = '<div class="flex flex-wrap gap-1 mb-4">';
+        texts.forEach((_, i) => { html += `<button onclick="${callback}(${i})" class="doc-tab-btn px-3 py-1.5 rounded-lg text-xs font-medium ${i === appState.currentDocIndex ? 'bg-dark-900 text-white' : 'bg-dark-100 text-dark-600 hover:bg-dark-200'} transition-all">${t('doc')} ${i + 1}</button>`; });
+        return html + '</div>';
+    }
+
+    function toggleAcc(id) { const el = document.getElementById(id); el.classList.toggle('open'); }
+
+    function showExplanation(key) {
+        const info = getExplanation(key); if(!info) return;
+        document.getElementById('modal-title').textContent = info.title;
+        document.getElementById('modal-icon').innerHTML = `<i data-lucide="${info.icon}" class="w-5 h-5"></i>`;
+        let body = `<div class="space-y-4"><p class="text-sm text-dark-600">${info.desc}</p><div class="text-sm leading-relaxed text-dark-700">${info.detail}</div>`;
+        if(info.example) body += `<div class="bg-dark-50 border border-dark-200 rounded-lg px-4 py-3"><p class="text-xs font-semibold text-dark-500 mb-1">${t('modal.example')}</p><p class="text-sm font-mono">${info.example}</p></div>`;
+        body += '</div>';
+        document.getElementById('modal-body').innerHTML = body;
+        document.getElementById('explanation-modal').classList.add('open');
+        lucide.createIcons();
+    }
+    function closeModal() { document.getElementById('explanation-modal').classList.remove('open'); }
+    document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
+
+    // --- RENDER: PREPROCESSING ---
+    function renderPreprocessing(data) {
+        const results = data.results || [data];
+        const container = document.getElementById('detail-content');
+        let html = '<div class="border border-purple-200 rounded-2xl overflow-hidden shadow-sm"><div class="bg-gradient-to-r from-purple-50 to-white px-6 py-4 border-b border-purple-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-purple-600 text-white flex items-center justify-center text-sm font-bold">1</div><div><h2 class="font-bold text-lg">Preprocessing</h2><p class="text-xs text-dark-400" data-i18n="result.preprocess.desc">' + t('result.preprocess.desc') + '</p></div></div></div><div class="p-6">';
+
+        html += buildDocTabs(results, 'switchPreprocessDoc');
+
+        const r = results[appState.currentDocIndex] || results[0];
+        const origTokens = r.original ? r.original.split(/\s+/).length : 0;
+        const afterTokens = r.num_tokens_stemmed || 0;
+        const removed = origTokens > 0 ? origTokens - afterTokens : 0;
+        const reduction = origTokens > 0 ? Math.round((removed / origTokens) * 100) : 0;
+
+        html += `<div class="grid grid-cols-2 md:grid-cols-4 gap-3 mb-6">
+            <div class="bg-purple-50 border border-purple-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-purple-700">${r.num_sentences || (r.sentences ? r.sentences.length : '-')}</p><p class="text-xs text-purple-500 mt-1">${t('stat.sentences')}</p></div>
+            <div class="bg-blue-50 border border-blue-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-blue-700">${origTokens}</p><p class="text-xs text-blue-500 mt-1">${t('stat.tokens')}</p></div>
+            <div class="bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-emerald-700">${afterTokens}</p><p class="text-xs text-emerald-500 mt-1">${t('stat.after')}</p></div>
+            <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 text-center"><p class="text-2xl font-bold text-rose-700">${reduction}%</p><p class="text-xs text-rose-500 mt-1">${t('stat.reduction')}</p></div>
+        </div>`;
+
+        html += `<div class="bg-dark-50 rounded-xl border border-dark-200 p-4 mb-6"><div class="flex flex-wrap items-center justify-center gap-2 text-xs font-medium">
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Case Folding</span><span class="text-dark-300">→</span>
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Cleaning</span><span class="text-dark-300">→</span>
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">${t('step.st')}</span><span class="text-dark-300">→</span>
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">${t('step.wt')}</span><span class="text-dark-300">→</span>
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Stopword Removal</span><span class="text-dark-300">→</span>
+            <span class="bg-purple-100 text-purple-700 px-3 py-1 rounded-full">Stemming</span>
+        </div></div>`;
+
+        const steps = [
+            { key: 'case_folding', label: 'Case Folding', data: r.case_folding, icon: 'type', desc: t('step.cf.desc') },
+            { key: 'cleaning', label: 'Cleaning', data: r.cleaning, icon: 'eraser', desc: t('step.cl.desc') },
+            { key: 'sentence_tokenize', label: t('step.st'), data: r.sentences, icon: 'split', desc: t('step.st.desc'), isList: true },
+            { key: 'word_tokenize', label: t('step.wt'), data: r.word_tokens, icon: 'text-cursor-input', desc: t('step.wt.desc'), isTokens: true },
+            { key: 'stopword_removal', label: 'Stopword Removal', data: r.after_stopword_removal, icon: 'filter', desc: t('step.sw.desc'), isTokens: true },
+            { key: 'stemming', label: 'Stemming', data: r.after_stemming, icon: 'scissors', desc: t('step.sm.desc'), isTokens: true }
+        ];
+
+        html += `<div class="mb-4"><div class="flex items-center gap-2 mb-2"><span class="font-semibold text-sm">${t('label.original')}</span></div>${buildTextViewer(r.original || '-')}</div><hr class="border-dark-100 my-4">`;
+
+        steps.forEach((step, i) => {
+            const accId = 'acc-' + step.key + '-' + Math.random().toString(36).substr(2, 5);
+            html += `<div class="border border-dark-100 rounded-xl mb-3 overflow-hidden">
+                <button class="w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-dark-50 transition-colors" onclick="toggleAcc('${accId}')">
+                    <span class="w-7 h-7 rounded-lg bg-purple-100 text-purple-700 flex items-center justify-center text-xs font-bold">${i + 1}</span>
+                    <div class="flex-1"><span class="font-medium text-sm">${step.label}</span><p class="text-xs text-dark-400">${step.desc}</p></div>
+                    <span class="info-btn" onclick="event.stopPropagation();showExplanation('${step.key}')" title="${t('tooltip.explain')}">?</span>
+                    <i data-lucide="chevron-down" class="w-4 h-4 text-dark-400"></i>
+                </button>
+                <div class="acc-content open" id="${accId}"><div class="px-4 pb-4 pt-1">`;
+
+            if(step.isList && Array.isArray(step.data)) {
+                html += `<p class="text-xs text-dark-500 mb-2">${step.data.length} ${t('sentences_found')}</p><div class="space-y-1">`;
+                step.data.forEach((s, j) => { html += `<div class="flex gap-2 text-sm"><span class="text-dark-400 text-xs font-mono w-6 text-right flex-shrink-0">${j + 1}.</span><span class="text-dark-700">${escapeHtml(s)}</span></div>`; });
+                html += '</div>';
+            } else if(step.isTokens && Array.isArray(step.data)) {
+                html += `<p class="text-xs text-dark-500 mb-2">${step.data.length} ${t('tokens')}</p><div class="flex flex-wrap gap-1">`;
+                step.data.forEach(tk => { html += `<span class="token-chip kept">${escapeHtml(tk)}</span>`; });
+                html += '</div>';
+            } else {
+                html += buildTextViewer(String(step.data || '-'));
+            }
+            html += buildStepExplanation(step.key);
+            html += buildCodeBlock(step.key);
+            html += '</div></div></div>';
+        });
+
+        html += '</div></div>';
+        container.innerHTML = html;
+        lucide.createIcons();
+    }
+    function switchPreprocessDoc(idx) {
+        appState.currentDocIndex = idx;
+        renderPreprocessing(_data);
+    }
+
+    // --- RENDER: SUMMARIZATION ---
+    function renderSummarization(data) {
+        const numDocs = appState.texts.length;
+        const extArr = data.extractive || [];
+        const absArr = data.abstractive || [];
+        const llmArr = data.llm || [];
+        const hasLlm = llmArr.length > 0;
+        const idx = appState.currentDocIndex;
+        const container = document.getElementById('detail-content');
+
+        const docResults = [];
+        for(let i = 0; i < numDocs; i++) {
+            docResults.push({ extractive: extArr[i] || '-', abstractive: absArr[i] || '-', llm: llmArr[i] || null, reference: appState.summaries[i] || null });
+        }
+
+        let html = '<div class="border border-emerald-200 rounded-2xl overflow-hidden shadow-sm"><div class="bg-gradient-to-r from-emerald-50 to-blue-50 px-6 py-4 border-b border-emerald-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-emerald-600 text-white flex items-center justify-center text-sm font-bold">2</div><div><h2 class="font-bold text-lg">Summarization</h2><p class="text-xs text-dark-400">' + t('result.sum.desc') + '</p></div></div></div><div class="p-6">';
+
+        html += buildDocTabs(docResults, 'switchSummaryDoc');
+        const r = docResults[idx] || docResults[0];
+
+        html += `<div class="grid md:grid-cols-${hasLlm ? '3' : '2'} gap-4 mb-6">
+            <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
+                <p class="text-xs font-bold text-emerald-700 mb-2">${t('ext.pipeline')}</p>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">${t('flow.tokenize')}</span><span class="text-emerald-300">→</span>
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">TF-IDF</span><span class="text-emerald-300">→</span>
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">Cosine Sim</span><span class="text-emerald-300">→</span>
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">PageRank</span><span class="text-emerald-300">→</span>
+                    <span class="bg-emerald-100 text-emerald-700 px-2 py-0.5 rounded-full">${t('flow.selection')}</span>
+                </div>
+            </div>
+            <div class="bg-blue-50 rounded-xl border border-blue-200 p-4">
+                <p class="text-xs font-bold text-blue-700 mb-2">${t('abs.pipeline')}</p>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
+                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">${t('flow.tokenize')}</span><span class="text-blue-300">→</span>
+                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Encoder</span><span class="text-blue-300">→</span>
+                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Decoder</span><span class="text-blue-300">→</span>
+                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Beam Search</span><span class="text-blue-300">→</span>
+                    <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Decode</span>
+                </div>
+            </div>
+            ${hasLlm ? `<div class="bg-amber-50 rounded-xl border border-amber-200 p-4">
+                <p class="text-xs font-bold text-amber-700 mb-2">${t('llm.pipeline')}</p>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
+                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">${t('flow.userinput')}</span><span class="text-amber-300">→</span>
+                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">${t('compare')}</span>
+                </div>
+            </div>` : ''}
+        </div>`;
+
+        // All results expanded (no tabs on detail page — show everything)
+        html += `<div class="space-y-4">`;
+
+        // Extractive
+        html += `<div class="border border-emerald-200 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><i data-lucide="list-ordered" class="w-5 h-5 text-emerald-600"></i><span class="font-semibold text-sm">${t('result.ext')}</span>
+            <span class="info-btn" onclick="showExplanation('extractive')" title="${t('tooltip.explain')}">?</span></div>
+            ${buildTextViewer(r.extractive || '-')}
+            <p class="text-xs text-dark-400 mt-3">${(r.extractive || '').split(/[.!?]+/).filter(s => s.trim()).length} ${t('selected_from')}</p>
+            ${buildStepExplanation('extractive')}
+            ${buildCodeBlock('extractive')}
+        </div>`;
+
+        // Abstractive
+        html += `<div class="border border-blue-200 rounded-xl p-5">
+            <div class="flex items-center gap-2 mb-3"><i data-lucide="brain" class="w-5 h-5 text-blue-600"></i><span class="font-semibold text-sm">${t('result.abs')}</span>
+            <span class="info-btn" onclick="showExplanation('abstractive')" title="${t('tooltip.explain')}">?</span></div>
+            ${buildTextViewer(r.abstractive || '-')}
+            <p class="text-xs text-dark-400 mt-3">${t('generated_by')}</p>
+            ${buildStepExplanation('abstractive')}
+            ${buildCodeBlock('abstractive')}
+        </div>`;
+
+        // LLM
+        if(hasLlm) {
+            html += `<div class="border border-amber-200 rounded-xl p-5">
+                <div class="flex items-center gap-2 mb-3"><i data-lucide="sparkles" class="w-5 h-5 text-amber-600"></i><span class="font-semibold text-sm">${t('result.llm')}</span></div>
+                ${buildTextViewer(r.llm || '-')}
+                <p class="text-xs text-dark-400 mt-3">${t('llm.note')}</p>
+            </div>`;
+        }
+
+        // Side by side comparison
+        html += `<h3 class="font-bold text-sm mt-6 mb-3">${t('compare')}</h3>`;
+        html += `<div class="grid md:grid-cols-${hasLlm ? '3' : '2'} gap-4">
+            <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="list-ordered" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-emerald-800">Extractive</span></div>${buildTextViewer(r.extractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.extractive || '').length} ${t('chars')}</p></div>
+            <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="brain" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-blue-800">Abstractive</span></div>${buildTextViewer(r.abstractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.abstractive || '').length} ${t('chars')}</p></div>
+            ${hasLlm ? `<div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center"><i data-lucide="sparkles" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-amber-800">LLM</span></div>${buildTextViewer(r.llm || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.llm || '').length} ${t('chars')}</p></div>` : ''}
+        </div>`;
+
+        // Reference
+        if(r.reference) {
+            html += `<div class="mt-4 border border-dark-200 rounded-xl p-5"><div class="flex items-center gap-2 mb-3"><i data-lucide="bookmark" class="w-5 h-5 text-dark-500"></i><span class="font-semibold text-sm">${t('label.ref')}</span></div>${buildTextViewer(r.reference || '-')}</div>`;
+        }
+
+        html += '</div></div></div>';
+        container.innerHTML = html;
+        lucide.createIcons();
+    }
+    function switchSummaryDoc(idx) {
+        appState.currentDocIndex = idx;
+        renderSummarization(_data);
+    }
+
+    // --- RENDER: EVALUATION ---
+    function renderEvaluation(data) {
+        const perDoc = data.per_document || [];
+        const idx = appState.currentDocIndex;
+        const container = document.getElementById('detail-content');
+
+        let html = '<div class="border border-rose-200 rounded-2xl overflow-hidden shadow-sm"><div class="bg-gradient-to-r from-rose-50 to-white px-6 py-4 border-b border-rose-200"><div class="flex items-center gap-3"><div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center text-sm font-bold">3</div><div><h2 class="font-bold text-lg">' + t('result.eval.title') + '</h2><p class="text-xs text-dark-400">' + t('result.eval.desc') + '</p></div></div></div><div class="p-6">';
+
+        html += buildDocTabs(perDoc, 'switchEvalDoc');
+        const r = perDoc[idx] || perDoc[0] || {};
+
+        html += `<div class="flex items-center gap-2 mb-6"><i data-lucide="bar-chart-2" class="w-5 h-5 text-rose-600"></i><span class="font-semibold text-sm">${t('rouge.scores')}</span><span class="info-btn" onclick="showExplanation('rouge')" title="${t('tooltip.explain')}">?</span></div>`;
+
+        html += `<div class="bg-dark-50 border border-dark-200 rounded-xl p-4 mb-6 text-xs text-dark-600">
+            <p class="font-semibold text-dark-700 mb-2">${t('rouge.howto')}</p>
+            <div class="grid md:grid-cols-3 gap-3">
+                <div><strong>Precision</strong>: ${t('rouge.p')}</div>
+                <div><strong>Recall</strong>: ${t('rouge.r')}</div>
+                <div><strong>F1-Score</strong>: ${t('rouge.f')}</div>
+            </div>
+        </div>`;
+
+        html += buildCodeBlock('rouge');
+
+        const ext = r.ext || {};
+        const abs = r.abs || {};
+
+        html += `<div class="space-y-4 mb-6">`;
+        ['rouge1', 'rouge2', 'rougeL'].forEach(metric => {
+            const eF1 = ext[metric] ? (ext[metric].f * 100).toFixed(1) : 0;
+            const aF1 = abs[metric] ? (abs[metric].f * 100).toFixed(1) : 0;
+            const metricLabel = metric === 'rouge1' ? 'ROUGE-1' : metric === 'rouge2' ? 'ROUGE-2' : 'ROUGE-L';
+            html += `<div>
+                <p class="text-xs font-bold text-dark-600 mb-2">${metricLabel}</p>
+                <div class="space-y-1">
+                    <div class="flex items-center gap-2"><span class="text-xs text-emerald-600 font-medium w-20">Extractive</span><div class="flex-1 bg-dark-100 rounded-full h-6 relative overflow-hidden"><div class="bg-emerald-500 h-6 rounded-full flex items-center justify-end pr-2 text-white text-[11px] font-bold transition-all duration-700" style="width: ${eF1}%">${eF1}%</div></div></div>
+                    <div class="flex items-center gap-2"><span class="text-xs text-blue-600 font-medium w-20">Abstractive</span><div class="flex-1 bg-dark-100 rounded-full h-6 relative overflow-hidden"><div class="bg-blue-500 h-6 rounded-full flex items-center justify-end pr-2 text-white text-[11px] font-bold transition-all duration-700" style="width: ${aF1}%">${aF1}%</div></div></div>
+                </div>
+            </div>`;
+        });
+        html += `</div>`;
+
+        const methodTables = [{ label: 'Extractive', data: ext, color: 'emerald' }, { label: 'Abstractive', data: abs, color: 'blue' }];
+        html += `<div class="grid md:grid-cols-2 gap-4">`;
+        methodTables.forEach(({ label, data: d, color }) => {
+            html += `<div class="border border-${color}-200 rounded-xl overflow-hidden"><div class="bg-${color}-50 px-4 py-2 border-b border-${color}-200"><span class="font-semibold text-sm text-${color}-800">${label}</span></div>
+            <table class="w-full text-xs"><thead><tr class="border-b border-dark-100"><th class="px-4 py-2 text-left font-medium text-dark-500">${t('table.metric')}</th><th class="px-4 py-2 text-right font-medium text-dark-500">Precision</th><th class="px-4 py-2 text-right font-medium text-dark-500">Recall</th><th class="px-4 py-2 text-right font-medium text-dark-500">F1</th></tr></thead><tbody>`;
+            ['rouge1', 'rouge2', 'rougeL'].forEach(m => {
+                const v = d[m] || { p: 0, r: 0, f: 0 };
+                const mLabel = m === 'rouge1' ? 'ROUGE-1' : m === 'rouge2' ? 'ROUGE-2' : 'ROUGE-L';
+                html += `<tr class="border-b border-dark-50"><td class="px-4 py-2 font-medium">${mLabel}</td><td class="px-4 py-2 text-right font-mono">${(v.p * 100).toFixed(2)}%</td><td class="px-4 py-2 text-right font-mono">${(v.r * 100).toFixed(2)}%</td><td class="px-4 py-2 text-right font-mono font-bold">${(v.f * 100).toFixed(2)}%</td></tr>`;
+            });
+            html += '</tbody></table></div>';
+        });
+        html += '</div>';
+
+        html += '</div></div>';
+        container.innerHTML = html;
+
+        // Render comparison below
+        renderComparison(r);
+        lucide.createIcons();
+    }
+
+    function renderComparison(r) {
+        const ext = r.ext || {};
+        const abs = r.abs || {};
+        const extAvg = (['rouge1','rouge2','rougeL'].reduce((s, m) => s + ((ext[m]||{}).f||0), 0) / 3 * 100).toFixed(2);
+        const absAvg = (['rouge1','rouge2','rougeL'].reduce((s, m) => s + ((abs[m]||{}).f||0), 0) / 3 * 100).toFixed(2);
+        const candidates = { extractive: parseFloat(extAvg), abstractive: parseFloat(absAvg) };
+        const winner = Object.entries(candidates).sort((a,b) => b[1]-a[1])[0][0];
+        const wLabel = winner === 'extractive' ? 'Extractive' : 'Abstractive';
+        const wColor = winner === 'extractive' ? 'emerald' : 'blue';
+        const wIcon = winner === 'extractive' ? 'list-ordered' : 'brain';
+        const wAvg = candidates[winner].toFixed(2);
+
+        const llmArr = appState.summarizeResult?.llm || [];
+        const hasLlm = llmArr.length > 0;
+        const llmText = llmArr[appState.currentDocIndex] || '';
+
+        const comp = document.getElementById('detail-comparison');
+        comp.classList.remove('hidden');
+        comp.innerHTML = `<div class="border-2 border-dark-900 rounded-2xl overflow-hidden shadow-lg fade-in">
+            <div class="bg-dark-900 text-white px-6 py-5"><div class="flex items-center gap-3"><i data-lucide="trophy" class="w-6 h-6 text-yellow-400"></i><h2 class="text-lg font-bold">${t('conclusion')}</h2></div></div>
+            <div class="p-6">
+                <div class="text-center mb-6">
+                    <div class="inline-flex items-center gap-3 bg-${wColor}-50 border-2 border-${wColor}-300 rounded-2xl px-8 py-4">
+                        <i data-lucide="${wIcon}" class="w-8 h-8 text-${wColor}-600"></i>
+                        <div class="text-left"><p class="text-xs text-${wColor}-600 font-medium">${t('best_method')}</p><p class="text-2xl font-bold text-${wColor}-800">${wLabel}</p></div>
+                        <span class="bg-${wColor}-600 text-white px-3 py-1 rounded-full text-sm font-bold">${wAvg}%</span>
+                    </div>
+                </div>
+                <div class="grid md:grid-cols-3 gap-4 mb-6">
+                    ${['rouge1','rouge2','rougeL'].map(m => {
+                        const eF = ((ext[m]||{}).f||0)*100;
+                        const aF = ((abs[m]||{}).f||0)*100;
+                        const scores = [{key:'ext',val:eF,color:'emerald',label:'Ext'},{key:'abs',val:aF,color:'blue',label:'Abs'}];
+                        const maxVal = Math.max(...scores.map(s=>s.val));
+                        const mLabel = m === 'rouge1' ? 'ROUGE-1' : m === 'rouge2' ? 'ROUGE-2' : 'ROUGE-L';
+                        return `<div class="bg-dark-50 rounded-xl p-4 text-center"><p class="text-xs font-bold text-dark-500 mb-2">${mLabel}</p>
+                            <div class="flex items-center justify-center gap-2">${scores.map(s =>
+                                `<div class="${s.val>=maxVal?`bg-${s.color}-100 border-${s.color}-300`:'bg-dark-100 border-dark-200'} rounded-lg px-3 py-2 border"><p class="text-lg font-bold ${s.val>=maxVal?`text-${s.color}-700`:'text-dark-500'}">${s.val.toFixed(1)}%</p><p class="text-[10px] ${s.val>=maxVal?`text-${s.color}-600`:'text-dark-400'}">${s.label}</p></div>`
+                            ).join('<span class="text-dark-300 text-xs">vs</span>')}</div></div>`;
+                    }).join('')}
+                </div>
+                <div class="bg-dark-50 border border-dark-200 rounded-xl p-4 text-sm text-dark-600"><p class="font-semibold text-dark-800 mb-2">${t('analysis')}</p><p>${t('analysis.method')} <strong>${wLabel}</strong> ${t('analysis.highest')} <strong>${wAvg}%</strong>. ${t('analysis.compare')} Extractive (${extAvg}%) vs Abstractive (${absAvg}%). ${winner === 'extractive' ? t('analysis.ext') : t('analysis.abs')}</p></div>
+                ${hasLlm ? `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-2"><i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i><span class="font-semibold text-sm text-amber-800">${t('llm.comp')}</span></div>
+                    <p class="text-sm text-dark-700">${escapeHtml(llmText)}</p>
+                    <p class="text-xs text-amber-600 mt-2">${t('llm.noeval')}</p>
+                </div>` : ''}
+            </div>
+        </div>`;
+        lucide.createIcons();
+    }
+    function switchEvalDoc(idx) {
+        appState.currentDocIndex = idx;
+        renderEvaluation(_data);
+    }
+
+    // --- INIT ---
+    function showNoData() {
+        document.getElementById('detail-content').innerHTML = `<div class="no-data-msg"><i data-lucide="alert-circle" class="w-12 h-12 mx-auto text-dark-300"></i><p class="text-lg font-medium text-dark-500 mt-4">${t('detail.nodata')}</p><a href="/" class="inline-flex items-center gap-2 mt-4 px-5 py-2.5 bg-dark-900 text-white rounded-xl text-sm font-medium hover:bg-dark-800 transition-colors"><i data-lucide="arrow-left" class="w-4 h-4"></i> ${t('detail.nodata.btn')}</a></div>`;
+        lucide.createIcons();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Apply saved language
+        document.getElementById('lang-label').textContent = currentLang==='id'?'EN':'ID';
+        document.documentElement.lang = currentLang;
+
+        // Load state from localStorage
+        try {
+            const savedState = JSON.parse(localStorage.getItem('nlp_appstate') || 'null');
+            if(savedState) {
+                appState.texts = savedState.texts || [];
+                appState.summaries = savedState.summaries || [];
+                appState.currentDocIndex = savedState.currentDocIndex || 0;
+            }
+            const sumData = JSON.parse(localStorage.getItem('nlp_summarize') || 'null');
+            if(sumData) appState.summarizeResult = sumData;
+        } catch(e) {}
+
+        // Load step-specific data
+        if(_step === 'preprocessing') {
+            try { _data = JSON.parse(localStorage.getItem('nlp_preprocess') || 'null'); } catch(e) {}
+            if(_data) renderPreprocessing(_data); else showNoData();
+        } else if(_step === 'summarization') {
+            try { _data = JSON.parse(localStorage.getItem('nlp_summarize') || 'null'); } catch(e) {}
+            if(_data) renderSummarization(_data); else showNoData();
+        } else if(_step === 'evaluation') {
+            try { _data = JSON.parse(localStorage.getItem('nlp_evaluate') || 'null'); } catch(e) {}
+            if(_data) renderEvaluation(_data); else showNoData();
+        }
+
+        lucide.createIcons();
+    });
+    </script>
+</body>
+</html>

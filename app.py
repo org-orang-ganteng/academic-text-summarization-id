@@ -16,7 +16,7 @@ import time
 from typing import Dict, List, Optional
 
 import pandas as pd
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file, redirect
 from flask_cors import CORS
 
 import config
@@ -156,6 +156,19 @@ def _clean_pdf_text(text: str) -> str:
 def index():
     """Serve the main web interface."""
     return render_template("index.html")
+
+
+@app.route("/detail/<step>")
+def detail(step):
+    """Serve the detail page for a specific pipeline step."""
+    titles = {
+        'preprocessing': 'Preprocessing',
+        'summarization': 'Summarization',
+        'evaluation': 'Evaluasi ROUGE'
+    }
+    if step not in titles:
+        return redirect('/')
+    return render_template("detail.html", step=step, step_title=titles[step])
 
 
 @app.route("/api/download-dataset")
