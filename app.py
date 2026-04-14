@@ -16,7 +16,7 @@ import time
 from typing import Dict, List, Optional
 
 import pandas as pd
-from flask import Flask, render_template, request, jsonify
+from flask import Flask, render_template, request, jsonify, send_file
 from flask_cors import CORS
 
 import config
@@ -88,6 +88,66 @@ def allowed_file(filename: str) -> bool:
     return "." in filename and filename.rsplit(".", 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
+import re
+
+def _clean_pdf_text(text: str) -> str:
+    """Clean common PDF extraction artifacts from text."""
+    lines = text.split('\n')
+
+    # Detect repeated header/footer lines (appear 3+ times = page header/footer)
+    line_counts = {}
+    for line in lines:
+        stripped = line.strip()
+        if stripped and len(stripped) > 3:
+            line_counts[stripped] = line_counts.get(stripped, 0) + 1
+    repeated_lines = {l for l, c in line_counts.items() if c >= 3}
+
+    # Filter lines
+    cleaned = []
+    for line in lines:
+        stripped = line.strip()
+        # Skip repeated page headers/footers
+        if stripped in repeated_lines:
+            continue
+        # Skip standalone page numbers
+        if re.match(r'^\s*\d{1,4}\s*$', line):
+            continue
+        # Skip journal citation header, e.g. "JURNAL NAME, (2024), 2(1): 41-48"
+        if re.search(r'\(\d{4}\)\s*,?\s*\d+\s*\(\d+\)\s*:\s*\d+', stripped):
+            continue
+        # Skip DOI lines
+        if re.match(r'^\s*(https?://)?doi\.org\s*/\s*\S+', stripped, re.I):
+            continue
+        # Skip ISSN/DOI-only lines
+        if re.match(r'^\s*(e-?issn|p-?issn|issn|doi)\s*[:/]\s*\S+', stripped, re.I):
+            continue
+        # Skip standalone URLs
+        if re.match(r'^\s*https?://\S+\s*$', line):
+            continue
+        # Skip email lines (lines that are only email addresses)
+        if re.match(r'^\s*\*?\s*\S+@\S+\.\S+\s*$', line):
+            continue
+        # Skip "Volume X – Issue Y – YYYY" footer lines
+        if re.match(r'^\s*volume\s+\d+\s*[–—-]\s*issue\s+\d+\s*[–—-]\s*\d{4}\s*$', stripped, re.I):
+            continue
+        cleaned.append(line)
+
+    text = '\n'.join(cleaned)
+
+    # Remove reference/bibliography section at the end
+    text = re.sub(r'(?si)\n\s*(DAFTAR\s+PUSTAKA|REFERENSI|REFERENCES|BIBLIOGRAPHY)\s*\n.*$', '', text)
+
+    # Remove superscript numbers on author names/affiliations
+    # e.g. "Chairunnisa1, Ahmad Ari Masyhuri2" -> "Chairunnisa, Ahmad Ari Masyhuri"
+    # e.g. "1STKIP Kusumanegara" -> "STKIP Kusumanegara"
+    text = re.sub(r'(?<=[a-zA-Z])\d{1,2}(?=[\s,;])', '', text)   # trailing: Name1 -> Name
+    text = re.sub(r'(?m)^\s*\d{1,2}(?=[A-Z])', '', text)          # leading: 1STKIP -> STKIP
+
+    # Clean up excessive blank lines
+    text = re.sub(r'\n{3,}', '\n\n', text)
+    return text.strip()
+
+
 # =============================================================================
 # Routes
 # =============================================================================
@@ -96,6 +156,15 @@ def allowed_file(filename: str) -> bool:
 def index():
     """Serve the main web interface."""
     return render_template("index.html")
+
+
+@app.route("/api/download-dataset")
+def download_dataset():
+    """Download the default dataset CSV file."""
+    dataset_path = config.DATASET_PATH
+    if not os.path.exists(dataset_path):
+        return jsonify({"error": "Dataset not found"}), 404
+    return send_file(dataset_path, as_attachment=True, download_name="dataset.csv")
 
 
 @app.route("/api/upload", methods=["POST"])
@@ -203,6 +272,24 @@ def upload_pdf():
 
         full_text = "\n\n".join(full_text_parts)
 
+        # Apply PDF text filter
+        import re
+        full_text = _clean_pdf_text(full_text)
+
+        # Save extracted text to dataset.csv
+        dataset_path = config.DATASET_PATH
+        new_row = pd.DataFrame([{
+            config.TEXT_COLUMN: full_text,
+            config.SUMMARY_COLUMN: ""
+        }])
+        if os.path.exists(dataset_path):
+            df_existing = pd.read_csv(dataset_path)
+            df_updated = pd.concat([df_existing, new_row], ignore_index=True)
+        else:
+            df_updated = new_row
+        df_updated.to_csv(dataset_path, index=False)
+        logger.info("Saved PDF text to %s (total rows: %d)", dataset_path, len(df_updated))
+
         # Clean up temp file
         try:
             os.remove(filepath)
@@ -215,6 +302,8 @@ def upload_pdf():
             "num_pages": len(pages),
             "text": full_text,
             "text_length": len(full_text),
+            "saved_to_dataset": True,
+            "dataset_total_rows": len(df_updated),
             "pages": pages[:5],  # Preview first 5 pages
         })
 
@@ -510,12 +599,14 @@ def evaluate():
             ) / len(config.ROUGE_METRICS)
             result["abstractive_avg_f1"] = round(abs_avg, 4)
 
-        if ext_avg is not None and abs_avg is not None:
-            result["best_method"] = "Extractive" if ext_avg >= abs_avg else "Abstractive"
-        elif ext_avg is not None:
-            result["best_method"] = "Extractive"
-        elif abs_avg is not None:
-            result["best_method"] = "Abstractive"
+        # Find best among available methods
+        methods = {}
+        if ext_avg is not None:
+            methods["Extractive"] = ext_avg
+        if abs_avg is not None:
+            methods["Abstractive"] = abs_avg
+        if methods:
+            result["best_method"] = max(methods, key=methods.get)
 
         return jsonify(result)
 

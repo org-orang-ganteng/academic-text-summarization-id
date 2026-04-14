@@ -1,0 +1,185 @@
+2026-04-14 07:05:14 [INFO] src.utils: Logging configured at level: INFO
+2026-04-14 07:05:14 [INFO] __main__: ============================================================
+2026-04-14 07:05:14 [INFO] __main__:   NLP SUMMARIZATION PIPELINE — STARTING
+2026-04-14 07:05:14 [INFO] __main__:   Mode: full | Model: both
+2026-04-14 07:05:14 [INFO] __main__: ============================================================
+2026-04-14 07:05:14 [INFO] src.utils: Random seed set to 42 (Python, NumPy, PyTorch)
+2026-04-14 07:05:14 [INFO] src.data_loader: DataLoader initialized with dataset: /workspaces/academic-text-summarization-id/data/raw/dataset.csv
+2026-04-14 07:05:14 [INFO] src.data_loader: Starting data loading pipeline...
+2026-04-14 07:05:14 [INFO] src.data_loader: Loaded CSV dataset with 100 rows
+2026-04-14 07:05:14 [INFO] src.data_loader: Column validation passed. Required columns found.
+2026-04-14 07:05:14 [INFO] src.data_loader: No rows removed during cleaning
+2026-04-14 07:05:14 [INFO] src.data_loader: Truncated 77 texts to max 10000 characters
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Dataset Statistics [Full Dataset]
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Total documents: 100
+2026-04-14 07:05:14 [INFO] src.data_loader:   Full text — Avg: 8549.2, Min: 1136, Max: 9999 chars
+2026-04-14 07:05:14 [INFO] src.data_loader:   Summary   — Avg: 961.3, Min: 104, Max: 1916 chars
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader: Dataset split — Train: 80, Validation: 10, Test: 10
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Dataset Statistics [Train]
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Total documents: 80
+2026-04-14 07:05:14 [INFO] src.data_loader:   Full text — Avg: 8560.1, Min: 1136, Max: 9999 chars
+2026-04-14 07:05:14 [INFO] src.data_loader:   Summary   — Avg: 951.8, Min: 104, Max: 1916 chars
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Dataset Statistics [Validation]
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Total documents: 10
+2026-04-14 07:05:14 [INFO] src.data_loader:   Full text — Avg: 8048.0, Min: 2404, Max: 9999 chars
+2026-04-14 07:05:14 [INFO] src.data_loader:   Summary   — Avg: 868.1, Min: 170, Max: 1495 chars
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Dataset Statistics [Test]
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader:   Total documents: 10
+2026-04-14 07:05:14 [INFO] src.data_loader:   Full text — Avg: 8962.9, Min: 1679, Max: 9999 chars
+2026-04-14 07:05:14 [INFO] src.data_loader:   Summary   — Avg: 1130.5, Min: 151, Max: 1621 chars
+2026-04-14 07:05:14 [INFO] src.data_loader: ==================================================
+2026-04-14 07:05:14 [INFO] src.data_loader: Data loading pipeline completed successfully.
+2026-04-14 07:05:14 [INFO] __main__: Test set: 10 documents for evaluation.
+2026-04-14 07:05:14 [INFO] __main__: ==================================================
+2026-04-14 07:05:14 [INFO] __main__:   EXTRACTIVE SUMMARIZATION
+2026-04-14 07:05:14 [INFO] __main__: ==================================================
+2026-04-14 07:05:14 [INFO] src.preprocessor: Stopword list loaded with 757 words
+2026-04-14 07:05:14 [INFO] src.preprocessor: PySastrawi stemmer initialized successfully
+2026-04-14 07:05:14 [INFO] src.extractive_model: ExtractiveSummarizer initialized — num_sentences=5, max_features=5000
+Extractive Summarization:   0%|          | 0/10 [00:00<?, ?doc/s]2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 68 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 88 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 67 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 50 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 68 total
+Extractive Summarization:  50%|█████     | 5/10 [00:00<00:00, 49.58doc/s]2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 67 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 66 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 14 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 52 total
+2026-04-14 07:05:14 [WARNING] src.preprocessor: Indonesian sentence tokenizer not available. Using default.
+2026-04-14 07:05:14 [INFO] src.extractive_model: Extractive summary generated: 5 sentences selected from 67 total
+Extractive Summarization: 100%|██████████| 10/10 [00:00<00:00, 60.39doc/s]
+2026-04-14 07:05:14 [INFO] src.extractive_model: Batch extractive summarization completed: 10 documents
+2026-04-14 07:05:14 [INFO] __main__: Extractive summarization completed: 10 summaries generated.
+2026-04-14 07:05:14 [INFO] __main__: ==================================================
+2026-04-14 07:05:14 [INFO] __main__:   ABSTRACTIVE SUMMARIZATION
+2026-04-14 07:05:14 [INFO] __main__: ==================================================
+2026-04-14 07:05:14 [INFO] src.abstractive_model: GPU not available. Using CPU for abstractive model.
+2026-04-14 07:05:14 [INFO] src.abstractive_model: AbstractiveSummarizer initialized — model=csebuetnlp/mT5_multilingual_XLSum, device=cpu
+2026-04-14 07:05:17 [INFO] src.abstractive_model: No checkpoint found at: /workspaces/academic-text-summarization-id/output/checkpoints/best_model
+2026-04-14 07:05:17 [INFO] src.abstractive_model: No checkpoint found. Starting fine-tuning...
+2026-04-14 07:05:17 [INFO] src.abstractive_model: Loading model and tokenizer: csebuetnlp/mT5_multilingual_XLSum
+The tokenizer you are loading from 'csebuetnlp/mT5_multilingual_XLSum' with an incorrect regex pattern: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503/discussions/84#69121093e8b480e709447d5e. This will lead to incorrect tokenization. You should set the `fix_mistral_regex=True` flag when loading this tokenizer to fix this issue.
+Loading weights:   0%|          | 0/284 [00:00<?, ?it/s]Loading weights: 100%|██████████| 284/284 [00:00<00:00, 15479.35it/s]
+The tied weights mapping and config for this model specifies to tie shared.weight to lm_head.weight, but both are present in the checkpoints with different values, so we will NOT tie them. You should update the config with `tie_word_embeddings=False` to silence this warning.
+2026-04-14 07:06:02 [INFO] src.abstractive_model: Model loaded from local cache.
+2026-04-14 07:06:02 [INFO] src.abstractive_model: Model loaded successfully. Parameters: 582,401,280
+2026-04-14 07:06:02 [INFO] src.abstractive_model: Training dataset: 80 samples, Validation dataset: 10 samples
+2026-04-14 07:06:02 [INFO] src.abstractive_model: Starting fine-tuning...
+  0%|          | 0/240 [00:00<?, ?it/s]/home/codespace/.local/lib/python3.12/site-packages/transformers/data/data_collator.py:600: UserWarning: Creating a tensor from a list of numpy.ndarrays is extremely slow. Please consider converting the list to a single numpy.ndarray with numpy.array() before converting to a tensor. (Triggered internally at /pytorch/torch/csrc/utils/tensor_new.cpp:253.)
+  batch["labels"] = torch.tensor(batch["labels"], dtype=torch.int64)
+  0%|          | 1/240 [00:35<2:23:18, 35.98s/it]  1%|          | 2/240 [00:41<1:12:41, 18.33s/it]  1%|▏         | 3/240 [00:47<49:22, 12.50s/it]    2%|▏         | 4/240 [00:52<37:58,  9.66s/it]  2%|▏         | 5/240 [00:58<31:44,  8.11s/it]  2%|▎         | 6/240 [01:03<28:01,  7.19s/it]  3%|▎         | 7/240 [01:08<25:25,  6.55s/it]  3%|▎         | 8/240 [01:14<23:44,  6.14s/it]  4%|▍         | 9/240 [01:19<22:31,  5.85s/it]  4%|▍         | 10/240 [01:24<21:44,  5.67s/it]  5%|▍         | 11/240 [01:29<21:18,  5.58s/it]  5%|▌         | 12/240 [01:35<20:51,  5.49s/it]  5%|▌         | 13/240 [01:40<20:33,  5.43s/it]  6%|▌         | 14/240 [01:45<20:20,  5.40s/it]  6%|▋         | 15/240 [01:51<20:05,  5.36s/it]  7%|▋         | 16/240 [01:56<19:50,  5.32s/it]  7%|▋         | 17/240 [02:01<19:44,  5.31s/it]  8%|▊         | 18/240 [02:07<19:50,  5.36s/it]  8%|▊         | 19/240 [02:12<19:49,  5.38s/it]  8%|▊         | 20/240 [02:17<19:41,  5.37s/it]  9%|▉         | 21/240 [02:23<19:32,  5.35s/it]  9%|▉         | 22/240 [02:28<19:18,  5.32s/it] 10%|▉         | 23/240 [02:33<19:11,  5.31s/it] 10%|█         | 24/240 [02:39<19:10,  5.32s/it] 10%|█         | 25/240 [02:44<18:59,  5.30s/it] 11%|█         | 26/240 [02:49<18:53,  5.29s/it] 11%|█▏        | 27/240 [02:54<18:43,  5.27s/it] 12%|█▏        | 28/240 [03:00<18:43,  5.30s/it] 12%|█▏        | 29/240 [03:05<18:38,  5.30s/it] 12%|█▎        | 30/240 [03:10<18:24,  5.26s/it] 13%|█▎        | 31/240 [03:15<18:11,  5.22s/it] 13%|█▎        | 32/240 [03:20<18:00,  5.19s/it] 14%|█▍        | 33/240 [03:25<17:46,  5.15s/it] 14%|█▍        | 34/240 [03:31<17:37,  5.14s/it] 15%|█▍        | 35/240 [03:36<17:29,  5.12s/it] 15%|█▌        | 36/240 [03:41<17:31,  5.15s/it] 15%|█▌        | 37/240 [03:46<17:35,  5.20s/it] 16%|█▌        | 38/240 [03:52<17:43,  5.26s/it] 16%|█▋        | 39/240 [03:57<17:26,  5.21s/it] 17%|█▋        | 40/240 [04:02<17:12,  5.16s/it] 17%|█▋        | 41/240 [04:07<17:03,  5.14s/it] 18%|█▊        | 42/240 [04:12<16:54,  5.12s/it] 18%|█▊        | 43/240 [04:17<16:46,  5.11s/it] 18%|█▊        | 44/240 [04:22<16:40,  5.10s/it] 19%|█▉        | 45/240 [04:27<16:32,  5.09s/it] 19%|█▉        | 46/240 [04:32<16:29,  5.10s/it] 20%|█▉        | 47/240 [04:37<16:29,  5.12s/it] 20%|██        | 48/240 [04:43<16:29,  5.15s/it] 20%|██        | 49/240 [04:48<16:20,  5.13s/it] 21%|██        | 50/240 [04:53<16:19,  5.15s/it]                                                 21%|██        | 50/240 [04:53<16:19,  5.15s/it] 21%|██▏       | 51/240 [04:58<16:16,  5.17s/it] 22%|██▏       | 52/240 [05:03<16:10,  5.16s/it] 22%|██▏       | 53/240 [05:08<16:07,  5.17s/it] 22%|██▎       | 54/240 [05:14<16:01,  5.17s/it] 23%|██▎       | 55/240 [05:19<15:54,  5.16s/it] 23%|██▎       | 56/240 [05:24<15:49,  5.16s/it] 24%|██▍       | 57/240 [05:29<15:41,  5.14s/it] 24%|██▍       | 58/240 [05:34<15:42,  5.18s/it] 25%|██▍       | 59/240 [05:39<15:36,  5.17s/it] 25%|██▌       | 60/240 [05:45<15:31,  5.18s/it] 25%|██▌       | 61/240 [05:50<15:16,  5.12s/it] 26%|██▌       | 62/240 [05:55<15:13,  5.13s/it] 26%|██▋       | 63/240 [06:00<15:02,  5.10s/it] 27%|██▋       | 64/240 [06:05<14:57,  5.10s/it] 27%|██▋       | 65/240 [06:10<14:46,  5.07s/it] 28%|██▊       | 66/240 [06:15<14:43,  5.08s/it] 28%|██▊       | 67/240 [06:20<14:36,  5.07s/it] 28%|██▊       | 68/240 [06:25<14:29,  5.06s/it] 29%|██▉       | 69/240 [06:30<14:23,  5.05s/it] 29%|██▉       | 70/240 [06:35<14:23,  5.08s/it] 30%|██▉       | 71/240 [06:40<14:18,  5.08s/it] 30%|███       | 72/240 [06:45<14:13,  5.08s/it] 30%|███       | 73/240 [06:51<14:13,  5.11s/it] 31%|███       | 74/240 [06:56<14:19,  5.18s/it] 31%|███▏      | 75/240 [07:01<14:13,  5.17s/it] 32%|███▏      | 76/240 [07:06<14:04,  5.15s/it] 32%|███▏      | 77/240 [07:11<13:56,  5.13s/it] 32%|███▎      | 78/240 [07:16<13:52,  5.14s/it] 33%|███▎      | 79/240 [07:22<13:44,  5.12s/it] 33%|███▎      | 80/240 [07:27<13:34,  5.09s/it]{'loss': '1.778', 'grad_norm': '3.887', 'learning_rate': '3.979e-05', 'epoch': '0.625'}
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 20%|██        | 2/10 [00:01<00:04,  1.61it/s][A
+ 30%|███       | 3/10 [00:02<00:06,  1.14it/s][A
+ 40%|████      | 4/10 [00:03<00:06,  1.01s/it][A
+ 50%|█████     | 5/10 [00:04<00:05,  1.11s/it][A
+ 60%|██████    | 6/10 [00:06<00:04,  1.15s/it][A
+ 70%|███████   | 7/10 [00:07<00:03,  1.17s/it][A
+ 80%|████████  | 8/10 [00:08<00:02,  1.19s/it][A
+ 90%|█████████ | 9/10 [00:09<00:01,  1.21s/it][A
+100%|██████████| 10/10 [00:11<00:00,  1.22s/it][A                                                
+                                               [A 33%|███▎      | 80/240 [07:39<13:34,  5.09s/it]
+100%|██████████| 10/10 [00:11<00:00,  1.22s/it][A
+                                               [A 34%|███▍      | 81/240 [07:44<23:21,  8.81s/it] 34%|███▍      | 82/240 [07:49<20:14,  7.69s/it] 35%|███▍      | 83/240 [07:54<18:02,  6.90s/it] 35%|███▌      | 84/240 [07:59<16:28,  6.34s/it] 35%|███▌      | 85/240 [08:04<15:30,  6.01s/it] 36%|███▌      | 86/240 [08:10<14:43,  5.74s/it] 36%|███▋      | 87/240 [08:15<14:07,  5.54s/it] 37%|███▋      | 88/240 [08:20<13:41,  5.41s/it] 37%|███▋      | 89/240 [08:25<13:22,  5.31s/it] 38%|███▊      | 90/240 [08:30<13:04,  5.23s/it] 38%|███▊      | 91/240 [08:35<12:52,  5.18s/it] 38%|███▊      | 92/240 [08:40<12:40,  5.14s/it] 39%|███▉      | 93/240 [08:45<12:33,  5.12s/it] 39%|███▉      | 94/240 [08:50<12:21,  5.08s/it] 40%|███▉      | 95/240 [08:55<12:20,  5.11s/it] 40%|████      | 96/240 [09:00<12:16,  5.11s/it] 40%|████      | 97/240 [09:05<12:13,  5.13s/it] 41%|████      | 98/240 [09:11<12:08,  5.13s/it] 41%|████▏     | 99/240 [09:16<12:02,  5.13s/it] 42%|████▏     | 100/240 [09:21<11:56,  5.12s/it]                                                  42%|████▏     | 100/240 [09:21<11:56,  5.12s/it] 42%|████▏     | 101/240 [09:26<11:49,  5.10s/it] 42%|████▎     | 102/240 [09:31<11:45,  5.11s/it] 43%|████▎     | 103/240 [09:36<11:42,  5.13s/it] 43%|████▎     | 104/240 [09:41<11:36,  5.12s/it] 44%|████▍     | 105/240 [09:46<11:28,  5.10s/it] 44%|████▍     | 106/240 [09:51<11:21,  5.09s/it] 45%|████▍     | 107/240 [09:57<11:18,  5.10s/it] 45%|████▌     | 108/240 [10:02<11:13,  5.10s/it] 45%|████▌     | 109/240 [10:07<11:08,  5.10s/it] 46%|████▌     | 110/240 [10:12<11:04,  5.11s/it] 46%|████▋     | 111/240 [10:17<10:58,  5.11s/it] 47%|████▋     | 112/240 [10:22<10:57,  5.14s/it] 47%|████▋     | 113/240 [10:27<10:52,  5.13s/it] 48%|████▊     | 114/240 [10:32<10:44,  5.11s/it] 48%|████▊     | 115/240 [10:37<10:35,  5.08s/it] 48%|████▊     | 116/240 [10:43<10:33,  5.11s/it] 49%|████▉     | 117/240 [10:48<10:27,  5.10s/it] 49%|████▉     | 118/240 [10:53<10:19,  5.08s/it] 50%|████▉     | 119/240 [10:58<10:16,  5.09s/it] 50%|█████     | 120/240 [11:03<10:11,  5.09s/it] 50%|█████     | 121/240 [11:08<10:06,  5.09s/it] 51%|█████     | 122/240 [11:13<10:01,  5.10s/it] 51%|█████▏    | 123/240 [11:18<09:55,  5.09s/it] 52%|█████▏    | 124/240 [11:23<09:46,  5.06s/it] 52%|█████▏    | 125/240 [11:28<09:45,  5.09s/it] 52%|█████▎    | 126/240 [11:33<09:42,  5.11s/it] 53%|█████▎    | 127/240 [11:39<09:38,  5.12s/it] 53%|█████▎    | 128/240 [11:44<09:33,  5.12s/it] 54%|█████▍    | 129/240 [11:49<09:23,  5.08s/it] 54%|█████▍    | 130/240 [11:54<09:14,  5.04s/it] 55%|█████▍    | 131/240 [11:59<09:09,  5.04s/it] 55%|█████▌    | 132/240 [12:04<09:10,  5.09s/it] 55%|█████▌    | 133/240 [12:09<09:04,  5.09s/it] 56%|█████▌    | 134/240 [12:14<09:01,  5.11s/it] 56%|█████▋    | 135/240 [12:19<08:56,  5.11s/it] 57%|█████▋    | 136/240 [12:24<08:50,  5.10s/it] 57%|█████▋    | 137/240 [12:29<08:45,  5.10s/it] 57%|█████▊    | 138/240 [12:35<08:44,  5.15s/it] 58%|█████▊    | 139/240 [12:40<08:43,  5.18s/it] 58%|█████▊    | 140/240 [12:45<08:36,  5.17s/it] 59%|█████▉    | 141/240 [12:50<08:31,  5.17s/it] 59%|█████▉    | 142/240 [12:55<08:25,  5.15s/it] 60%|█████▉    | 143/240 [13:00<08:17,  5.13s/it] 60%|██████    | 144/240 [13:06<08:10,  5.11s/it] 60%|██████    | 145/240 [13:11<08:04,  5.10s/it] 61%|██████    | 146/240 [13:16<07:59,  5.10s/it] 61%|██████▏   | 147/240 [13:21<07:54,  5.11s/it] 62%|██████▏   | 148/240 [13:26<07:50,  5.11s/it] 62%|██████▏   | 149/240 [13:31<07:47,  5.13s/it] 62%|██████▎   | 150/240 [13:36<07:42,  5.14s/it]                                                  62%|██████▎   | 150/240 [13:36<07:42,  5.14s/it] 63%|██████▎   | 151/240 [13:41<07:35,  5.12s/it] 63%|██████▎   | 152/240 [13:47<07:31,  5.14s/it] 64%|██████▍   | 153/240 [13:52<07:28,  5.15s/it] 64%|██████▍   | 154/240 [13:57<07:20,  5.12s/it] 65%|██████▍   | 155/240 [14:02<07:12,  5.09s/it] 65%|██████▌   | 156/240 [14:07<07:08,  5.10s/it] 65%|██████▌   | 157/240 [14:12<07:03,  5.10s/it] 66%|██████▌   | 158/240 [14:17<06:58,  5.11s/it] 66%|██████▋   | 159/240 [14:22<06:53,  5.11s/it] 67%|██████▋   | 160/240 [14:27<06:46,  5.09s/it]{'eval_loss': '1.06', 'eval_runtime': '12.44', 'eval_samples_per_second': '0.804', 'eval_steps_per_second': '0.804', 'epoch': '1'}
+{'loss': '1.311', 'grad_norm': '2.761', 'learning_rate': '2.938e-05', 'epoch': '1.25'}
+{'loss': '1.28', 'grad_norm': '1.315', 'learning_rate': '1.896e-05', 'epoch': '1.875'}
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 20%|██        | 2/10 [00:01<00:04,  1.64it/s][A
+ 30%|███       | 3/10 [00:02<00:06,  1.15it/s][A
+ 40%|████      | 4/10 [00:03<00:05,  1.01it/s][A
+ 50%|█████     | 5/10 [00:04<00:05,  1.08s/it][A
+ 60%|██████    | 6/10 [00:06<00:04,  1.12s/it][A
+ 70%|███████   | 7/10 [00:07<00:03,  1.15s/it][A
+ 80%|████████  | 8/10 [00:08<00:02,  1.18s/it][A
+ 90%|█████████ | 9/10 [00:09<00:01,  1.20s/it][A
+100%|██████████| 10/10 [00:11<00:00,  1.24s/it][A                                                 
+                                               [A 67%|██████▋   | 160/240 [14:40<06:46,  5.09s/it]
+100%|██████████| 10/10 [00:11<00:00,  1.24s/it][A
+                                               [A 67%|██████▋   | 161/240 [14:45<11:34,  8.79s/it] 68%|██████▊   | 162/240 [14:50<09:59,  7.69s/it] 68%|██████▊   | 163/240 [14:55<08:52,  6.92s/it] 68%|██████▊   | 164/240 [15:00<08:03,  6.37s/it] 69%|██████▉   | 165/240 [15:05<07:27,  5.96s/it] 69%|██████▉   | 166/240 [15:10<07:02,  5.71s/it] 70%|██████▉   | 167/240 [15:15<06:43,  5.52s/it] 70%|███████   | 168/240 [15:20<06:28,  5.40s/it] 70%|███████   | 169/240 [15:25<06:16,  5.31s/it] 71%|███████   | 170/240 [15:31<06:09,  5.28s/it] 71%|███████▏  | 171/240 [15:36<06:00,  5.23s/it] 72%|███████▏  | 172/240 [15:41<05:53,  5.19s/it] 72%|███████▏  | 173/240 [15:46<05:44,  5.14s/it] 72%|███████▎  | 174/240 [15:51<05:39,  5.14s/it] 73%|███████▎  | 175/240 [15:56<05:33,  5.13s/it] 73%|███████▎  | 176/240 [16:01<05:28,  5.14s/it] 74%|███████▍  | 177/240 [16:06<05:23,  5.14s/it] 74%|███████▍  | 178/240 [16:12<05:17,  5.11s/it] 75%|███████▍  | 179/240 [16:17<05:11,  5.10s/it] 75%|███████▌  | 180/240 [16:22<05:06,  5.11s/it] 75%|███████▌  | 181/240 [16:27<05:00,  5.09s/it] 76%|███████▌  | 182/240 [16:32<04:54,  5.08s/it] 76%|███████▋  | 183/240 [16:37<04:49,  5.08s/it] 77%|███████▋  | 184/240 [16:42<04:42,  5.05s/it] 77%|███████▋  | 185/240 [16:47<04:37,  5.04s/it] 78%|███████▊  | 186/240 [16:52<04:33,  5.06s/it] 78%|███████▊  | 187/240 [16:57<04:27,  5.05s/it] 78%|███████▊  | 188/240 [17:02<04:23,  5.06s/it] 79%|███████▉  | 189/240 [17:07<04:18,  5.07s/it] 79%|███████▉  | 190/240 [17:12<04:13,  5.08s/it] 80%|███████▉  | 191/240 [17:17<04:08,  5.06s/it] 80%|████████  | 192/240 [17:22<04:02,  5.05s/it] 80%|████████  | 193/240 [17:28<03:59,  5.10s/it] 81%|████████  | 194/240 [17:33<03:54,  5.09s/it] 81%|████████▏ | 195/240 [17:38<03:49,  5.10s/it] 82%|████████▏ | 196/240 [17:43<03:44,  5.10s/it] 82%|████████▏ | 197/240 [17:48<03:38,  5.08s/it] 82%|████████▎ | 198/240 [17:53<03:32,  5.07s/it] 83%|████████▎ | 199/240 [17:58<03:28,  5.09s/it] 83%|████████▎ | 200/240 [18:03<03:23,  5.10s/it]                                                  83%|████████▎ | 200/240 [18:03<03:23,  5.10s/it] 84%|████████▍ | 201/240 [18:08<03:20,  5.13s/it] 84%|████████▍ | 202/240 [18:13<03:14,  5.11s/it] 85%|████████▍ | 203/240 [18:19<03:08,  5.10s/it] 85%|████████▌ | 204/240 [18:24<03:02,  5.08s/it] 85%|████████▌ | 205/240 [18:29<02:57,  5.09s/it] 86%|████████▌ | 206/240 [18:34<02:53,  5.11s/it] 86%|████████▋ | 207/240 [18:39<02:47,  5.09s/it] 87%|████████▋ | 208/240 [18:44<02:44,  5.13s/it] 87%|████████▋ | 209/240 [18:49<02:38,  5.11s/it] 88%|████████▊ | 210/240 [18:54<02:35,  5.17s/it] 88%|████████▊ | 211/240 [19:00<02:29,  5.14s/it] 88%|████████▊ | 212/240 [19:05<02:23,  5.11s/it] 89%|████████▉ | 213/240 [19:10<02:16,  5.07s/it] 89%|████████▉ | 214/240 [19:15<02:12,  5.08s/it] 90%|████████▉ | 215/240 [19:20<02:06,  5.05s/it] 90%|█████████ | 216/240 [19:25<02:01,  5.05s/it] 90%|█████████ | 217/240 [19:30<01:56,  5.05s/it] 91%|█████████ | 218/240 [19:35<01:51,  5.06s/it] 91%|█████████▏| 219/240 [19:40<01:46,  5.05s/it] 92%|█████████▏| 220/240 [19:45<01:40,  5.03s/it] 92%|█████████▏| 221/240 [19:50<01:35,  5.01s/it] 92%|█████████▎| 222/240 [19:55<01:30,  5.01s/it] 93%|█████████▎| 223/240 [20:00<01:25,  5.04s/it] 93%|█████████▎| 224/240 [20:05<01:21,  5.09s/it] 94%|█████████▍| 225/240 [20:10<01:16,  5.08s/it] 94%|█████████▍| 226/240 [20:15<01:10,  5.07s/it] 95%|█████████▍| 227/240 [20:20<01:05,  5.05s/it] 95%|█████████▌| 228/240 [20:25<01:01,  5.09s/it] 95%|█████████▌| 229/240 [20:31<00:56,  5.10s/it] 96%|█████████▌| 230/240 [20:36<00:51,  5.13s/it] 96%|█████████▋| 231/240 [20:41<00:46,  5.12s/it] 97%|█████████▋| 232/240 [20:46<00:40,  5.11s/it] 97%|█████████▋| 233/240 [20:51<00:35,  5.12s/it] 98%|█████████▊| 234/240 [20:56<00:30,  5.13s/it] 98%|█████████▊| 235/240 [21:01<00:25,  5.13s/it] 98%|█████████▊| 236/240 [21:07<00:20,  5.17s/it] 99%|█████████▉| 237/240 [21:12<00:15,  5.16s/it] 99%|█████████▉| 238/240 [21:17<00:10,  5.19s/it]100%|█████████▉| 239/240 [21:22<00:05,  5.16s/it]100%|██████████| 240/240 [21:27<00:00,  5.14s/it]{'eval_loss': '1.025', 'eval_runtime': '12.39', 'eval_samples_per_second': '0.807', 'eval_steps_per_second': '0.807', 'epoch': '2'}
+{'loss': '1.27', 'grad_norm': '2.224', 'learning_rate': '8.542e-06', 'epoch': '2.5'}
+
+  0%|          | 0/10 [00:00<?, ?it/s][A
+ 20%|██        | 2/10 [00:01<00:04,  1.63it/s][A
+ 30%|███       | 3/10 [00:02<00:06,  1.14it/s][A
+ 40%|████      | 4/10 [00:03<00:06,  1.02s/it][A
+ 50%|█████     | 5/10 [00:05<00:05,  1.12s/it][A
+ 60%|██████    | 6/10 [00:06<00:04,  1.17s/it][A
+ 70%|███████   | 7/10 [00:07<00:03,  1.20s/it][A
+ 80%|████████  | 8/10 [00:08<00:02,  1.22s/it][A
+ 90%|█████████ | 9/10 [00:10<00:01,  1.24s/it][A
+100%|██████████| 10/10 [00:11<00:00,  1.24s/it][A                                                 
+                                               [A100%|██████████| 240/240 [21:40<00:00,  5.14s/it]
+100%|██████████| 10/10 [00:11<00:00,  1.24s/it][A
+                                               [A                                                 100%|██████████| 240/240 [21:40<00:00,  5.14s/it]100%|██████████| 240/240 [21:40<00:00,  5.42s/it]
+{'eval_loss': '1.019', 'eval_runtime': '12.64', 'eval_samples_per_second': '0.791', 'eval_steps_per_second': '0.791', 'epoch': '3'}
+{'train_runtime': '1300', 'train_samples_per_second': '0.185', 'train_steps_per_second': '0.185', 'train_loss': '1.327', 'epoch': '3'}
+Writing model shards:   0%|          | 0/1 [00:00<?, ?it/s]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.01s/it]Writing model shards: 100%|██████████| 1/1 [00:02<00:00,  2.01s/it]
+2026-04-14 07:27:45 [INFO] src.abstractive_model: Fine-tuning completed. Model saved to: /workspaces/academic-text-summarization-id/output/checkpoints/best_model
+Abstractive Summarization:   0%|          | 0/10 [00:00<?, ?doc/s]Abstractive Summarization:  10%|█         | 1/10 [00:24<03:40, 24.45s/doc]Abstractive Summarization:  20%|██        | 2/10 [00:34<02:08, 16.08s/doc]Abstractive Summarization:  30%|███       | 3/10 [00:48<01:46, 15.21s/doc]Abstractive Summarization:  40%|████      | 4/10 [00:58<01:18, 13.13s/doc]Abstractive Summarization:  50%|█████     | 5/10 [01:09<01:00, 12.18s/doc]Abstractive Summarization:  60%|██████    | 6/10 [01:36<01:08, 17.15s/doc]Abstractive Summarization:  70%|███████   | 7/10 [02:02<01:00, 20.32s/doc]Abstractive Summarization:  80%|████████  | 8/10 [02:09<00:31, 15.82s/doc]Abstractive Summarization:  90%|█████████ | 9/10 [02:35<00:19, 19.25s/doc]Abstractive Summarization: 100%|██████████| 10/10 [03:02<00:00, 21.44s/doc]Abstractive Summarization: 100%|██████████| 10/10 [03:02<00:00, 18.22s/doc]
+2026-04-14 07:30:47 [INFO] src.abstractive_model: Batch abstractive summarization completed: 10 documents
+2026-04-14 07:30:47 [INFO] __main__: Abstractive summarization completed: 10 summaries generated.
+2026-04-14 07:30:48 [INFO] __main__: ==================================================
+2026-04-14 07:30:48 [INFO] __main__:   EVALUATION
+2026-04-14 07:30:48 [INFO] __main__: ==================================================
+2026-04-14 07:30:48 [INFO] absl: Using default tokenizer.
+2026-04-14 07:30:48 [INFO] src.evaluator: ROUGE scorer initialized with metrics: ['rouge1', 'rouge2', 'rougeL']
+2026-04-14 07:30:48 [INFO] src.evaluator: ROUGE scores computed for 10 document pairs.
+2026-04-14 07:30:48 [INFO] src.evaluator: ========================================
+2026-04-14 07:30:48 [INFO] src.evaluator:   Extractive Evaluation Results
+2026-04-14 07:30:48 [INFO] src.evaluator: ========================================
+2026-04-14 07:30:48 [INFO] src.evaluator:   ROUGE1 — P: 0.4801, R: 0.4793, F1: 0.4489
+2026-04-14 07:30:48 [INFO] src.evaluator:   ROUGE2 — P: 0.2497, R: 0.2226, F1: 0.2232
+2026-04-14 07:30:48 [INFO] src.evaluator:   ROUGEL — P: 0.2945, R: 0.2896, F1: 0.2715
+2026-04-14 07:30:48 [INFO] src.evaluator: ========================================
+2026-04-14 07:30:48 [INFO] src.evaluator: ROUGE scores computed for 10 document pairs.
+2026-04-14 07:30:48 [INFO] src.evaluator: ========================================
+2026-04-14 07:30:48 [INFO] src.evaluator:   Abstractive Evaluation Results
+2026-04-14 07:30:48 [INFO] src.evaluator: ========================================
+2026-04-14 07:30:48 [INFO] src.evaluator:   ROUGE1 — P: 0.7794, R: 0.4814, F1: 0.5681
+2026-04-14 07:30:48 [INFO] src.evaluator:   ROUGE2 — P: 0.6165, R: 0.3946, F1: 0.4649
+2026-04-14 07:30:48 [INFO] src.evaluator:   ROUGEL — P: 0.7098, R: 0.4482, F1: 0.5270
+2026-04-14 07:30:48 [INFO] src.evaluator: ========================================
+
+================================================
+  TEXT SUMMARIZATION EVALUATION REPORT
+================================================
+Method             ROUGE-1   ROUGE-2   ROUGE-L
+------------------------------------------------
+Extractive          0.4489    0.2232    0.2715
+Abstractive         0.5681    0.4649    0.5270
+------------------------------------------------
+Best Method:                       Abstractive
+================================================
+
+2026-04-14 07:30:48 [INFO] src.evaluator: Extractive summaries saved to: /workspaces/academic-text-summarization-id/output/summaries/extractive_summaries.csv
+2026-04-14 07:30:48 [INFO] src.evaluator: Abstractive summaries saved to: /workspaces/academic-text-summarization-id/output/summaries/abstractive_summaries.csv
+2026-04-14 07:30:48 [INFO] src.evaluator: Per-document ROUGE scores computed for 10 documents.
+2026-04-14 07:30:48 [INFO] src.evaluator: Per-document ROUGE scores computed for 10 documents.
+2026-04-14 07:30:48 [INFO] src.evaluator: Evaluation report saved to: /workspaces/academic-text-summarization-id/output/results/evaluation_report.csv
+2026-04-14 07:30:48 [INFO] src.utils: JSON saved to: /workspaces/academic-text-summarization-id/output/results/comparison_summary.json
+2026-04-14 07:30:48 [INFO] src.evaluator: Comparison summary saved to: /workspaces/academic-text-summarization-id/output/results/comparison_summary.json
+2026-04-14 07:30:48 [INFO] __main__: ============================================================
+2026-04-14 07:30:48 [INFO] __main__:   NLP SUMMARIZATION PIPELINE — COMPLETED
+2026-04-14 07:30:48 [INFO] __main__: ============================================================

@@ -154,7 +154,10 @@
                     <p class="text-dark-300 text-xs mt-2">Format: CSV dengan kolom <code class="bg-dark-100 px-1 rounded">full_text</code> dan <code class="bg-dark-100 px-1 rounded">summary</code></p>
                     <input type="file" id="file-input" accept=".csv,.json" class="hidden" onchange="handleFileSelect(event)">
                 </div>
-                <div class="mt-4 text-center"><button onclick="loadDefaultDataset()" id="btn-default" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1 mx-auto"><i data-lucide="database" class="w-3.5 h-3.5"></i> Atau gunakan dataset contoh (dataset.csv)</button></div>
+                <div class="mt-4 flex items-center justify-center gap-4">
+                    <button onclick="loadDefaultDataset()" id="btn-default" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="database" class="w-3.5 h-3.5"></i> Atau gunakan dataset contoh (dataset.csv)</button>
+                    <a href="/api/download-dataset" class="text-sm text-dark-500 hover:text-dark-900 underline underline-offset-2 flex items-center gap-1"><i data-lucide="download" class="w-3.5 h-3.5"></i> Download dataset.csv</a>
+                </div>
                 <div id="file-info" class="hidden mt-4 p-4 border border-dark-200 rounded-lg fade-in">
                     <div class="flex items-center justify-between"><div class="flex items-center gap-3"><i data-lucide="file-spreadsheet" class="w-5 h-5 text-dark-600"></i><div><p class="font-medium text-sm" id="file-name">-</p><p class="text-xs text-dark-400" id="file-stats">-</p></div></div><button onclick="clearFile()" class="text-dark-400 hover:text-dark-900"><i data-lucide="x" class="w-4 h-4"></i></button></div>
                     <div id="preview-table" class="mt-4 overflow-x-auto"></div>
@@ -171,16 +174,27 @@
                 <div id="pdf-file-info" class="hidden mt-4 p-4 border border-dark-200 rounded-lg fade-in">
                     <div class="flex items-center justify-between"><div class="flex items-center gap-3"><i data-lucide="file-text" class="w-5 h-5 text-dark-600"></i><div><p class="font-medium text-sm" id="pdf-file-name">-</p><p class="text-xs text-dark-400" id="pdf-file-stats">-</p></div></div><button onclick="clearPdf()" class="text-dark-400 hover:text-dark-900"><i data-lucide="x" class="w-4 h-4"></i></button></div>
                     <div id="pdf-preview" class="mt-4"></div>
+                    <div class="mt-4">
+                        <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="pencil-line" class="w-4 h-4"></i> Teks Hasil Ekstraksi <span class="text-dark-400 font-normal">(edit/hapus bagian yang tidak perlu sebelum diproses)</span></label>
+                        <textarea id="pdf-extracted-text" rows="12" class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y font-mono"></textarea>
+                        <p class="text-xs text-dark-400 mt-1">Filter otomatis sudah menghapus nomor halaman, URL, daftar pustaka, dsb. Anda bisa edit manual jika masih ada bagian yang tidak diperlukan.</p>
+                    </div>
                 </div>
                 <div class="mt-4">
                     <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="bookmark" class="w-4 h-4"></i> Ringkasan Referensi <span class="text-dark-400 font-normal">(opsional, untuk evaluasi ROUGE)</span></label>
                     <textarea id="pdf-reference" rows="4" placeholder="Paste abstrak/ringkasan referensi di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea>
+                </div>
+                <div class="mt-4">
+                    <label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> Ringkasan dari LLM <span class="text-dark-400 font-normal">(opsional, untuk perbandingan)</span></label>
+                    <textarea id="pdf-llm-summary" rows="4" placeholder="Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea>
+                    <p class="text-xs text-dark-400 mt-1">Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.</p>
                 </div>
             </div>
             <div id="panel-manual" class="tab-panel hidden max-w-3xl mx-auto">
                 <div class="space-y-4">
                     <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="file-text" class="w-4 h-4"></i> Teks Dokumen</label><textarea id="input-text" rows="10" placeholder="Paste isi lengkap dokumen akademik di sini..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea></div>
                     <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="bookmark" class="w-4 h-4"></i> Ringkasan Referensi <span class="text-dark-400 font-normal">(opsional, untuk evaluasi ROUGE)</span></label><textarea id="input-reference" rows="4" placeholder="Paste abstrak/ringkasan referensi di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea></div>
+                    <div><label class="block text-sm font-medium mb-1.5 flex items-center gap-1.5"><i data-lucide="sparkles" class="w-4 h-4"></i> Ringkasan dari LLM <span class="text-dark-400 font-normal">(opsional, untuk perbandingan)</span></label><textarea id="manual-llm-summary" rows="4" placeholder="Paste ringkasan dari ChatGPT / LLM lain di sini (opsional)..." class="w-full border border-dark-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-dark-900 resize-y"></textarea><p class="text-xs text-dark-400 mt-1">Paste hasil ringkasan dari LLM (misal ChatGPT) untuk ditampilkan sebagai perbandingan. Tidak dievaluasi ROUGE.</p></div>
                 </div>
             </div>
             <div class="mt-6 flex justify-center"><button onclick="startPipeline()" id="btn-start" class="bg-dark-900 text-white px-10 py-3.5 rounded-xl font-semibold text-sm hover:bg-dark-800 transition-colors flex items-center gap-2 disabled:opacity-40 disabled:cursor-not-allowed shadow-lg shadow-dark-900/20"><i data-lucide="play" class="w-5 h-5"></i> Mulai Proses Summarization</button></div>
@@ -277,7 +291,7 @@
         lucide.createIcons();
     }
 
-    let appState = { texts: [], summaries: [], currentDocIndex: 0, currentTab: 'upload', file: null, preprocessResult: null, summarizeResult: null, evaluateResult: null, isDefaultDataset: false };
+    let appState = { texts: [], summaries: [], currentDocIndex: 0, currentTab: 'upload', file: null, preprocessResult: null, summarizeResult: null, evaluateResult: null, isDefaultDataset: false, llmSummary: '' };
 
     // --- SCROLL INDICATOR ---
     window.addEventListener('scroll', () => { const h = document.documentElement; const pct = (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100; document.getElementById('scroll-indicator').style.width = pct + '%'; });
@@ -369,8 +383,9 @@
     function showPdfInfo(data) {
         document.getElementById('pdf-file-info').classList.remove('hidden');
         document.getElementById('pdf-file-name').textContent = data.filename;
-        document.getElementById('pdf-file-stats').textContent = data.num_pages + ' halaman • ' + data.text_length + ' karakter';
-        let html = '<div class="bg-dark-50 border border-dark-200 rounded-lg p-3 max-h-60 overflow-y-auto"><p class="text-xs text-dark-500 mb-2 font-semibold">Preview teks yang diekstrak:</p><p class="text-sm text-dark-700 whitespace-pre-wrap">' + escapeHtml(data.text.substring(0, 2000)) + (data.text.length > 2000 ? '...' : '') + '</p></div>';
+        document.getElementById('pdf-file-stats').textContent = data.num_pages + ' halaman • ' + data.text_length + ' karakter (setelah filter)';
+        document.getElementById('pdf-extracted-text').value = data.text;
+        let html = '';
         document.getElementById('pdf-preview').innerHTML = html;
         lucide.createIcons();
     }
@@ -453,12 +468,17 @@
         if(appState.currentTab === 'upload' && appState.texts.length === 0) return showToast('Upload dataset CSV terlebih dahulu');
         if(appState.currentTab === 'pdf' && appState.texts.length === 0) return showToast('Upload file PDF terlebih dahulu');
         if(appState.currentTab === 'pdf') {
+            const editedText = document.getElementById('pdf-extracted-text').value.trim();
+            if(!editedText) return showToast('Teks PDF kosong. Upload ulang atau isi teks.');
+            appState.texts = [editedText];
             const ref = document.getElementById('pdf-reference').value.trim();
             if(ref) appState.summaries = [ref];
+            appState.llmSummary = document.getElementById('pdf-llm-summary').value.trim();
         }
         if(appState.currentTab === 'manual') {
             const txt = document.getElementById('input-text').value.trim();
             if(!txt) return showToast('Masukkan teks dokumen terlebih dahulu');
+            appState.llmSummary = document.getElementById('manual-llm-summary').value.trim();
         }
         // Show results
         document.getElementById('results-section').classList.remove('hidden');
@@ -597,9 +617,14 @@
     // --- STEP 2: SUMMARIZATION ---
     async function doSummarization() {
         document.getElementById('status-summarization').innerHTML = '<div class="spinner"></div>';
-        const resp = await fetch('/api/summarize', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ texts: appState.texts, use_cache: appState.isDefaultDataset }) });
+        const payload = { texts: appState.texts, use_cache: appState.isDefaultDataset };
+        const resp = await fetch('/api/summarize', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
         const data = await resp.json();
         if(data.error) throw new Error(data.error);
+        // Inject LLM summary from user input (not from API)
+        if(appState.llmSummary) {
+            data.llm = [appState.llmSummary];
+        }
         appState.summarizeResult = data;
         document.getElementById('status-summarization').innerHTML = '<div class="flex items-center gap-1.5 text-emerald-600 text-sm font-medium"><i data-lucide="check-circle-2" class="w-4 h-4"></i> Selesai</div>';
         renderSummarization(data);
@@ -610,20 +635,23 @@
         const numDocs = appState.texts.length;
         const extArr = data.extractive || [];
         const absArr = data.abstractive || [];
+        const llmArr = data.llm || [];
+        const hasLlm = llmArr.length > 0;
         const idx = appState.currentDocIndex;
         const container = document.getElementById('content-summarization');
 
         // Build per-doc results for doc tabs
         const docResults = [];
         for(let i = 0; i < numDocs; i++) {
-            docResults.push({ extractive: extArr[i] || '-', abstractive: absArr[i] || '-', reference: appState.summaries[i] || null });
+            docResults.push({ extractive: extArr[i] || '-', abstractive: absArr[i] || '-', llm: llmArr[i] || null, reference: appState.summaries[i] || null });
+            docResults.push({ extractive: extArr[i] || '-', abstractive: absArr[i] || '-', llm: llmArr[i] || null, reference: appState.summaries[i] || null });
         }
 
         let html = buildDocTabs(docResults, 'switchSummaryDoc');
         const r = docResults[idx] || docResults[0];
 
         // Extractive and Abstractive mini flow
-        html += `<div class="grid md:grid-cols-2 gap-4 mb-6">
+        html += `<div class="grid md:grid-cols-${hasLlm ? '3' : '2'} gap-4 mb-6">
             <div class="bg-emerald-50 rounded-xl border border-emerald-200 p-4">
                 <p class="text-xs font-bold text-emerald-700 mb-2">Extractive Pipeline</p>
                 <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
@@ -644,12 +672,20 @@
                     <span class="bg-blue-100 text-blue-700 px-2 py-0.5 rounded-full">Decode</span>
                 </div>
             </div>
+            ${hasLlm ? `<div class="bg-amber-50 rounded-xl border border-amber-200 p-4">
+                <p class="text-xs font-bold text-amber-700 mb-2">LLM (Input Manual)</p>
+                <div class="flex flex-wrap items-center gap-1 text-[11px] font-medium">
+                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">User Input</span><span class="text-amber-300">→</span>
+                    <span class="bg-amber-100 text-amber-700 px-2 py-0.5 rounded-full">Perbandingan</span>
+                </div>
+            </div>` : ''}
         </div>`;
 
-        // Tabs: extractive / abstractive / side-by-side
+        // Tabs: extractive / abstractive / llm / side-by-side
         html += `<div class="flex gap-1 mb-4 bg-dark-50 rounded-full p-1 w-fit">
             <button onclick="switchSumTab('ext')" id="sumtab-ext" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium bg-emerald-600 text-white transition-all">Extractive</button>
             <button onclick="switchSumTab('abs')" id="sumtab-abs" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium text-dark-600 transition-all">Abstractive</button>
+            ${hasLlm ? '<button onclick="switchSumTab(\'llm\')" id="sumtab-llm" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium text-dark-600 transition-all">LLM</button>' : ''}
             <button onclick="switchSumTab('cmp')" id="sumtab-cmp" class="sumtab-btn px-4 py-1.5 rounded-full text-xs font-medium text-dark-600 transition-all">Perbandingan</button>
         </div>`;
 
@@ -677,11 +713,23 @@
             </div>
         </div>`;
 
+        // LLM panel
+        if(hasLlm) {
+            html += `<div id="sumpanel-llm" class="sumpanel hidden">
+                <div class="border border-amber-200 rounded-xl p-5">
+                    <div class="flex items-center gap-2 mb-3"><i data-lucide="sparkles" class="w-5 h-5 text-amber-600"></i><span class="font-semibold text-sm">Hasil LLM</span></div>
+                    ${buildTextViewer(r.llm || '-')}
+                    <p class="text-xs text-dark-400 mt-3">Ringkasan dari LLM (input manual, tidak dievaluasi ROUGE)</p>
+                </div>
+            </div>`;
+        }
+
         // Comparison panel
         html += `<div id="sumpanel-cmp" class="sumpanel hidden">
-            <div class="grid md:grid-cols-2 gap-4">
+            <div class="grid md:grid-cols-${hasLlm ? '3' : '2'} gap-4">
                 <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center"><i data-lucide="list-ordered" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-emerald-800">Extractive</span></div>${buildTextViewer(r.extractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.extractive || '').length} karakter</p></div>
                 <div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center"><i data-lucide="brain" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-blue-800">Abstractive</span></div>${buildTextViewer(r.abstractive || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.abstractive || '').length} karakter</p></div>
+                ${hasLlm ? `<div class="compare-card p-5"><div class="flex items-center gap-2 mb-3"><div class="w-8 h-8 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center"><i data-lucide="sparkles" class="w-4 h-4"></i></div><span class="font-semibold text-sm text-amber-800">LLM</span></div>${buildTextViewer(r.llm || '-', 300)}<p class="text-xs text-dark-400 mt-3">${(r.llm || '').length} karakter</p></div>` : ''}
             </div>
         </div>`;
 
@@ -696,10 +744,11 @@
 
     function switchSumTab(tab) {
         document.querySelectorAll('.sumpanel').forEach(p => p.classList.add('hidden'));
-        document.getElementById('sumpanel-' + tab).classList.remove('hidden');
-        document.querySelectorAll('.sumtab-btn').forEach(b => { b.classList.remove('bg-emerald-600', 'bg-blue-600', 'bg-dark-900', 'text-white'); b.classList.add('text-dark-600'); });
+        const panel = document.getElementById('sumpanel-' + tab);
+        if(panel) panel.classList.remove('hidden');
+        document.querySelectorAll('.sumtab-btn').forEach(b => { b.classList.remove('bg-emerald-600', 'bg-blue-600', 'bg-amber-600', 'bg-dark-900', 'text-white'); b.classList.add('text-dark-600'); });
         const btn = document.getElementById('sumtab-' + tab);
-        const color = tab === 'ext' ? 'bg-emerald-600' : tab === 'abs' ? 'bg-blue-600' : 'bg-dark-900';
+        const color = tab === 'ext' ? 'bg-emerald-600' : tab === 'abs' ? 'bg-blue-600' : tab === 'llm' ? 'bg-amber-600' : 'bg-dark-900';
         btn.classList.add(color, 'text-white'); btn.classList.remove('text-dark-600');
     }
 
@@ -761,7 +810,7 @@
         const ext = r.ext || {};
         const abs = r.abs || {};
 
-        // Visual bar comparison
+        // Visual bar comparison (only Extractive vs Abstractive)
         html += `<div class="space-y-4 mb-6">`;
         ['rouge1', 'rouge2', 'rougeL'].forEach(metric => {
             const eF1 = ext[metric] ? (ext[metric].f * 100).toFixed(1) : 0;
@@ -777,9 +826,10 @@
         });
         html += `</div>`;
 
-        // Detailed tables
+        // Detailed tables (only Extractive and Abstractive)
+        const methodTables = [{ label: 'Extractive', data: ext, color: 'emerald' }, { label: 'Abstractive', data: abs, color: 'blue' }];
         html += `<div class="grid md:grid-cols-2 gap-4">`;
-        [{ label: 'Extractive', data: ext, color: 'emerald' }, { label: 'Abstractive', data: abs, color: 'blue' }].forEach(({ label, data: d, color }) => {
+        methodTables.forEach(({ label, data: d, color }) => {
             html += `<div class="border border-${color}-200 rounded-xl overflow-hidden"><div class="bg-${color}-50 px-4 py-2 border-b border-${color}-200"><span class="font-semibold text-sm text-${color}-800">${label}</span></div>
             <table class="w-full text-xs"><thead><tr class="border-b border-dark-100"><th class="px-4 py-2 text-left font-medium text-dark-500">Metrik</th><th class="px-4 py-2 text-right font-medium text-dark-500">Precision</th><th class="px-4 py-2 text-right font-medium text-dark-500">Recall</th><th class="px-4 py-2 text-right font-medium text-dark-500">F1</th></tr></thead><tbody>`;
             ['rouge1', 'rouge2', 'rougeL'].forEach(m => {
@@ -801,12 +851,22 @@
     function renderComparison(r) {
         const ext = r.ext || {};
         const abs = r.abs || {};
+
         const extAvg = (['rouge1','rouge2','rougeL'].reduce((s, m) => s + ((ext[m]||{}).f||0), 0) / 3 * 100).toFixed(2);
         const absAvg = (['rouge1','rouge2','rougeL'].reduce((s, m) => s + ((abs[m]||{}).f||0), 0) / 3 * 100).toFixed(2);
-        const winner = parseFloat(extAvg) >= parseFloat(absAvg) ? 'extractive' : 'abstractive';
+
+        // Winner is only between Extractive and Abstractive (LLM excluded from ROUGE)
+        const candidates = { extractive: parseFloat(extAvg), abstractive: parseFloat(absAvg) };
+        const winner = Object.entries(candidates).sort((a,b) => b[1]-a[1])[0][0];
         const wLabel = winner === 'extractive' ? 'Extractive' : 'Abstractive';
         const wColor = winner === 'extractive' ? 'emerald' : 'blue';
         const wIcon = winner === 'extractive' ? 'list-ordered' : 'brain';
+        const wAvg = candidates[winner].toFixed(2);
+
+        // Check if LLM summary is available for display
+        const llmArr = appState.summarizeResult?.llm || [];
+        const hasLlm = llmArr.length > 0;
+        const llmText = llmArr[appState.currentDocIndex] || '';
 
         const comp = document.getElementById('result-comparison');
         comp.classList.remove('hidden');
@@ -817,22 +877,28 @@
                     <div class="inline-flex items-center gap-3 bg-${wColor}-50 border-2 border-${wColor}-300 rounded-2xl px-8 py-4">
                         <i data-lucide="${wIcon}" class="w-8 h-8 text-${wColor}-600"></i>
                         <div class="text-left"><p class="text-xs text-${wColor}-600 font-medium">Metode Terbaik</p><p class="text-2xl font-bold text-${wColor}-800">${wLabel}</p></div>
-                        <span class="bg-${wColor}-600 text-white px-3 py-1 rounded-full text-sm font-bold">${winner === 'extractive' ? extAvg : absAvg}%</span>
+                        <span class="bg-${wColor}-600 text-white px-3 py-1 rounded-full text-sm font-bold">${wAvg}%</span>
                     </div>
                 </div>
                 <div class="grid md:grid-cols-3 gap-4 mb-6">
                     ${['rouge1','rouge2','rougeL'].map(m => {
                         const eF = ((ext[m]||{}).f||0)*100;
                         const aF = ((abs[m]||{}).f||0)*100;
-                        const mWinner = eF >= aF ? 'ext' : 'abs';
+                        const scores = [{key:'ext',val:eF,color:'emerald',label:'Ext'},{key:'abs',val:aF,color:'blue',label:'Abs'}];
+                        const maxVal = Math.max(...scores.map(s=>s.val));
                         const mLabel = m === 'rouge1' ? 'ROUGE-1' : m === 'rouge2' ? 'ROUGE-2' : 'ROUGE-L';
                         return `<div class="bg-dark-50 rounded-xl p-4 text-center"><p class="text-xs font-bold text-dark-500 mb-2">${mLabel}</p>
-                            <div class="flex items-center justify-center gap-3"><div class="${mWinner==='ext'?'bg-emerald-100 border-emerald-300':'bg-dark-100 border-dark-200'} rounded-lg px-3 py-2 border"><p class="text-lg font-bold ${mWinner==='ext'?'text-emerald-700':'text-dark-500'}">${eF.toFixed(1)}%</p><p class="text-[10px] ${mWinner==='ext'?'text-emerald-600':'text-dark-400'}">Ext</p></div>
-                            <span class="text-dark-300 text-xs">vs</span>
-                            <div class="${mWinner==='abs'?'bg-blue-100 border-blue-300':'bg-dark-100 border-dark-200'} rounded-lg px-3 py-2 border"><p class="text-lg font-bold ${mWinner==='abs'?'text-blue-700':'text-dark-500'}">${aF.toFixed(1)}%</p><p class="text-[10px] ${mWinner==='abs'?'text-blue-600':'text-dark-400'}">Abs</p></div></div></div>`;
+                            <div class="flex items-center justify-center gap-2">${scores.map(s =>
+                                `<div class="${s.val>=maxVal?`bg-${s.color}-100 border-${s.color}-300`:'bg-dark-100 border-dark-200'} rounded-lg px-3 py-2 border"><p class="text-lg font-bold ${s.val>=maxVal?`text-${s.color}-700`:'text-dark-500'}">${s.val.toFixed(1)}%</p><p class="text-[10px] ${s.val>=maxVal?`text-${s.color}-600`:'text-dark-400'}">${s.label}</p></div>`
+                            ).join('<span class="text-dark-300 text-xs">vs</span>')}</div></div>`;
                     }).join('')}
                 </div>
-                <div class="bg-dark-50 border border-dark-200 rounded-xl p-4 text-sm text-dark-600"><p class="font-semibold text-dark-800 mb-2">Analisis:</p><p>Metode <strong>${wLabel}</strong> menghasilkan skor rata-rata F1 ROUGE sebesar <strong>${winner === 'extractive' ? extAvg : absAvg}%</strong>, lebih tinggi dibanding ${winner === 'extractive' ? 'Abstractive' : 'Extractive'} (<strong>${winner === 'extractive' ? absAvg : extAvg}%</strong>). ${winner === 'extractive' ? 'Hal ini menunjukkan bahwa untuk teks ini, memilih kalimat asli yang penting menghasilkan ringkasan yang lebih dekat dengan referensi.' : 'Hal ini menunjukkan bahwa model AI berhasil menghasilkan ringkasan yang lebih representatif dibanding pemilihan kalimat asli.'}</p></div>
+                <div class="bg-dark-50 border border-dark-200 rounded-xl p-4 text-sm text-dark-600"><p class="font-semibold text-dark-800 mb-2">Analisis:</p><p>Metode <strong>${wLabel}</strong> menghasilkan skor rata-rata F1 ROUGE tertinggi sebesar <strong>${wAvg}%</strong>. Perbandingan: Extractive (${extAvg}%) vs Abstractive (${absAvg}%). ${winner === 'extractive' ? 'Memilih kalimat asli yang penting menghasilkan ringkasan yang lebih dekat dengan referensi.' : 'Model mT5 berhasil menghasilkan ringkasan yang lebih representatif.'}</p></div>
+                ${hasLlm ? `<div class="mt-4 bg-amber-50 border border-amber-200 rounded-xl p-4">
+                    <div class="flex items-center gap-2 mb-2"><i data-lucide="sparkles" class="w-4 h-4 text-amber-600"></i><span class="font-semibold text-sm text-amber-800">Ringkasan LLM (Perbandingan)</span></div>
+                    <p class="text-sm text-dark-700">${llmText}</p>
+                    <p class="text-xs text-amber-600 mt-2">Ringkasan ini dari input manual LLM dan tidak dievaluasi menggunakan ROUGE.</p>
+                </div>` : ''}
             </div>
         </div>`;
         lucide.createIcons();

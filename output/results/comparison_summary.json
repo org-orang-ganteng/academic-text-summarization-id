@@ -1,0 +1,38 @@
+{
+  "extractive": {
+    "rouge1": {
+      "precision": 0.48012092194710154,
+      "recall": 0.4792964816275502,
+      "fmeasure": 0.44894001149037727
+    },
+    "rouge2": {
+      "precision": 0.24973088365505314,
+      "recall": 0.22256555213363644,
+      "fmeasure": 0.2231512999255026
+    },
+    "rougeL": {
+      "precision": 0.2945054715849019,
+      "recall": 0.2895904917028405,
+      "fmeasure": 0.27148376547272146
+    }
+  },
+  "abstractive": {
+    "rouge1": {
+      "precision": 0.7794025133435962,
+      "recall": 0.4814106997667425,
+      "fmeasure": 0.5680747132716406
+    },
+    "rouge2": {
+      "precision": 0.6164638608007038,
+      "recall": 0.3946486227996018,
+      "fmeasure": 0.46491593657100483
+    },
+    "rougeL": {
+      "precision": 0.7098236844295248,
+      "recall": 0.4482100647112552,
+      "fmeasure": 0.5269661304902875
+    }
+  },
+  "best_method": "Abstractive",
+  "num_documents": 10
+}
