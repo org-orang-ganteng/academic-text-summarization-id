@@ -52,7 +52,7 @@ TFIDF_MAX_FEATURES = 5000  # Maximum number of TF-IDF features
 #   - "csebuetnlp/mT5_multilingual_XLSum-small" (fine-tuned for summarization, supports Indonesian)
 #   - "google/mt5-small" (raw pre-trained, needs fine-tuning first)
 #   - "LazarusNLP/IndoNanoT5-base" (Indonesian T5)
-ABSTRACTIVE_MODEL_NAME = "google/mt5-small"  # ~300M params, lighter for CPU training
+ABSTRACTIVE_MODEL_NAME = "csebuetnlp/mT5_multilingual_XLSum"  # Fine-tuned for summarization (supports Indonesian)
 MAX_SOURCE_LENGTH = 256  # Max tokens for input text
 MAX_TARGET_LENGTH = 128  # Max tokens for generated summary
 MIN_TARGET_LENGTH = 30   # Minimum tokens for generated summary

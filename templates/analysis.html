@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analysis — Per-Document ROUGE Scores</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', system-ui, sans-serif; }
+        .fade-in { animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        .scroll-indicator { position: fixed; top: 0; left: 0; height: 3px; background: #171717; z-index: 999; transition: width 0.1s; }
+        table th { position: sticky; top: 0; z-index: 5; }
+    </style>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { dark: { 50:'#f9f9f9',100:'#f0f0f0',200:'#e5e5e5',300:'#d4d4d4',400:'#a3a3a3',500:'#737373',600:'#525252',700:'#404040',800:'#262626',900:'#171717',950:'#0a0a0a' } } } } }
+    </script>
+</head>
+<body class="bg-white text-dark-900 min-h-screen">
+    <div class="scroll-indicator" id="scroll-indicator"></div>
+
+    <!-- HEADER -->
+    <header class="bg-dark-900 text-white sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <a href="/" class="flex items-center gap-3 hover:opacity-80 transition-opacity">
+                    <div class="w-8 h-8 bg-white rounded-lg flex items-center justify-center"><span class="text-dark-900 font-bold text-sm">NLP</span></div>
+                    <div><h1 class="text-sm font-bold leading-tight">Analysis Dashboard</h1><p class="text-[11px] text-dark-400">Per-Document ROUGE Analysis — Doc 1 to 100</p></div>
+                </a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="/" class="text-xs text-dark-400 hover:text-white transition-colors flex items-center gap-1"><i data-lucide="arrow-left" class="w-3 h-3"></i> Back to App</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-6 py-8">
+        <!-- Loading -->
+        <div id="loading" class="text-center py-20">
+            <div style="border:3px solid #e5e5e5;border-top:3px solid #000;border-radius:50%;width:32px;height:32px;animation:spin .8s linear infinite;display:inline-block"></div>
+            <p class="text-sm text-dark-400 mt-3">Loading analysis data...</p>
+            <style>@keyframes spin{to{transform:rotate(360deg)}}</style>
+        </div>
+
+        <!-- Content (hidden until data loads) -->
+        <div id="content" class="hidden space-y-10 fade-in">
+
+            <!-- SECTION 1: Aggregate Summary -->
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-xl bg-dark-900 text-white flex items-center justify-center"><i data-lucide="bar-chart-2" class="w-5 h-5"></i></div>
+                    <div><h2 class="font-bold text-lg">Aggregate ROUGE Scores</h2><p class="text-xs text-dark-400">Average across all 100 documents</p></div>
+                </div>
+                <div id="aggregate-cards" class="grid md:grid-cols-3 gap-4 mb-6"></div>
+            </section>
+
+            <!-- SECTION 2: Charts -->
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-xl bg-indigo-600 text-white flex items-center justify-center"><i data-lucide="line-chart" class="w-5 h-5"></i></div>
+                    <div><h2 class="font-bold text-lg">Visualization</h2><p class="text-xs text-dark-400">Per-document score comparison and factor analysis</p></div>
+                </div>
+                <!-- Chart tabs -->
+                <div class="flex gap-2 mb-4 flex-wrap">
+                    <button onclick="showChart('line')" id="chartBtn-line" class="px-4 py-2 rounded-lg text-xs font-medium bg-dark-900 text-white">ROUGE-1 F1 per Document</button>
+                    <button onclick="showChart('bar')" id="chartBtn-bar" class="px-4 py-2 rounded-lg text-xs font-medium bg-dark-100 text-dark-600">All ROUGE Metrics Comparison</button>
+                    <button onclick="showChart('scatter')" id="chartBtn-scatter" class="px-4 py-2 rounded-lg text-xs font-medium bg-dark-100 text-dark-600">Text Length vs ROUGE Score</button>
+                    <button onclick="showChart('dist')" id="chartBtn-dist" class="px-4 py-2 rounded-lg text-xs font-medium bg-dark-100 text-dark-600">Score Distribution</button>
+                    <button onclick="showChart('diff')" id="chartBtn-diff" class="px-4 py-2 rounded-lg text-xs font-medium bg-dark-100 text-dark-600">Ext vs Abs Difference</button>
+                </div>
+                <div class="border border-dark-200 rounded-2xl p-4 bg-white">
+                    <canvas id="chart-line" height="100"></canvas>
+                    <canvas id="chart-bar" height="100" class="hidden"></canvas>
+                    <canvas id="chart-scatter" height="100" class="hidden"></canvas>
+                    <canvas id="chart-dist" height="100" class="hidden"></canvas>
+                    <canvas id="chart-diff" height="100" class="hidden"></canvas>
+                </div>
+            </section>
+
+            <!-- SECTION 3: Factor Analysis -->
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-xl bg-amber-600 text-white flex items-center justify-center"><i data-lucide="search" class="w-5 h-5"></i></div>
+                    <div><h2 class="font-bold text-lg">Factor Analysis</h2><p class="text-xs text-dark-400">Why do results vary across documents?</p></div>
+                </div>
+                <div id="factor-analysis" class="grid md:grid-cols-2 gap-4"></div>
+            </section>
+
+            <!-- SECTION 4: Per-Document Table -->
+            <section>
+                <div class="flex items-center justify-between mb-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-9 h-9 rounded-xl bg-rose-600 text-white flex items-center justify-center"><i data-lucide="table" class="w-5 h-5"></i></div>
+                        <div><h2 class="font-bold text-lg">Per-Document Results</h2><p class="text-xs text-dark-400">ROUGE scores for documents 1–100</p></div>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input type="text" id="table-search" placeholder="Search doc..." class="border border-dark-200 rounded-lg px-3 py-1.5 text-sm w-40 focus:outline-none focus:border-dark-900" oninput="filterTable()">
+                        <select id="table-sort" onchange="sortTable()" class="border border-dark-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:border-dark-900">
+                            <option value="id">Sort by Doc #</option>
+                            <option value="ext-r1-desc">Ext ROUGE-1 ↓</option>
+                            <option value="ext-r1-asc">Ext ROUGE-1 ↑</option>
+                            <option value="abs-r1-desc">Abs ROUGE-1 ↓</option>
+                            <option value="abs-r1-asc">Abs ROUGE-1 ↑</option>
+                            <option value="diff-desc">Biggest Difference ↓</option>
+                            <option value="len-desc">Text Length ↓</option>
+                            <option value="len-asc">Text Length ↑</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="border border-dark-200 rounded-2xl overflow-hidden">
+                    <div class="overflow-x-auto max-h-[700px] overflow-y-auto">
+                        <table class="w-full text-xs" id="doc-table">
+                            <thead class="bg-dark-50">
+                                <tr>
+                                    <th class="px-3 py-3 text-left font-semibold text-dark-600 bg-dark-50">Doc</th>
+                                    <th class="px-3 py-3 text-left font-semibold text-dark-600 bg-dark-50">Text Preview</th>
+                                    <th class="px-3 py-3 text-right font-semibold text-dark-600 bg-dark-50">Chars</th>
+                                    <th class="px-3 py-3 text-right font-semibold text-emerald-700 bg-dark-50">Ext R1</th>
+                                    <th class="px-3 py-3 text-right font-semibold text-emerald-700 bg-dark-50">Ext R2</th>
+                                    <th class="px-3 py-3 text-right font-semibold text-emerald-700 bg-dark-50">Ext RL</th>
+                                    <th class="px-3 py-3 text-right font-semibold text-blue-700 bg-dark-50">Abs R1</th>
+                                    <th class="px-3 py-3 text-right font-semibold text-blue-700 bg-dark-50">Abs R2</th>
+                                    <th class="px-3 py-3 text-right font-semibold text-blue-700 bg-dark-50">Abs RL</th>
+                                    <th class="px-3 py-3 text-center font-semibold text-dark-600 bg-dark-50">Winner</th>
+                                    <th class="px-3 py-3 text-left font-semibold text-dark-600 bg-dark-50">Why Different?</th>
+                                </tr>
+                            </thead>
+                            <tbody id="doc-table-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <p class="text-xs text-dark-400 mt-2 text-right" id="table-count"></p>
+            </section>
+
+            <!-- SECTION 5: Statistical Summary -->
+            <section>
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-9 h-9 rounded-xl bg-teal-600 text-white flex items-center justify-center"><i data-lucide="clipboard-list" class="w-5 h-5"></i></div>
+                    <div><h2 class="font-bold text-lg">Statistical Summary</h2><p class="text-xs text-dark-400">Key findings and observations</p></div>
+                </div>
+                <div id="stats-summary" class="space-y-4"></div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="border-t border-dark-200 mt-16"><div class="max-w-7xl mx-auto px-6 py-4 text-center text-dark-400 text-xs">NLP Summarization Pipeline &mdash; Analysis Dashboard</div></footer>
+
+    <script>
+    let evalData = null;
+    let datasetData = null;
+    let sumData = null;
+    let allRows = [];
+    let chartInstances = {};
+
+    async function loadData() {
+        try {
+            const [evalResp, datasetResp, sumResp] = await Promise.all([
+                fetch('/api/analysis-data?type=evaluate'),
+                fetch('/api/analysis-data?type=dataset'),
+                fetch('/api/analysis-data?type=summarize')
+            ]);
+            evalData = await evalResp.json();
+            datasetData = await datasetResp.json();
+            sumData = await sumResp.json();
+
+            if (!evalData.per_document || evalData.per_document.length === 0) {
+                document.getElementById('loading').innerHTML = '<p class="text-sm text-red-500">No evaluation data found. Run the pipeline first.</p>';
+                return;
+            }
+
+            buildAllRows();
+            renderAggregate();
+            renderFactorAnalysis();
+            renderTable();
+            renderStats();
+            initCharts();
+            showChart('line');
+
+            document.getElementById('loading').classList.add('hidden');
+            document.getElementById('content').classList.remove('hidden');
+            lucide.createIcons();
+        } catch (e) {
+            document.getElementById('loading').innerHTML = `<p class="text-sm text-red-500">Error loading data: ${e.message}</p>`;
+        }
+    }
+
+    function buildAllRows() {
+        const perDoc = evalData.per_document || [];
+        const texts = datasetData.texts || [];
+        const summaries = datasetData.summaries || [];
+        const extDetails = sumData.extractive_details || [];
+
+        allRows = perDoc.map((d, i) => {
+            const text = texts[i] || '';
+            const summary = summaries[i] || '';
+            const extDet = extDetails[i] || {};
+            const extR1 = d.ext?.rouge1?.f || 0;
+            const extR2 = d.ext?.rouge2?.f || 0;
+            const extRL = d.ext?.rougeL?.f || 0;
+            const absR1 = d.abs?.rouge1?.f || 0;
+            const absR2 = d.abs?.rouge2?.f || 0;
+            const absRL = d.abs?.rougeL?.f || 0;
+            const extAvg = (extR1 + extR2 + extRL) / 3;
+            const absAvg = (absR1 + absR2 + absRL) / 3;
+            const numSentences = extDet.num_sentences || 0;
+            const textLen = text.length;
+            const sumLen = summary.length;
+            const ratio = textLen > 0 ? (sumLen / textLen) : 0;
+
+            return {
+                id: i,
+                textPreview: text.substring(0, 80).replace(/\n/g, ' '),
+                textLen,
+                sumLen,
+                ratio,
+                numSentences,
+                extR1, extR2, extRL, extAvg,
+                absR1, absR2, absRL, absAvg,
+                winner: extAvg >= absAvg ? 'ext' : 'abs',
+                diff: Math.abs(extAvg - absAvg)
+            };
+        });
+    }
+
+    function renderAggregate() {
+        const ext = evalData.extractive_scores || {};
+        const abs = evalData.abstractive_scores || {};
+        const metrics = ['rouge1', 'rouge2', 'rougeL'];
+        const labels = ['ROUGE-1', 'ROUGE-2', 'ROUGE-L'];
+
+        let html = '';
+        metrics.forEach((m, i) => {
+            const eF = ((ext[m]?.f || 0) * 100).toFixed(2);
+            const aF = ((abs[m]?.f || 0) * 100).toFixed(2);
+            const winner = parseFloat(eF) >= parseFloat(aF) ? 'ext' : 'abs';
+            const wColor = winner === 'ext' ? 'emerald' : 'blue';
+            html += `<div class="border-2 border-${wColor}-200 rounded-xl p-5 bg-${wColor}-50/30">
+                <p class="text-sm font-bold text-dark-700 mb-3">${labels[i]}</p>
+                <div class="grid grid-cols-2 gap-3">
+                    <div class="${winner==='ext'?'bg-emerald-100 border-emerald-300':'bg-dark-50 border-dark-200'} rounded-lg p-3 border text-center">
+                        <p class="text-2xl font-bold ${winner==='ext'?'text-emerald-700':'text-dark-500'}">${eF}%</p>
+                        <p class="text-[10px] font-medium ${winner==='ext'?'text-emerald-600':'text-dark-400'}">Extractive</p>
+                    </div>
+                    <div class="${winner==='abs'?'bg-blue-100 border-blue-300':'bg-dark-50 border-dark-200'} rounded-lg p-3 border text-center">
+                        <p class="text-2xl font-bold ${winner==='abs'?'text-blue-700':'text-dark-500'}">${aF}%</p>
+                        <p class="text-[10px] font-medium ${winner==='abs'?'text-blue-600':'text-dark-400'}">Abstractive</p>
+                    </div>
+                </div>
+            </div>`;
+        });
+        document.getElementById('aggregate-cards').innerHTML = html;
+    }
+
+    function renderFactorAnalysis() {
+        // Compute correlation factors
+        const n = allRows.length;
+        if (n === 0) return;
+
+        // Factor 1: Text length correlation with ROUGE
+        const avgLen = allRows.reduce((s, r) => s + r.textLen, 0) / n;
+        const shortDocs = allRows.filter(r => r.textLen < avgLen);
+        const longDocs = allRows.filter(r => r.textLen >= avgLen);
+        const shortExtAvg = shortDocs.reduce((s, r) => s + r.extR1, 0) / (shortDocs.length || 1);
+        const longExtAvg = longDocs.reduce((s, r) => s + r.extR1, 0) / (longDocs.length || 1);
+        const shortAbsAvg = shortDocs.reduce((s, r) => s + r.absR1, 0) / (shortDocs.length || 1);
+        const longAbsAvg = longDocs.reduce((s, r) => s + r.absR1, 0) / (longDocs.length || 1);
+
+        // Factor 2: Number of sentences
+        const avgSent = allRows.reduce((s, r) => s + r.numSentences, 0) / n;
+        const fewSent = allRows.filter(r => r.numSentences < avgSent);
+        const manySent = allRows.filter(r => r.numSentences >= avgSent);
+        const fewExtAvg = fewSent.reduce((s, r) => s + r.extR1, 0) / (fewSent.length || 1);
+        const manyExtAvg = manySent.reduce((s, r) => s + r.extR1, 0) / (manySent.length || 1);
+
+        // Factor 3: Compression ratio
+        const avgRatio = allRows.reduce((s, r) => s + r.ratio, 0) / n;
+        const highRatio = allRows.filter(r => r.ratio > avgRatio);
+        const lowRatio = allRows.filter(r => r.ratio <= avgRatio);
+        const highRatioExt = highRatio.reduce((s, r) => s + r.extR1, 0) / (highRatio.length || 1);
+        const lowRatioExt = lowRatio.reduce((s, r) => s + r.extR1, 0) / (lowRatio.length || 1);
+
+        // Factor 4: Winner distribution
+        const extWins = allRows.filter(r => r.winner === 'ext').length;
+        const absWins = n - extWins;
+
+        const factors = [
+            {
+                icon: 'file-text', color: 'indigo',
+                title: 'Document Length Impact',
+                detail: `Short docs (<${Math.round(avgLen)} chars, n=${shortDocs.length}): Ext R1=${(shortExtAvg*100).toFixed(1)}%, Abs R1=${(shortAbsAvg*100).toFixed(1)}%<br>
+                         Long docs (≥${Math.round(avgLen)} chars, n=${longDocs.length}): Ext R1=${(longExtAvg*100).toFixed(1)}%, Abs R1=${(longAbsAvg*100).toFixed(1)}%`,
+                insight: longExtAvg > shortExtAvg
+                    ? 'Longer documents tend to produce higher extractive ROUGE scores because more candidate sentences are available.'
+                    : 'Shorter documents tend to have higher extractive ROUGE scores, possibly due to higher sentence density.'
+            },
+            {
+                icon: 'list', color: 'emerald',
+                title: 'Sentence Count Impact',
+                detail: `Few sentences (<${Math.round(avgSent)}, n=${fewSent.length}): Ext R1=${(fewExtAvg*100).toFixed(1)}%<br>
+                         Many sentences (≥${Math.round(avgSent)}, n=${manySent.length}): Ext R1=${(manyExtAvg*100).toFixed(1)}%`,
+                insight: `Documents with ${manyExtAvg > fewExtAvg ? 'more' : 'fewer'} sentences tend to score higher with extractive methods, as ${manyExtAvg > fewExtAvg ? 'more candidates allow better sentence selection' : 'fewer sentences mean higher overlap with compact references'}.`
+            },
+            {
+                icon: 'scaling', color: 'amber',
+                title: 'Compression Ratio Impact',
+                detail: `High ratio (>${(avgRatio*100).toFixed(1)}%, n=${highRatio.length}): Ext R1=${(highRatioExt*100).toFixed(1)}%<br>
+                         Low ratio (≤${(avgRatio*100).toFixed(1)}%, n=${lowRatio.length}): Ext R1=${(lowRatioExt*100).toFixed(1)}%`,
+                insight: `The compression ratio (summary length / text length) affects ROUGE scores. ${highRatioExt > lowRatioExt ? 'Higher' : 'Lower'} ratios correlate with better extractive scores.`
+            },
+            {
+                icon: 'trophy', color: 'rose',
+                title: 'Method Winner Distribution',
+                detail: `Extractive wins: <strong>${extWins}/${n}</strong> documents (${(extWins/n*100).toFixed(1)}%)<br>
+                         Abstractive wins: <strong>${absWins}/${n}</strong> documents (${(absWins/n*100).toFixed(1)}%)`,
+                insight: `${extWins > absWins ? 'Extractive' : 'Abstractive'} method wins on ${Math.max(extWins, absWins)} out of ${n} documents. ${extWins > absWins ? 'Extractive methods tend to perform better for Indonesian academic texts due to selecting informationally dense original sentences.' : 'The abstractive model generates more representative summaries aligned with reference abstracts.'}`
+            }
+        ];
+
+        let html = '';
+        factors.forEach(f => {
+            html += `<div class="border border-${f.color}-200 rounded-xl overflow-hidden">
+                <div class="bg-${f.color}-50 px-4 py-3 border-b border-${f.color}-200 flex items-center gap-2">
+                    <i data-lucide="${f.icon}" class="w-4 h-4 text-${f.color}-600"></i>
+                    <span class="font-semibold text-sm text-${f.color}-800">${f.title}</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-dark-600 mb-2">${f.detail}</p>
+                    <p class="text-xs text-dark-500 bg-dark-50 rounded-lg p-3 border border-dark-100"><strong>Insight:</strong> ${f.insight}</p>
+                </div>
+            </div>`;
+        });
+        document.getElementById('factor-analysis').innerHTML = html;
+    }
+
+    function renderTable() {
+        renderTableRows(allRows);
+    }
+
+    function renderTableRows(rows) {
+        const tbody = document.getElementById('doc-table-body');
+        let html = '';
+        rows.forEach(r => {
+            const wColor = r.winner === 'ext' ? 'emerald' : 'blue';
+            const wLabel = r.winner === 'ext' ? 'Ext' : 'Abs';
+
+            // Generate "why different" reason
+            let reason = '';
+            if (r.diff < 0.02) {
+                reason = 'Similar scores; both methods perform comparably.';
+            } else if (r.winner === 'ext') {
+                if (r.numSentences > 20) reason = 'Many sentences → better extractive selection.';
+                else if (r.textLen > 8000) reason = 'Long text → more candidate sentences for extraction.';
+                else reason = 'Key reference sentences found in original text.';
+            } else {
+                if (r.textLen < 3000) reason = 'Short text → abstractive model captures gist better.';
+                else if (r.ratio > 0.15) reason = 'High compression ratio favors abstractive paraphrasing.';
+                else reason = 'Abstractive model generates closer match to reference style.';
+            }
+
+            html += `<tr class="border-b border-dark-50 hover:bg-dark-50/50">
+                <td class="px-3 py-2 font-mono font-bold text-dark-500">${r.id + 1}</td>
+                <td class="px-3 py-2 text-dark-500 max-w-[200px] truncate" title="${r.textPreview}">${r.textPreview}</td>
+                <td class="px-3 py-2 text-right font-mono text-dark-400">${r.textLen.toLocaleString()}</td>
+                <td class="px-3 py-2 text-right font-mono ${r.winner==='ext'?'font-bold text-emerald-700':'text-dark-500'}">${(r.extR1*100).toFixed(1)}%</td>
+                <td class="px-3 py-2 text-right font-mono text-dark-400">${(r.extR2*100).toFixed(1)}%</td>
+                <td class="px-3 py-2 text-right font-mono text-dark-400">${(r.extRL*100).toFixed(1)}%</td>
+                <td class="px-3 py-2 text-right font-mono ${r.winner==='abs'?'font-bold text-blue-700':'text-dark-500'}">${(r.absR1*100).toFixed(1)}%</td>
+                <td class="px-3 py-2 text-right font-mono text-dark-400">${(r.absR2*100).toFixed(1)}%</td>
+                <td class="px-3 py-2 text-right font-mono text-dark-400">${(r.absRL*100).toFixed(1)}%</td>
+                <td class="px-3 py-2 text-center"><span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-${wColor}-100 text-${wColor}-700">${wLabel}</span></td>
+                <td class="px-3 py-2 text-[11px] text-dark-500 max-w-[220px]">${reason}</td>
+            </tr>`;
+        });
+        document.getElementById('doc-table-body').innerHTML = html;
+        document.getElementById('table-count').textContent = `Showing ${rows.length} of ${allRows.length} documents`;
+    }
+
+    function filterTable() {
+        const q = document.getElementById('table-search').value.toLowerCase();
+        const filtered = allRows.filter(r => {
+            return `doc ${r.id+1}`.includes(q) || r.textPreview.toLowerCase().includes(q) || String(r.id+1).includes(q);
+        });
+        renderTableRows(filtered);
+    }
+
+    function sortTable() {
+        const sortBy = document.getElementById('table-sort').value;
+        let sorted = [...allRows];
+        switch(sortBy) {
+            case 'id': sorted.sort((a,b) => a.id - b.id); break;
+            case 'ext-r1-desc': sorted.sort((a,b) => b.extR1 - a.extR1); break;
+            case 'ext-r1-asc': sorted.sort((a,b) => a.extR1 - b.extR1); break;
+            case 'abs-r1-desc': sorted.sort((a,b) => b.absR1 - a.absR1); break;
+            case 'abs-r1-asc': sorted.sort((a,b) => a.absR1 - b.absR1); break;
+            case 'diff-desc': sorted.sort((a,b) => b.diff - a.diff); break;
+            case 'len-desc': sorted.sort((a,b) => b.textLen - a.textLen); break;
+            case 'len-asc': sorted.sort((a,b) => a.textLen - b.textLen); break;
+        }
+        renderTableRows(sorted);
+    }
+
+    function renderStats() {
+        const n = allRows.length;
+        const extR1s = allRows.map(r => r.extR1);
+        const absR1s = allRows.map(r => r.absR1);
+
+        const mean = arr => arr.reduce((s,v) => s+v, 0) / arr.length;
+        const std = arr => { const m = mean(arr); return Math.sqrt(arr.reduce((s,v) => s + (v-m)**2, 0) / arr.length); };
+        const min = arr => Math.min(...arr);
+        const max = arr => Math.max(...arr);
+        const median = arr => { const s = [...arr].sort((a,b)=>a-b); const mid = Math.floor(s.length/2); return s.length%2 ? s[mid] : (s[mid-1]+s[mid])/2; };
+
+        const extWins = allRows.filter(r => r.winner === 'ext').length;
+        const avgDiff = mean(allRows.map(r => r.diff));
+
+        // Pearson correlation between text length and ROUGE-1
+        const lens = allRows.map(r => r.textLen);
+        const corrExtLen = pearsonCorr(lens, extR1s);
+        const corrAbsLen = pearsonCorr(lens, absR1s);
+
+        const html = `
+        <div class="grid md:grid-cols-2 gap-4">
+            <div class="border border-dark-200 rounded-xl overflow-hidden">
+                <div class="bg-emerald-50 px-4 py-3 border-b border-emerald-200"><span class="font-semibold text-sm text-emerald-800">Extractive Statistics (ROUGE-1 F1)</span></div>
+                <div class="p-4 grid grid-cols-2 gap-3 text-xs">
+                    <div><span class="text-dark-400">Mean:</span> <strong>${(mean(extR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Std Dev:</span> <strong>${(std(extR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Min:</span> <strong>${(min(extR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Max:</span> <strong>${(max(extR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Median:</span> <strong>${(median(extR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Correlation w/ length:</span> <strong>${corrExtLen.toFixed(3)}</strong></div>
+                </div>
+            </div>
+            <div class="border border-dark-200 rounded-xl overflow-hidden">
+                <div class="bg-blue-50 px-4 py-3 border-b border-blue-200"><span class="font-semibold text-sm text-blue-800">Abstractive Statistics (ROUGE-1 F1)</span></div>
+                <div class="p-4 grid grid-cols-2 gap-3 text-xs">
+                    <div><span class="text-dark-400">Mean:</span> <strong>${(mean(absR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Std Dev:</span> <strong>${(std(absR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Min:</span> <strong>${(min(absR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Max:</span> <strong>${(max(absR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Median:</span> <strong>${(median(absR1s)*100).toFixed(2)}%</strong></div>
+                    <div><span class="text-dark-400">Correlation w/ length:</span> <strong>${corrAbsLen.toFixed(3)}</strong></div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-dark-50 border border-dark-200 rounded-xl p-5">
+            <p class="font-semibold text-sm text-dark-800 mb-3">Key Findings</p>
+            <ul class="text-xs text-dark-600 space-y-2 list-disc pl-5">
+                <li>Extractive method wins on <strong>${extWins}/${n}</strong> documents (${(extWins/n*100).toFixed(1)}%), Abstractive wins on <strong>${n-extWins}/${n}</strong> (${((n-extWins)/n*100).toFixed(1)}%).</li>
+                <li>Average ROUGE-1 F1 difference between methods: <strong>${(avgDiff*100).toFixed(2)}%</strong>.</li>
+                <li>Pearson correlation between document length and Extractive ROUGE-1: <strong>r = ${corrExtLen.toFixed(3)}</strong> (${Math.abs(corrExtLen) < 0.3 ? 'weak' : Math.abs(corrExtLen) < 0.6 ? 'moderate' : 'strong'} ${corrExtLen >= 0 ? 'positive' : 'negative'}).</li>
+                <li>Pearson correlation between document length and Abstractive ROUGE-1: <strong>r = ${corrAbsLen.toFixed(3)}</strong> (${Math.abs(corrAbsLen) < 0.3 ? 'weak' : Math.abs(corrAbsLen) < 0.6 ? 'moderate' : 'strong'} ${corrAbsLen >= 0 ? 'positive' : 'negative'}).</li>
+                <li>Extractive ROUGE-1 range: ${(min(extR1s)*100).toFixed(1)}% – ${(max(extR1s)*100).toFixed(1)}% (spread: ${((max(extR1s)-min(extR1s))*100).toFixed(1)}%).</li>
+                <li>Abstractive ROUGE-1 range: ${(min(absR1s)*100).toFixed(1)}% – ${(max(absR1s)*100).toFixed(1)}% (spread: ${((max(absR1s)-min(absR1s))*100).toFixed(1)}%).</li>
+            </ul>
+        </div>`;
+        document.getElementById('stats-summary').innerHTML = html;
+    }
+
+    function pearsonCorr(x, y) {
+        const n = x.length;
+        const mx = x.reduce((s,v)=>s+v,0)/n;
+        const my = y.reduce((s,v)=>s+v,0)/n;
+        let num = 0, dx = 0, dy = 0;
+        for (let i = 0; i < n; i++) {
+            const a = x[i] - mx, b = y[i] - my;
+            num += a * b;
+            dx += a * a;
+            dy += b * b;
+        }
+        const denom = Math.sqrt(dx * dy);
+        return denom === 0 ? 0 : num / denom;
+    }
+
+    // --- CHARTS ---
+    function showChart(type) {
+        ['line','bar','scatter','dist','diff'].forEach(t => {
+            document.getElementById('chart-' + t).classList.toggle('hidden', t !== type);
+            const btn = document.getElementById('chartBtn-' + t);
+            if (t === type) { btn.classList.add('bg-dark-900','text-white'); btn.classList.remove('bg-dark-100','text-dark-600'); }
+            else { btn.classList.remove('bg-dark-900','text-white'); btn.classList.add('bg-dark-100','text-dark-600'); }
+        });
+    }
+
+    function initCharts() {
+        const labels = allRows.map(r => `Doc ${r.id + 1}`);
+        const shortLabels = allRows.map(r => `${r.id + 1}`);
+
+        // 1. Line chart: ROUGE-1 F1 per document
+        chartInstances.line = new Chart(document.getElementById('chart-line'), {
+            type: 'line',
+            data: {
+                labels: shortLabels,
+                datasets: [
+                    { label: 'Extractive ROUGE-1 F1', data: allRows.map(r => (r.extR1*100).toFixed(2)), borderColor: '#10b981', backgroundColor: '#10b98133', tension: 0.3, pointRadius: 2, borderWidth: 2 },
+                    { label: 'Abstractive ROUGE-1 F1', data: allRows.map(r => (r.absR1*100).toFixed(2)), borderColor: '#3b82f6', backgroundColor: '#3b82f633', tension: 0.3, pointRadius: 2, borderWidth: 2 }
+                ]
+            },
+            options: { responsive: true, plugins: { title: { display: true, text: 'ROUGE-1 F1 Score per Document' } }, scales: { y: { title: { display: true, text: 'F1 Score (%)' } }, x: { title: { display: true, text: 'Document #' } } } }
+        });
+
+        // 2. Grouped bar: All ROUGE metrics average
+        const metrics = ['rouge1','rouge2','rougeL'];
+        const mLabels = ['ROUGE-1','ROUGE-2','ROUGE-L'];
+        const ext = evalData.extractive_scores || {};
+        const abs = evalData.abstractive_scores || {};
+        chartInstances.bar = new Chart(document.getElementById('chart-bar'), {
+            type: 'bar',
+            data: {
+                labels: mLabels,
+                datasets: [
+                    { label: 'Extractive (Precision)', data: metrics.map(m => ((ext[m]?.p||0)*100).toFixed(2)), backgroundColor: '#6ee7b7' },
+                    { label: 'Extractive (Recall)', data: metrics.map(m => ((ext[m]?.r||0)*100).toFixed(2)), backgroundColor: '#34d399' },
+                    { label: 'Extractive (F1)', data: metrics.map(m => ((ext[m]?.f||0)*100).toFixed(2)), backgroundColor: '#10b981' },
+                    { label: 'Abstractive (Precision)', data: metrics.map(m => ((abs[m]?.p||0)*100).toFixed(2)), backgroundColor: '#93c5fd' },
+                    { label: 'Abstractive (Recall)', data: metrics.map(m => ((abs[m]?.r||0)*100).toFixed(2)), backgroundColor: '#60a5fa' },
+                    { label: 'Abstractive (F1)', data: metrics.map(m => ((abs[m]?.f||0)*100).toFixed(2)), backgroundColor: '#3b82f6' },
+                ]
+            },
+            options: { responsive: true, plugins: { title: { display: true, text: 'ROUGE Metrics: Precision, Recall, F1 (Aggregate)' } }, scales: { y: { title: { display: true, text: 'Score (%)' } } } }
+        });
+
+        // 3. Scatter: Text length vs ROUGE-1
+        chartInstances.scatter = new Chart(document.getElementById('chart-scatter'), {
+            type: 'scatter',
+            data: {
+                datasets: [
+                    { label: 'Extractive', data: allRows.map(r => ({ x: r.textLen, y: (r.extR1*100) })), backgroundColor: '#10b98188', borderColor: '#10b981', pointRadius: 4 },
+                    { label: 'Abstractive', data: allRows.map(r => ({ x: r.textLen, y: (r.absR1*100) })), backgroundColor: '#3b82f688', borderColor: '#3b82f6', pointRadius: 4 }
+                ]
+            },
+            options: { responsive: true, plugins: { title: { display: true, text: 'Document Length vs ROUGE-1 F1 Score' } }, scales: { x: { title: { display: true, text: 'Document Length (chars)' } }, y: { title: { display: true, text: 'ROUGE-1 F1 (%)' } } } }
+        });
+
+        // 4. Histogram: Score distribution
+        const bins = [0,5,10,15,20,25,30,35,40,45,50,55,60,65,70,75,80,85,90,95,100];
+        const binLabels = bins.slice(0,-1).map((b,i) => `${b}-${bins[i+1]}%`);
+        const extBins = new Array(bins.length-1).fill(0);
+        const absBins = new Array(bins.length-1).fill(0);
+        allRows.forEach(r => {
+            const eIdx = Math.min(Math.floor(r.extR1*100/5), bins.length-2);
+            const aIdx = Math.min(Math.floor(r.absR1*100/5), bins.length-2);
+            extBins[eIdx]++;
+            absBins[aIdx]++;
+        });
+        chartInstances.dist = new Chart(document.getElementById('chart-dist'), {
+            type: 'bar',
+            data: {
+                labels: binLabels,
+                datasets: [
+                    { label: 'Extractive ROUGE-1 F1', data: extBins, backgroundColor: '#10b98188', borderColor: '#10b981', borderWidth: 1 },
+                    { label: 'Abstractive ROUGE-1 F1', data: absBins, backgroundColor: '#3b82f688', borderColor: '#3b82f6', borderWidth: 1 }
+                ]
+            },
+            options: { responsive: true, plugins: { title: { display: true, text: 'ROUGE-1 F1 Score Distribution' } }, scales: { y: { title: { display: true, text: 'Number of Documents' } }, x: { title: { display: true, text: 'Score Range' } } } }
+        });
+
+        // 5. Difference chart: Ext - Abs per document
+        chartInstances.diff = new Chart(document.getElementById('chart-diff'), {
+            type: 'bar',
+            data: {
+                labels: shortLabels,
+                datasets: [{
+                    label: 'Ext − Abs (ROUGE-1 F1 difference)',
+                    data: allRows.map(r => ((r.extR1 - r.absR1)*100).toFixed(2)),
+                    backgroundColor: allRows.map(r => r.extR1 >= r.absR1 ? '#10b98188' : '#3b82f688'),
+                    borderColor: allRows.map(r => r.extR1 >= r.absR1 ? '#10b981' : '#3b82f6'),
+                    borderWidth: 1
+                }]
+            },
+            options: { responsive: true, plugins: { title: { display: true, text: 'Extractive minus Abstractive ROUGE-1 F1 (green = Ext wins, blue = Abs wins)' } }, scales: { y: { title: { display: true, text: 'Difference (%)' } }, x: { title: { display: true, text: 'Document #' } } } }
+        });
+    }
+
+    // Scroll indicator
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        document.getElementById('scroll-indicator').style.width = (h > 0 ? (window.scrollY / h * 100) : 0) + '%';
+    });
+
+    // Init
+    loadData();
+    </script>
+</body>
+</html>

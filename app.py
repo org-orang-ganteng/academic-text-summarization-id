@@ -158,6 +158,33 @@ def index():
     return render_template("index.html")
 
 
+@app.route("/analysis")
+def analysis():
+    """Serve the analysis dashboard page."""
+    return render_template("analysis.html")
+
+
+@app.route("/api/analysis-data")
+def analysis_data():
+    """Serve pre-computed JSON data for the analysis dashboard."""
+    data_type = request.args.get("type", "evaluate")
+    filename_map = {
+        "evaluate": "evaluate.json",
+        "dataset": "dataset.json",
+        "summarize": "summarize.json",
+    }
+    filename = filename_map.get(data_type)
+    if not filename:
+        return jsonify({"error": "Invalid type"}), 400
+
+    filepath = os.path.join(PRECOMPUTED_DIR, filename)
+    if not os.path.exists(filepath):
+        return jsonify({"error": f"{filename} not found. Run precompute.py first."}), 404
+
+    with open(filepath, "r", encoding="utf-8") as f:
+        return f.read(), 200, {"Content-Type": "application/json"}
+
+
 @app.route("/detail/<step>")
 def detail(step):
     """Serve the detail page for a specific pipeline step."""
@@ -539,6 +566,7 @@ def evaluate():
         references = data.get("references", [])
         extractive_preds = data.get("extractive_preds")
         abstractive_preds = data.get("abstractive_preds")
+        llm_preds = data.get("llm_preds")
 
         if not references:
             return jsonify({"error": "No reference summaries provided"}), 400
@@ -594,13 +622,39 @@ def evaluate():
                     for m in config.ROUGE_METRICS
                 }
 
+            if llm_preds and i < len(llm_preds) and llm_preds[i]:
+                doc["llm_preview"] = llm_preds[i][:150]
+                sc = evaluator.scorer.score(references[i], llm_preds[i])
+                doc["llm"] = {
+                    m: {
+                        "p": round(sc[m].precision, 4),
+                        "r": round(sc[m].recall, 4),
+                        "f": round(sc[m].fmeasure, 4),
+                    }
+                    for m in config.ROUGE_METRICS
+                }
+
             per_document.append(doc)
 
         result["per_document"] = per_document
 
+        # Compute LLM aggregate ROUGE if provided
+        llm_scores = None
+        if llm_preds:
+            valid_pairs = [
+                (ref, pred)
+                for ref, pred in zip(references, llm_preds)
+                if pred
+            ]
+            if valid_pairs:
+                valid_refs, valid_preds = zip(*valid_pairs)
+                llm_scores = evaluator.compute_rouge(list(valid_preds), list(valid_refs))
+                result["llm_scores"] = llm_scores
+
         # Determine best method
         ext_avg = None
         abs_avg = None
+        llm_avg = None
         if extractive_preds and ext_scores:
             ext_avg = sum(
                 ext_scores[m]["fmeasure"] for m in config.ROUGE_METRICS
@@ -611,6 +665,11 @@ def evaluate():
                 abs_scores[m]["fmeasure"] for m in config.ROUGE_METRICS
             ) / len(config.ROUGE_METRICS)
             result["abstractive_avg_f1"] = round(abs_avg, 4)
+        if llm_preds and llm_scores:
+            llm_avg = sum(
+                llm_scores[m]["fmeasure"] for m in config.ROUGE_METRICS
+            ) / len(config.ROUGE_METRICS)
+            result["llm_avg_f1"] = round(llm_avg, 4)
 
         # Find best among available methods
         methods = {}
@@ -618,6 +677,8 @@ def evaluate():
             methods["Extractive"] = ext_avg
         if abs_avg is not None:
             methods["Abstractive"] = abs_avg
+        if llm_avg is not None:
+            methods["LLM"] = llm_avg
         if methods:
             result["best_method"] = max(methods, key=methods.get)
 

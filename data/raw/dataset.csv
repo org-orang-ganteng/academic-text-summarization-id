@@ -60001,3 +60001,827 @@ Analisis kepuasan pengguna akhir aplikasi MyPertamina di PT
 Pertamina, bisa menggunakan metode dan wilayah yang 
 berbeda, agar dapat dijadikan sebagai bahan perbandingan 
 antar penelitian lainnya.",
+"Analisis_Kepuasan_Pengguna Layanan Aplikasi 
+MyPertamina_Berbasis Mobile Dengan Metode_EUCS  
+(End User_Satisfaction with Computing) 
+Siti Nurhalizatus Safa’ah, Aries Dwi Indiryanti 
+1,3 Sistem Informasi, Fakultas Teknik, Universitas Negeri Surabaya 
+ 
+ 
+ 
+Abstrak— MyPertamina adalah aplikasi resmi PT Pertamina 
+yang diluncurkan untuk memenuhi kebutuhan pembeli BBM dan 
+gas. Tujuanapenelitian ini ialah untuk mengetahui pengaruh 
+kepuasan penggunaaterhadap variabelabentuk, akurasi, format, 
+kemudahan penggunaan,aadan ketepatan waktu terhadap 
+serta 
+dapat 
+memberikan rekomendasi yang tepat kepada instansi terkait. 
+Metode yang digunakan ialah End User Computing Satisfaction 
+(EUCS) yang terdiri dari lima variabel yaitu: konten, akurasi, 
+tampilan, kemudahan penggunaan, dan ketepatan waktu. 
+Pengumpulanadata dilakukan denganamenyebarkan kuesioner 
+kepada masyarakat di Surabaya dan sekitarnya. Metode 
+pengolahan dataayakni dengan uji validitas, ujiareliabilitas, dan 
+uji hipotesisayang diolah dengan software SPSS 26. Pada hasil 
+pengujian hipotesis terdapat 4avariabel yang berpengaruh yaitu 
+akurasi, tampilan, kemudahan penggunaan, dan ketepatan 
+waktu, serta terdapat 1 variabel yang tidak berpengaruh yaitu 
+variable isi. Variabel tampilan merupakan variabel yang harus 
+dipertahankan dan diperbaiki karena memiliki nilai t sebesar -
+2,074 yang termasuk dalam kategori negatif. Ada beberapa 
+keterbatasan penelitian ini dan penelitian lebih lanjut diperlukan 
+secara 
+akurat 
+menggambarkan 
+pengguna. 
+ 
+Kata Kunci— MyPertamina, EUCS, SPSS, Kepuasan, Pengguna 
+I. PENDAHULUAN 
+Transaksi non tunai adalah kegiatan pembayaran yang 
+mengacu pada mekanisme transaksi tanpa menggunakan uang 
+dalam bentuk fisik.  Pengembangan metode non tunai diawali 
+dengan adanya rasa tidak praktis dari masyarakat yang 
+melakukan transaksi yang cukup besar. Tak hanya itu, 
+maraknya pencurian, perampokan, dan pemalsuan membuat 
+masyarakat enggan membawa uang tunai dalam jumlah banyak. 
+Transaksi non tunai mulai berjalan di tahun 1990-an. Bank 
+Indonesia menerbitkan pembayaran secara non tunai yang 
+dianggap lebih terlindungi, efektif dan efisien dibandingkan 
+dengan transaksi tunai [1].Pada tahun 2022, Bank Indonesia 
+mencatat terdapat 21 juta konsumen baru yang bertransaksi 
+digital, dan  72% konsumen baru asal asal daerah pedesaan 
+serta di pelosok perkampungan pada Indonesia.diztanggalz 
+Agustusz2019, BankzIndonesiazmeluncurkanzQRIS (Quick 
+Response Code Indonesia Standart) menjadi QR Code nasional 
+agar proses transaksi pembayaran secara domestik bisa lebih 
+simpel, cepat, serta terjaga keamanannya. 
+Bahan Bakar Minyak (BBM) merupakan kebutuhan sehari 
+hari sebagai bahan bakar untuk berkendara. Berbagai merk 
+bahan bakar yang terdapat di Indonesia, contohnya seperti Shell 
+dan Pertamina. Dua merk tersebut merupakan bahan bakar 
+terbanyak yang digunakan oleh masyarakat Indonesia. Menurut 
+survei dari lembaga Indikator Politik Indonesia (IPI), mayoritas 
+di  Indonesia menggunakan bahan bakar minyak (BBM) jenis 
+Pertalite 
+persentase 
+90,4%.Shell 
+merupakan 
+perusahaan minyak gas asing yang ada di Indonesia yang 
+kurang mendapat kepercayaan dari masyarakat karena produk 
+PT Pertamina menjadi produk utama konsumsi masyarakat, 
+Shell juga meluncurkan aplikasi yakni Shell Asia sebagai alat 
+transaksi digital. Terlihat rating dan ulasan aplikasi Shell Asia 
+ialah 4,2 menurut Google Play Store dengan penggunaan 
+19ribu orang. Aplikasi ini dirilis pada tahun 2019 dan mendapat 
+ulasan yang positif dari Masyarakat Indonesia.Aplikasi 
+MyPertamina memberikan fasilitas yang cukup baik, namun 
+masih terdapat kendala yang dirasakan masyarakat seperti, 
+aplikasi sulit dibuka, sistem pendaftaran yang sering error, data 
+yang sudah didaftarkan hilang secara tiba-tiba, proses 
+pembayaran memakan waktu yang cukup lama, sehingga 
+konsumen sering di alihkan ke operator lain [2] 
+Aplikasi MyPertamina memberikan fasilitas yang cukup 
+baik, namun masih terdapat kendala yang dirasakan masyarakat 
+seperti, aplikasi sulit dibuka, sistem pendaftaran yang error, 
+data diri yang sudah didaftarkan hilang, proses pembayaran 
+membutuhkan waktu yang lama, sehingga konsumen sering di 
+alihkan ke operator lain .Menurut rating dan ulasan di Google 
+Play Store, aplikasi MyPertamina mendapat rating 2,9 dimana 
+aplikasi ini sudah dirilis dari tahun 2017. Hingga saat ini, PT 
+Pertamina belum bisa memenuhi harapan dari pemenuhan 
+kualitas layanan yang diinginkan oleh pengguna. Pemerintah 
+telah memberikan arahan ke beberapa wilayah untuk 
+mewajibkan pembelian menggunakan aplikasi. Jawa Timur 
+menjadi daerah yang menjadi prioritas utama dalam uji coba 
+aplikasi ini. Oleh karena itu, Surabaya dan sekitar adalah 
+wilayah yang sesuai untuk menjadi objek lapangan dalam 
+penelitian ini.  
+Aplikasi MyPertamina adalah aplikasi yang dirancang untuk 
+membantu konsumen dalam transaksi dan memperoleh poin 
+sebagai reward dalam setiap transaksi, maka mengukur kualitas 
+layanan merupakan skema yang bisazdilakukan untuk menguji
+
+ 
+ 
+ 
+pengguna, 
+serta 
+memperbaiki 
+dan 
+meningkatkan kualitas layanan demi mempertahankan bisnis 
+jangka panjang [3]. Olehakarena itu, penulis mengangkat 
+persoalan ini dalam bentuk skripsiayang berjudul “Analisis 
+Kepuasan PenggunaaLayanan Aplikasi MyPertamina  Berbasis 
+Mobile Dengan Metode EUCS (End User Computing 
+Satisfaction)”. 
+ 
+Gambar 1. Model Konseptual 
+II. METODE PENELITIAN 
+Metode Kuantitatif menjadi metode yang digunakan dalam 
+penelitian dengan olah data berupa angka untuk menjawab 
+rumusan 
+masalah. 
+Penelitian 
+ini 
+dilakukan 
+menggunakan penilaian kondisi terhadap sebuah objek 
+penelitian berdasarkan persepsi pengguna [4].  
+A. Identifikasi Variabel 
+Tahapan awal dari penelitian ini adalah Identifikasi masalah 
+mengenai topik yang diangkat penulis meliputi kualitas layanan 
+aplikasi MyPertamina. Analisis kepuasan pengguna dengan 
+objek aplikasi MyPertamina menggunakan dua variabel dalam 
+penelitian, yakni: 
+1) Variabel bebasaa: Variabelayangamemepengaruhi 
+terbentuknya variabel terikat. aVariabelabebas 
+diantaranya adalah content, accuracy, format, ease 
+of use, dan timeliness 
+2) Variabel terikat__:aVariabel yang dipengaruhi 
+karenaaadanyaavariabel bebas. _Variabel terikat 
+dalamapenelitian ini adalah kepuasan_pengguna 
+(Satisfaction) __ 
+B. Instrumen Penelitian 
+1) Isi (Content) 
+Variabel isi yaitu mengukur kepuasan dari segi isi 
+suatu sistem, apakah sudah sesuai atau ada kebutuhan 
+pengguna yang masih belum sesuai. Tabel I 
+merupakan indikator dari variabel content : 
+TABEL I 
+INDIKATOR ISI (CONTENT) 
+Content 
+(X1) 
+C 
+mudah 
+dipahami 
+C 
+MyPertamina sudah lengkap. 
+C 
+MyPertamina sesuai dan jelas 
+dengan kebutuhan informasi 
+pengguna. 
+ 
+2) Keakuratan (Accuracy) 
+Pada penelitian ini, variable akurasi digunakan untuk 
+mengukur 
+keakuratan 
+data 
+atau 
+sistem 
+diinputkan oleh pengguna dan melihat seberapa 
+banyak kesalahan yang terjadi selama pemrosesan. 
+Tabel II merupakan indikasi variabel akurasi: 
+TABEL II 
+INDIKATOR KEAKURATAN (ACCURACY) 
+Accuracy 
+(X2) 
+A 
+dihasilkan 
+benar 
+dan 
+akurat 
+- Identitas pengguna berupa 
+nama, 
+NIK, 
+Nopol, 
+dll 
+merupakan data yang benar 
+dan sesuai 
+A 
+memberikan output 
+sesuai 
+yang diperintahkan 
+A 
+Aplikasi MyPertamina jarang 
+terjadi error atau bug 
+A 
+Dari 
+awal 
+hingga 
+akhir, 
+Aplikasi MyPertamina dapat 
+digunakan dengan baik 
+ 
+3) Bentuk (Format) 
+Variabel format dalam penelitian ini sebagai alat ukur 
+dalam mengukur kemampuan pengguna terhadap 
+tampilan dari aplikasi MyPertamina. Tabel III 
+merupakan indikator dari variabel format : 
+TABEL III 
+INDIKATOR BENTUK (FORMAT) 
+Format 
+(X3) 
+F 
+Desain 
+tampilan 
+memiliki 
+layout 
+yangamemudahkan 
+F 
+Desain 
+tampilan 
+MyPertamina menarik bagi 
+
+ 
+ 
+ 
+F 
+Penggunaan font jelas dan 
+nyaman 
+bagi 
+Aplikasi MyPertamina 
+F 
+Desainaaaaaaaaaaaplikasi 
+menampilkan 
+menu yang mudah dipahami 
+ 
+4) KemudahanaPenggunaaa(Ease Of Use) __ 
+Variabel Ease Of Use dalam penelitian ini guna 
+mengukur__kepuasan 
+padaaasaat 
+menggunakanaasistem. 
+Tabel 
+IV 
+merupakan 
+indikatoravariabel  Ease Of Use: 
+TABEL IV 
+INDIKATOR KEMUDAHAN PENGGUNA (EASE OF USE) 
+Ease Of 
+Use(X4) 
+E 
+Aplikasi My Pertamina mudah 
+diakses dimana dan kapan saja 
+E 
+nyaman dan mudah digunakan 
+E 
+Pengguna dapat menggunakan 
+aplikasi tanpa bantuan orang 
+lain  
+ 
+5) KetepatanaWaktu (Timeliness) 
+Variabel Timeliness berfungsi untukaamenghitung 
+ketepatanawaktuadariasistem dalam menyajikan data 
+serta informasi kepada pengguna. Tabel V merupakan 
+indikatoradari variabel  Timeliness: 
+TABEL V 
+INDIKATOR KETEPATAN WAKTU (TIMELINESS) 
+Indikatora 
+Timelinessaa 
+(X5) 
+T 
+Aplikasi My Pertamina 
+memberikan informasi up 
+to date 
+T 
+dibutuhkan oleh pengguna 
+dengan cepat diperoleh 
+tanpa menunggu waktu 
+lama 
+ 
+6) Kepuasan Pengguna (Satisfaction) 
+Satisfaction merupakan Variabel dependen  yang 
+artinya bagaikan_pandangan yang muncul setelah 
+menggunakan aplikasi__MyPertamina. Tabel VI 
+merupakan indikator dari variabel  Satisfaction: 
+TABEL VI 
+INDIKATOR KEPUASAN PENGGUNA (SATISFACTION) 
+Satisfaction 
+(Y) 
+Y 
+Penggunaan 
+sebagai 
+layanan keuangan digital 
+lebih efektif dan efisien.  
+Y 
+Pengguna merasa puas atas 
+layanan 
+ 
+Y 
+sudah memberikan layanan 
+yang memuaskan 
+ 
+C. Perumusan Hipotesis 
+Berdasarkan model penelitian yang telah dibuat, peneliti 
+merumuskan 
+hipotesis 
+akan 
+diuji 
+kebenarannya.Sehingga rumusan hipotesis yang dibuat yaitu: 
+H 
+:VariabelaContent (X1) berpengaruhaterhadap tingkat    
+kepuasanapenggunaaa(Y) aplikasi MyPertaminaa 
+H 
+:VariabelXAccuracy (X2) berpengaruhaaterhadap 
+ 
+ 
+(Y) 
+H 
+:VariabelXFormat 
+(X3) 
+_berpengaruhaaterhadap 
+ 
+ 
+(Y) 
+H 
+:VariabelaEase Of Use (X4) berpengaruhaaterhadap 
+ 
+ 
+(Y) 
+H 
+:VariabelaTimelinessaa (X5) berpengaruhaaterhadap 
+ 
+ 
+(Y)Xaplikasi 
+D. PopulasiadanaSampela 
+MenurutaSugiyono, apopulasi adalah generalisasi dari hal-
+hal dengan jumlah dan karakteristik tertentuauntukadipelajari 
+dan kemudianaditarik kesimpulannya. Populasi yang akan 
+digunakan adalah pengguna aplikasi MyPertamina di kota 
+Surabaya. Ukuranapopulasi tidak diketahui danatidak dapat 
+ditentukan,asehinggaadigunakanarumus Lameshow [5] untuk 
+menentukanajumlahasampel, mirip denganapersamaan: 
+𝑛= 𝑧2𝑃(1 −𝑃)
+𝐷2
+ 
+𝑛= (1,96)2 (0,5)(1 −0,5)
+(0,10)2
+ 
+𝑛= (3,8416)(0,25)
+0,012
+ 
+𝑛= 96,04 
+Keterangan : 
+n 
+: JumlahaSampelaa 
+Z 
+: DerajataKepercayaan = 1,96aa 
+P 
+: Maksimal estimasi = 0,5 
+Berdasarkan tujuan penelitian, kriteria responden yang 
+dibutuhkan: 
+1) 
+Domisili Surabaya dan sekitarnya 
+2) 
+Berusia 17 tahun keatas 
+3) 
+Pernah menggunakanaaplikasi MyPertamina minimal 
+satu kali
+
+ 
+ 
+ 
+E. Teknik Pengumpulan Data 
+Proses 
+pengambilanadataadilakukan 
+metode 
+wawancaraadanakuesioner. 
+Metode 
+wawancara 
+akan 
+dilakukan dengan mencari informan yang sesuai dengan bidang 
+dan butir pertanyaannya. Butir pertanyaan berasal dari 
+penelitian terdahulu maupun sumber yang akurat dan sesuai, 
+sehingga informasi yang dihasilkan terjamin kualitasnya. 
+Data primer digunakan sebagai teknik pengumpulan data. 
+Data primer adalah cara penelitiamendapatkan data responden 
+sesuai 
+kriteria 
+telahaaditentukan. 
+Penelitiamelakukanapenyebaran kuesioner secara online 
+keseluruhan masyarakat Surabaya dan sekitar dengan minimal 
+responden sebanyak 100 orang dengan memanfaatkan Google 
+Form, sehingga memudahkan bagi peneliti dalam memproses 
+data yang telah diberikan oleh responden terhadap aplikasi 
+MyPertamina. 
+Skala pengukuranayang digunakan dalam penelitian ini 
+adalah skala Likert. Skala_likertaaadalahaskala pengukuran 
+yangadikembangkan oleh Likert (1932). aSkala Likert 
+digunakan dalam mengukur sikap, pengetahuan, adan perilaku 
+seseorangamengenai suatu objek [6]. aa 
+TABEL VII 
+KRITERIA PENILAIAN 
+KriteriaaPenilaian 
+Skor 
+SangataSetuju (SS) __ 
+x5aa 
+aSetuju (S) __ 
+X4aa 
+xCukup Setuju (CS) __ 
+X 3aa 
+TTidak Setuju (TS) __ 
+X 2aa 
+ZSangataTidakpSetuju (STS) __ 
+X 1aa 
+ 
+F. Teknik Analisa Data 
+Proses Analisa data  merupkan proses pengolahan data dengan 
+tujuan memperoleh jawaban penelitian. Teknik analisis data 
+yang digunakan ialah Uji X Validitas, Uji Reliabilitas, Analisis 
+Statistik_Deskriptif, Uji Asumsi Klasik dan Uji Regresi Linear 
+Berganda. Proses pengolahan data_dilakukan dengan tools 
+SPSS Versi 26 [7] 
+III. HASIL DAN PEMBAHASAN 
+A. Karakteristik Responden 
+1) Karakteristik Responden Berdasarkan Usia 
+TABEL VIII 
+USIA RESPONDEN 
+No 
+Usia 
+17-25 tahun X 
+68% 
+26-35 tahun X 
+12% 
+36-45 tahun X 
+14% 
+>45 tahun X 
+6% 
+Pada tabel 8 menunjukkan bahwa responden 68%nya 
+adalah pada usia 17-25 tahun atau sebanyak 68 orang, 
+lalu pada usia 26-35 tahun sebanyak 12 orang atau 12%, 
+sedangkan sebanyak 14% adalah pada usia 36-45 tahun 
+dengan persentase 14%, dan yang terakhir adalah usia 
+diatas 45 tahun sebanyak 6% atau 6 orang. 
+2) Karakteristik Responden Berdasarkan Kelamin 
+TABEL IX 
+GENDER RESPONDEN 
+No 
+Gender 
+Perempuan 
+63% 
+Laki-Laki 
+37% 
+Total 
+100% 
+Pada tabel 9 menjelaskan bahwa responden perempuan 
+sebanyak 63 orang atau 63% dan responden laki laki 
+sebanyak 37 orang atau 37%. 
+3) Karakteristik Responden Berdasarkan Wilayah 
+TABEL X 
+WILAYAH RESPONDEN 
+Pada tabel 10 menjelaskan bahwa responden yang 
+berasal dari Surabaya sebanyak 55 orang atau 55%, 
+Sidoarjo 24 orang atau 24% dan Gresik sebanyak 21 
+orang atau 21%. 
+B. Teknik Pengujian Instrumen 
+1) Uji Validitas 
+Melakukan perbandingan antara nilai rhitung dan rtabel 
+ialah hal yang dilakukan pada uji validitas. Item 
+kuesioner dinyatakan valid jika rhitung memiliki nilai 
+lebih dari rtabel . Dari total 100 Responden, dengan level 
+signifikasi sebesar 0.05 atau dengan persentase 5% 
+maka diperoleh nilai rtabel sebesar 0,3388 
+TABEL XI 
+HASIL UJI VALIDITAS INSTRUMEN 
+Atribut 
+rtabel 
+rhitung 
+Keterangan 
+C 
+0.918 
+Valid 
+C 
+0.902 
+C 
+0.874 
+A 
+0.780 
+A 
+0.917 
+A 
+0.827 
+A 
+0,932 
+F 
+0.880 
+F 
+0.921 
+F 
+0.876 
+No 
+Domisili 
+Surabaya 
+55% 
+Sidoarjo 
+24% 
+Gresik 
+21% 
+Total 
+100%
+
+ 
+ 
+ 
+F 
+0,959 
+E 
+0.833 
+E 
+0.866 
+E 
+0.877 
+T 
+0.909 
+T 
+0.861 
+Y 
+0.919 
+Y 
+0.956 
+Y 
+0.940 
+ 
+2) Uji Reliabilitas 
+Uji reliabilitas X digunakan untuk menentukan apakah 
+hasil uji konsisten bila digunakan berkali-kali pada 
+subjek yang sama.Pengujian instrumen dilakukan untuk 
+mengetahui nilai koefisien alfa atau Cronbach’s Alpha. 
+Dapat dikatakan reliabel apabila Cronbach’s Alpha >0,6 
+[8]. Berikut_hasil uji reliabilitas dengan menggunakan 
+SPSS 26: 
+TABEL XII 
+HASIL UJI RELIABILITAS INSTRUMEN 
+Alpha 
+Cronbach’s 
+Keterangan 
+Isi 
+0,879 
+Reliabel 
+0,884 
+0,929 
+Kemudahan 
+Pengguna 
+0,818 
+0,719 
+Kepuasan Pengguna 
+0,926 
+ 
+3) Uji Normalitas 
+Uji normalitas ialahzbagianzdarizuji asumsizklasik. 
+Ujiznormalitaszberguna 
+mengetahui 
+nilai 
+residualzzzberdistribusizzzznormal__atau 
+tidak. 
+Nilaizzresidual berdistribusi_normal ialah bentuk dari 
+model regresi yang baik.  
+a) 
+JikaznilaizSignifikansi >_0,05, maka nilai 
+residualzberdistribusiznormal 
+b) 
+Jika nilai Signifikansi_< 0,05, maka nilai 
+residual tidak berdistribusi normal 
+Berdasarkan hasil uji data, diketahui nilai_siginifikansi 
+0,086 > 0,05, _maka dapat disimpulkan bahwa nilai 
+residual berdistribusi normal. 
+4) Uji Multikolinearitas 
+Pengujian 
+Regresi 
+Multikolinearitas 
+Pengujian 
+hipotesis 
+digunakan 
+mengetahui 
+kuatnya 
+hubungan antar variabel dalam analisis regresi. Salah 
+satu cara yang paling akurat mendekati ada atau 
+tidaknya gejala multikolinearitas ini adalah dengan 
+menggunakan metode Tolerance dan VIF (Variance 
+Inflation Factor). 
+a) 
+Jika_nilai Tolerance  >0,10 maka artinya 
+tidak terjadi Multikolinearitas 
+b) 
+Jika nilai_VIF <10,00 maka artinya tidak 
+terjadi Multikolinearitas 
+TABEL XIII 
+HASIL UJI MULTIKOLINEARITAS 
+Tolerance 
+VIF 
+Isi 
+0,444 
+2,254 
+0,288 
+3,467 
+0,502 
+1,993 
+Kemudahan 
+Pengguna 
+0,327 
+3,062 
+0,323 
+3,099 
+Berdasarkan tabel 13, diketahui nilai tolerance masing 
+masing variabel  > 0,10 dan_nilai VIF <10,00. Maka 
+dapat 
+disimpulkan 
+bahwa 
+tidak 
+terjadi_Multikolinearitas.  
+ 
+5) Uji Heterokedastisitas 
+Uji Heterokedastisitas berguna untuk memeriksa 
+apakah suatu model regresi memiliki ketimpangan 
+varians dari satu pengamatan_ke pengamatan yang lain 
+[9]  
+a) Jikaznilaizsignifikansiz>_0,05 artinya tidak 
+terjadi Heterokedastisitas 
+b) Jikaznilaizsignifikansi < 0,05_artinya terjadi 
+Heterokedastisitas 
+ 
+Gambar 2 Hasil Uji Heterokedastisitas 
+Berdasarkan Gambar 2, nilaizsignifikansizdarimasing 
+zmasingzvariabel diperoleh >z,05 yang artinya tidak 
+terjadizheterokedastisitas. 
+6) UjizAutokorelasizzz 
+UjizAutokorelasizberguna untuk menguji model 
+regresi linier apakah terdapatzhubungan antar kesalahan 
+pengganggu padazperiode tzdengan kesalahan pada 
+periode tl (sebelumnya).  
+a) Jika d < dl, zMaka terdapat autokorelasi
+
+ 
+ 
+ 
+b) Jika duz< d < 4-du, maka Tidak Terjadi 
+Autokorelasi 
+c) Jika dlz< d < du atau 4-duz<zd < 4-dl, maka 
+Tidak ada Kesimpulanzz 
+ 
+Gambar 3 Hasil Uji Autokorelasi 
+TABEL XIV 
+HASIL UJI AUTOKORELASI 
+d 
+dl 
+du 
+4-dl 
+4-du 
+2,340 
+1,441 
+1,647 
+2,559 
+2,353 
+Karena  = du < d <4-du 
+ 
+= 1,647 < 2,340 <2,353  
+Berdasarkan tabel 14, dapat disimpulkan_bahwa 
+Tidak_Terjadi_Autokorelasi 
+ 
+C. ANALISIS REGRESI LINIER BERGANDA 
+1) Uji Tzz 
+Uji 
+Tzbertujuan 
+untukzmelihat_zsignifikansizatau 
+pengaruh_variabel bebas secara individu terhadap 
+variabel terikat berdasarkan signifikansi dan nilai hitung 
+dan 
+tabel. 
+Menurut 
+Iman__Ghozali, 
+jikaznilai 
+Signifikan 
+<0,05zzartinyazvariabelzbebas 
+(X) 
+secarazpasrial 
+berpengaruhzterhadapzvariabel 
+terikatz(Y).  
+TABEL XV 
+HASIL UJI AUTOKORELASI 
+t 
+Sig 
+Isi 
+1,705 
+0,092 
+4,101 
+<0,001 
+-
+2,074 
+0,041 
+Kemudahan Pengguna 
+2,110 
+0,038 
+3,484 
+<0,001 
+ 
+Berdasarkanmtabelm,diketahuimnilai dariamasing 
+masingmvariabelabebasa(X)mterhadapavariabelateri
+kat (Y) sebagaimberikut : 
+a) VariabelaContenta(X1) terhadapavariabelakepuasan 
+penggunaa(Y)  
+Gambar 7 menunjukkan, nilaiasignifikansiadari 
+variabelacontenta(X1) yaitu 0,092 > 0,05. Dapat 
+dilihat nilai thitung < ttabel (1,705 < 1,98447). 
+Disimpulkan bahwa  variabelaContent  Tidak 
+Berpengaruhadan tidakasignifikan terhadap variabel 
+kepuasanapengguna (Y) 
+b) VariabelaAccuracya(X2)Zterhadapavariabelakepuasa
+n penggunaa(Y) 
+Gambar 24 menunjukkan, nilai signifikansiadari 
+variabelaAccuracy (X2) yaitu 0,001 <a,05. Dapat 
+dilihat nilai thitung > ttabel (4,101 > 1,98447). 
+Disimpulkan bahwaavariabel AccuracyaBerpengaruh 
+Positifadan signifikanaterhadap variabel kepuasan 
+pengguna (Y) 
+c) VariabelaFormat_______(X3) 
+terhadapavariabel 
+kepuasanapengguna (Y) 
+GambarZ menunjukkan, nilai signifikansiXdari 
+variabel Format (X3) yaitu 0,041< 0,05. Dapat dilihat 
+nilai thitung > ttabel (-2,074 > -1,98447). Disimpulkan 
+bahwa variabelaFormat BerpengaruhaNegatif dan 
+siginifikanaterhadapAvariabel 
+kepuasanapengguna 
+(Y) 
+d) Variabel Ease Of Use (X4) terhadap variabel 
+kepuasan pengguna (Y) 
+GambarZ menunjukkan, nilai signifikansiXdari 
+variabelAEase Of Use (X4) yaitu 0,038< 0,05. Dapat 
+dilihat nilai thitung > ttabelZ(2,110 > 1,98447). 
+Disimpulkan 
+bahwa 
+variabel__Ease 
+Of 
+Use 
+BerpengaruhXPositif 
+danSsiginifikan 
+ 
+terhadap 
+variabel kepuasan pengguna (Y) 
+e) Variabel__Timelinessa(X5)cterhadapmvariabel 
+KepuasanaPenggunaa(Y) 
+Gambar 24 menunjukkan,adapat dilihatabahwa nilai 
+signifikansiadari variabel Timeliness (X5) yaitu 
+0,001< 0,05. Dapatadilihat nilai thitung > ttabel (3,484 > 
+1,98447). Disimpulkan bahwa variabel Timeliness 
+BerpengaruhaPositif 
+danasiginifikan 
+terhadap 
+variabelakepuasan penggunaa(Y) 
+2) Uji F 
+VariabelXbebas 
+(X) 
+secara 
+simultan 
+terhadapZvariabelkterikat (Y). MenurutaIman Ghozali,ajika 
+nilaizSignifikanz<0,05 artinya variabelaindependen (X) 
+secara simultanzberpengaruhzterhadap variabeladependent 
+(Y). HasilXuji F dapatadilihat pada gambaraberikut:
+
+ 
+ 
+ 
+Gambar 4 Hasil Uji F 
+Gambar 5 Kurva Uji F 
+zBerdasarkanzGambarz,asignifikasi  yangadiperoleh 
+nilai fahitung sebesar 53,639> Fztabelzsebesar 2,31 danznilai 
+tabelasignifikansi 
+sebesarz,001<0,05.aHasil 
+dari 
+ujizF 
+iniaialahzvariabel Content, zAccuracy, zFormatz, Ease Of 
+Use,Xdan Timelinesszbersamazsama (Simultan) zberpengaruh 
+terhadap variabel terikat yaitu kepuasan pengguna. 
+IV. KESIMPULAN 
+Berdasarkan hasil penelitianayangadilakukan pada aplikasi 
+MyPertamina berbasis mobile, disimpulkanabahwa: 
+1. Variabel yang berpengaruh dan signifikan terhadap 
+kepuasanapenggunaaakhir 
+diantaranya : 
+a. 
+Variabel Accuracy  
+Variabel Accuracy dapat diperhatikan dari 
+keakuratan rincian tagihan dan poin, detail 
+pembelian BBM, posisi SPBU, Data diri, dan 
+Data kendaraan.   
+b. Variabel Format 
+Variabel Format dapat diperhatikan dari tampilan 
+informasi, tagihan, tampilan SPBU, tampilan 
+event dan promo, dll. 
+c. 
+Variabel Ease Of Use 
+Variabel Ease Of Use dapat diperhatikan dari 
+kemudahan aplikasi pada fitur bayar, tukar poin, 
+dan pendaftaran subsidi.  
+d. Variabel Timeliness 
+Variabel Timeliness dapat diperhatikan dari 
+kesesuaian waktu aplikasi MyPertamina dalam 
+memberikan informasi terbaru seperti informasi 
+maintenence, 
+informasi 
+potongan 
+harga, 
+informasi seputar MyPertamina yang terkait 
+layanan.  
+2. Variabel yang harus dijaga dan ditingkatkan supaya 
+tidak terjadi penurunan kepuasan pengguna aplikasi 
+MyPertamina adalah Variabel Format yang memiliki 
+pengaruh yang sangat penting dengan nilai t -2,074. 
+Variabel ini masuk dalam kategori area pengaruh 
+negatif , dimana semakin menurun kualitas tampilan 
+aplikasi, maka akan ada penurunan kepuasan 
+pengguna secara drastis.  
+V. SARAN 
+Rekomendasi peneliti untuk penelitian selanjutnya mengenai 
+Analisis kepuasan pengguna akhir aplikasi MyPertamina di PT 
+Pertamina, bisa menggunakan metode dan wilayah yang 
+berbeda, agar dapat dijadikan sebagai bahan perbandingan 
+antar penelitian lainnya.",
